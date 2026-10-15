@@ -12,6 +12,7 @@ func new_game(seed_value: int = -1) -> void:
 	WorldState.new_game()
 	Chronicle.clear()
 	EventEngine.reset()
+	Road.new_game()
 	return_queue = []
 	var brothers := WorldState.living_monks().size() - 1
 	Chronicle.add_template("founding", {"brothers": Chronicle.number_word(brothers)}, "founding")
@@ -31,11 +32,15 @@ func advance_week() -> void:
 	_economy()
 	_health()
 	_travel()
+	_road()
 	WorldState.expire_tags()
 	_check_succession()
 	if _check_fall():
 		return
-	if not return_queue.is_empty():
+	# One thing at a time: a waiting choice (an arrival, say) holds back the rest.
+	if EventEngine.has_pending():
+		pass
+	elif not return_queue.is_empty():
 		var id = return_queue.pop_front()
 		if not EventEngine.pick_event("return", int(id)):
 			_generic_return(int(id))
@@ -73,6 +78,19 @@ func build(b: String) -> bool:
 func set_job(m: Dictionary, job: String) -> void:
 	WorldState.set_job(m, job)
 	_after_change()
+
+
+## Sends brothers down the road. Returns false if the road refuses them.
+func dispatch_party(node_id: String, member_ids: Array) -> bool:
+	var p := Road.dispatch(node_id, member_ids)
+	if p.is_empty():
+		return false
+	Chronicle.add_template("road_departure", {
+		"party": Road.party_names(p),
+		"node": Road.node_name(node_id),
+	}, "road")
+	_after_change()
+	return true
 
 
 func _after_change() -> void:
@@ -192,9 +210,33 @@ func _death_ctx(m: Dictionary) -> Dictionary:
 	return ctx
 
 
+## Moves the parties on the road. Arrivals meet a place; returns queue their brothers.
+func _road() -> void:
+	var t := Road.tick()
+	for p in t["returned"]:
+		for id in p["members"]:
+			return_queue.append(int(id))
+	for p in t["arrived"]:
+		var living := _living_ids(p)
+		if EventEngine.has_pending() or not EventEngine.pick_event("node", living[0] if not living.is_empty() else -1, p["node"]):
+			Chronicle.add_template("road_arrival_generic", {
+				"party": Road.party_names(p),
+				"node": Road.node_name(p["node"]),
+			}, "road")
+
+
+func _living_ids(p: Dictionary) -> Array:
+	var ids := []
+	for id in p["members"]:
+		if WorldState.is_living(WorldState.get_monk(int(id))):
+			ids.append(int(id))
+	return ids
+
+
 func _travel() -> void:
 	for m in WorldState.living_monks():
-		if m["status"] != "away":
+		# Brothers on a party's road are moved by Road, not by the monk_away timer.
+		if m["status"] != "away" or int(m.get("party", 0)) > 0:
 			continue
 		m["away_weeks"] = int(m["away_weeks"]) - 1
 		if int(m["away_weeks"]) <= 0:

@@ -1,0 +1,790 @@
+[
+	{
+		"id": "node_town_toll",
+		"deck": "node",
+		"title": "The Toll at the Bridge",
+		"weight": 10,
+		"cooldown": 40,
+		"when": {
+			"node_kind": [
+				"town"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "The Tollmaster's reeve stops the party at the bridge in {node} and asks for the toll: four loaves, or a book.",
+		"choices": [
+			{
+				"label": "Pay the toll in bread",
+				"requires": {
+					"food": 4
+				},
+				"effects": {
+					"food": -4,
+					"standing": {
+						"tollmaster": 1
+					}
+				},
+				"chronicle": "{When}, the party paid the Tollmaster's toll at {node} and were let over the bridge."
+			},
+			{
+				"label": "Offer a book instead",
+				"requires": {
+					"books": 1
+				},
+				"effects": {
+					"books": -1,
+					"standing": {
+						"tollmaster": 1
+					}
+				},
+				"chronicle": "{When}, the party paid the toll at {node} in a book, and the reeve wrote its title in his ledger."
+			},
+			{
+				"label": "Refuse and go round by the ford",
+				"effects": {
+					"standing": {
+						"tollmaster": -1
+					},
+					"oracle": {
+						"odds": "unlikely",
+						"yes": {
+							"monk_health": -1,
+							"chronicle": "The Tollmaster's riders caught the party at the ford below {node}, and {monk} was struck on the shoulder."
+						},
+						"no": {
+							"chronicle": "The party reached the far bank of the Shannon dry and unseen."
+						}
+					}
+				}
+			}
+		]
+	},
+	{
+		"id": "node_market_books",
+		"deck": "node",
+		"title": "A Cooper's Offer",
+		"weight": 8,
+		"cooldown": 40,
+		"when": {
+			"node_kind": [
+				"town"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "A cooper in the market at {node} offers a barrel of salt fish for two of the house's books. He says books are worth more in a town than in a ruin.",
+		"choices": [
+			{
+				"label": "Trade two books for the fish",
+				"requires": {
+					"books": 2
+				},
+				"effects": {
+					"books": -2,
+					"food": 12
+				},
+				"chronicle": "{When}, the party traded two books at {node} for a barrel of salt fish."
+			},
+			{
+				"label": "Ask for grain instead",
+				"effects": {
+					"oracle": {
+						"odds": "even",
+						"yes": {
+							"food": 8,
+							"chronicle": "{When}, the cooper at {node} gave the party a sack of oats for their trouble."
+						},
+						"no": {
+							"chronicle": ""
+						}
+					}
+				}
+			},
+			{
+				"label": "Keep the books",
+				"chronicle": ""
+			}
+		]
+	},
+	{
+		"id": "node_ruin_shelves",
+		"deck": "node",
+		"title": "The Office Shelves",
+		"weight": 10,
+		"cooldown": 40,
+		"when": {
+			"node_kind": [
+				"ruin"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "In a half-collapsed office the party finds steel shelves still holding grey boxes of paper. The paper is damp, and nobody in the district can read it.",
+		"choices": [
+			{
+				"label": "Carry back what can be saved",
+				"effects": {
+					"books": 2
+				},
+				"chronicle": "{When}, the party carried two books back from the ruins at {node}, the best of what was there."
+			},
+			{
+				"label": "Leave it to the rain",
+				"chronicle": ""
+			}
+		]
+	},
+	{
+		"id": "node_turbine_coil",
+		"deck": "node",
+		"title": "A Coil of Copper",
+		"weight": 8,
+		"cooldown": 50,
+		"when": {
+			"node_kind": [
+				"ruin"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "A turbine on the bog at {node} still turns in the wind. A turf-cutter offers the copper coil from its base for food.",
+		"choices": [
+			{
+				"label": "Buy the coil",
+				"requires": {
+					"food": 10
+				},
+				"effects": {
+					"food": -10,
+					"add_tag": "copper_coil"
+				},
+				"chronicle": "{When}, the party bought a coil of copper from the bog folk at {node}."
+			},
+			{
+				"label": "Leave the turbine alone",
+				"chronicle": ""
+			}
+		]
+	},
+	{
+		"id": "node_hold_prayer",
+		"deck": "node",
+		"title": "The Lord's Dead Son",
+		"weight": 9,
+		"cooldown": 40,
+		"when": {
+			"node_kind": [
+				"hold"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "The lord of {node} will hear the party if they bring a gift. He keeps his own chaplain and asks the house to pray for his dead son.",
+		"choices": [
+			{
+				"label": "Pray for the dead son",
+				"effects": {
+					"food": 4,
+					"standing": {
+						"glen_lords": 1
+					},
+					"monk_add_tag": "prayed_for_lord",
+					"chronicle": "{When}, {monk} prayed for the dead son of the lord of {node}, and the lord sent the party home with a sack of oats."
+				}
+			},
+			{
+				"label": "Ask for alms",
+				"effects": {
+					"oracle": {
+						"odds": "likely",
+						"yes": {
+							"food": 10,
+							"chronicle": "{When}, the lord of {node} gave the party alms from his store."
+						},
+						"no": {
+							"standing": {
+								"glen_lords": -1
+							},
+							"chronicle": "The lord's steward sent the party away with nothing."
+						}
+					}
+				}
+			}
+		]
+	},
+	{
+		"id": "node_hold_accounts",
+		"deck": "node",
+		"title": "The Steward's Figures",
+		"weight": 7,
+		"cooldown": 50,
+		"when": {
+			"node_kind": [
+				"hold"
+			],
+			"monk": {
+				"status": "away",
+				"has_any": [
+					"learned",
+					"patient"
+				]
+			}
+		},
+		"text": "The steward at {node} asks whether any brother can read figures. He offers food for a fortnight of accounts.",
+		"choices": [
+			{
+				"label": "Let {monk} check the accounts",
+				"effects": {
+					"food": 10,
+					"monk_add_tag": "accountant",
+					"chronicle": "{When}, {monk} checked the accounts of the lord of {node} for a fortnight and was paid in oats."
+				}
+			},
+			{
+				"label": "The house has no time for ledgers",
+				"chronicle": ""
+			}
+		]
+	},
+	{
+		"id": "node_well_names",
+		"deck": "node",
+		"title": "The Names at the Well",
+		"weight": 10,
+		"cooldown": 40,
+		"when": {
+			"node_kind": [
+				"shrine"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "The keeper of the well at {node} asks the party to pray for the dead of the last famine. He has a long list of names written on a board.",
+		"choices": [
+			{
+				"label": "Say the names until the candle is out",
+				"effects": {
+					"standing": {
+						"church": 1
+					},
+					"monk_add_tag": "tested_faith",
+					"chronicle": "{When}, {monk} said the names of the famine dead at {node} until the candle burned out."
+				}
+			},
+			{
+				"label": "Hurry on to the road",
+				"effects": {
+					"standing": {
+						"church": -1
+					},
+					"chronicle": ""
+				}
+			}
+		]
+	},
+	{
+		"id": "node_well_child",
+		"deck": "node",
+		"title": "A Child at the Well",
+		"weight": 8,
+		"cooldown": 40,
+		"when": {
+			"node_kind": [
+				"shrine"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "A child with a fever is carried to the well at {node}. Her mother asks the brothers to bless the water.",
+		"choices": [
+			{
+				"label": "Bless the water and give the last fever-draught",
+				"requires": {
+					"medicine": 1
+				},
+				"effects": {
+					"medicine": -1,
+					"standing": {
+						"church": 1
+					},
+					"oracle": {
+						"odds": "likely",
+						"yes": {
+							"goodwill": 2,
+							"chronicle": "{When}, {monk} blessed the water at {node}, and the child's fever broke by morning. Her mother walked them to the road."
+						},
+						"no": {
+							"chronicle": "{When}, the child at {node} died in the night, and her mother blessed the brothers anyway."
+						}
+					}
+				}
+			},
+			{
+				"label": "Bless the water only",
+				"effects": {
+					"standing": {
+						"church": 1
+					},
+					"chronicle": "{When}, {monk} blessed the water at {node} for a child with a fever."
+				}
+			}
+		]
+	},
+	{
+		"id": "node_hermit_tunes",
+		"deck": "node",
+		"title": "The Old Psalm-Tunes",
+		"weight": 9,
+		"cooldown": 50,
+		"when": {
+			"node_kind": [
+				"hermitage"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "A hermit on the lake offers to teach the party the old psalm-tunes his grandmother sang, if they will sing them with him.",
+		"choices": [
+			{
+				"label": "Sing with him until dark",
+				"effects": {
+					"standing": {
+						"church": 1
+					},
+					"monk_add_tag": "tested_faith",
+					"chronicle": "{When}, {monk} sang the old psalm-tunes with the hermit of {node} until dark, and came home with them in his head."
+				}
+			},
+			{
+				"label": "Politely decline",
+				"chronicle": ""
+			}
+		]
+	},
+	{
+		"id": "node_hermit_missing",
+		"deck": "node",
+		"title": "The Hermit Who Did Not Come",
+		"weight": 6,
+		"cooldown": 60,
+		"when": {
+			"node_kind": [
+				"hermitage"
+			],
+			"monk": {
+				"status": "away",
+				"min_health": 2
+			}
+		},
+		"text": "The hermit of {node} has not been seen for three weeks. His hut is cold, and a boat is pulled up on the shore, half full of water.",
+		"choices": [
+			{
+				"label": "Search the island",
+				"effects": {
+					"oracle": {
+						"odds": "likely",
+						"yes": {
+							"food": -2,
+							"chronicle": "{When}, {monk} found the hermit of {node} alive in a cave and fed him from the party's bread."
+						},
+						"no": {
+							"monk_dies": "the lake at night",
+							"chronicle": "{When}, {monk} did not come back from the island at {node}. The boatmen said the lake took him in the night, looking for the hermit."
+						}
+					}
+				}
+			},
+			{
+				"label": "Leave the shore as it is",
+				"chronicle": ""
+			}
+		]
+	},
+	{
+		"id": "node_village_threshing",
+		"deck": "node",
+		"title": "Barley and Too Few Hands",
+		"weight": 9,
+		"cooldown": 40,
+		"when": {
+			"node_kind": [
+				"village"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "The glen folk of {node} have the barley in and too few hands to thresh it. They offer grain for labour.",
+		"choices": [
+			{
+				"label": "Thresh for a week",
+				"effects": {
+					"food": 12,
+					"standing": {
+						"glen_lords": 1
+					},
+					"chronicle": "{When}, the party threshed barley at {node} for a week and were paid in grain."
+				}
+			},
+			{
+				"label": "Keep to the road",
+				"chronicle": ""
+			}
+		]
+	},
+	{
+		"id": "node_village_feud",
+		"deck": "node",
+		"title": "A Feud in the Glen",
+		"weight": 7,
+		"cooldown": 50,
+		"when": {
+			"node_kind": [
+				"village"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "A feud in {node} has two families at each other's throats. The headman asks the party to stand between them.",
+		"choices": [
+			{
+				"label": "Stand between them",
+				"effects": {
+					"standing": {
+						"glen_lords": 1
+					},
+					"oracle": {
+						"odds": "even",
+						"yes": {
+							"chronicle": "{When}, {monk} stood between two families at {node}, and they laid down their sticks."
+						},
+						"no": {
+							"monk_health": -1,
+							"chronicle": "{When}, {monk} was struck at {node} trying to stop a feud, and the families fought on."
+						}
+					}
+				}
+			},
+			{
+				"label": "It is not our quarrel",
+				"chronicle": ""
+			}
+		]
+	},
+	{
+		"id": "node_coast_fish",
+		"deck": "node",
+		"title": "Smoked Fish for a Sick Child",
+		"weight": 9,
+		"cooldown": 40,
+		"when": {
+			"node_kind": [
+				"coast"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "Boatmen at {node} sell smoked fish. They want medicine for a sick daughter in exchange.",
+		"choices": [
+			{
+				"label": "Trade medicine for a crate of fish",
+				"requires": {
+					"medicine": 2
+				},
+				"effects": {
+					"medicine": -2,
+					"food": 14,
+					"standing": {
+						"fishers": 1
+					},
+					"chronicle": "{When}, the party traded medicine at {node} for a crate of smoked fish."
+				}
+			},
+			{
+				"label": "Trade grain for fish",
+				"requires": {
+					"food": 8
+				},
+				"effects": {
+					"food": 4,
+					"standing": {
+						"fishers": 1
+					},
+					"chronicle": "{When}, the party traded grain at {node} for smoked fish."
+				}
+			},
+			{
+				"label": "Walk on",
+				"chronicle": ""
+			}
+		]
+	},
+	{
+		"id": "node_coast_wreck",
+		"deck": "node",
+		"title": "Cargo from the Strand",
+		"weight": 8,
+		"cooldown": 50,
+		"when": {
+			"node_kind": [
+				"coast"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "A boat has come ashore below {node} with its crew drowned. Its cargo of wool is still dry in the hold.",
+		"choices": [
+			{
+				"label": "Carry the cargo up the cliff",
+				"effects": {
+					"food": 6,
+					"chronicle": "{When}, the party carried a wreck's cargo up from the strand at {node} and buried the crew."
+				}
+			},
+			{
+				"label": "Leave the dead to the sea",
+				"chronicle": ""
+			}
+		]
+	},
+	{
+		"id": "node_tower_battery",
+		"deck": "node",
+		"title": "The Battery in the Tower",
+		"weight": 6,
+		"cooldown": 60,
+		"when": {
+			"node_kind": [
+				"ruin"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "The old signal tower above {node} still has a battery that gives a little light when touched. A boy from the coast says the old men once spoke to ships with it.",
+		"choices": [
+			{
+				"label": "Carry the battery down",
+				"effects": {
+					"add_tag": "old_battery",
+					"chronicle": "{When}, the party carried a battery down from the signal tower at {node}. The scribes think it may still hold a little of the old light."
+				}
+			},
+			{
+				"label": "Leave it in the tower",
+				"chronicle": ""
+			}
+		]
+	},
+	{
+		"id": "node_kilcullen_search",
+		"deck": "node",
+		"title": "The Tollmaster's Search",
+		"weight": 12,
+		"cooldown": 30,
+		"when": {
+			"node": [
+				"kilcullen"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "The Tollmaster's men search the party in {node} for old-world goods. One of them recognises the brothers' books.",
+		"choices": [
+			{
+				"label": "Hand over one book",
+				"requires": {
+					"books": 1
+				},
+				"effects": {
+					"books": -1,
+					"standing": {
+						"tollmaster": 1
+					},
+					"chronicle": "{When}, the Tollmaster's men at {node} took a book from the party and wrote its title in their ledger."
+				}
+			},
+			{
+				"label": "Hide the books in the cart",
+				"effects": {
+					"oracle": {
+						"odds": "unlikely",
+						"yes": {
+							"chronicle": "The Tollmaster's men went through the cart at {node} and found nothing."
+						},
+						"no": {
+							"books": -2,
+							"food": -4,
+							"standing": {
+								"tollmaster": -2
+							},
+							"chronicle": "{When}, the Tollmaster's men at {node} took two books and a sack of grain from the party for hiding them."
+						}
+					}
+				}
+			}
+		]
+	},
+	{
+		"id": "node_inishkeel_bells",
+		"deck": "node",
+		"title": "Bells Under the Sea",
+		"weight": 12,
+		"cooldown": 60,
+		"when": {
+			"node": [
+				"inishkeel"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "At low water the party hears the bells of the drowned church at Inishkeel, faint under the waves.",
+		"choices": [
+			{
+				"label": "Write down the hour",
+				"effects": {
+					"goodwill": 1,
+					"standing": {
+						"church": 1
+					},
+					"monk_add_tag": "pilgrim",
+					"chronicle": "{When}, {monk} heard the bells of Inishkeel ring under the sea at low water, and the brothers wrote down the hour."
+				}
+			}
+		]
+	},
+	{
+		"id": "node_bog_turbine_gale",
+		"deck": "node",
+		"title": "The Turbine in the Gale",
+		"weight": 12,
+		"cooldown": 60,
+		"when": {
+			"node": [
+				"bog_of_allen"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "In a gale a turbine on the Bog of Allen begins to turn, slowly and then fast, and the bog folk fall silent to watch it.",
+		"choices": [
+			{
+				"label": "Watch with the bog folk",
+				"effects": {
+					"standing": {
+						"bog": 1
+					},
+					"chronicle": "{When}, the party watched a turbine turn on the Bog of Allen in a gale, and the bog folk stood silent for an hour."
+				}
+			}
+		]
+	},
+	{
+		"id": "node_lough_dearg_boat",
+		"deck": "node",
+		"title": "No Boat on the Lake",
+		"weight": 9,
+		"cooldown": 50,
+		"when": {
+			"node": [
+				"lough_dearg"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "The boat that should take the party to the hermit's island is gone. A child says a man took it across the lake last winter and did not come back.",
+		"choices": [
+			{
+				"label": "Wade the shallows",
+				"effects": {
+					"oracle": {
+						"odds": "likely",
+						"yes": {
+							"chronicle": "{When}, {monk} waded the shallows of Lough Dearg with the party and reached the hermit's island with wet feet."
+						},
+						"no": {
+							"monk_health": -1,
+							"chronicle": "{When}, {monk} went into the cold water at Lough Dearg and came out shaking with a fever."
+						}
+					}
+				}
+			},
+			{
+				"label": "Turn back",
+				"chronicle": ""
+			}
+		]
+	},
+	{
+		"id": "road_return_news",
+		"deck": "return",
+		"weight": 10,
+		"when": {
+			"monk": {
+				"has": [
+					"on_road"
+				]
+			}
+		},
+		"effects": {
+			"oracle": {
+				"odds": "likely",
+				"yes": {
+					"goodwill": 1,
+					"chronicle": "{monk} came home from the road with news of the country and a list of who had died."
+				},
+				"no": {
+					"chronicle": "{monk} came home from the road and would say little of what he had seen."
+				}
+			}
+		}
+	},
+	{
+		"id": "road_return_hurt",
+		"deck": "return",
+		"weight": 5,
+		"when": {
+			"monk": {
+				"has": [
+					"on_road"
+				]
+			}
+		},
+		"effects": {
+			"monk_health": -1,
+			"monk_add_tag": "scarred",
+			"chronicle": "{monk} came home from the road with a wound that would not close quickly."
+		}
+	},
+	{
+		"id": "road_return_quiet",
+		"deck": "return",
+		"weight": 10,
+		"when": {
+			"monk": {
+				"has": [
+					"on_road"
+				]
+			}
+		},
+		"effects": {
+			"chronicle": "{monk} came home from the road and went straight to the chapel."
+		}
+	}
+]

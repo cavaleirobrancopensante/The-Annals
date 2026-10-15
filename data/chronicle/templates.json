@@ -62,6 +62,14 @@
 		"{When}, a scriptorium was made in the south cloister, with desks by the window and a shelf for the inks.",
 		"{When}, the scribes moved their desks into a room of their own, where the damp was least."
 	],
+	"road_departure": [
+		"{When}, {party} set out along the road for {node}.",
+		"{When}, {party} left the gate with a sack of bread and a letter for {node}."
+	],
+	"road_arrival_generic": [
+		"{When}, {party} reached {node}, and found the people there wary of the house.",
+		"{When}, {party} came to {node} and were given a place by the fire, though little was said."
+	],
 	"return_generic": [
 		"{monk} came home from the road with little to tell.",
 		"{monk} returned to the house, footsore, and went straight to the chapel."

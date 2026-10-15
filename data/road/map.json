@@ -1,0 +1,141 @@
+{
+  "factions": {
+    "tollmaster": {
+      "name": "the Tollmaster",
+      "desc": "Holds the Shannon bridges and charges a toll on every road."
+    },
+    "glen_lords": {
+      "name": "the glen lords",
+      "desc": "Hold the hills and the glens with spears and dogs."
+    },
+    "church": {
+      "name": "the holy places",
+      "desc": "Hermits, wells and ruined oratories that still keep the Office."
+    },
+    "fishers": {
+      "name": "the coast folk",
+      "desc": "Fishers and boatmen who trade salt fish along the strands."
+    },
+    "bog": {
+      "name": "the bog folk",
+      "desc": "Turf-cutters who live where the old turbines stand."
+    }
+  },
+  "nodes": [
+    {
+      "id": "inishkeel",
+      "name": "Inishkeel",
+      "kind": "shrine",
+      "faction": "church",
+      "distance": 2,
+      "x": 0.14,
+      "y": 0.44,
+      "desc": "A drowned church on a tidal island. Its bells are said to ring at low water."
+    },
+    {
+      "id": "three_wells",
+      "name": "Three Wells",
+      "kind": "shrine",
+      "faction": "church",
+      "distance": 2,
+      "x": 0.24,
+      "y": 0.66,
+      "desc": "Three holy wells beside a roofless oratory."
+    },
+    {
+      "id": "lough_dearg",
+      "name": "Lough Dearg",
+      "kind": "hermitage",
+      "faction": "church",
+      "distance": 3,
+      "x": 0.34,
+      "y": 0.36,
+      "desc": "A hermit's island in a grey lake, reached by a boat that may not be there."
+    },
+    {
+      "id": "knockmore",
+      "name": "Knockmore",
+      "kind": "hold",
+      "faction": "glen_lords",
+      "distance": 2,
+      "x": 0.4,
+      "y": 0.2,
+      "desc": "A stone hold on a hill, with dogs at the gate and a lord who keeps accounts."
+    },
+    {
+      "id": "slieve_bloom",
+      "name": "Slieve Bloom",
+      "kind": "hold",
+      "faction": "glen_lords",
+      "distance": 5,
+      "x": 0.58,
+      "y": 0.18,
+      "desc": "A high hold where the glen lords meet in autumn to divide the cattle."
+    },
+    {
+      "id": "ballyhale",
+      "name": "Ballyhale",
+      "kind": "town",
+      "faction": "tollmaster",
+      "distance": 3,
+      "x": 0.44,
+      "y": 0.56,
+      "desc": "A market town at the Shannon crossing, where the Tollmaster's men count every cart."
+    },
+    {
+      "id": "kilcullen",
+      "name": "Kilcullen",
+      "kind": "town",
+      "faction": "tollmaster",
+      "distance": 4,
+      "x": 0.64,
+      "y": 0.5,
+      "desc": "A busy town with a bridge, a fair and a reeve who writes everything down."
+    },
+    {
+      "id": "bog_of_allen",
+      "name": "the Bog of Allen",
+      "kind": "ruin",
+      "faction": "bog",
+      "distance": 3,
+      "x": 0.54,
+      "y": 0.36,
+      "desc": "Old turbines stand dead on the bog. Some still turn in a strong wind."
+    },
+    {
+      "id": "glen_of_imaal",
+      "name": "the Glen of Imaal",
+      "kind": "village",
+      "faction": "glen_lords",
+      "distance": 4,
+      "x": 0.68,
+      "y": 0.7,
+      "desc": "Scattered farms in a green glen, with a hurling field and a wary headman."
+    },
+    {
+      "id": "kilmore_quay",
+      "name": "Kilmore Quay",
+      "kind": "coast",
+      "faction": "fishers",
+      "distance": 5,
+      "x": 0.82,
+      "y": 0.84,
+      "desc": "A harbour of fishing boats and smoked fish, where the sea wind never stops."
+    },
+    {
+      "id": "clare_cliffs",
+      "name": "the Clare cliffs",
+      "kind": "ruin",
+      "faction": "fishers",
+      "distance": 4,
+      "x": 0.06,
+      "y": 0.62,
+      "desc": "A ruined signal tower on the cliffs, where the coast folk leave their dead boats."
+    }
+  ],
+  "house": {
+    "name": "the Burren",
+    "x": 0.03,
+    "y": 0.5
+  }
+}

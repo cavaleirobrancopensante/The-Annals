@@ -2,6 +2,9 @@ extends Node
 ## Loads event cards from res://data/events/*.json, picks the ones whose
 ## conditions fit the world, and applies the outcome of the player's choice.
 ## See docs/EVENT_CARDS.md for the card format.
+##
+## Decks: "abbey" (weekly events at home), "return" (a brother comes home),
+## "node" (a party arrives at a place on the road).
 
 const EVENTS_DIR := "res://data/events"
 const MONK_SLOTS := ["monk", "monk2"]
@@ -11,7 +14,7 @@ var cards_by_id := {}
 ## card id -> week it can fire again
 var cooldowns := {}
 var used_once: Array = []
-## {"id": card id, "bind": {"monk": id, "monk2": id, "newcomer": id}}
+## {"id": card id, "bind": {"monk": id, "monk2": id, "newcomer": id}, "node": node id}
 var pending := {}
 ## card id -> times fired (for testing and balancing)
 var fired := {}
@@ -58,7 +61,7 @@ func has_pending() -> bool:
 
 # --- Conditions ---------------------------------------------------------
 
-func _check_world(when: Dictionary) -> bool:
+func _check_world(when: Dictionary, node_id: String = "") -> bool:
 	if when.has("season") and not WorldState.season() in when["season"]:
 		return false
 	if when.has("not_season") and WorldState.season() in when["not_season"]:
@@ -81,6 +84,19 @@ func _check_world(when: Dictionary) -> bool:
 		return false
 	if when.has("year_min") and WorldState.year() < int(when["year_min"]):
 		return false
+	# Road conditions: a node card only fires at its node.
+	if when.has("node") and not node_id in when["node"]:
+		return false
+	if when.has("node_kind") and not Road.node_kind(node_id) in when["node_kind"]:
+		return false
+	var smin: Dictionary = when.get("standing_min", {})
+	for f in smin:
+		if Road.standing(f) < int(smin[f]):
+			return false
+	var smax: Dictionary = when.get("standing_max", {})
+	for f in smax:
+		if Road.standing(f) > int(smax[f]):
+			return false
 	return true
 
 
@@ -110,9 +126,9 @@ func _monk_matches(m: Dictionary, cond: Dictionary) -> bool:
 	return true
 
 
-func _try_bind(card: Dictionary, forced_monk_id: int = -1) -> Dictionary:
+func _try_bind(card: Dictionary, forced_monk_id: int = -1, node_id: String = "") -> Dictionary:
 	var when: Dictionary = card.get("when", {})
-	if not _check_world(when):
+	if not _check_world(when, node_id):
 		return {"ok": false}
 	var bind := {"ok": true}
 	var taken := []
@@ -133,7 +149,8 @@ func _try_bind(card: Dictionary, forced_monk_id: int = -1) -> Dictionary:
 		var chosen: Dictionary = Oracle.pick(cands)
 		bind[slot] = int(chosen["id"])
 		taken.append(int(chosen["id"]))
-	if forced_monk_id >= 0 and not bind.has("monk"):
+	# A forced brother must fit the card if the card is about a brother.
+	if forced_monk_id >= 0 and when.has("monk") and not bind.has("monk"):
 		return {"ok": false}
 	return bind
 
@@ -158,7 +175,9 @@ func _available(card: Dictionary) -> bool:
 # --- Picking ------------------------------------------------------------
 
 ## Picks one eligible card from a deck and starts it. Returns false if none fit.
-func pick_event(deck: String = "abbey", forced_monk_id: int = -1) -> bool:
+## forced_monk_id: the brother this event is about (returns, party arrivals).
+## node_id: the place on the road, for "node" deck events.
+func pick_event(deck: String = "abbey", forced_monk_id: int = -1, node_id: String = "") -> bool:
 	if has_pending():
 		return false
 	var options := []
@@ -166,14 +185,14 @@ func pick_event(deck: String = "abbey", forced_monk_id: int = -1) -> bool:
 	for c in cards:
 		if c["deck"] != deck or not _available(c):
 			continue
-		var b := _try_bind(c, forced_monk_id)
+		var b := _try_bind(c, forced_monk_id, node_id)
 		if b["ok"]:
 			options.append({"card": c, "bind": b})
 			weights.append(_weight(c))
 	if options.is_empty():
 		return false
 	var chosen: Dictionary = options[Oracle.pick_weighted_index(weights)]
-	_begin(chosen["card"], chosen["bind"])
+	_begin(chosen["card"], chosen["bind"], node_id)
 	return true
 
 
@@ -184,13 +203,13 @@ func force_event(id: String) -> bool:
 	var b := _try_bind(cards_by_id[id])
 	if not b["ok"]:
 		return false
-	_begin(cards_by_id[id], b)
+	_begin(cards_by_id[id], b, "")
 	return true
 
 
-func _begin(card: Dictionary, bind: Dictionary) -> void:
+func _begin(card: Dictionary, bind: Dictionary, node_id: String = "") -> void:
 	bind.erase("ok")
-	pending = {"id": card["id"], "bind": bind}
+	pending = {"id": card["id"], "bind": bind, "node": node_id}
 	fired[card["id"]] = int(fired.get(card["id"], 0)) + 1
 	if card.get("choices", []).is_empty():
 		resolve(-1)
@@ -198,7 +217,7 @@ func _begin(card: Dictionary, bind: Dictionary) -> void:
 		EventBus.event_presented.emit(current_view())
 
 
-func _ctx(bind: Dictionary) -> Dictionary:
+func _ctx(bind: Dictionary, node_id: String = "") -> Dictionary:
 	var ctx := {}
 	for slot in ["monk", "monk2", "newcomer"]:
 		if bind.has(slot):
@@ -207,6 +226,8 @@ func _ctx(bind: Dictionary) -> Dictionary:
 				ctx[slot] = WorldState.display_name(m)
 				ctx[slot + "_name"] = m["name"]
 				ctx[slot + "_vocation"] = WorldState.vocation_name(m)
+	if node_id != "":
+		ctx["node"] = Road.node_name(node_id)
 	return ctx
 
 
@@ -223,7 +244,7 @@ func current_view() -> Dictionary:
 	if pending.is_empty():
 		return {}
 	var card: Dictionary = cards_by_id[pending["id"]]
-	var ctx := _ctx(pending["bind"])
+	var ctx := _ctx(pending["bind"], pending.get("node", ""))
 	var choices := []
 	for ch in card.get("choices", []):
 		choices.append({
@@ -246,6 +267,7 @@ func resolve(choice_index: int) -> void:
 		return
 	var card: Dictionary = cards_by_id[pending["id"]]
 	var bind: Dictionary = pending["bind"].duplicate()
+	var node_id: String = pending.get("node", "")
 	var lines := []
 	var effects: Dictionary = card.get("effects", {})
 	var headline: String = card.get("chronicle", "")
@@ -267,7 +289,7 @@ func resolve(choice_index: int) -> void:
 		used_once.append(card["id"])
 	pending = {}
 	if not lines.is_empty():
-		Chronicle.add(" ".join(lines), card.get("kind", "event"), _ctx(bind))
+		Chronicle.add(" ".join(lines), card.get("kind", "event"), _ctx(bind, node_id))
 	EventBus.event_resolved.emit(card["id"], choice_index)
 
 
@@ -288,6 +310,9 @@ func _apply(effects: Dictionary, bind: Dictionary, lines: Array) -> void:
 		WorldState.add_tag(t, tag_weeks)
 	for t in _as_array(effects.get("remove_tag")):
 		WorldState.remove_tag(t)
+	var standing: Dictionary = effects.get("standing", {})
+	for f in standing:
+		Road.change_standing(f, int(standing[f]))
 	for slot in MONK_SLOTS:
 		if not bind.has(slot):
 			continue

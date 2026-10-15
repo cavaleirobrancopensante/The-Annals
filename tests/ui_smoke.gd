@@ -28,6 +28,26 @@ func _ready() -> void:
 	main._refresh()
 	main.tabs.current_tab = 1
 	await get_tree().process_frame
+	# Road tab: settle any waiting choice, then choose a place, tick two brothers at home, send them.
+	var settle := 0
+	while EventEngine.has_pending() and settle < 10:
+		var waiting: Array = main.choices_box.get_children().filter(func(b): return b is Button and not b.disabled)
+		if waiting.is_empty():
+			break
+		waiting[0].pressed.emit()
+		settle += 1
+	if not EventEngine.has_pending():
+		main.road_map.selected = "inishkeel"
+		main._refresh_road()
+		var ticked := 0
+		for cb in main.party_checks:
+			if ticked < 2:
+				cb.button_pressed = true
+				ticked += 1
+		main._on_send_party()
+		print("Road tab: %d parties out, note '%s'" % [Road.parties.size(), main.send_note.text])
+	main.tabs.current_tab = 2
+	await get_tree().process_frame
 	await get_tree().process_frame
 	var out := "(none in headless mode)"
 	if DisplayServer.get_name() != "headless":

@@ -17,6 +17,15 @@ var tabs: TabContainer
 var chronicle_text: RichTextLabel
 var estate_box: VBoxContainer
 var estate_scroll: ScrollContainer
+var road_box: VBoxContainer
+var road_map: RoadMap
+var road_info: Label
+var party_box: VBoxContainer
+var party_checks: Array = []
+var send_note: Label
+var road_parties_box: VBoxContainer
+var standings_label: Label
+var _road_signature := ""
 var event_panel: PanelContainer
 var event_title: Label
 var event_text: RichTextLabel
@@ -100,6 +109,7 @@ func _build_ui() -> void:
 	estate_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	estate_box.add_theme_constant_override("separation", 10)
 	estate_scroll.add_child(estate_box)
+	_build_road_tab()
 
 	event_panel = PanelContainer.new()
 	event_panel.add_theme_stylebox_override("panel", _box(PANEL, GOLD, 2, 10, 16))
@@ -211,6 +221,7 @@ func _refresh() -> void:
 	forecast_label.text = _forecast_text()
 	forecast_label.add_theme_color_override("font_color", RED if _winter_short() else DIM)
 	_render_estate_if_changed()
+	_refresh_road()
 	var waiting := EventEngine.has_pending()
 	event_panel.visible = waiting
 	controls_box.visible = not waiting and not WorldState.fallen
@@ -244,7 +255,7 @@ func _forecast_text() -> String:
 func _compute_estate_signature() -> String:
 	var parts := []
 	for m in WorldState.monks:
-		parts.append("%d:%s:%s" % [int(m["id"]), m["status"], WorldState.job_of(m)])
+		parts.append("%d:%s:%s:%d" % [int(m["id"]), m["status"], WorldState.job_of(m), int(m.get("party", 0))])
 	for b in WorldState.BUILDINGS:
 		parts.append("%s:%s" % [b, WorldState.has_building(b)])
 	parts.append(str(WorldState.abbot_id))
@@ -291,6 +302,151 @@ func _render_estate() -> void:
 		estate_box.add_child(_building_row(b))
 
 
+# --- Road: the map, parties and standing --------------------------------
+
+func _build_road_tab() -> void:
+	var road_scroll := ScrollContainer.new()
+	road_scroll.name = "Road"
+	road_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	tabs.add_child(road_scroll)
+	road_box = VBoxContainer.new()
+	road_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	road_box.add_theme_constant_override("separation", 10)
+	road_scroll.add_child(road_box)
+
+	road_box.add_child(_section_title("The road"))
+	road_map = RoadMap.new()
+	road_map.node_picked.connect(func(_id: String): _refresh_road())
+	road_box.add_child(road_map)
+	road_info = _label(19, PARCHMENT)
+	road_box.add_child(road_info)
+
+	road_box.add_child(_section_title("Send a party"))
+	var help := _label(18, DIM)
+	help.text = "Tap a place on the map, then choose up to three brothers at home. A place whose people have closed their doors will not take the house's party."
+	road_box.add_child(help)
+	party_box = VBoxContainer.new()
+	party_box.add_theme_constant_override("separation", 6)
+	road_box.add_child(party_box)
+	var send_btn := _button("Send the party")
+	send_btn.pressed.connect(_on_send_party)
+	road_box.add_child(send_btn)
+	send_note = _label(18, RED)
+	road_box.add_child(send_note)
+
+	road_box.add_child(_section_title("On the road"))
+	road_parties_box = VBoxContainer.new()
+	road_parties_box.add_theme_constant_override("separation", 6)
+	road_box.add_child(road_parties_box)
+
+	road_box.add_child(_section_title("Standing"))
+	standings_label = _label(19, PARCHMENT)
+	road_box.add_child(standings_label)
+
+
+func _refresh_road() -> void:
+	_render_party_checks_if_changed()
+	var sel := road_map.selected
+	if sel == "":
+		road_info.text = "No place chosen yet. Tap a dot on the map."
+	else:
+		var n := Road.node(sel)
+		var f := str(n["faction"])
+		var weeks := Road.weeks_one_way(sel)
+		road_info.text = "%s (%s). %s\nIt takes %s each way. %s: %s." % [n["name"], n["kind"], n["desc"],
+			_weeks_text(weeks), Road.faction_name(f).capitalize(), _standing_word(Road.standing(f))]
+		if Road.is_hostile(sel):
+			road_info.text += "\nThey will not receive the house."
+
+	for c in road_parties_box.get_children():
+		road_parties_box.remove_child(c)
+		c.queue_free()
+	if Road.parties.is_empty():
+		var none := _label(19, DIM)
+		none.text = "No one is on the road."
+		road_parties_box.add_child(none)
+	for p in Road.parties:
+		var line := _label(19, PARCHMENT)
+		var who := Road.party_names(p)
+		var where := Road.node_name(p["node"])
+		if p["arrived"]:
+			line.text = "%s at %s, home in %s." % [who, where, _weeks_text(int(p["back"]))]
+		else:
+			line.text = "%s on the way to %s, %s to go." % [who, where, _weeks_text(int(p["out"]))]
+		road_parties_box.add_child(line)
+
+	var lines := []
+	for f in Road.factions:
+		lines.append("%s: %s" % [Road.faction_name(f).capitalize(), _standing_word(Road.standing(f))])
+	standings_label.text = "\n".join(lines)
+
+
+## Rebuilding the checkboxes clears them, so it happens only when the brothers at home change.
+func _render_party_checks_if_changed() -> void:
+	var home := WorldState.home_monks()
+	var parts := []
+	for m in home:
+		parts.append("%d:%d" % [int(m["id"]), int(m["health"])])
+	var sig := "|".join(parts)
+	if sig == _road_signature:
+		return
+	_road_signature = sig
+	for c in party_box.get_children():
+		party_box.remove_child(c)
+		c.queue_free()
+	party_checks = []
+	home.sort_custom(_brother_order)
+	if home.is_empty():
+		var none := _label(18, DIM)
+		none.text = "No brother is at home to send."
+		party_box.add_child(none)
+	for m in home:
+		# Toggle buttons rather than CheckBox: the theme has no check icons.
+		var cb := Button.new()
+		cb.toggle_mode = true
+		cb.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		cb.custom_minimum_size = Vector2(0, 52)
+		cb.text = "%s, %s" % [WorldState.display_name(m), WorldState.vocation_name(m)]
+		cb.add_theme_font_size_override("font_size", 20)
+		cb.set_meta("monk_id", int(m["id"]))
+		party_box.add_child(cb)
+		party_checks.append(cb)
+
+
+func _on_send_party() -> void:
+	send_note.text = ""
+	var node_id := road_map.selected
+	if node_id == "":
+		send_note.text = "Choose a place on the map first."
+		return
+	var ids := []
+	for cb in party_checks:
+		if cb.button_pressed:
+			ids.append(int(cb.get_meta("monk_id")))
+	var reason := Road.refusal(node_id, ids)
+	if reason != "":
+		send_note.text = reason
+		return
+	Game.dispatch_party(node_id, ids)
+	_refresh_road()
+
+
+func _weeks_text(w: int) -> String:
+	return "%d week%s" % [w, "" if w == 1 else "s"]
+
+
+func _standing_word(v: int) -> String:
+	if v <= Road.HOSTILE:
+		return "closed to us (%d)" % v
+	if v < 0:
+		return "wary (%d)" % v
+	if v == 0:
+		return "neutral"
+	if v < 3:
+		return "friendly (+%d)" % v
+	return "allied (+%d)" % v
+
+
 func _section_title(text: String) -> Label:
 	var l := _label(24, GOLD)
 	l.text = text
@@ -308,8 +464,12 @@ func _brother_row(m: Dictionary) -> Control:
 			marks.append(str(t).replace("_", " "))
 	var extra := ""
 	if m["status"] == "away":
-		var w := int(m["away_weeks"])
-		extra = "  · on the road, %d week%s" % [w, "" if w == 1 else "s"]
+		var party := Road.party_of(m)
+		if not party.is_empty():
+			extra = "  · with the party to %s" % Road.node_name(party["node"])
+		else:
+			var w := int(m["away_weeks"])
+			extra = "  · on the road, %d week%s" % [w, "" if w == 1 else "s"]
 	elif int(m["health"]) < 3:
 		extra = "  · %s" % WorldState.HEALTH_WORDS[int(m["health"])]
 	info.text = "%s, %d, %s%s\n%s" % [WorldState.display_name(m), int(m["age"]),
@@ -463,6 +623,8 @@ func _on_menu(id: int) -> void:
 func _start_new_house() -> void:
 	Game.new_game()
 	_estate_signature = ""
+	_road_signature = ""
+	road_map.selected = ""
 	_render_chronicle()
 	_refresh()
 

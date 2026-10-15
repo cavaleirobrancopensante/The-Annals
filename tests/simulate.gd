@@ -3,6 +3,7 @@ extends Node
 ## then prints the chronicle and a summary. Never touches the real save.
 ##
 ## godot --headless --path . res://tests/simulate.tscn -- --seed=42 --years=3
+## Flags: --no-build (no building policy), --no-road (brothers stay home)
 
 
 func _ready() -> void:
@@ -10,6 +11,7 @@ func _ready() -> void:
 	var seed_value := 42
 	var years := 3
 	var build_policy := true
+	var road_policy := true
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--seed="):
 			seed_value = int(arg.get_slice("=", 1))
@@ -17,19 +19,33 @@ func _ready() -> void:
 			years = int(arg.get_slice("=", 1))
 		elif arg == "--no-build":
 			build_policy = false
+		elif arg == "--no-road":
+			road_policy = false
 
 	Game.new_game(seed_value)
 	var choices_made := 0
 	var hunger_weeks := 0
 	var cold_weeks := 0
 	var builds := []
+	var sent := 0
+	var arrivals := 0
+	var returns := 0
+	var arrived_ids := {}
 	for i in years * WorldState.WEEKS_PER_YEAR:
 		if build_policy:
 			for b in ["granary", "woodshed", "scriptorium", "infirmary"]:
 				if WorldState.can_build(b) and Game.build(b):
 					builds.append("%s (year %d)" % [b, WorldState.year()])
 					break
+		if road_policy and i % 8 == 4:
+			sent += _send_party()
+		var out_before := Road.parties.size()
 		Game.advance_week()
+		returns += out_before - Road.parties.size()
+		for p in Road.parties:
+			if p["arrived"] and not arrived_ids.has(p["id"]):
+				arrived_ids[p["id"]] = true
+				arrivals += 1
 		if WorldState.has_tag("hunger"):
 			hunger_weeks += 1
 		if WorldState.has_tag("cold"):
@@ -54,6 +70,8 @@ func _ready() -> void:
 	print("Resources: %s" % WorldState.resources)
 	print("Living brothers: %d of %d ever" % [WorldState.living_monks().size(), WorldState.monks.size()])
 	print("Builds: %s" % str(builds))
+	print("Road: parties sent %d, arrivals %d, returns %d, still out %d" % [sent, arrivals, returns, Road.parties.size()])
+	print("Standings: %s" % str(Road.standings))
 	print("Weeks hungry: %d, weeks cold: %d" % [hunger_weeks, cold_weeks])
 	print("World tags: %s" % str(WorldState.tags.keys()))
 	var fired := EventEngine.fired.keys()
@@ -62,3 +80,20 @@ func _ready() -> void:
 	var never := EventEngine.cards.map(func(c): return c["id"]).filter(func(id): return not id in fired)
 	print("Never fired: %s" % str(never))
 	get_tree().quit()
+
+
+## Sends two home brothers to a random place the road will receive.
+func _send_party() -> int:
+	var home := WorldState.home_monks().filter(func(m): return int(m["id"]) != WorldState.abbot_id)
+	if home.size() < 2 or Road.parties.size() >= Road.MAX_PARTIES:
+		return 0
+	home.shuffle()
+	var open := []
+	for n in Road.nodes:
+		if not Road.is_hostile(n["id"]):
+			open.append(n["id"])
+	if open.is_empty():
+		return 0
+	var node_id: String = open[Oracle.range_int(0, open.size() - 1)]
+	var ids := [int(home[0]["id"]), int(home[1]["id"])]
+	return 1 if Game.dispatch_party(node_id, ids) else 0
