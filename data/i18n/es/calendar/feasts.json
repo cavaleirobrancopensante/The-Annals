@@ -1,54 +1,396 @@
 {
-	"_note": "El calendario romano de 1962, anterior al Concilio Vaticano II. Rangos: great = primera clase, high = segunda clase. Las fechas y los rangos se escribieron de memoria y AÚN NO están comprobados con el Misal de 1962 ni con Divinum Officium. Las fiestas locales están marcadas.",
-	"fixed": [
-		{"id": "circumcision", "name": "la Circuncisión de Nuestro Señor", "month": 1, "day": 1, "rank": "great"},
-		{"id": "epiphany", "name": "la Epifanía", "month": 1, "day": 6, "rank": "great"},
-		{"id": "brigid", "name": "Santa Brígida", "month": 2, "day": 1, "rank": "high", "local": true},
-		{"id": "candlemas", "name": "la Purificación", "month": 2, "day": 2, "rank": "high"},
-		{"id": "patrick", "name": "San Patricio", "month": 3, "day": 17, "rank": "great", "local": true},
-		{"id": "joseph", "name": "San José", "month": 3, "day": 19, "rank": "great"},
-		{"id": "annunciation", "name": "la Anunciación", "month": 3, "day": 25, "rank": "great"},
-		{"id": "mark", "name": "San Marcos", "month": 4, "day": 25, "rank": "high"},
-		{"id": "philip_james", "name": "San Felipe y Santiago", "month": 5, "day": 1, "rank": "high"},
-		{"id": "columba", "name": "San Columba", "month": 6, "day": 9, "rank": "high", "local": true},
-		{"id": "john_baptist", "name": "la Natividad de San Juan Bautista", "month": 6, "day": 24, "rank": "great"},
-		{"id": "peter_paul", "name": "San Pedro y San Pablo", "month": 6, "day": 29, "rank": "great"},
-		{"id": "james", "name": "Santiago", "month": 7, "day": 25, "rank": "high"},
-		{"id": "transfiguration", "name": "la Transfiguración", "month": 8, "day": 6, "rank": "high"},
-		{"id": "assumption", "name": "la Asunción", "month": 8, "day": 15, "rank": "great"},
-		{"id": "bartholomew", "name": "San Bartolomé", "month": 8, "day": 24, "rank": "high"},
-		{"id": "nativity_mary", "name": "la Natividad de Nuestra Señora", "month": 9, "day": 8, "rank": "high"},
-		{"id": "holy_cross", "name": "la Exaltación de la Santa Cruz", "month": 9, "day": 14, "rank": "high"},
-		{"id": "matthew", "name": "San Mateo", "month": 9, "day": 21, "rank": "high"},
-		{"id": "michael", "name": "San Miguel Arcángel", "month": 9, "day": 29, "rank": "great"},
-		{"id": "luke", "name": "San Lucas", "month": 10, "day": 18, "rank": "high"},
-		{"id": "simon_jude", "name": "San Simón y San Judas", "month": 10, "day": 28, "rank": "high"},
-		{"id": "all_saints", "name": "Todos los Santos", "month": 11, "day": 1, "rank": "great"},
-		{"id": "andrew", "name": "San Andrés", "month": 11, "day": 30, "rank": "high"},
-		{"id": "immaculate", "name": "la Inmaculada Concepción", "month": 12, "day": 8, "rank": "great"},
-		{"id": "thomas", "name": "Santo Tomás", "month": 12, "day": 21, "rank": "high"},
-		{"id": "christmas", "name": "la Navidad", "month": 12, "day": 25, "rank": "great"},
-		{"id": "stephen", "name": "San Esteban", "month": 12, "day": 26, "rank": "high"},
-		{"id": "john_evangelist", "name": "San Juan Evangelista", "month": 12, "day": 27, "rank": "high"},
-		{"id": "innocents", "name": "los Santos Inocentes", "month": 12, "day": 28, "rank": "high"}
-	],
-	"easter": [
-		{"id": "ash_wednesday", "name": "Miércoles de Ceniza", "offset": -46, "rank": "high"},
-		{"id": "palm_sunday", "name": "Domingo de Ramos", "offset": -7, "rank": "great"},
-		{"id": "holy_thursday", "name": "Jueves Santo", "offset": -3, "rank": "great"},
-		{"id": "good_friday", "name": "Viernes Santo", "offset": -2, "rank": "great"},
-		{"id": "holy_saturday", "name": "Sábado Santo", "offset": -1, "rank": "great"},
-		{"id": "easter", "name": "Pascua", "offset": 0, "rank": "great"},
-		{"id": "easter_monday", "name": "Lunes de Pascua", "offset": 1, "rank": "great"},
-		{"id": "easter_tuesday", "name": "Martes de Pascua", "offset": 2, "rank": "great"},
-		{"id": "ascension", "name": "la Ascensión", "offset": 39, "rank": "great"},
-		{"id": "pentecost", "name": "Pentecostés", "offset": 49, "rank": "great"},
-		{"id": "trinity", "name": "Domingo de la Trinidad", "offset": 56, "rank": "great"},
-		{"id": "corpus_christi", "name": "Corpus Christi", "offset": 60, "rank": "great"},
-		{"id": "sacred_heart", "name": "el Sagrado Corazón", "offset": 68, "rank": "great"}
-	],
-	"rules": [
-		{"id": "advent", "name": "el primer domingo de Adviento", "rule": "advent_1", "rank": "great"},
-		{"id": "christ_king", "name": "Cristo Rey", "rule": "last_sunday_october", "rank": "great"}
-	]
+  "_note": "El calendario romano de 1962, anterior al Concilio Vaticano II. Categorías: great = primera clase, high = segunda clase. Las fiestas fijas y sus clases se han comprobado con el Calendario Romano General de 1960, que tiene las rúbricas de 1962. Corpus Christi y el Sagrado Corazón aún no se han comprobado. Las fiestas locales están marcadas.",
+  "fixed": [
+    {
+      "id": "circumcision",
+      "name": "la Circuncisión de Nuestro Señor",
+      "month": 1,
+      "day": 1,
+      "rank": "great"
+    },
+    {
+      "id": "epiphany",
+      "name": "la Epifanía",
+      "month": 1,
+      "day": 6,
+      "rank": "great"
+    },
+    {
+      "id": "brigid",
+      "name": "Santa Brígida",
+      "month": 2,
+      "day": 1,
+      "rank": "high",
+      "local": true
+    },
+    {
+      "id": "candlemas",
+      "name": "la Purificación",
+      "month": 2,
+      "day": 2,
+      "rank": "high"
+    },
+    {
+      "id": "patrick",
+      "name": "San Patricio",
+      "month": 3,
+      "day": 17,
+      "rank": "great",
+      "local": true
+    },
+    {
+      "id": "joseph",
+      "name": "San José",
+      "month": 3,
+      "day": 19,
+      "rank": "great"
+    },
+    {
+      "id": "annunciation",
+      "name": "la Anunciación",
+      "month": 3,
+      "day": 25,
+      "rank": "great"
+    },
+    {
+      "id": "mark",
+      "name": "San Marcos",
+      "month": 4,
+      "day": 25,
+      "rank": "high"
+    },
+    {
+      "id": "philip_james",
+      "name": "San Felipe y Santiago",
+      "month": 5,
+      "day": 11,
+      "rank": "high"
+    },
+    {
+      "id": "columba",
+      "name": "San Columba",
+      "month": 6,
+      "day": 9,
+      "rank": "high",
+      "local": true
+    },
+    {
+      "id": "john_baptist",
+      "name": "la Natividad de San Juan Bautista",
+      "month": 6,
+      "day": 24,
+      "rank": "great"
+    },
+    {
+      "id": "peter_paul",
+      "name": "San Pedro y San Pablo",
+      "month": 6,
+      "day": 29,
+      "rank": "great"
+    },
+    {
+      "id": "james",
+      "name": "Santiago",
+      "month": 7,
+      "day": 25,
+      "rank": "high"
+    },
+    {
+      "id": "transfiguration",
+      "name": "la Transfiguración",
+      "month": 8,
+      "day": 6,
+      "rank": "high"
+    },
+    {
+      "id": "assumption",
+      "name": "la Asunción",
+      "month": 8,
+      "day": 15,
+      "rank": "great"
+    },
+    {
+      "id": "bartholomew",
+      "name": "San Bartolomé",
+      "month": 8,
+      "day": 24,
+      "rank": "high"
+    },
+    {
+      "id": "nativity_mary",
+      "name": "la Natividad de Nuestra Señora",
+      "month": 9,
+      "day": 8,
+      "rank": "high"
+    },
+    {
+      "id": "holy_cross",
+      "name": "la Exaltación de la Santa Cruz",
+      "month": 9,
+      "day": 14,
+      "rank": "high"
+    },
+    {
+      "id": "matthew",
+      "name": "San Mateo",
+      "month": 9,
+      "day": 21,
+      "rank": "high"
+    },
+    {
+      "id": "michael",
+      "name": "San Miguel Arcángel",
+      "month": 9,
+      "day": 29,
+      "rank": "great"
+    },
+    {
+      "id": "luke",
+      "name": "San Lucas",
+      "month": 10,
+      "day": 18,
+      "rank": "high"
+    },
+    {
+      "id": "simon_jude",
+      "name": "San Simón y San Judas",
+      "month": 10,
+      "day": 28,
+      "rank": "high"
+    },
+    {
+      "id": "all_saints",
+      "name": "Todos los Santos",
+      "month": 11,
+      "day": 1,
+      "rank": "great"
+    },
+    {
+      "id": "andrew",
+      "name": "San Andrés",
+      "month": 11,
+      "day": 30,
+      "rank": "high"
+    },
+    {
+      "id": "immaculate",
+      "name": "la Inmaculada Concepción",
+      "month": 12,
+      "day": 8,
+      "rank": "great"
+    },
+    {
+      "id": "thomas",
+      "name": "Santo Tomás",
+      "month": 12,
+      "day": 21,
+      "rank": "high"
+    },
+    {
+      "id": "christmas",
+      "name": "la Navidad",
+      "month": 12,
+      "day": 25,
+      "rank": "great"
+    },
+    {
+      "id": "stephen",
+      "name": "San Esteban",
+      "month": 12,
+      "day": 26,
+      "rank": "high"
+    },
+    {
+      "id": "john_evangelist",
+      "name": "San Juan Evangelista",
+      "month": 12,
+      "day": 27,
+      "rank": "high"
+    },
+    {
+      "id": "innocents",
+      "name": "los Santos Inocentes",
+      "month": 12,
+      "day": 28,
+      "rank": "high"
+    },
+    {
+      "id": "chair_peter",
+      "name": "la Cátedra de San Pedro",
+      "month": 2,
+      "day": 22,
+      "rank": "high"
+    },
+    {
+      "id": "matthias",
+      "name": "San Matías",
+      "month": 2,
+      "day": 24,
+      "rank": "high"
+    },
+    {
+      "id": "visitation",
+      "name": "la Visitación",
+      "month": 7,
+      "day": 2,
+      "rank": "high"
+    },
+    {
+      "id": "anne",
+      "name": "Santa Ana",
+      "month": 7,
+      "day": 26,
+      "rank": "high"
+    },
+    {
+      "id": "laurence",
+      "name": "San Lorenzo",
+      "month": 8,
+      "day": 10,
+      "rank": "high"
+    },
+    {
+      "id": "immaculate_heart",
+      "name": "el Inmaculado Corazón de María",
+      "month": 8,
+      "day": 22,
+      "rank": "high"
+    },
+    {
+      "id": "seven_sorrows",
+      "name": "los Siete Dolores de Nuestra Señora",
+      "month": 9,
+      "day": 15,
+      "rank": "high"
+    },
+    {
+      "id": "rosary",
+      "name": "Nuestra Señora del Rosario",
+      "month": 10,
+      "day": 7,
+      "rank": "high"
+    },
+    {
+      "id": "lateran",
+      "name": "la Dedicación de la Basílica de Letrán",
+      "month": 11,
+      "day": 9,
+      "rank": "high"
+    },
+    {
+      "id": "all_souls",
+      "name": "los Fieles Difuntos",
+      "month": 11,
+      "day": 2,
+      "rank": "great"
+    },
+    {
+      "id": "christmas_eve",
+      "name": "la Vigilia de Navidad",
+      "month": 12,
+      "day": 24,
+      "rank": "great"
+    },
+    {
+      "id": "queen",
+      "name": "Nuestra Señora, Reina",
+      "month": 5,
+      "day": 31,
+      "rank": "high"
+    }
+  ],
+  "easter": [
+    {
+      "id": "ash_wednesday",
+      "name": "Miércoles de Ceniza",
+      "offset": -46,
+      "rank": "high"
+    },
+    {
+      "id": "palm_sunday",
+      "name": "Domingo de Ramos",
+      "offset": -7,
+      "rank": "great"
+    },
+    {
+      "id": "holy_thursday",
+      "name": "Jueves Santo",
+      "offset": -3,
+      "rank": "great"
+    },
+    {
+      "id": "good_friday",
+      "name": "Viernes Santo",
+      "offset": -2,
+      "rank": "great"
+    },
+    {
+      "id": "holy_saturday",
+      "name": "Sábado Santo",
+      "offset": -1,
+      "rank": "great"
+    },
+    {
+      "id": "easter",
+      "name": "Pascua",
+      "offset": 0,
+      "rank": "great"
+    },
+    {
+      "id": "easter_monday",
+      "name": "Lunes de Pascua",
+      "offset": 1,
+      "rank": "great"
+    },
+    {
+      "id": "easter_tuesday",
+      "name": "Martes de Pascua",
+      "offset": 2,
+      "rank": "great"
+    },
+    {
+      "id": "ascension",
+      "name": "la Ascensión",
+      "offset": 39,
+      "rank": "great"
+    },
+    {
+      "id": "pentecost",
+      "name": "Pentecostés",
+      "offset": 49,
+      "rank": "great"
+    },
+    {
+      "id": "trinity",
+      "name": "Domingo de la Trinidad",
+      "offset": 56,
+      "rank": "high"
+    },
+    {
+      "id": "corpus_christi",
+      "name": "Corpus Christi",
+      "offset": 60,
+      "rank": "great"
+    },
+    {
+      "id": "sacred_heart",
+      "name": "el Sagrado Corazón",
+      "offset": 68,
+      "rank": "great"
+    }
+  ],
+  "rules": [
+    {
+      "id": "advent",
+      "name": "el primer domingo de Adviento",
+      "rule": "advent_1",
+      "rank": "great"
+    },
+    {
+      "id": "christ_king",
+      "name": "Cristo Rey",
+      "rule": "last_sunday_october",
+      "rank": "great"
+    }
+  ]
 }

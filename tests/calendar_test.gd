@@ -10,6 +10,7 @@ func _process(_delta: float) -> bool:
 	if ran:
 		return false
 	ran = true
+	root.get_node("Settings").set_language("en")
 	var cal = root.get_node("Calendar")
 	_expect("Easter 2024", cal.easter(2024), [3, 31])
 	_expect("Easter 2025", cal.easter(2025), [4, 20])
@@ -36,6 +37,11 @@ func _process(_delta: float) -> bool:
 	_expect("church season in Eastertide", cal.church_season(2024, 5, 1), "eastertide")
 	_expect("church season in Advent", cal.church_season(2024, 12, 10), "advent")
 	_expect("long date", cal.long_date(2500, 9, 29), "Wednesday 29 September 2500")
+	_expect("Ss Philip and James is 11 May", cal.feasts_on(2024, 5, 11).any(func(f): return f["id"] == "philip_james"), true)
+	_expect("no Philip and James on 1 May", cal.feasts_on(2024, 5, 1).any(func(f): return f["id"] == "philip_james"), false)
+	_expect("All Souls is a first-class feast", cal.great_feast(2024, 11, 2).get("id", ""), "all_souls")
+	_expect("the Chair of St Peter is 22 February", cal.feasts_on(2024, 2, 22).any(func(f): return f["id"] == "chair_peter"), true)
+	_expect("Trinity Sunday 2024 is second class", cal.feasts_on(2024, 5, 26).any(func(f): return f["id"] == "trinity" and f["rank"] == "high"), true)
 	print("Calendar checks: %s" % ("all passed" if failures == 0 else "%d failed" % failures))
 	quit(failures)
 	return true
