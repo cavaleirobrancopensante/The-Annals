@@ -61,6 +61,7 @@ func _ready() -> void:
 		return
 	_built_key = "%s|%s" % [Settings.language, Settings.text_size]
 	_build_ui()
+	Music.begin()
 	EventBus.chronicle_added.connect(_on_chronicle_added)
 	EventBus.event_presented.connect(_show_event)
 	EventBus.world_changed.connect(_refresh)
@@ -91,6 +92,8 @@ func _build_ui() -> void:
 	root.add_theme_constant_override("separation", 8)
 	margin.add_child(root)
 
+	# The music at the top of the house: tap it to open the music menu.
+	root.add_child(MusicBar.new())
 	title_label = _label(30, GOLD)
 	root.add_child(title_label)
 	status_label = _label(20, DIM)

@@ -34,6 +34,8 @@ Game="*res://scripts/autoload/game.gd"
 Settings="*res://scripts/autoload/settings.gd"
 Tutorial="*res://scripts/autoload/tutorial.gd"
 SaveSystem="*res://scripts/autoload/save_system.gd"
+Music="*res://scripts/autoload/music.gd"
+Sfx="*res://scripts/autoload/sfx.gd"
 
 [display]
 

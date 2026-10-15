@@ -76,6 +76,6 @@ func _ready() -> void:
 
 func _shot_path() -> String:
 	for a in OS.get_cmdline_user_args():
-		if not a.begins_with("lang="):
+		if a.ends_with(".png"):
 			return a
 	return "user://ui_smoke.png"
