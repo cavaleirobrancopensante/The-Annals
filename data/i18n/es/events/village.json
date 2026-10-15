@@ -1,0 +1,193 @@
+[
+	{
+		"id": "village_alms",
+		"title": "Pan para el invierno",
+		"deck": "village",
+		"weight": 6,
+		"cooldown": 40,
+		"when": {
+			"village_standing_max": 5
+		},
+		"text": "Un muchacho sube la colina desde {village} con un cuenco agrietado. Las vegas bajas se anegaron, y las familias de debajo de la iglesia se han comido la semilla. Piden pan a la casa y dicen que lo recordarán.",
+		"choices": [
+			{
+				"label": "Mandar pan desde el granero",
+				"requires": {
+					"food": 8
+				},
+				"effects": {
+					"food": -8,
+					"village_standing": 4
+				},
+				"chronicle": "{When}, la casa mandó pan a {village}, y las familias lo dijeron en la puerta de la iglesia."
+			},
+			{
+				"label": "Decirle al muchacho que la casa no tiene nada que dar",
+				"effects": {
+					"village_standing": -3
+				},
+				"chronicle": "{When}, el muchacho bajó la colina con el cuenco vacío, y {village} no lo olvidó."
+			}
+		]
+	},
+	{
+		"id": "village_boundary",
+		"title": "Un muro que se movió",
+		"deck": "village",
+		"weight": 5,
+		"cooldown": 30,
+		"text": "Dos familias de {village} han subido, cada una con un testigo, por un muro de piedra que ayer estaba en un sitio y esta mañana en otro. Ambas quieren que la casa diga de quién es el muro.",
+		"choices": [
+			{
+				"label": "Bajar y arreglarlo entre ellas",
+				"check": {
+					"stat": "presence",
+					"skill": "persuasion",
+					"difficulty": 7
+				},
+				"success": {
+					"effects": {
+						"village_standing": 3
+					},
+					"chronicle": "{When}, el abad recorrió la línea con las dos familias y puso el muro donde ambas podían estar de acuerdo, y {village} volvió a casa hablando de ello."
+				},
+				"failure": {
+					"effects": {
+						"village_standing": -2
+					},
+					"chronicle": "{When}, ninguna familia quiso ceder, y el abad subió de vuelta la colina con la disputa abierta."
+				}
+			},
+			{
+				"label": "Decir que el muro es de la casa y que nadie lo toque",
+				"effects": {
+					"village_standing": -2
+				},
+				"chronicle": "{When}, la casa reclamó el muro, {village} no dijo nada, y no lo olvidó."
+			}
+		]
+	},
+	{
+		"id": "village_sick_child",
+		"title": "Una fiebre bajo la iglesia",
+		"deck": "village",
+		"weight": 5,
+		"cooldown": 30,
+		"text": "Un niño de {village} tiene una fiebre que no cede, y la madre ha subido la colina a pie para pedir la medicina de la enfermería.",
+		"choices": [
+			{
+				"label": "Mandar la medicina",
+				"requires": {
+					"medicine": 1
+				},
+				"effects": {
+					"medicine": -1,
+					"village_standing": 4
+				},
+				"chronicle": "{When}, la casa mandó medicina a {village}, y el niño que daban por perdido fue subido a la colina una semana después para dar las gracias."
+			},
+			{
+				"label": "Mandar a un hermano a rezar con la familia",
+				"effects": {
+					"village_standing": 1
+				},
+				"chronicle": "{When}, un hermano bajó a {village} a rezar con la familia, y volvió sin la medicina."
+			},
+			{
+				"label": "Decir que la casa no tiene medicina que dar",
+				"effects": {
+					"village_standing": -2
+				},
+				"chronicle": "{When}, la madre bajó la colina sin la medicina, y {village} pesó las palabras de la casa."
+			}
+		]
+	},
+	{
+		"id": "village_crowd",
+		"title": "Antorchas en la puerta",
+		"deck": "village",
+		"weight": 5,
+		"cooldown": 30,
+		"when": {
+			"village_standing_max": 2
+		},
+		"text": "Después del anochecer, una multitud sube por el camino desde {village} con antorchas. Les ha llegado el rumor de que la casa guarda grano que no quiere compartir, y quieren ver el granero.",
+		"choices": [
+			{
+				"label": "Abrir el granero y enseñárselo",
+				"effects": {
+					"food": -6,
+					"village_standing": 4
+				},
+				"chronicle": "{When}, se abrió el granero a la multitud de {village}. Bajaron de nuevo con lo que pudieron llevar, y con menos rabia."
+			},
+			{
+				"label": "Cerrar la puerta y dejar sonar la campana",
+				"effects": {
+					"village_standing": -4
+				},
+				"chronicle": "{When}, se cerró la puerta, y la multitud de {village} se quedó bajo el muro hasta el amanecer, y se fue a casa enfadada."
+			}
+		]
+	},
+	{
+		"id": "village_banns",
+		"title": "Amonestaciones leídas en misa",
+		"deck": "village",
+		"weight": 6,
+		"cooldown": 40,
+		"when": {
+			"village_controlled": true
+		},
+		"text": "Va a celebrarse una boda en {village}. Las familias piden a la casa que lea las amonestaciones y que dé de comer a los invitados después. La casa tiene ya un derecho sobre el pueblo, y lo saben.",
+		"choices": [
+			{
+				"label": "Leer las amonestaciones y dar de comer a los invitados",
+				"requires": {
+					"food": 4
+				},
+				"effects": {
+					"food": -4,
+					"village_standing": 2
+				},
+				"chronicle": "{When}, las amonestaciones se leyeron en la capilla, y el banquete de la boda en {village} se dio con las provisiones de la casa."
+			},
+			{
+				"label": "Leer las amonestaciones y pedir solo una oración",
+				"effects": {
+					"village_standing": 1
+				},
+				"chronicle": "{When}, las amonestaciones se leyeron, y la boda en {village} se celebró sin banquete."
+			}
+		]
+	},
+	{
+		"id": "village_tithe_withheld",
+		"title": "Una gavilla retenida",
+		"deck": "village",
+		"weight": 5,
+		"cooldown": 40,
+		"when": {
+			"village_controlled": true,
+			"village_standing_min": 1
+		},
+		"text": "Cuando las carretas del diezmo subieron desde {village} esta temporada, las familias mandaron decir que guardarían una gavilla de cada diez hasta que la casa repare el puente sobre el arroyo.",
+		"choices": [
+			{
+				"label": "Exigir el diezmo completo",
+				"effects": {
+					"food": 3,
+					"village_standing": -3
+				},
+				"chronicle": "{When}, el diezmo completo subió desde {village}, y se contó en la puerta sin una palabra."
+			},
+			{
+				"label": "Dejarlos quedarse con ella y no decir nada",
+				"effects": {
+					"village_standing": 2
+				},
+				"chronicle": "{When}, la casa dejó a {village} quedarse con su gavilla, y las carretas bajaron más ligeras."
+			}
+		]
+	}
+]

@@ -1,0 +1,193 @@
+[
+	{
+		"id": "village_alms",
+		"title": "Pão para o inverno",
+		"deck": "village",
+		"weight": 6,
+		"cooldown": 40,
+		"when": {
+			"village_standing_max": 5
+		},
+		"text": "Um rapaz sobe a colina de {village} com uma tigela rachada. As baixas encharcaram, e as famílias abaixo da igreja comeram a semente. Pedem pão à casa e dizem que se lembrarão disso.",
+		"choices": [
+			{
+				"label": "Mandar pão do celeiro",
+				"requires": {
+					"food": 8
+				},
+				"effects": {
+					"food": -8,
+					"village_standing": 4
+				},
+				"chronicle": "{When}, a casa mandou pão para {village}, e as famílias disseram-no à porta da igreja."
+			},
+			{
+				"label": "Dizer ao rapaz que a casa não tem nada a dispensar",
+				"effects": {
+					"village_standing": -3
+				},
+				"chronicle": "{When}, o rapaz desceu a colina com a tigela vazia, e {village} não esqueceu."
+			}
+		]
+	},
+	{
+		"id": "village_boundary",
+		"title": "Um muro que se mexeu",
+		"deck": "village",
+		"weight": 5,
+		"cooldown": 30,
+		"text": "Duas famílias de {village} subiram com uma testemunha cada, por causa de um muro de pedra que ontem estava num sítio e hoje de manhã estava noutro. Ambas querem que a casa diga de quem é o muro.",
+		"choices": [
+			{
+				"label": "Descer e resolver entre elas",
+				"check": {
+					"stat": "presence",
+					"skill": "persuasion",
+					"difficulty": 7
+				},
+				"success": {
+					"effects": {
+						"village_standing": 3
+					},
+					"chronicle": "{When}, o abade percorreu a linha com as duas famílias e pôs o muro onde ambas podiam concordar, e {village} voltou para casa a falar disso."
+				},
+				"failure": {
+					"effects": {
+						"village_standing": -2
+					},
+					"chronicle": "{When}, nenhuma das famílias cedeu, e o abade subiu de volta à colina com a questão ainda aberta."
+				}
+			},
+			{
+				"label": "Dizer que o muro é da casa e que ninguém lhe toque",
+				"effects": {
+					"village_standing": -2
+				},
+				"chronicle": "{When}, a casa reclamou o muro, {village} não disse nada, e não esqueceu."
+			}
+		]
+	},
+	{
+		"id": "village_sick_child",
+		"title": "Uma febre abaixo da igreja",
+		"deck": "village",
+		"weight": 5,
+		"cooldown": 30,
+		"text": "Uma criança de {village} tem uma febre que não cede, e a mãe subiu a colina a pé para pedir o remédio da enfermaria.",
+		"choices": [
+			{
+				"label": "Mandar o remédio para baixo",
+				"requires": {
+					"medicine": 1
+				},
+				"effects": {
+					"medicine": -1,
+					"village_standing": 4
+				},
+				"chronicle": "{When}, a casa mandou remédio para {village}, e a criança que tinham dado por perdida foi levada à colina uma semana depois para agradecer."
+			},
+			{
+				"label": "Mandar um irmão rezar com a família",
+				"effects": {
+					"village_standing": 1
+				},
+				"chronicle": "{When}, um irmão desceu a {village} para rezar com a família, e voltou sem o remédio."
+			},
+			{
+				"label": "Dizer que a casa não tem remédio a dispensar",
+				"effects": {
+					"village_standing": -2
+				},
+				"chronicle": "{When}, a mãe desceu a colina sem o remédio, e {village} pesou as palavras da casa."
+			}
+		]
+	},
+	{
+		"id": "village_crowd",
+		"title": "Tochas à porta",
+		"deck": "village",
+		"weight": 5,
+		"cooldown": 30,
+		"when": {
+			"village_standing_max": 2
+		},
+		"text": "Depois do anoitecer, uma multidão sobe a estrada de {village} com tochas. Chegou-lhes um rumor de que a casa guarda grão que não quer partilhar, e querem ver o celeiro.",
+		"choices": [
+			{
+				"label": "Abrir o celeiro e mostrar",
+				"effects": {
+					"food": -6,
+					"village_standing": 4
+				},
+				"chronicle": "{When}, o celeiro foi aberto à multidão de {village}. Desceram de novo com o que podiam levar, e com menos raiva."
+			},
+			{
+				"label": "Fechar o portão e deixar o sino a tocar",
+				"effects": {
+					"village_standing": -4
+				},
+				"chronicle": "{When}, o portão foi fechado, e a multidão de {village} ficou debaixo do muro até ao amanhecer, e voltou para casa zangada."
+			}
+		]
+	},
+	{
+		"id": "village_banns",
+		"title": "Proclamas lidos na missa",
+		"deck": "village",
+		"weight": 6,
+		"cooldown": 40,
+		"when": {
+			"village_controlled": true
+		},
+		"text": "Vai fazer-se um casamento em {village}. As famílias pedem à casa que leia os proclamas e que alimente os convidados depois. A casa tem agora um direito sobre a aldeia, e eles sabem-no.",
+		"choices": [
+			{
+				"label": "Ler os proclamas e alimentar os convidados",
+				"requires": {
+					"food": 4
+				},
+				"effects": {
+					"food": -4,
+					"village_standing": 2
+				},
+				"chronicle": "{When}, os proclamas foram lidos na capela, e o banquete do casamento em {village} foi dado com as reservas da casa."
+			},
+			{
+				"label": "Ler os proclamas e pedir só uma oração",
+				"effects": {
+					"village_standing": 1
+				},
+				"chronicle": "{When}, os proclamas foram lidos, e o casamento em {village} fez-se sem banquete."
+			}
+		]
+	},
+	{
+		"id": "village_tithe_withheld",
+		"title": "Uma gavela retida",
+		"deck": "village",
+		"weight": 5,
+		"cooldown": 40,
+		"when": {
+			"village_controlled": true,
+			"village_standing_min": 1
+		},
+		"text": "Quando as carroças do dízimo subiram de {village} nesta estação, as famílias mandaram dizer que guardariam uma gavela em cada dez até a casa reparar a ponte sobre o ribeiro.",
+		"choices": [
+			{
+				"label": "Exigir o dízimo inteiro",
+				"effects": {
+					"food": 3,
+					"village_standing": -3
+				},
+				"chronicle": "{When}, o dízimo inteiro subiu de {village}, e foi contado à porta sem uma palavra."
+			},
+			{
+				"label": "Deixá-los guardar e não dizer nada",
+				"effects": {
+					"village_standing": 2
+				},
+				"chronicle": "{When}, a casa deixou {village} guardar a sua gavela, e as carroças desceram mais leves."
+			}
+		]
+	}
+]

@@ -104,6 +104,13 @@ func _check_world(when: Dictionary, node_id: String = "") -> bool:
 	for f in smax:
 		if Road.standing(f) > int(smax[f]):
 			return false
+	# The village below the house: control, and its standing.
+	if when.has("village_controlled") and Village.controlled != bool(when["village_controlled"]):
+		return false
+	if when.has("village_standing_min") and Village.standing < int(when["village_standing_min"]):
+		return false
+	if when.has("village_standing_max") and Village.standing > int(when["village_standing_max"]):
+		return false
 	return true
 
 
@@ -240,6 +247,7 @@ func _ctx(bind: Dictionary, node_id: String = "") -> Dictionary:
 				ctx[slot + "_path"] = str(Paths.name_of(str(m.get("path", "")))).to_lower()
 	if node_id != "":
 		ctx["node"] = Road.node_name(node_id)
+	ctx["village"] = Village.name_of()
 	return ctx
 
 
@@ -312,6 +320,8 @@ func resolve(choice_index: int) -> void:
 		var m := WorldState.get_monk(bind["monk"])
 		if not m.is_empty():
 			m["tags"] = m["tags"].filter(func(t): return not str(t).begins_with("on_"))
+	if card["deck"] == "village":
+		Village.touch()
 	cooldowns[card["id"]] = WorldState.week + int(card.get("cooldown", 30))
 	if bool(card.get("once", false)):
 		used_once.append(card["id"])
@@ -352,6 +362,9 @@ func _apply(effects: Dictionary, bind: Dictionary, lines: Array) -> void:
 		WorldState.add_tag(t, tag_weeks)
 	for t in _as_array(effects.get("remove_tag")):
 		WorldState.remove_tag(t)
+	if effects.has("village_standing"):
+		Village.touch()
+		Village.change(int(effects["village_standing"]))
 	var standing: Dictionary = effects.get("standing", {})
 	for f in standing:
 		Road.change_standing(f, int(standing[f]))

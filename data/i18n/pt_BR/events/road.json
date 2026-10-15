@@ -38,17 +38,17 @@
 		"title": "Um Menino no Portão",
 		"cooldown": 40,
 		"when": {"not_tag": ["village_slighted"], "monk": {"min_health": 3}},
-		"text": "Um menino da aldeia do vale correu a noite inteira. Sua avó está morrendo e pede um homem da antiga fé para rezar com ela. {monk} poderia chegar à aldeia em dois dias.",
+		"text": "Um menino de Kilbride correu a noite inteira. Sua avó está morrendo e pede um homem da antiga fé para rezar com ela. {monk} poderia chegar à aldeia em dois dias.",
 		"choices": [
 			{
 				"label": "Mandar {monk} imediatamente",
 				"effects": {"monk_away": {"weeks": 2, "tag": "on_mission"}},
-				"chronicle": "{When}, um menino chegou correndo da aldeia do vale, e {monk} voltou com ele para um leito de morte."
+				"chronicle": "{When}, um menino chegou correndo de Kilbride, e {monk} voltou com ele para um leito de morte."
 			},
 			{
 				"label": "Ninguém pode ser poupado",
 				"effects": {"goodwill": -1, "add_tag": "village_slighted", "tag_weeks": 48},
-				"chronicle": "{When}, a aldeia do vale pediu que um irmão rezasse num leito de morte, e a casa não mandou ninguém. A aldeia não esqueceu."
+				"chronicle": "{When}, Kilbride pediu que um irmão rezasse num leito de morte, e a casa não mandou ninguém. A aldeia não esqueceu."
 			}
 		]
 	},
@@ -142,8 +142,8 @@
 		"effects": {
 			"oracle": {
 				"odds": "likely",
-				"yes": {"goodwill": 2, "add_tag": "village_friend", "remove_tag": "village_slighted", "chronicle": "{monk} voltou da aldeia do vale. A velha morrera em paz, e a aldeia disse que se lembraria de quem foi até lá."},
-				"no": {"goodwill": 1, "monk_add_tag": "grieving", "chronicle": "{monk} chegou à aldeia do vale tarde demais, e só pôde ajudar a enterrar os mortos. Voltou para casa em silêncio."}
+				"yes": {"goodwill": 2, "add_tag": "village_friend", "remove_tag": "village_slighted", "chronicle": "{monk} voltou de Kilbride. A velha morrera em paz, e a aldeia disse que se lembraria de quem foi até lá."},
+				"no": {"goodwill": 1, "monk_add_tag": "grieving", "chronicle": "{monk} chegou a Kilbride tarde demais, e só pôde ajudar a enterrar os mortos. Voltou para casa em silêncio."}
 			}
 		}
 	},
@@ -180,8 +180,8 @@
 		"effects": {
 			"oracle": {
 				"odds": "even",
-				"yes": {"remove_tag": "village_slighted", "goodwill": 1, "chronicle": "{monk} passou duas semanas consertando telhados na aldeia do vale. Quando partiu, o chefe da aldeia o acompanhou até a beira dos campos."},
-				"no": {"chronicle": "{monk} foi à aldeia do vale para reparar o erro, mas não lhe abriram as portas."}
+				"yes": {"remove_tag": "village_slighted", "goodwill": 1, "chronicle": "{monk} passou duas semanas consertando telhados em Kilbride. Quando partiu, o chefe da aldeia o acompanhou até a beira dos campos."},
+				"no": {"chronicle": "{monk} foi a Kilbride para reparar o erro, mas não lhe abriram as portas."}
 			}
 		}
 	}

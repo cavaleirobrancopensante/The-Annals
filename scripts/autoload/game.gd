@@ -14,6 +14,7 @@ func new_game(seed_value: int = -1) -> void:
 	Chronicle.clear()
 	EventEngine.reset()
 	Road.new_game()
+	Village.new_game()
 	Rule.new_game()
 	return_queue = []
 	var brothers := WorldState.living_monks().size() - 1
@@ -108,6 +109,7 @@ func _weekly_turn() -> void:
 	_economy()
 	_practice()
 	_health()
+	Village.weekly()
 	_travel()
 	_road()
 	WorldState.expire_tags()
@@ -121,6 +123,8 @@ func _weekly_turn() -> void:
 		var id = return_queue.pop_front()
 		if not EventEngine.pick_event("return", int(id)):
 			_generic_return(int(id))
+	elif Village.wants_event() and EventEngine.pick_event("village"):
+		pass
 	elif Oracle.chance(EVENT_CHANCE):
 		EventEngine.pick_event("abbey")
 	EventBus.week_advanced.emit(WorldState.week)
@@ -218,6 +222,7 @@ func _economy() -> void:
 		field_work += Skills.work_multiplier(m, "might", "labour", Skills.EASY)
 	var produce := int(round(field_work * _field_yield(s)))
 	produce += Skills.hunt_food(s == "winter")
+	produce += Village.labour_food(s)
 	if WorldState.has_tag("water_pump") and s in ["summer", "autumn"]:
 		produce += 3
 	if WorldState.has_tag("blight"):

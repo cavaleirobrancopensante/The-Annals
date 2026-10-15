@@ -155,7 +155,7 @@
 		"weight": 6,
 		"cooldown": 48,
 		"when": {"has_tag": ["village_friend"]},
-		"effects": {"food": 20, "goodwill": 1, "chronicle": "{When}, a aldeia do vale mandou subir uma carroça de nabos e duas cabras, sem que ninguém pedisse."}
+		"effects": {"food": 20, "goodwill": 1, "chronicle": "{When}, Kilbride mandou subir uma carroça de nabos e duas cabras, sem que ninguém pedisse."}
 	},
 	{
 		"id": "village_cold_shoulder",
@@ -163,12 +163,12 @@
 		"weight": 8,
 		"cooldown": 16,
 		"when": {"has_tag": ["village_slighted"], "monk": {"min_health": 3}},
-		"text": "Ninguém da aldeia do vale veio à Missa no domingo. {monk} diz que eles ainda estão zangados porque ninguém foi ao leito de morte.",
+		"text": "Ninguém de Kilbride veio à Missa no domingo. {monk} diz que eles ainda estão zangados porque ninguém foi ao leito de morte.",
 		"choices": [
 			{
 				"label": "Mandar {monk} reparar o erro",
 				"effects": {"monk_away": {"weeks": 2, "tag": "on_amends"}},
-				"chronicle": "{When}, {monk} desceu à aldeia do vale para reparar o erro."
+				"chronicle": "{When}, {monk} desceu a Kilbride para reparar o erro."
 			},
 			{"label": "Eles voltarão a tempo", "effects": {"goodwill": -1}, "chronicle": ""}
 		]

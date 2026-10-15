@@ -33,6 +33,7 @@ func build_data() -> Dictionary:
 		"events": EventEngine.to_dict(),
 		"game": Game.to_dict(),
 		"road": Road.to_dict(),
+		"village": Village.to_dict(),
 		"rule": Rule.to_dict(),
 		"skirmish": Skirmish.to_dict(),
 		"tutorial": Tutorial.to_dict(),
@@ -91,6 +92,7 @@ func open_slot(n: int) -> bool:
 	EventEngine.from_dict(data.get("events", {}))
 	Game.from_dict(data.get("game", {}))
 	Road.from_dict(data.get("road", {}))
+	Village.from_dict(data.get("village", {}))
 	Rule.from_dict(data.get("rule", {}))
 	Skirmish.from_dict(data.get("skirmish", {}))
 	# Houses saved before the walk-through existed are never offered it.

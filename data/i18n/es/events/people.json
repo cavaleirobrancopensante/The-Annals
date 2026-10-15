@@ -163,7 +163,7 @@
 				"label": "Celebrar la fiesta",
 				"requires": {"food": 12},
 				"effects": {"food": -12, "goodwill": 2},
-				"chronicle": "{When}, la fiesta de {patron} se celebró con pan y canto, y vino la mitad del pueblo del valle."
+				"chronicle": "{When}, la fiesta de {patron} se celebró con pan y canto, y vino la mitad de Kilbride."
 			},
 			{"label": "Hacerla sencilla, como siempre", "chronicle": ""}
 		]

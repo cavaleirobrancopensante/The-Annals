@@ -163,7 +163,7 @@
 				"label": "Keep the feast",
 				"requires": {"food": 12},
 				"effects": {"food": -12, "goodwill": 2},
-				"chronicle": "{When}, the feast of {patron} was kept with bread and singing, and half the glen village came."
+				"chronicle": "{When}, the feast of {patron} was kept with bread and singing, and half of Kilbride came."
 			},
 			{"label": "Keep it plain, as always", "chronicle": ""}
 		]

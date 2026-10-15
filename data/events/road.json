@@ -38,17 +38,17 @@
 		"title": "A Boy at the Gate",
 		"cooldown": 40,
 		"when": {"not_tag": ["village_slighted"], "monk": {"min_health": 3}},
-		"text": "A boy from the glen village has run through the night. His grandmother is dying and asks for a man of the old faith to pray with her. {monk} could reach the village in two days.",
+		"text": "A boy from Kilbride has run through the night. His grandmother is dying and asks for a man of the old faith to pray with her. {monk} could reach the village in two days.",
 		"choices": [
 			{
 				"label": "Send {monk} at once",
 				"effects": {"monk_away": {"weeks": 2, "tag": "on_mission"}},
-				"chronicle": "{When}, a boy came running from the glen village, and {monk} went back with him to a deathbed."
+				"chronicle": "{When}, a boy came running from Kilbride, and {monk} went back with him to a deathbed."
 			},
 			{
 				"label": "No one can be spared",
 				"effects": {"goodwill": -1, "add_tag": "village_slighted", "tag_weeks": 48},
-				"chronicle": "{When}, the glen village asked for a brother to pray at a deathbed, and the house sent no one. The village did not forget it."
+				"chronicle": "{When}, Kilbride asked for a brother to pray at a deathbed, and the house sent no one. The village did not forget it."
 			}
 		]
 	},
@@ -142,8 +142,8 @@
 		"effects": {
 			"oracle": {
 				"odds": "likely",
-				"yes": {"goodwill": 2, "add_tag": "village_friend", "remove_tag": "village_slighted", "chronicle": "{monk} came back from the glen village. The old woman had died at peace, and the village said they would remember who came."},
-				"no": {"goodwill": 1, "monk_add_tag": "grieving", "chronicle": "{monk} reached the glen village too late, and could only help bury the dead. He came home quiet."}
+				"yes": {"goodwill": 2, "add_tag": "village_friend", "remove_tag": "village_slighted", "chronicle": "{monk} came back from Kilbride. The old woman had died at peace, and the village said they would remember who came."},
+				"no": {"goodwill": 1, "monk_add_tag": "grieving", "chronicle": "{monk} reached the Kilbride too late, and could only help bury the dead. He came home quiet."}
 			}
 		}
 	},
@@ -180,8 +180,8 @@
 		"effects": {
 			"oracle": {
 				"odds": "even",
-				"yes": {"remove_tag": "village_slighted", "goodwill": 1, "chronicle": "{monk} spent two weeks mending roofs in the glen village. When he left, the headman walked him to the edge of the fields."},
-				"no": {"chronicle": "{monk} went to the glen village to make amends, but they would not open their doors to him."}
+				"yes": {"remove_tag": "village_slighted", "goodwill": 1, "chronicle": "{monk} spent two weeks mending roofs in Kilbride. When he left, the headman walked him to the edge of the fields."},
+				"no": {"chronicle": "{monk} went to Kilbride to make amends, but they would not open their doors to him."}
 			}
 		}
 	}

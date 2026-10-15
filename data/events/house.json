@@ -112,7 +112,7 @@
 					"remove_tag": "cracked_bell",
 					"oracle": {
 						"odds": "likely",
-						"yes": {"goodwill": 2, "chronicle": "{When}, {monk} recast the bell. When it rang for Vespers, people in the glen village came out of their houses to listen."},
+						"yes": {"goodwill": 2, "chronicle": "{When}, {monk} recast the bell. When it rang for Vespers, people in Kilbride came out of their houses to listen."},
 						"no": {"add_tag": "flat_bell", "chronicle": "{When}, {monk} recast the bell, but it came out of the mould with a flaw and still rings a little flat."}
 					}
 				}
@@ -155,7 +155,7 @@
 		"weight": 6,
 		"cooldown": 48,
 		"when": {"has_tag": ["village_friend"]},
-		"effects": {"food": 20, "goodwill": 1, "chronicle": "{When}, the glen village sent up a cart of turnips and two goats, unasked."}
+		"effects": {"food": 20, "goodwill": 1, "chronicle": "{When}, Kilbride sent up a cart of turnips and two goats, unasked."}
 	},
 	{
 		"id": "village_cold_shoulder",
@@ -163,12 +163,12 @@
 		"weight": 8,
 		"cooldown": 16,
 		"when": {"has_tag": ["village_slighted"], "monk": {"min_health": 3}},
-		"text": "No one from the glen village came up for Mass on Sunday. {monk} says they are still angry that no one came to the deathbed.",
+		"text": "No one from Kilbride came up for Mass on Sunday. {monk} says they are still angry that no one came to the deathbed.",
 		"choices": [
 			{
 				"label": "Send {monk} to make amends",
 				"effects": {"monk_away": {"weeks": 2, "tag": "on_amends"}},
-				"chronicle": "{When}, {monk} went down to the glen village to make amends."
+				"chronicle": "{When}, {monk} went down to Kilbride to make amends."
 			},
 			{"label": "They will come back in time", "effects": {"goodwill": -1}, "chronicle": ""}
 		]

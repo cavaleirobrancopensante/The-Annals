@@ -37,6 +37,7 @@ func _ready() -> void:
 	var colonies := 0
 	var rule_changes := 0
 	var trainings := 0
+	var controlled_weeks := 0
 	for i in years * WorldState.WEEKS_PER_YEAR:
 		if build_policy:
 			for b in ["granary", "woodshed", "scriptorium", "infirmary"]:
@@ -68,6 +69,8 @@ func _ready() -> void:
 			hunger_weeks += 1
 		if WorldState.has_tag("cold"):
 			cold_weeks += 1
+		if Village.controlled:
+			controlled_weeks += 1
 		var guard := 0
 		while Game.waiting() and guard < 10:
 			var view := Game.current_view()
@@ -109,6 +112,7 @@ func _ready() -> void:
 		if bool(mm.get("path_known", false)):
 			known += 1
 	print("Field workers: %.1f a week of %.1f at home. Paths known: %d of %d brothers ever." % [float(field_sum) / weeks_run, float(home_sum) / weeks_run, known, WorldState.monks.size()])
+	print("Village: standing %d, controlled for %d of %d weeks, held at the end: %s" % [Village.standing, controlled_weeks, weeks_run, str(Village.controlled)])
 	print("World tags: %s" % str(WorldState.tags.keys()))
 	var fired := EventEngine.fired.keys()
 	fired.sort()

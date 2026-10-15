@@ -163,7 +163,7 @@
 				"label": "Fazer a festa",
 				"requires": {"food": 12},
 				"effects": {"food": -12, "goodwill": 2},
-				"chronicle": "{When}, a festa de {patron} foi celebrada com pão e cânticos, e metade da aldeia do vale veio."
+				"chronicle": "{When}, a festa de {patron} foi celebrada com pão e cânticos, e metade de Kilbride veio."
 			},
 			{"label": "Mantê-la simples, como sempre", "chronicle": ""}
 		]

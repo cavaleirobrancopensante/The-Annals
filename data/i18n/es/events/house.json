@@ -112,7 +112,7 @@
 					"remove_tag": "cracked_bell",
 					"oracle": {
 						"odds": "likely",
-						"yes": {"goodwill": 2, "chronicle": "{When}, {monk} refundió la campana. Cuando sonó para Vísperas, la gente del pueblo del valle salió de sus casas a escucharla."},
+						"yes": {"goodwill": 2, "chronicle": "{When}, {monk} refundió la campana. Cuando sonó para Vísperas, la gente de Kilbride salió de sus casas a escucharla."},
 						"no": {"add_tag": "flat_bell", "chronicle": "{When}, {monk} refundió la campana, pero salió del molde con un defecto y aún suena un poco plana."}
 					}
 				}
@@ -155,7 +155,7 @@
 		"weight": 6,
 		"cooldown": 48,
 		"when": {"has_tag": ["village_friend"]},
-		"effects": {"food": 20, "goodwill": 1, "chronicle": "{When}, el pueblo del valle subió un carro de nabos y dos cabras, sin que nadie se lo pidiera."}
+		"effects": {"food": 20, "goodwill": 1, "chronicle": "{When}, Kilbride subió un carro de nabos y dos cabras, sin que nadie se lo pidiera."}
 	},
 	{
 		"id": "village_cold_shoulder",
@@ -163,12 +163,12 @@
 		"weight": 8,
 		"cooldown": 16,
 		"when": {"has_tag": ["village_slighted"], "monk": {"min_health": 3}},
-		"text": "Nadie del pueblo del valle subió a Misa el domingo. {monk} dice que siguen enfadados porque nadie fue a su lecho de muerte.",
+		"text": "Nadie dKilbride subió a Misa el domingo. {monk} dice que siguen enfadados porque nadie fue a su lecho de muerte.",
 		"choices": [
 			{
 				"label": "Enviar a {monk} a reparar la ofensa",
 				"effects": {"monk_away": {"weeks": 2, "tag": "on_amends"}},
-				"chronicle": "{When}, {monk} bajó al pueblo del valle para reparar la ofensa."
+				"chronicle": "{When}, {monk} bajó a Kilbride para reparar la ofensa."
 			},
 			{"label": "Volverán a su debido tiempo", "effects": {"goodwill": -1}, "chronicle": ""}
 		]

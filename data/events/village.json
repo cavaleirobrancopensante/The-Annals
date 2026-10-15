@@ -1,0 +1,141 @@
+[
+	{
+		"id": "village_alms",
+		"title": "Bread for the Winter",
+		"deck": "village",
+		"weight": 6,
+		"cooldown": 40,
+		"when": {"village_standing_max": 5},
+		"text": "A boy comes up the hill from {village} with a cracked bowl. The low fields flooded, and the families below the church have eaten their seed. They ask the house for bread, and say they will remember it.",
+		"choices": [
+			{
+				"label": "Send bread down from the granary",
+				"requires": {"food": 8},
+				"effects": {"food": -8, "village_standing": 4},
+				"chronicle": "{When}, the house sent bread down to {village}, and the families there said so at the church door."
+			},
+			{
+				"label": "Tell the boy the house has none to spare",
+				"effects": {"village_standing": -3},
+				"chronicle": "{When}, the boy went back down the hill with an empty bowl, and {village} remembered it."
+			}
+		]
+	},
+	{
+		"id": "village_boundary",
+		"title": "A Wall That Moved",
+		"deck": "village",
+		"weight": 5,
+		"cooldown": 30,
+		"text": "Two families of {village} have come up with a witness each, over a stone wall that stood in one place yesterday and in another this morning. Both want the house to say whose the wall is.",
+		"choices": [
+			{
+				"label": "Go down and settle it between them",
+				"check": {"stat": "presence", "skill": "persuasion", "difficulty": 7},
+				"success": {
+					"effects": {"village_standing": 3},
+					"chronicle": "{When}, the abbot walked the line with both families and set the wall where both could agree, and {village} went home talking of it."
+				},
+				"failure": {
+					"effects": {"village_standing": -2},
+					"chronicle": "{When}, neither family would give way, and the abbot went back up the hill with the quarrel still open."
+				}
+			},
+			{
+				"label": "Say the wall belongs to the house and let no one touch it",
+				"effects": {"village_standing": -2},
+				"chronicle": "{When}, the house claimed the wall, and {village} said nothing, and did not forget."
+			}
+		]
+	},
+	{
+		"id": "village_sick_child",
+		"title": "A Fever Below the Church",
+		"deck": "village",
+		"weight": 5,
+		"cooldown": 30,
+		"text": "A child of {village} has a fever that will not break, and the mother has come up the hill on foot to ask for the infirmary's medicine.",
+		"choices": [
+			{
+				"label": "Send the medicine down",
+				"requires": {"medicine": 1},
+				"effects": {"medicine": -1, "village_standing": 4},
+				"chronicle": "{When}, the house sent medicine down to {village}, and the child who had been given up for dead was carried up the hill a week later to say thank you."
+			},
+			{
+				"label": "Send a brother down to pray with the family",
+				"effects": {"village_standing": 1},
+				"chronicle": "{When}, a brother went down to {village} to pray with the family, and came back without the medicine."
+			},
+			{
+				"label": "Say the house has no medicine to spare",
+				"effects": {"village_standing": -2},
+				"chronicle": "{When}, the mother went down the hill without the medicine, and {village} counted the house's words."
+			}
+		]
+	},
+	{
+		"id": "village_crowd",
+		"title": "Torches at the Gate",
+		"deck": "village",
+		"weight": 5,
+		"cooldown": 30,
+		"when": {"village_standing_max": 2},
+		"text": "A crowd comes up the road from {village} after dark, with torches. A rumour has reached them that the house keeps grain it will not share, and they want to see the granary.",
+		"choices": [
+			{
+				"label": "Open the granary and show them",
+				"effects": {"food": -6, "village_standing": 4},
+				"chronicle": "{When}, the granary was opened to the crowd from {village}. They went down again with what they could carry, and with less anger."
+			},
+			{
+				"label": "Bar the gate and keep the bell ringing",
+				"effects": {"village_standing": -4},
+				"chronicle": "{When}, the gate was barred, and the crowd from {village} stood under the wall until dawn, and went home angry."
+			}
+		]
+	},
+	{
+		"id": "village_banns",
+		"title": "Banns Read at Mass",
+		"deck": "village",
+		"weight": 6,
+		"cooldown": 40,
+		"when": {"village_controlled": true},
+		"text": "A wedding is to be made in {village}. The families ask the house to read the banns and to feed the guests after. The house has a claim on the village now, and they know it.",
+		"choices": [
+			{
+				"label": "Read the banns and feed the guests",
+				"requires": {"food": 4},
+				"effects": {"food": -4, "village_standing": 2},
+				"chronicle": "{When}, the banns were read in the chapel, and the wedding feast in {village} was given from the house's stores."
+			},
+			{
+				"label": "Read the banns and ask for a prayer only",
+				"effects": {"village_standing": 1},
+				"chronicle": "{When}, the banns were read, and the wedding in {village} went ahead without a feast."
+			}
+		]
+	},
+	{
+		"id": "village_tithe_withheld",
+		"title": "A Sheaf Kept Back",
+		"deck": "village",
+		"weight": 5,
+		"cooldown": 40,
+		"when": {"village_controlled": true, "village_standing_min": 1},
+		"text": "When the tithe carts came up from {village} this season, the families sent word that they would keep back a sheaf in ten until the house mends the bridge over the stream.",
+		"choices": [
+			{
+				"label": "Press them for the full tithe",
+				"effects": {"food": 3, "village_standing": -3},
+				"chronicle": "{When}, the full tithe came up from {village}, and was counted at the gate without a word."
+			},
+			{
+				"label": "Let them keep it, and say nothing",
+				"effects": {"village_standing": 2},
+				"chronicle": "{When}, the house let {village} keep its sheaf, and the carts went down light."
+			}
+		]
+	}
+]

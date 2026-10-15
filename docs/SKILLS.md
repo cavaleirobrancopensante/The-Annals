@@ -1,6 +1,6 @@
 # Skills, stats and vocations (design draft)
 
-Status: phases 1 to 4 built. Stats, skills and the check; practice and training; paths and hidden vocations; and the uses of the skills (fighting strength from Might with Melee or Hand with Ranged, hunting for food, field and scriptorium work scaled by checks, and event choices that are checks with success and failure branches). Village control is still to come. Path entry requirements are recorded but not enforced. A tutorial for new players is on the task list.
+Status: phases 1 to 5 built. Stats, skills and the check; practice and training; paths and hidden vocations; the uses of the skills (fighting strength from Might with Melee or Hand with Ranged, hunting for food, field and scriptorium work scaled by checks, and event choices that are checks with success and failure branches); and village control (below). The marriage exit, the village's householder families and the link from the old glen village tags to its standing are still to come. Path entry requirements are recorded but not enforced. A tutorial for new players is on the task list.
 
 ## Principles
 
@@ -108,6 +108,18 @@ A village near the house can come under the house's control. Control is not a bu
 - **Losing control:** standing falls below a threshold, a rival lord comes, or the village's own people turn on the house. The village's events and tithes stop, and the householders may leave.
 
 Control multiplies the events the house can meet. Each controlled village adds its own deck, drawn on the weekly turn, so the house has more to answer for as it grows.
+
+### Built
+
+- **The standing** (`scripts/autoload/village.gd`): -10 to 10, starting at 2. The village is the one named in the event cards: Kilbride (`data/village/village.json`).
+- **Control** is gained at 6 and lost at 0 or below. Each change is written in the annals.
+- **Neglect:** with no visit or village event for 26 weeks, the standing falls one point every 8 weeks.
+- **Tithe:** while controlled, every 4 weeks the house takes 4 food and 2 firewood from the village.
+- **Labour:** while controlled, the village adds 2 food a week to the fields in spring, summer and autumn.
+- **The village deck** (`data/events/village.json`, deck `village`) is drawn each week before the house's own events: 12% a week while controlled, 3% otherwise. Cards read control and standing (`village_controlled`, `village_standing_min`, `village_standing_max`), and set the standing with `village_standing`. Any resolved village card counts as a visit.
+- Six cards so far: bread for the winter, a moved wall, a sick child, torches at the gate, banns read at Mass, and a sheaf kept back.
+
+Not yet built: the marriage exit and householder families, the old glen village tags (`village_friend`, `village_slighted`) still move goodwill only and are not tied to the standing, the village's standing on the estate screen, and allied lords.
 
 ## Open questions
 

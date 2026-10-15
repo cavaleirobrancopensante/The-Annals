@@ -38,17 +38,17 @@
 		"title": "Un niño a la puerta",
 		"cooldown": 40,
 		"when": {"not_tag": ["village_slighted"], "monk": {"min_health": 3}},
-		"text": "Un muchacho del pueblo del valle ha venido corriendo toda la noche. Su abuela se muere y pide a un hombre de la antigua fe que rece con ella. {monk} podría llegar al pueblo en dos días.",
+		"text": "Un muchacho de Kilbride ha venido corriendo toda la noche. Su abuela se muere y pide a un hombre de la antigua fe que rece con ella. {monk} podría llegar al pueblo en dos días.",
 		"choices": [
 			{
 				"label": "Enviar a {monk} de inmediato",
 				"effects": {"monk_away": {"weeks": 2, "tag": "on_mission"}},
-				"chronicle": "{When}, llegó corriendo un niño desde el pueblo del valle, y {monk} volvió con él a un lecho de muerte."
+				"chronicle": "{When}, llegó corriendo un niño desde Kilbride, y {monk} volvió con él a un lecho de muerte."
 			},
 			{
 				"label": "No se puede prescindir de nadie",
 				"effects": {"goodwill": -1, "add_tag": "village_slighted", "tag_weeks": 48},
-				"chronicle": "{When}, el pueblo del valle pidió un hermano que rezara junto a un lecho de muerte, y la casa no envió a nadie. El pueblo no lo olvidó."
+				"chronicle": "{When}, Kilbride pidió un hermano que rezara junto a un lecho de muerte, y la casa no envió a nadie. El pueblo no lo olvidó."
 			}
 		]
 	},
@@ -142,8 +142,8 @@
 		"effects": {
 			"oracle": {
 				"odds": "likely",
-				"yes": {"goodwill": 2, "add_tag": "village_friend", "remove_tag": "village_slighted", "chronicle": "{monk} volvió del pueblo del valle. La anciana había muerto en paz, y el pueblo dijo que recordaría quién había acudido."},
-				"no": {"goodwill": 1, "monk_add_tag": "grieving", "chronicle": "{monk} llegó al pueblo del valle demasiado tarde, y solo pudo ayudar a enterrar a los muertos. Volvió a casa callado."}
+				"yes": {"goodwill": 2, "add_tag": "village_friend", "remove_tag": "village_slighted", "chronicle": "{monk} volvió de Kilbride. La anciana había muerto en paz, y el pueblo dijo que recordaría quién había acudido."},
+				"no": {"goodwill": 1, "monk_add_tag": "grieving", "chronicle": "{monk} llegó a Kilbride demasiado tarde, y solo pudo ayudar a enterrar a los muertos. Volvió a casa callado."}
 			}
 		}
 	},
@@ -180,8 +180,8 @@
 		"effects": {
 			"oracle": {
 				"odds": "even",
-				"yes": {"remove_tag": "village_slighted", "goodwill": 1, "chronicle": "{monk} pasó dos semanas reparando tejados en el pueblo del valle. Cuando se marchó, el jefe del pueblo lo acompañó hasta el borde de los campos."},
-				"no": {"chronicle": "{monk} fue al pueblo del valle para reparar la ofensa, pero no le abrieron las puertas."}
+				"yes": {"remove_tag": "village_slighted", "goodwill": 1, "chronicle": "{monk} pasó dos semanas reparando tejados en Kilbride. Cuando se marchó, el jefe del pueblo lo acompañó hasta el borde de los campos."},
+				"no": {"chronicle": "{monk} fue a Kilbride para reparar la ofensa, pero no le abrieron las puertas."}
 			}
 		}
 	}
