@@ -495,13 +495,17 @@ def map_parchment(w=720, h=520):
                + rose)
 
 
-def scene(kind):
-    """A small scene for an event card: sky, land and a few silhouettes. 560 by 320."""
+def scene(kind, winter=False):
+    """A small scene for an event card: sky, land and a few silhouettes. 560 by 320.
+    The winter variant is the same scene under snow: a paler sky, white ground and a few drifts."""
     w, h = 560, 320
     sky = {"road": "#3d5a6a", "village": "#6a5a7a", "chapel": "#3a2a40", "coast": "#2f5a6a",
            "fields": "#7a8a5a", "sickroom": "#2a3a3a", "storm": "#22303a", "hall": "#4a3320"}[kind]
     land = {"road": "#5a6a3a", "village": "#4a5a32", "chapel": "#2a2119", "coast": "#4a5a52",
             "fields": "#8a7a3a", "sickroom": "#3a3028", "storm": "#2a3a30", "hall": "#3a2a1a"}[kind]
+    if winter:
+        sky = mix(sky, "#b8c4cc", 0.55)
+        land = mix(land, "#e4ebef", 0.7)
     body = [defs_common() +
             f'<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{darker(sky, 0.3)}"/>'
             f'<stop offset="1" stop-color="{sky}"/></linearGradient></defs>',
@@ -541,6 +545,12 @@ def scene(kind):
         body.append(f'<path d="M80 {h-60} L280 60 L480 {h-60} Z" fill="#6a4a2a" stroke="{INK}" stroke-width="4"/>')
         body.append(f'<path d="M280 60 L280 {h-60}" stroke="{INK}" stroke-width="3"/>')
         body.append('<rect x="250" y="150" width="60" height="50" fill="url(#parch)" stroke="#2a1d14" stroke-width="2"/>')
+    if winter:
+        # Drifts on the ground, and a few flakes in the sky.
+        for x, y, rx in ((70, h - 40, 60), (260, h - 30, 80), (470, h - 46, 70)):
+            body.append(f'<ellipse cx="{x}" cy="{y}" rx="{rx}" ry="12" fill="#f4f8fa" opacity="0.85"/>')
+        for x, y in ((120, 40), (230, 70), (360, 30), (500, 60), (300, 110)):
+            body.append(f'<circle cx="{x}" cy="{y}" r="3" fill="#f4f8fa" opacity="0.9"/>')
     return svg(w, h, "".join(body))
 
 
@@ -559,8 +569,8 @@ def write_all_extra():
                      "stance_advance": svg(128, 128, defs_common() + stance_icon("advance")),
                      "stance_hold": svg(128, 128, defs_common() + stance_icon("hold")),
                      "stance_withdraw": svg(128, 128, defs_common() + stance_icon("withdraw"))},
-           "map": {"island": map_parchment()},
-           "scenes": {k: scene(k) for k in SCENES}}
+           "scenes": {**{k: scene(k) for k in SCENES},
+                      **{k + "_winter": scene(k, winter=True) for k in SCENES}}}
     for folder, files in out.items():
         os.makedirs(os.path.join(ROOT, folder), exist_ok=True)
         for name, text in files.items():
