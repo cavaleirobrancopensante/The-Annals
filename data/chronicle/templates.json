@@ -102,5 +102,10 @@
 	"house_fell": [
 		"Here the annals of the house of {patron} at {place} end. No brother remained to keep them.",
 		"And the house of {patron} fell silent. The wind came in through the chapel windows as it had before the brothers came."
+	],
+	"feast_kept": [
+		"On the feast of {feast} the brothers kept the whole office and sang High Mass with the doors open to the road.",
+		"On the feast of {feast} the bell was rung at every hour, and the house ate better than it had any right to.",
+		"On the feast of {feast} the brothers walked the boundary wall in procession, singing, as the old rule asks."
 	]
 }

@@ -6,13 +6,13 @@ You found a small abbey in the ruins of a fallen Ireland, an island with the sea
 
 Built in **Godot 4.7** (GDScript, GL Compatibility renderer), portrait, mobile first.
 
-## Status: Phase 5, skirmishes
+## Status: Phase 6 in progress, the calendar
 
 A text-only prototype. Phase 1 asked whether the chronicle reads like a story; Phase 2 asked whether winter feels tense enough to plan for; Phase 3 asked whether the road gives the house a reason to leave its walls; Phase 4 asks whether a 50-year house stays varied.
 
 What works now:
 
-- Weekly turns across four seasons, 48 weeks a year
+- A day clock on the Roman calendar of 1962: the house's economy turns weekly, the seasons follow the months, and the great feasts stop the clock
 - Jobs for every brother: fields, woodcutting, kitchen, infirmary, scriptorium, rest. Sick brothers don't work.
 - Four buildings, raised by a builder at home: granary (food stores 120 to 320), woodshed (firewood 40 to 120), infirmary (medicine, and a place for healers to work), scriptorium (books)
 - The Estate tab shows each brother's job and the buildings. The header shows the winter forecast: what winter needs against what is stored
@@ -52,7 +52,8 @@ scripts/
   autoload/         the engine
     event_bus.gd      global signals
     oracle.gd         seeded random rolls and yes/no questions
-    world_state.gd    calendar, resources, brothers, tags
+    world_state.gd    the day clock, resources, brothers, tags
+    calendar.gd       the 1962 Roman calendar: weekdays, Easter, feasts, church season
     chronicle.gd      formatting, entries, export
     event_engine.gd   loads cards, checks conditions, applies effects
     game.gd           the weekly turn: economy, health, travel, ageing, succession

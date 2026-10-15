@@ -132,6 +132,9 @@ func _build_ui() -> void:
 	controls_box = HBoxContainer.new()
 	controls_box.add_theme_constant_override("separation", 8)
 	root.add_child(controls_box)
+	var day_btn := _button("Next day")
+	day_btn.pressed.connect(_on_next_day)
+	controls_box.add_child(day_btn)
 	var next_btn := _button("Next week")
 	next_btn.pressed.connect(_on_next_week)
 	controls_box.add_child(next_btn)
@@ -212,8 +215,11 @@ func _button(text: String) -> Button:
 func _refresh() -> void:
 	title_label.text = WorldState.full_house_name()
 	var ab := WorldState.abbot()
-	status_label.text = "Year %d  ·  %s, week %d  ·  Abbot %s  ·  Generation %d" % [
-		WorldState.year(), WorldState.season().capitalize(), WorldState.week_in_season(), ab.get("name", "none"), WorldState.generation]
+	var feasts := Calendar.feasts_on(WorldState.cal_year, WorldState.cal_month, WorldState.cal_day)
+	var today := "  ·  Today is %s" % str(feasts[0]["name"]) if not feasts.is_empty() else ""
+	status_label.text = "%s%s\nYear %d  ·  %s, week %d  ·  Abbot %s  ·  Generation %d" % [
+		WorldState.date_text(), today, WorldState.year(), WorldState.season().capitalize(),
+		WorldState.week_in_season(), ab.get("name", "none"), WorldState.generation]
 	resources_label.text = "Food %d/%d   Firewood %d/%d   Medicine %d/%d   Books %d   Goodwill %d   ·   %d brothers" % [
 		WorldState.res("food"), WorldState.cap("food"), WorldState.res("firewood"), WorldState.cap("firewood"),
 		WorldState.res("medicine"), WorldState.cap("medicine"), WorldState.res("books"), WorldState.res("goodwill"),
@@ -682,6 +688,10 @@ func _on_choice(index: int) -> void:
 
 
 # --- Buttons ------------------------------------------------------------
+
+func _on_next_day() -> void:
+	Game.advance_day()
+
 
 func _on_next_week() -> void:
 	Game.advance_week()

@@ -22,6 +22,8 @@ func _ready() -> void:
 			main._on_next_week()
 		if i % 20 == 0:
 			await get_tree().process_frame
+	for i in 10:
+		main._on_next_day()
 	main._on_until()
 	for b in ["granary", "woodshed", "scriptorium"]:
 		Game.build(b)

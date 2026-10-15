@@ -19,6 +19,7 @@ config/features=PackedStringArray("4.7", "GL Compatibility")
 
 EventBus="*res://scripts/autoload/event_bus.gd"
 Oracle="*res://scripts/autoload/oracle.gd"
+Calendar="*res://scripts/autoload/calendar.gd"
 WorldState="*res://scripts/autoload/world_state.gd"
 Road="*res://scripts/autoload/road.gd"
 Rule="*res://scripts/autoload/rule.gd"

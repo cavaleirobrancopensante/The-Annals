@@ -73,7 +73,7 @@ func _ready() -> void:
 
 	print(Chronicle.export_text())
 	print("==== SUMMARY ====")
-	print("Seed %d, reached year %d, %s %d" % [seed_value, WorldState.year(), WorldState.season(), WorldState.week_in_season()])
+	print("Seed %d, reached %s (house year %d), %s week %d" % [seed_value, WorldState.date_text(), WorldState.year(), WorldState.season(), WorldState.week_in_season()])
 	print("Entries: %d, choices made: %d, fallen: %s" % [Chronicle.entries.size(), choices_made, WorldState.fallen])
 	print("Resources: %s" % WorldState.resources)
 	print("Living brothers: %d of %d ever" % [WorldState.living_monks().size(), WorldState.monks.size()])
@@ -83,6 +83,7 @@ func _ready() -> void:
 	print("Phase 4: colonies sent %d, daughter houses standing %d, rule changes %d, generation %d, saints %s" % [colonies, WorldState.priories.size(), rule_changes, WorldState.generation, str(WorldState.saints)])
 	print("Rule now: %s" % str(Rule.chosen))
 	print("Skirmishes fought: %d" % Chronicle.entries.filter(func(e): return e.get("kind", "") == "skirmish").size())
+	print("Great feasts kept: %d" % Chronicle.entries.filter(func(e): return e.get("kind", "") == "feast").size())
 	print("Weeks hungry: %d, weeks cold: %d" % [hunger_weeks, cold_weeks])
 	print("World tags: %s" % str(WorldState.tags.keys()))
 	var fired := EventEngine.fired.keys()

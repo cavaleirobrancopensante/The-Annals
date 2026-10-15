@@ -1,9 +1,9 @@
 extends Node
 ## Single source of truth: calendar, resources, brothers, buildings and world tags.
 
-const SEASONS := ["spring", "summer", "autumn", "winter"]
-const WEEKS_PER_SEASON := 12
-const WEEKS_PER_YEAR := 48
+## A season of the house is about thirteen weeks; a year about fifty-two (the house year is the calendar's, 365 days).
+const WEEKS_PER_SEASON := 13
+const WEEKS_PER_YEAR := 52
 const RESOURCES := ["food", "firewood", "medicine", "books", "goodwill"]
 const VOCATIONS := {
 	"scribe": "scribe",
@@ -54,7 +54,18 @@ const BUILDING_CAPS := {
 
 var patron := ""
 var place := ""
+## Days since the house's clock began (Michaelmas, Anno Domini 2500).
+var day := 0
+## The economy's week: day / 7. Tags and road journeys count in these.
 var week := 0
+## The calendar date of today.
+var cal_year := 2500
+var cal_month := 9
+var cal_day := 29
+## Days since the current season of the house began.
+var season_day := 0
+## Years of the house: turns on the first of March, when the spring begins.
+var house_year := 1
 var resources := {}
 var monks: Array = []
 ## tag -> week it expires (-1 = permanent)
@@ -92,7 +103,13 @@ func _ready() -> void:
 # --- New game -----------------------------------------------------------
 
 func new_game() -> void:
+	day = 0
 	week = 0
+	cal_year = Calendar.START_YEAR
+	cal_month = Calendar.START_MONTH
+	cal_day = Calendar.START_DAY
+	season_day = Calendar.days_into_season(cal_year, cal_month, cal_day)
+	house_year = 1
 	resources = {"food": 120, "firewood": 30, "medicine": 4, "books": 2, "goodwill": 3}
 	monks = []
 	tags = {}
@@ -123,19 +140,32 @@ func full_house_name() -> String:
 # --- Calendar -----------------------------------------------------------
 
 func year() -> int:
-	return int(week / float(WEEKS_PER_YEAR)) + 1
-
-
-func season_index() -> int:
-	return int(week / float(WEEKS_PER_SEASON)) % 4
+	return house_year
 
 
 func season() -> String:
-	return SEASONS[season_index()]
+	return Calendar.season_of(cal_month)
 
 
+## Which week of the season today falls in, counting from 1.
 func week_in_season() -> int:
-	return week % WEEKS_PER_SEASON + 1
+	return mini(season_day / 7 + 1, WEEKS_PER_SEASON)
+
+
+## Moves the clock one day. Game runs whatever the day brings.
+func advance_day() -> void:
+	var before := season()
+	day += 1
+	week = day / 7
+	var nx: Array = Calendar.next_date(cal_year, cal_month, cal_day)
+	cal_year = nx[0]
+	cal_month = nx[1]
+	cal_day = nx[2]
+	season_day = 0 if season() != before else season_day + 1
+
+
+func date_text() -> String:
+	return Calendar.long_date(cal_year, cal_month, cal_day)
 
 
 # --- Brothers -----------------------------------------------------------
@@ -355,7 +385,7 @@ func res(r: String) -> int:
 
 # --- Winter forecast ----------------------------------------------------
 
-const WINTER_WEEKS := 12
+const WINTER_WEEKS := 13
 
 ## Food and firewood a winter of the current household will need.
 func winter_food_need() -> int:
@@ -372,7 +402,13 @@ func to_dict() -> Dictionary:
 	return {
 		"patron": patron,
 		"place": place,
+		"day": day,
 		"week": week,
+		"cal_year": cal_year,
+		"cal_month": cal_month,
+		"cal_day": cal_day,
+		"season_day": season_day,
+		"house_year": house_year,
 		"resources": resources,
 		"monks": monks,
 		"tags": tags,
@@ -391,7 +427,13 @@ func to_dict() -> Dictionary:
 func from_dict(d: Dictionary) -> void:
 	patron = d.get("patron", "")
 	place = d.get("place", "")
+	day = int(d.get("day", 0))
 	week = int(d.get("week", 0))
+	cal_year = int(d.get("cal_year", Calendar.START_YEAR))
+	cal_month = int(d.get("cal_month", Calendar.START_MONTH))
+	cal_day = int(d.get("cal_day", Calendar.START_DAY))
+	season_day = int(d.get("season_day", 0))
+	house_year = int(d.get("house_year", 1))
 	resources = {}
 	for r in d.get("resources", {}):
 		resources[r] = int(d["resources"][r])

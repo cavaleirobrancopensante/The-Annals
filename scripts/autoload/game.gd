@@ -21,41 +21,35 @@ func new_game(seed_value: int = -1) -> void:
 	SaveSystem.save_game()
 
 
-func advance_week() -> void:
+## One day of the house's clock. Seasons, feasts and the week's turn fall on their days.
+func advance_day() -> void:
 	if WorldState.fallen or waiting():
 		return
 	var old_season := WorldState.season()
-	WorldState.week += 1
+	WorldState.advance_day()
 	if WorldState.season() != old_season:
 		if WorldState.season() == "spring":
 			_new_year()
 		_season_change(old_season)
-	_economy()
-	_health()
-	_travel()
-	_road()
-	WorldState.expire_tags()
-	_check_succession()
-	if _check_fall():
-		return
-	# One thing at a time: a waiting choice (an arrival, say) holds back the rest.
-	if waiting():
-		pass
-	elif not return_queue.is_empty():
-		var id = return_queue.pop_front()
-		if not EventEngine.pick_event("return", int(id)):
-			_generic_return(int(id))
-	elif Oracle.chance(EVENT_CHANCE):
-		EventEngine.pick_event("abbey")
+	_feast_today()
+	if WorldState.day % 7 == 0:
+		_weekly_turn()
 	_after_change()
-	EventBus.week_advanced.emit(WorldState.week)
 
 
-## Runs weeks until a choice is needed, something is written, or the limit is hit.
-func advance_until_something(max_weeks: int = 48) -> void:
+## Runs days up to the week's turn: the economy, the road, and any event it brings.
+func advance_week() -> void:
+	while not WorldState.fallen and not waiting():
+		advance_day()
+		if WorldState.day % 7 == 0:
+			return
+
+
+## Runs days until a choice is needed, a feast is kept (written into the annals), or the limit is hit.
+func advance_until_something(max_days: int = 365) -> void:
 	var start_entries := Chronicle.entries.size()
-	for i in max_weeks:
-		advance_week()
+	for i in max_days:
+		advance_day()
 		if waiting() or WorldState.fallen:
 			return
 		if Chronicle.entries.size() > start_entries:
@@ -106,6 +100,36 @@ func dispatch_party(node_id: String, member_ids: Array) -> bool:
 	}, "road")
 	_after_change()
 	return true
+
+
+## The economy, the road and the house's events, once a week.
+func _weekly_turn() -> void:
+	_economy()
+	_health()
+	_travel()
+	_road()
+	WorldState.expire_tags()
+	_check_succession()
+	if _check_fall():
+		return
+	# One thing at a time: a waiting choice (an arrival, say) holds back the rest.
+	if waiting():
+		pass
+	elif not return_queue.is_empty():
+		var id = return_queue.pop_front()
+		if not EventEngine.pick_event("return", int(id)):
+			_generic_return(int(id))
+	elif Oracle.chance(EVENT_CHANCE):
+		EventEngine.pick_event("abbey")
+	EventBus.week_advanced.emit(WorldState.week)
+
+
+## A great feast is kept by the whole house and written into the annals; it stops the clock.
+func _feast_today() -> void:
+	var f := Calendar.great_feast(WorldState.cal_year, WorldState.cal_month, WorldState.cal_day)
+	if f.is_empty():
+		return
+	Chronicle.add_template("feast_kept", {"feast": f["name"]}, "feast")
 
 
 func _after_change() -> void:
@@ -162,12 +186,6 @@ func _economy() -> void:
 	var wis := WorldState.week_in_season()
 	if s in ["spring", "summer"] and wis % 3 == 0:
 		WorldState.change_resource("medicine", WorldState.count_working("infirmary") + int(Rule.value("medicine_bonus")))
-	# The scriptorium finishes a book at the end of summer and of winter.
-	if wis == WorldState.WEEKS_PER_SEASON and s in ["summer", "winter"]:
-		var books := WorldState.count_working("scriptorium")
-		if WorldState.has_tag("lamp"):
-			books *= 2
-		WorldState.change_resource("books", int(round(books * (100.0 + Rule.value("book_pct")) / 100.0)))
 
 
 func _hunger(home: Array) -> void:
@@ -276,6 +294,7 @@ func _generic_return(id: int) -> void:
 
 
 func _new_year() -> void:
+	WorldState.house_year += 1
 	for m in WorldState.living_monks():
 		m["age"] = int(m["age"]) + 1
 		var age := int(m["age"])
@@ -292,7 +311,17 @@ func _new_year() -> void:
 		_novice()
 
 
+## The scriptorium finishes a book at the end of summer and of winter.
+func _finish_books() -> void:
+	var books := WorldState.count_working("scriptorium")
+	if WorldState.has_tag("lamp"):
+		books *= 2
+	WorldState.change_resource("books", int(round(books * (100.0 + Rule.value("book_pct")) / 100.0)))
+
+
 func _season_change(old_season: String) -> void:
+	if old_season in ["summer", "winter"]:
+		_finish_books()
 	if old_season == "autumn":
 		var food := WorldState.res("food")
 		var cap := WorldState.cap("food")
