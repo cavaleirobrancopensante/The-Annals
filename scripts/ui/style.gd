@@ -59,6 +59,10 @@ static func scene_for(card_id: String) -> Texture2D:
 		if f:
 			_scene_map = JSON.parse_string(f.get_as_text())
 	var scene := str(_scene_map.get(card_id, ""))
+	# A card's own picture comes first; the scene it is set in is the fallback.
+	var own := "res://assets/art/cards/%s.svg" % card_id
+	if ResourceLoader.exists(own):
+		return load(own)
 	if scene == "":
 		return null
 	# In winter the scene is drawn under snow, when the snowy version exists.
