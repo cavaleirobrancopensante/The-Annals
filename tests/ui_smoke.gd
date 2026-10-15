@@ -10,6 +10,8 @@ var main: Control
 func _ready() -> void:
 	SaveSystem.enabled = false
 	Oracle.start(42)
+	Game.new_game()
+	SaveSystem.slot = 1
 	main = load("res://scenes/main.tscn").instantiate()
 	add_child(main)
 	await get_tree().process_frame

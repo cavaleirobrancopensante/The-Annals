@@ -1,6 +1,6 @@
 # Menus, screens and the first-play tutorial (study)
 
-Status: study for review. Nothing here is built yet, except where marked "as built".
+Status: steps 1 to 3 built (slots, main menu, settings) with the language flags. The tutorial (section 7) and steps 4 to 7 are still to come.
 Target: a 720 × 1280 portrait phone screen, as the project is set up now (`project.godot`).
 
 ## 1. What exists today (as built)

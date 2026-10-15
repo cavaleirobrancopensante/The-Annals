@@ -12,7 +12,7 @@ config_version=5
 
 config/name="The Annals"
 config/description="A monastery at the end of the world, and the chronicle it leaves behind."
-run/main_scene="res://scenes/main.tscn"
+run/main_scene="res://scenes/menu.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 
 [autoload]
@@ -29,6 +29,7 @@ Skirmish="*res://scripts/autoload/skirmish.gd"
 Chronicle="*res://scripts/autoload/chronicle.gd"
 EventEngine="*res://scripts/autoload/event_engine.gd"
 Game="*res://scripts/autoload/game.gd"
+Settings="*res://scripts/autoload/settings.gd"
 SaveSystem="*res://scripts/autoload/save_system.gd"
 
 [display]

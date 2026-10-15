@@ -2,12 +2,12 @@ extends Control
 ## Phase 2 text interface, built for a portrait phone screen.
 ## Header with the winter forecast, chronicle and estate tabs, the current event, and turn buttons.
 
-const BG := Color("1b1611")
-const PANEL := Color("2a2119")
-const PARCHMENT := Color("e9dcbf")
-const DIM := Color("a8977a")
-const GOLD := Color("c9a14a")
-const RED := Color("b0503c")
+const BG := Style.BG
+const PANEL := Style.PANEL
+const PARCHMENT := Style.PARCHMENT
+const DIM := Style.DIM
+const GOLD := Style.GOLD
+const RED := Style.RED
 
 var title_label: Label
 var status_label: Label
@@ -32,6 +32,8 @@ var event_text: RichTextLabel
 var choices_box: VBoxContainer
 var controls_box: HBoxContainer
 var fallen_box: VBoxContainer
+var settings_sheet: PanelContainer
+var _built_key := ""
 var notice_dialog: AcceptDialog
 var confirm_dialog: ConfirmationDialog
 
@@ -40,13 +42,17 @@ var _estate_signature := ""
 
 
 func _ready() -> void:
+	# A house is opened from the main menu, which chooses its slot and sets the state up.
+	if SaveSystem.slot == 0:
+		get_tree().change_scene_to_file.call_deferred(Style.MENU_SCENE)
+		return
+	_built_key = "%s|%s" % [Settings.language, Settings.text_size]
 	_build_ui()
 	EventBus.chronicle_added.connect(_on_chronicle_added)
 	EventBus.event_presented.connect(_show_event)
 	EventBus.world_changed.connect(_refresh)
 	EventBus.house_fell.connect(_refresh)
-	if not SaveSystem.load_game():
-		Game.new_game()
+	Settings.changed.connect(_on_settings_changed, CONNECT_DEFERRED)
 	_render_chronicle()
 	_refresh()
 	if Game.waiting():
@@ -56,23 +62,8 @@ func _ready() -> void:
 # --- Building the interface ---------------------------------------------
 
 func _build_ui() -> void:
-	var t := Theme.new()
-	t.default_font_size = 22
-	t.set_color("font_color", "Label", PARCHMENT)
-	t.set_color("default_color", "RichTextLabel", PARCHMENT)
-	t.set_color("font_color", "Button", PARCHMENT)
-	t.set_color("font_disabled_color", "Button", DIM.darkened(0.3))
-	t.set_stylebox("normal", "Button", _box(PANEL.lightened(0.06), DIM.darkened(0.4), 1, 8))
-	t.set_stylebox("hover", "Button", _box(PANEL.lightened(0.12), GOLD, 1, 8))
-	t.set_stylebox("pressed", "Button", _box(PANEL.lightened(0.18), GOLD, 2, 8))
-	t.set_stylebox("disabled", "Button", _box(PANEL, PANEL.lightened(0.1), 1, 8))
-	t.set_stylebox("focus", "Button", StyleBoxEmpty.new())
-	theme = t
-
-	var bg := ColorRect.new()
-	bg.color = BG
-	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
-	add_child(bg)
+	theme = Style.theme()
+	add_child(Style.background())
 
 	var margin := MarginContainer.new()
 	margin.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -129,28 +120,43 @@ func _build_ui() -> void:
 	choices_box.add_theme_constant_override("separation", 8)
 	ev.add_child(choices_box)
 
+	settings_sheet = PanelContainer.new()
+	settings_sheet.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	settings_sheet.add_theme_stylebox_override("panel", _box(PANEL, GOLD, 2, 10, 16))
+	settings_sheet.visible = false
+	root.add_child(settings_sheet)
+	var settings_scroll := ScrollContainer.new()
+	settings_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	settings_sheet.add_child(settings_scroll)
+	var settings_panel := SettingsPanel.new()
+	settings_panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	settings_panel.back_pressed.connect(_close_settings)
+	settings_scroll.add_child(settings_panel)
+
 	controls_box = HBoxContainer.new()
 	controls_box.add_theme_constant_override("separation", 8)
 	root.add_child(controls_box)
-	var day_btn := _button("Next day")
+	var day_btn := _button(tr("house.next_day"))
 	day_btn.pressed.connect(_on_next_day)
 	controls_box.add_child(day_btn)
-	var next_btn := _button("Next week")
+	var next_btn := _button(tr("house.next_week"))
 	next_btn.pressed.connect(_on_next_week)
 	controls_box.add_child(next_btn)
-	var until_btn := _button("Until something happens")
+	var until_btn := _button(tr("house.until"))
 	until_btn.pressed.connect(_on_until)
 	controls_box.add_child(until_btn)
 	var menu := MenuButton.new()
-	menu.text = "Menu"
+	menu.text = tr("house.menu")
 	menu.custom_minimum_size = Vector2(110, 64)
 	menu.flat = false
 	var popup := menu.get_popup()
 	popup.add_theme_font_size_override("font_size", 24)
-	popup.add_item("Copy chronicle", 0)
-	popup.add_item("Save chronicle as text file", 1)
+	popup.add_item(tr("house.copy"), 0)
+	popup.add_item(tr("house.save_text"), 1)
+	popup.add_item(tr("house.settings"), 2)
 	popup.add_separator()
-	popup.add_item("Found a new house", 2)
+	popup.add_item(tr("house.to_menu"), 3)
+	popup.add_item(tr("house.found_new"), 4)
 	popup.id_pressed.connect(_on_menu)
 	controls_box.add_child(menu)
 
@@ -158,38 +164,31 @@ func _build_ui() -> void:
 	fallen_box.visible = false
 	root.add_child(fallen_box)
 	var fallen_label := _label(22, RED)
-	fallen_label.text = "The house has fallen. Its annals are complete."
+	fallen_label.text = tr("house.fallen")
 	fallen_box.add_child(fallen_label)
-	var new_btn := _button("Found a new house")
+	var new_btn := _button(tr("house.found_here"))
 	new_btn.pressed.connect(_start_new_house)
 	fallen_box.add_child(new_btn)
+	var fallen_menu := _button(tr("house.to_menu"))
+	fallen_menu.pressed.connect(_to_menu)
+	fallen_box.add_child(fallen_menu)
 
 	notice_dialog = AcceptDialog.new()
 	notice_dialog.title = "The Annals"
 	add_child(notice_dialog)
 	confirm_dialog = ConfirmationDialog.new()
-	confirm_dialog.title = "Found a new house?"
-	confirm_dialog.dialog_text = "This house and its chronicle will be closed for good. Begin again?"
+	confirm_dialog.title = tr("house.found_new") + "?"
+	confirm_dialog.dialog_text = tr("house.confirm_new")
 	confirm_dialog.confirmed.connect(_start_new_house)
 	add_child(confirm_dialog)
 
 
 func _box(fill: Color, border: Color, width: int, radius: int, pad: int = 12) -> StyleBoxFlat:
-	var s := StyleBoxFlat.new()
-	s.bg_color = fill
-	s.border_color = border
-	s.set_border_width_all(width)
-	s.set_corner_radius_all(radius)
-	s.set_content_margin_all(pad)
-	return s
+	return Style.box(fill, border, width, radius, pad)
 
 
 func _label(size: int, color: Color) -> Label:
-	var l := Label.new()
-	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	l.add_theme_font_size_override("font_size", size)
-	l.add_theme_color_override("font_color", color)
-	return l
+	return Style.label(size, color)
 
 
 func _rich(tab_name: String) -> RichTextLabel:
@@ -202,12 +201,7 @@ func _rich(tab_name: String) -> RichTextLabel:
 
 
 func _button(text: String) -> Button:
-	var b := Button.new()
-	b.text = text
-	b.custom_minimum_size = Vector2(0, 64)
-	b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	b.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	return b
+	return Style.button(text, 64)
 
 
 # --- Refreshing ---------------------------------------------------------
@@ -232,6 +226,11 @@ func _refresh() -> void:
 	event_panel.visible = waiting
 	controls_box.visible = not waiting and not WorldState.fallen
 	fallen_box.visible = WorldState.fallen
+	var sheet_open := settings_sheet.visible
+	event_panel.visible = waiting and not sheet_open
+	controls_box.visible = controls_box.visible and not sheet_open
+	tabs.visible = not sheet_open
+	settings_sheet.visible = sheet_open
 
 
 func _winter_short() -> bool:
@@ -537,9 +536,7 @@ func _on_rule_selected(index: int, axis_id: String, ids: Array) -> void:
 
 
 func _section_title(text: String) -> Label:
-	var l := _label(24, GOLD)
-	l.text = text
-	return l
+	return Style.section_title(text)
 
 
 func _brother_row(m: Dictionary) -> Control:
@@ -713,12 +710,45 @@ func _on_menu(id: int) -> void:
 	match id:
 		0:
 			DisplayServer.clipboard_set(Chronicle.export_text())
-			_notice("The chronicle has been copied. Paste it anywhere.")
+			_notice(tr("house.copied"))
 		1:
 			var path := Chronicle.save_export()
-			_notice("Saved to:\n%s" % path if path != "" else "Could not save the file.")
+			_notice(tr("house.saved_to") % path if path != "" else tr("house.not_saved"))
 		2:
-			confirm_dialog.popup_centered()
+			_open_settings()
+		3:
+			_to_menu()
+		4:
+			_ask_new_house()
+
+
+func _open_settings() -> void:
+	settings_sheet.visible = true
+	tabs.visible = false
+	event_panel.visible = false
+	controls_box.visible = false
+
+
+func _close_settings() -> void:
+	settings_sheet.visible = false
+	_refresh()
+
+
+func _ask_new_house() -> void:
+	if Settings.confirm_close:
+		confirm_dialog.popup_centered()
+	else:
+		_start_new_house()
+
+
+func _to_menu() -> void:
+	SaveSystem.save_game()
+	get_tree().change_scene_to_file(Style.MENU_SCENE)
+
+
+func _on_settings_changed() -> void:
+	if "%s|%s" % [Settings.language, Settings.text_size] != _built_key:
+		get_tree().reload_current_scene()
 
 
 func _start_new_house() -> void:
