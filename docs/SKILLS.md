@@ -49,7 +49,7 @@ A path has:
 
 - **Entry requirements:** minimum stats, sometimes a building or an existing office (a priest needs a bishop's letter, a monk needs a vow made in the house).
 - **Growth:** only the skills listed for the path grow fully. Other skills can still be trained, but do not advance beyond their current level.
-- **Perks:** unlocked at set skill levels (for example, a monk's Scribing at 3 unlocks the Illuminator perk).
+- **Perks:** unlocked at set skill levels (for example, a monk's Scribing at 3 unlocks the Illuminator perk). Each perk the brother has earned adds one to his checks on that skill. A hidden path gives no perks.
 - **Exits:** events move a brother off his path (leaving the order, marrying, being cast out). The old perks are lost; the skills stay.
 
 ### Leaving to marry

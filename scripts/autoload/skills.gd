@@ -122,7 +122,7 @@ func set_stat(m: Dictionary, sid: String, value: int) -> void:
 func check(m: Dictionary, stat_id: String, skill_id: String, difficulty: int) -> Dictionary:
 	var a := Oracle.range_int(1, 6)
 	var b := Oracle.range_int(1, 6)
-	var bonus := stat(m, stat_id) + level(m, skill_id)
+	var bonus := stat(m, stat_id) + level(m, skill_id) + Paths.perk_bonus(m, skill_id)
 	var total := a + b + bonus
 	return {
 		"dice": [a, b],

@@ -49,12 +49,25 @@ func grows(id: String, skill_id: String) -> bool:
 func perks_of(m: Dictionary) -> Array:
 	var out := []
 	var id := str(m.get("path", ""))
-	if not _paths.has(id):
+	if not _paths.has(id) or not bool(m.get("path_known", false)):
 		return out
 	for p in _paths[id].get("perks", []):
 		if Skills.level(m, str(p["skill"])) >= int(p["level"]):
 			out.append(str(p["name"]))
 	return out
+
+
+## Each perk a brother has earned on a skill adds one to his checks on that skill.
+## A hidden path gives no perks.
+func perk_bonus(m: Dictionary, skill_id: String) -> int:
+	var id := str(m.get("path", ""))
+	if not _paths.has(id) or not bool(m.get("path_known", false)):
+		return 0
+	var n := 0
+	for p in _paths[id].get("perks", []):
+		if str(p["skill"]) == skill_id and Skills.level(m, skill_id) >= int(p["level"]):
+			n += 1
+	return n
 
 
 ## The tag a brother must have to take this path, or "" if it needs none.

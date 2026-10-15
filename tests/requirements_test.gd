@@ -29,6 +29,18 @@ func _process(_delta: float) -> bool:
 	_expect("the priest path is then known", str(m["path"]), "priest")
 	_expect("a path with no requirement still sets", pa.set_path(m, "soldier"), true)
 
+	# Perks: a known path gives one to checks on its skill once the level is reached; a hidden path gives none.
+	var sk = root.get_node("Skills")
+	var mk := {"id": 9, "status": "home", "path": "monk", "path_known": true, "skills": {"devotion": 5, "scribing": 3}}
+	_expect("a known monk at devotion five has one perk on devotion", pa.perk_bonus(mk, "devotion"), 1)
+	_expect("a known monk at scribing three has the Illuminator", pa.perk_bonus(mk, "scribing"), 1)
+	mk["skills"]["scribing"] = 2
+	_expect("a known monk below the perk level has none", pa.perk_bonus(mk, "scribing"), 0)
+	mk["path_known"] = false
+	_expect("a hidden path gives no perk bonus", pa.perk_bonus(mk, "devotion"), 0)
+	_expect("a hidden path lists no perks", pa.perks_of(mk).size(), 0)
+	_expect("the skills module is loaded", sk != null, true)
+
 	print("Requirement checks: %s" % ("all passed" if failures == 0 else "%d failed" % failures))
 	quit(failures)
 	return false
