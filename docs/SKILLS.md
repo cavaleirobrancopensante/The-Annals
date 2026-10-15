@@ -32,12 +32,29 @@ Stats start between 1 and 3, set by the brother's origin (a village child, a sol
 
 ## Vocations as paths
 
-A vocation is chosen when a brother takes his path (at novice, at ordination, at marriage, at enlistment). It has:
+A brother's vocation is often **hidden**. It is shown as "?" in the estate until an event reveals it: a dream at prayer, a confession, a bishop's question, a girl in the village who looks at him a certain way, a wound that changes his mind. The reveal sets his path for good.
+
+Until the reveal, a brother is a generalist:
+- He can practise any skill, but no skill goes past level 3.
+- He has no path perks.
+- Events can still hint at his path (for example, a village match offered to a novice who turns out to be a householder).
+
+On the reveal, the path locks. Skills he has already built stay where they are, but only path skills grow from then on.
+
+A path has:
 
 - **Entry requirements:** minimum stats, sometimes a building or an existing office (a priest needs a bishop's letter, a monk needs a vow made in the house).
 - **Growth:** only the skills listed for the path grow fully. Other skills can still be trained, but do not advance beyond their current level.
 - **Perks:** unlocked at set skill levels (for example, a monk's Scribing at 3 unlocks the Illuminator perk).
 - **Exits:** events move a brother off his path (leaving the order, marrying, being cast out). The old perks are lost; the skills stay.
+
+### Leaving to marry
+
+A novice whose hidden path is householder may be drawn to marriage. When the reveal comes, he has to leave the house for the village to marry. This is an exit event:
+- He departs as a brother who has left the order (not a death), and his place in the choir and rota is filled.
+- He joins the village as a householder, with his skills intact and new village perks.
+- Later events can bring him back: a visit, a feast, a request for help from the house.
+- If the village is under the house's control (below), a marriage keeps him, and the house gains a householder family.
 
 Draft list (names are placeholders):
 
@@ -77,8 +94,20 @@ The existing six vocations (scribe, farmer, healer, builder, cook, soldier) beco
 - **Exploration events:** a card option can be a check with a stat, a skill, a difficulty and two branches.
 - **Traits:** kept as small modifiers and event hooks (a patient brother gets a bonus on long journeys, a proud one a penalty when asking for help).
 
+## Village control
+
+A village near the house can come under the house's control. Control is not a building or a single decision; it is a standing that the house earns or loses, the same way it does with the road.
+
+- **Gaining control:** a run of good dealings (tithes paid, help given, a feast shared), a marriage that binds a householder family to the house, or a settlement by persuasion (Presence) or Command when the lord is weak.
+- **What control gives:** a steady tithe of food and firewood, village labour for the fields, a householder cell of marriages and baptisms, and a village deck of events (disputes, festivals, marriages, sickness, quarrels between families).
+- **What control costs:** the village asks for justice, protection and feasts. Refusing brings disputes; neglecting it brings the village's standing down.
+- **Losing control:** standing falls below a threshold, a rival lord comes, or the village's own people turn on the house. The village's events and tithes stop, and the householders may leave.
+
+Control multiplies the events the house can meet. Each controlled village adds its own deck, drawn on the weekly turn, so the house has more to answer for as it grows.
+
 ## Open questions
 
 1. Does the skill cap of 5 apply to stats too? (Drafted as yes.)
 2. Can a brother leave his path and take another, or does each path end his growth permanently? (Drafted: he can leave by event only.)
-3. Should the vocation be locked at the moment of choice, or can a novice wait until he is ready? (Drafted: a novice has no path until his vow.)
+3. Should the hidden vocation be revealed only by events, or can a brother choose to ask for it (for example, by a retreat)? (Drafted: events only.)
+4. Can a village be held by a lord other than the house (a tollmaster, a village chief) with the house as an ally, rather than full control? (Drafted: control is the only state for now.)
