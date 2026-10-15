@@ -289,7 +289,10 @@ func display_name(m: Dictionary) -> String:
 
 
 func vocation_name(m: Dictionary) -> String:
-	return VOCATIONS.get(m.get("vocation", ""), str(m.get("vocation", "")))
+	var v := str(m.get("vocation", ""))
+	if VOCATIONS.has(v):
+		return tr("vocation." + v)
+	return v
 
 
 func default_job_for(vocation: String) -> String:
