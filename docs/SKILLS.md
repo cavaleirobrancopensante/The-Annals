@@ -39,6 +39,8 @@ Until the reveal, a brother is a generalist:
 - He has no path perks.
 - Events can still hint at his path (for example, a village match offered to a novice who turns out to be a householder).
 
+**The year review.** After a year at one job (52 weeks at work, at home, not training), a hidden brother learns whether his calling is that work. The job is tested against one path: fields to householder, woods to builder, hunt to hunter, kitchen to cook, infirmary to healer, scriptorium to scribe. A yes reveals his path. A no adds the job to his ruled-out list, so it is not asked again, and his path stays hidden. Changing job restarts the count. Monks, priests, soldiers and pilgrims have no job to test, so only events reveal them.
+
 The player cannot reveal a vocation directly. They can only change where a brother is and what he does, which changes which events can fire. For example, a novice sent to the village with a few brothers for alms may meet a village girl and be revealed as a householder. The risk is that such an event can be defining: it can set a path the player did not plan for. Placement is therefore a gamble, not a switch.
 
 On the reveal, the path locks. Skills he has already built stay where they are, but only path skills grow from then on.

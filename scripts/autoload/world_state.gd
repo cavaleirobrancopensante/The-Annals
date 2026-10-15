@@ -298,6 +298,8 @@ func job_of(m: Dictionary) -> String:
 
 func set_job(m: Dictionary, job: String) -> void:
 	if job in JOB_ORDER and is_living(m):
+		if job != str(m.get("job", "")):
+			m["job_weeks"] = 0
 		m["job"] = job
 
 

@@ -24,6 +24,10 @@ const TRAINING_POINTS := 3.0
 const TEACHER_LEVEL := 3
 ## Until a brother's path is known, he can grow his skills only to this level.
 const GENERALIST_CAP := 3
+## The path each job tests at the year's review. Monks, priests, soldiers and pilgrims have no job here.
+const JOB_PATH := {"fields": "householder", "woods": "builder", "hunt": "hunter", "kitchen": "cook", "infirmary": "healer", "scriptorium": "scribe"}
+## Weeks at one job before a hidden brother's year review.
+const REVIEW_WEEKS := 52
 
 var stat_ids: Array = []
 var stat_names := {}
@@ -193,6 +197,37 @@ func weekly_practice() -> Array:
 			g["monk"] = m
 			gained.append(g)
 	return gained
+
+
+## The year at a job. A brother with a hidden path who has worked one job for a year learns whether
+## his calling is that work. Yes reveals his path; no adds the job to his ruled-out list and the path stays hidden.
+## Only the jobs in JOB_PATH are reviewed; monks, priests, soldiers and pilgrims are revealed by events alone.
+## Returns the reviews made this week, each with its brother, the job, and whether it was a yes.
+func weekly_reviews() -> Array:
+	var reviews := []
+	for m in WorldState.home_monks():
+		if bool(m.get("path_known", false)) or not training_of(m).is_empty() or int(m["health"]) < 2:
+			continue
+		var job := WorldState.job_of(m)
+		if not JOB_PATH.has(job) or WorldState.job_blocked(job) or job in _ruled_out(m):
+			continue
+		m["job_weeks"] = int(m.get("job_weeks", 0)) + 1
+		if int(m["job_weeks"]) < REVIEW_WEEKS:
+			continue
+		m["job_weeks"] = 0
+		var yes := str(JOB_PATH[job]) == str(m.get("path", ""))
+		if yes:
+			Paths.reveal(m)
+		else:
+			_ruled_out(m).append(job)
+		reviews.append({"monk": m, "job": job, "yes": yes})
+	return reviews
+
+
+func _ruled_out(m: Dictionary) -> Array:
+	if not m.has("ruled_out"):
+		m["ruled_out"] = []
+	return m["ruled_out"]
 
 
 # --- Uses of the skills -------------------------------------------------

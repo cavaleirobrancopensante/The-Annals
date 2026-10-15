@@ -138,6 +138,12 @@ func _feast_today() -> void:
 func _practice() -> void:
 	for g in Skills.weekly_practice():
 		_note_level(g)
+	for r in Skills.weekly_reviews():
+		var name := WorldState.display_name(r["monk"])
+		if r["yes"]:
+			Chronicle.add(tr("review.yes") % [name, Paths.name_of(str(r["monk"]["path"]))], "review")
+		else:
+			Chronicle.add(tr("review.no") % [WorldState.job_name(str(r["job"])), name], "review")
 	var t := Skills.weekly_training()
 	for g in t["gained"]:
 		_note_level(g)
