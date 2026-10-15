@@ -39,6 +39,8 @@ Until the reveal, a brother is a generalist:
 - He has no path perks.
 - Events can still hint at his path (for example, a village match offered to a novice who turns out to be a householder).
 
+The player cannot reveal a vocation directly. They can only change where a brother is and what he does, which changes which events can fire. For example, a novice sent to the village with a few brothers for alms may meet a village girl and be revealed as a householder. The risk is that such an event can be defining: it can set a path the player did not plan for. Placement is therefore a gamble, not a switch.
+
 On the reveal, the path locks. Skills he has already built stay where they are, but only path skills grow from then on.
 
 A path has:
@@ -107,7 +109,9 @@ Control multiplies the events the house can meet. Each controlled village adds i
 
 ## Open questions
 
+Decided for now: a village is either under the house's control or not. Allied lords holding a village are left for later.
+
+
 1. Does the skill cap of 5 apply to stats too? (Drafted as yes.)
 2. Can a brother leave his path and take another, or does each path end his growth permanently? (Drafted: he can leave by event only.)
-3. Should the hidden vocation be revealed only by events, or can a brother choose to ask for it (for example, by a retreat)? (Drafted: events only.)
-4. Can a village be held by a lord other than the house (a tollmaster, a village chief) with the house as an ally, rather than full control? (Drafted: control is the only state for now.)
+3. How strongly should placement raise the odds of a reveal (a village alms trip, a retreat, a road party) compared with the odds of a plain event? (Not yet set.)
