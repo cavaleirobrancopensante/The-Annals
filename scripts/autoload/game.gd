@@ -203,7 +203,11 @@ func _economy() -> void:
 	var n := home.size()
 
 	# Food: field workers produce, the kitchen stretches what is there, everyone eats.
-	var produce := WorldState.count_working("fields") * _field_yield(s)
+	var field_work := 0.0
+	for m in WorldState.working_on("fields"):
+		field_work += Skills.work_multiplier(m, "might", "labour", Skills.EASY)
+	var produce := int(round(field_work * _field_yield(s)))
+	produce += Skills.hunt_food(s == "winter")
 	if WorldState.has_tag("water_pump") and s in ["summer", "autumn"]:
 		produce += 3
 	if WorldState.has_tag("blight"):
@@ -357,7 +361,9 @@ func _new_year() -> void:
 
 ## The scriptorium finishes a book at the end of summer and of winter.
 func _finish_books() -> void:
-	var books := WorldState.count_working("scriptorium")
+	var books := 0.0
+	for m in WorldState.working_on("scriptorium"):
+		books += Skills.work_multiplier(m, "wit", "scribing", Skills.EASY)
 	if WorldState.has_tag("lamp"):
 		books *= 2
 	WorldState.change_resource("books", int(round(books * (100.0 + Rule.value("book_pct")) / 100.0)))

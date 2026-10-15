@@ -18,10 +18,11 @@ const FLAWS := ["proud", "wrathful", "doubting", "gluttonous", "stubborn", "rest
 const HEALTH_WORDS := ["dead", "gravely ill", "unwell", "well"]
 
 ## Jobs a brother can be given. Only brothers at home and well enough can work.
-const JOB_ORDER := ["fields", "woods", "kitchen", "infirmary", "scriptorium", "rest"]
+const JOB_ORDER := ["fields", "woods", "hunt", "kitchen", "infirmary", "scriptorium", "rest"]
 const JOB_NAMES := {
 	"fields": "Fields",
 	"woods": "Woodcutting",
+	"hunt": "Hunting",
 	"kitchen": "Kitchen",
 	"infirmary": "Infirmary",
 	"scriptorium": "Scriptorium",
@@ -285,9 +286,14 @@ func job_blocked(job: String) -> bool:
 
 ## Brothers at home, well enough to work, on this job. Zero if the job is blocked.
 func count_working(job: String) -> int:
+	return working_on(job).size()
+
+
+## The brothers at home, well enough, and not training, who are on this job.
+func working_on(job: String) -> Array:
 	if job_blocked(job):
-		return 0
-	return home_monks().filter(func(m): return job_of(m) == job and int(m["health"]) >= 2 and training_free(m)).size()
+		return []
+	return home_monks().filter(func(m): return job_of(m) == job and int(m["health"]) >= 2 and training_free(m))
 
 
 ## A brother learning a skill is not at his job.

@@ -4,7 +4,6 @@ extends Node
 ## Brothers who are struck leave the line; the house can lose them for good.
 
 const PATH := "res://data/skirmish/encounters.json"
-const BASE_POWER := {"soldier": 3, "builder": 2, "farmer": 1, "cook": 1, "healer": 1, "scribe": 1}
 ## Multipliers on our strength and on the enemy's, per stance.
 const STANCE := {
 	"hold": {"ours": 0.8, "theirs": 0.7},
@@ -169,8 +168,10 @@ func _finish(outcome: String) -> void:
 	active = {}
 
 
+## A fighter's strength: the better of Might with Melee, or Hand with Ranged, halved.
 func _power(m: Dictionary) -> int:
-	var p: int = int(BASE_POWER.get(str(m["vocation"]), 1))
+	var best := maxi(Skills.stat(m, "might") + Skills.level(m, "melee"), Skills.stat(m, "hand") + Skills.level(m, "ranged"))
+	var p := int(round(best / 2.0))
 	if WorldState.monk_has(m, "brave"):
 		p += 1
 	if int(m["health"]) == 2:

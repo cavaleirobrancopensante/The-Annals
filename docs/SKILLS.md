@@ -1,6 +1,6 @@
 # Skills, stats and vocations (design draft)
 
-Status: phases 1 to 3 built. Stats, skills and the check (scripts/autoload/skills.gd); practice and training; paths and hidden vocations (scripts/autoload/paths.gd, data/paths/paths.json, reveal and path-change effects on event cards). Uses of the skills and village control are still to come. Path entry requirements (the 'needs' field) are recorded but not enforced yet.
+Status: phases 1 to 4 built. Stats, skills and the check; practice and training; paths and hidden vocations; and the uses of the skills (fighting strength from Might with Melee or Hand with Ranged, hunting for food, field and scriptorium work scaled by checks, and event choices that are checks with success and failure branches). Village control is still to come. Path entry requirements are recorded but not enforced. A tutorial for new players is on the task list.
 
 ## Principles
 

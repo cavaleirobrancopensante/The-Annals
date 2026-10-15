@@ -11,8 +11,11 @@ const EASY := 7
 const HARD := 10
 const VERY_HARD := 13
 ## The skill each job exercises, and how hard the work is (1 to 3).
-const JOB_SKILL := {"fields": "labour", "woods": "labour", "kitchen": "cookery", "infirmary": "medicine", "scriptorium": "scribing"}
-const JOB_DIFFICULTY := {"fields": 1, "woods": 1, "kitchen": 2, "infirmary": 3, "scriptorium": 3}
+const JOB_SKILL := {"fields": "labour", "woods": "labour", "hunt": "hunting", "kitchen": "cookery", "infirmary": "medicine", "scriptorium": "scribing"}
+const JOB_DIFFICULTY := {"fields": 1, "woods": 1, "hunt": 2, "kitchen": 2, "infirmary": 3, "scriptorium": 3}
+## Food a successful hunt brings in, and more on a critical success.
+const HUNT_FOOD := 3
+const HUNT_FOOD_CRITICAL := 5
 ## Practice points for one level, multiplied by the level being reached (12, 24, 36, 48, 60).
 const POINTS_PER_LEVEL := 12.0
 const TRAINING_WEEKS := 4
@@ -184,6 +187,37 @@ func weekly_practice() -> Array:
 			g["monk"] = m
 			gained.append(g)
 	return gained
+
+
+# --- Uses of the skills -------------------------------------------------
+
+## How much a brother's work counts for: a success counts in full, a critical success
+## counts half again as much, and a failure counts half.
+func work_multiplier(m: Dictionary, stat_id: String, skill_id: String, difficulty: int) -> float:
+	var r := check(m, stat_id, skill_id, difficulty)
+	if not r["success"]:
+		return 0.5
+	return 1.5 if r["critical"] else 1.0
+
+
+## Food the hunters bring in this week: a Hand and Hunting check per hunter, harder in winter.
+func hunt_food(winter: bool) -> int:
+	var food := 0
+	var difficulty := HARD if winter else EASY
+	for m in WorldState.working_on("hunt"):
+		var r := check(m, "hand", "hunting", difficulty)
+		if r["success"]:
+			food += HUNT_FOOD_CRITICAL if r["critical"] else HUNT_FOOD
+	return food
+
+
+## A check's difficulty in words, for the player.
+func difficulty_word(d: int) -> String:
+	if d <= EASY:
+		return "easy"
+	if d <= HARD:
+		return "hard"
+	return "very hard"
 
 
 # --- Training -----------------------------------------------------------

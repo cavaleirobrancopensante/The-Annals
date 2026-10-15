@@ -1,0 +1,55 @@
+[
+	{
+		"id": "stranger_at_gate",
+		"title": "A Stranger at the Gate",
+		"weight": 6,
+		"cooldown": 30,
+		"text": "A stranger in a good coat has come to the gate. He says he is a steward of the Tollmaster's men, that the store is owed a tithe, and that he would like to be let in to count it.",
+		"choices": [
+			{
+				"label": "Go down and talk him out of it",
+				"check": {"stat": "presence", "skill": "persuasion", "difficulty": 10},
+				"success": {
+					"effects": {"goodwill": 1},
+					"chronicle": "{When}, the abbot went down to the gate and talked the steward into a smaller count, and went back up with the store untouched."
+				},
+				"failure": {
+					"effects": {"food": -4},
+					"chronicle": "{When}, the steward would not be talked out of anything, and took a basket of bread for his masters before he rode off."
+				}
+			},
+			{
+				"label": "Keep the gate shut",
+				"effects": {},
+				"chronicle": "{When}, the gate stayed shut, and the steward rode off to tell his masters so."
+			}
+		]
+	},
+	{
+		"id": "winter_stag",
+		"title": "A Stag in the Glen",
+		"weight": 5,
+		"cooldown": 40,
+		"when": {"season": ["winter"], "monk": {"min_health": 2}},
+		"text": "The snow came early, and the kitchen has counted the sacks twice. {monk} says there is a stag in the glen, if someone can get close enough to it.",
+		"choices": [
+			{
+				"label": "Send him out after it",
+				"check": {"stat": "hand", "skill": "hunting", "difficulty": 10},
+				"success": {
+					"effects": {"food": 6},
+					"chronicle": "{When}, {monk} came back at dusk with a stag over his shoulders, and the kitchen had meat for a month."
+				},
+				"failure": {
+					"effects": {"monk_health": -1},
+					"chronicle": "{When}, {monk} came back from the glen with nothing but a cut hand from the rocks."
+				}
+			},
+			{
+				"label": "Let the stag be",
+				"effects": {},
+				"chronicle": "{When}, the stag was left in the glen, and the brothers ate their bread and were grateful for it."
+			}
+		]
+	}
+]

@@ -254,8 +254,11 @@ func current_view() -> Dictionary:
 	var ctx := _ctx(pending["bind"], pending.get("node", ""))
 	var choices := []
 	for ch in card.get("choices", []):
+		var label := Chronicle.format(ch.get("label", "..."), ctx)
+		if ch.has("check"):
+			label += "  [%s, %s]" % [_check_name(ch["check"]), Skills.difficulty_word(int(ch["check"].get("difficulty", Skills.EASY)))]
 		choices.append({
-			"label": Chronicle.format(ch.get("label", "..."), ctx),
+			"label": label,
 			"enabled": requirements_met(ch),
 			"requires": ch.get("requires", {}),
 		})
@@ -281,8 +284,13 @@ func resolve(choice_index: int) -> void:
 	var choices: Array = card.get("choices", [])
 	if choice_index >= 0 and not choices.is_empty():
 		var choice: Dictionary = choices[clampi(choice_index, 0, choices.size() - 1)]
-		effects = choice.get("effects", {})
-		headline = choice.get("chronicle", headline)
+		if choice.has("check"):
+			var branch := _roll_check(choice, bind)
+			effects = branch.get("effects", {})
+			headline = branch.get("chronicle", headline)
+		else:
+			effects = choice.get("effects", {})
+			headline = choice.get("chronicle", headline)
 	if headline != "":
 		lines.append(headline)
 	_apply(effects, bind, lines)
@@ -298,6 +306,18 @@ func resolve(choice_index: int) -> void:
 	if not lines.is_empty():
 		Chronicle.add(" ".join(lines), card.get("kind", "event"), _ctx(bind, node_id))
 	EventBus.event_resolved.emit(card["id"], choice_index)
+
+
+## Rolls a choice's check with the bound brother (or the abbot). Returns the branch that applies.
+func _roll_check(choice: Dictionary, bind: Dictionary) -> Dictionary:
+	var c: Dictionary = choice["check"]
+	var m := WorldState.get_monk(int(bind.get("monk", WorldState.abbot_id)))
+	var r: Dictionary = Skills.check(m, str(c.get("stat", "")), str(c.get("skill", "")), int(c.get("difficulty", Skills.EASY)))
+	return choice.get("success" if r["success"] else "failure", {})
+
+
+func _check_name(c: Dictionary) -> String:
+	return str(Skills.skill_names.get(str(c.get("skill", "")), c.get("skill", "")))
 
 
 func _as_array(v) -> Array:
