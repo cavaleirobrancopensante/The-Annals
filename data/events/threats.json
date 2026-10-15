@@ -1,0 +1,184 @@
+[
+	{
+		"id": "salt_king_tribute",
+		"title": "Riders at the Gate",
+		"weight": 5,
+		"cooldown": 36,
+		"when": {"not_tag": ["paid_salt_king", "defied_salt_king", "salt_king_wary", "fed_the_riders"], "min": {"food": 30}},
+		"text": "Five riders wait at the gate under the Salt King's banner. Their captain wants a share of the granary, for what he calls the protection of the road.",
+		"choices": [
+			{
+				"label": "Pay them",
+				"requires": {"food": 25},
+				"effects": {"food": -25, "add_tag": "paid_salt_king"},
+				"chronicle": "{When}, riders of the Salt King came to the gate, and the house paid them a tithe of grain."
+			},
+			{
+				"label": "Offer them a meal instead",
+				"requires": {"food": 8},
+				"effects": {
+					"food": -8,
+					"oracle": {
+						"odds": "even",
+						"yes": {"add_tag": "fed_the_riders", "chronicle": "The captain laughed, but he ate, and he rode away without the grain."},
+						"no": {"food": -15, "add_tag": "defied_salt_king", "chronicle": "They ate the meal, then took the grain anyway."}
+					}
+				},
+				"chronicle": "{When}, riders of the Salt King came to the gate, and {abbot} invited them to eat in the refectory."
+			},
+			{
+				"label": "Refuse them",
+				"effects": {
+					"add_tag": "defied_salt_king",
+					"oracle": {
+						"odds": "unlikely",
+						"yes": {"firewood": -15, "chronicle": "On their way out they fired the woodpile."},
+						"no": {"chronicle": "They rode away laughing, and promised to come back."}
+					}
+				},
+				"chronicle": "{When}, riders of the Salt King demanded grain at the gate, and {abbot} refused them."
+			}
+		]
+	},
+	{
+		"id": "salt_king_returns",
+		"title": "The Riders Return",
+		"weight": 6,
+		"cooldown": 24,
+		"when": {"has_tag": ["paid_salt_king"]},
+		"text": "As some of the brothers had warned, the Salt King's riders are back. The captain says the road has grown more dangerous, and the price has gone up.",
+		"choices": [
+			{
+				"label": "Pay again",
+				"requires": {"food": 35},
+				"effects": {"food": -35},
+				"chronicle": "{When}, the Salt King's riders came back for more grain, and were paid again."
+			},
+			{
+				"label": "Not this time",
+				"effects": {"remove_tag": "paid_salt_king", "add_tag": "defied_salt_king"},
+				"chronicle": "{When}, the Salt King's riders came back for more, and this time {abbot} sent them away empty-handed."
+			}
+		]
+	},
+	{
+		"id": "salt_king_reprisal",
+		"weight": 7,
+		"cooldown": 24,
+		"when": {"has_tag": ["defied_salt_king"], "monk": {"min_health": 2, "max_age": 60}},
+		"effects": {
+			"remove_tag": "defied_salt_king",
+			"add_tag": "salt_king_wary",
+			"tag_weeks": 48,
+			"monk_health": -2,
+			"monk_add_tag": "scarred",
+			"chronicle": "{When}, {monk} was found on the road below the house, beaten and left in the ditch. Everyone knew who had done it."
+		}
+	},
+	{
+		"id": "woodpile_thief",
+		"title": "Someone Takes the Wood",
+		"weight": 7,
+		"cooldown": 30,
+		"when": {"season": ["winter", "autumn"], "min": {"firewood": 10}},
+		"text": "For three nights running, firewood has gone missing from the stack by the wall.",
+		"choices": [
+			{
+				"label": "Set a watch through the night",
+				"effects": {"oracle": {"odds": "likely", "yes": {"food": -4, "goodwill": 1, "chronicle": "The watch caught a widow and her two sons with their arms full of wood. They were fed, and sent home with a bundle."}, "no": {"firewood": -6, "chronicle": "The watch saw nothing, and the wood kept going."}}},
+				"chronicle": "{When}, someone was stealing from the woodpile."
+			},
+			{
+				"label": "Leave a bundle by the gate for whoever needs it",
+				"effects": {"firewood": -4, "goodwill": 1, "add_tag": "gate_bundle"},
+				"chronicle": "{When}, wood began to vanish from the stack, and {abbot} ordered a bundle left by the gate each night for whoever needed it."
+			}
+		]
+	},
+	{
+		"id": "refugees",
+		"title": "A Family at the Gate",
+		"weight": 7,
+		"cooldown": 24,
+		"text": "A family with a handcart waits at the gate: a man, his wife, and a small girl wrapped in a blanket who has not stopped coughing.",
+		"choices": [
+			{
+				"label": "Take them in until the child is well",
+				"requires": {"food": 10},
+				"effects": {
+					"food": -10,
+					"goodwill": 2,
+					"oracle": {
+						"odds": "likely",
+						"yes": {"chronicle": "The child recovered, and the family went on their way in the spring."},
+						"no": {"chronicle": "The child died in the guest room and was buried in the brothers' field, under a small cross."}
+					}
+				},
+				"chronicle": "{When}, a family with a sick child was taken into the guesthouse."
+			},
+			{
+				"label": "Give them bread and directions",
+				"effects": {"food": -3, "goodwill": 1},
+				"chronicle": ""
+			},
+			{
+				"label": "Bar the gate",
+				"effects": {"goodwill": -2, "add_tag": "gate_barred", "tag_weeks": 24},
+				"chronicle": "{When}, a family with a sick child came to the gate, and the gate stayed shut."
+			}
+		]
+	},
+	{
+		"id": "fever",
+		"title": "Fever",
+		"weight": 7,
+		"cooldown": 12,
+		"when": {"monk": {"min_health": 3}},
+		"text": "{monk} has collapsed in the garden, burning with fever.",
+		"choices": [
+			{
+				"label": "Use the infirmary's medicine",
+				"requires": {"medicine": 1},
+				"effects": {"medicine": -1, "oracle": {"odds": "likely", "yes": {"chronicle": ""}, "no": {"monk_health": -1, "chronicle": "{When}, {monk} fell ill with a fever that the medicine could not break."}}}
+			},
+			{
+				"label": "Pray and wait",
+				"effects": {"monk_health": -1, "oracle": {"odds": "unlikely", "yes": {"monk_health": 1, "chronicle": "{When}, {monk} lay three days in a fever that broke suddenly on the feast of the Holy Cross. The healer had no explanation."}, "no": {"chronicle": "{When}, {monk} fell ill with fever."}}}
+			}
+		]
+	},
+	{
+		"id": "cold_in_the_chest",
+		"title": "The Cold Settles In",
+		"weight": 7,
+		"cooldown": 12,
+		"when": {"season": ["winter"], "monk": {"min_age": 50, "min_health": 2}},
+		"text": "The cold has settled in {monk}'s chest. He coughs through the night Office.",
+		"choices": [
+			{
+				"label": "Keep a fire in his cell",
+				"requires": {"firewood": 6},
+				"effects": {"firewood": -6},
+				"chronicle": ""
+			},
+			{
+				"label": "He must bear it like the rest",
+				"effects": {"oracle": {"odds": "even", "yes": {"monk_health": -1, "chronicle": "{When}, {monk} took to the infirmary with a sickness of the chest."}, "no": {"chronicle": ""}}}
+			}
+		]
+	},
+	{
+		"id": "blight",
+		"weight": 4,
+		"cooldown": 96,
+		"when": {"season": ["summer", "autumn"]},
+		"effects": {"add_tag": "blight", "tag_weeks": 6, "chronicle": "{When}, black rot came into the potato beds. The brothers pulled up what they could save and burned the rest."}
+	},
+	{
+		"id": "snowed_in",
+		"weight": 4,
+		"cooldown": 48,
+		"when": {"season": ["winter"]},
+		"effects": {"firewood": -3, "add_tag": "snowed_in", "tag_weeks": 3, "chronicle": "{When}, snow closed the pass for three weeks. No one came to the gate, and the brothers kept silence even at recreation."}
+	}
+]

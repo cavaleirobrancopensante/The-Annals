@@ -1,0 +1,39 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="The Annals"
+config/description="A monastery at the end of the world, and the chronicle it leaves behind."
+run/main_scene="res://scenes/main.tscn"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+
+[autoload]
+
+EventBus="*res://scripts/autoload/event_bus.gd"
+Oracle="*res://scripts/autoload/oracle.gd"
+WorldState="*res://scripts/autoload/world_state.gd"
+Chronicle="*res://scripts/autoload/chronicle.gd"
+EventEngine="*res://scripts/autoload/event_engine.gd"
+Game="*res://scripts/autoload/game.gd"
+SaveSystem="*res://scripts/autoload/save_system.gd"
+
+[display]
+
+window/size/viewport_width=720
+window/size/viewport_height=1280
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/handheld/orientation=1
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

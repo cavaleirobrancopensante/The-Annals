@@ -1,0 +1,254 @@
+[
+	{
+		"id": "novice_at_gate",
+		"title": "A Stranger Asks to Stay",
+		"weight": 7,
+		"cooldown": 20,
+		"when": {"not_tag": ["postulant_at_gate"]},
+		"text": "A young man stands at the gate with nothing but a knife and a string of wooden beads. He asks to stay, and to become a brother.",
+		"choices": [
+			{
+				"label": "Receive him as a novice",
+				"effects": {"new_monk": {"age": [16, 24]}},
+				"chronicle": "{When}, a young man came to the gate and was received as a novice. He took the name {newcomer_name}."
+			},
+			{
+				"label": "Make him wait at the gate, as the Rule says",
+				"effects": {"add_tag": "postulant_at_gate"},
+				"chronicle": ""
+			},
+			{"label": "Send him away with bread", "effects": {"food": -2}, "chronicle": ""}
+		]
+	},
+	{
+		"id": "postulant_endures",
+		"weight": 12,
+		"cooldown": 6,
+		"when": {"has_tag": ["postulant_at_gate"]},
+		"effects": {
+			"remove_tag": "postulant_at_gate",
+			"oracle": {
+				"odds": "likely",
+				"yes": {"new_monk": {"age": [16, 24], "traits": ["patient"]}, "chronicle": "The young man who had waited weeks at the gate, sleeping in the rain, was at last let in. He took the name {newcomer_name}."},
+				"no": {"chronicle": "The young man who waited at the gate was gone one morning. No one saw him leave."}
+			}
+		}
+	},
+	{
+		"id": "old_hermit",
+		"title": "The Hermit of the Gorge",
+		"weight": 4,
+		"cooldown": 96,
+		"text": "An old hermit who has lived alone in the gorge for thirty years sends word that he wishes to die among brothers.",
+		"choices": [
+			{
+				"label": "Bring him in",
+				"effects": {"new_monk": {"age": [72, 84], "traits": ["devout"]}},
+				"chronicle": "{When}, {newcomer}, a hermit of the gorge, came to the house to end his days among brothers."
+			},
+			{"label": "Send him bread and our prayers", "effects": {"food": -2}, "chronicle": ""}
+		]
+	},
+	{
+		"id": "quarrel",
+		"title": "A Quarrel in Chapter",
+		"weight": 8,
+		"cooldown": 20,
+		"when": {"monk": {"has_any": ["proud", "stubborn", "wrathful"], "not": ["bitter"]}, "monk2": {}},
+		"text": "{monk} and {monk2} have not spoken since a quarrel over the singing of the psalms. The other brothers have begun to take sides.",
+		"choices": [
+			{
+				"label": "Rebuke {monk} before the chapter",
+				"effects": {"oracle": {"odds": "even", "yes": {"monk_add_tag": "humbled", "chronicle": "{monk} took the rebuke in silence and asked {monk2}'s pardon."}, "no": {"monk_add_tag": "bitter", "chronicle": "{monk} took the rebuke badly."}}},
+				"chronicle": "{When}, {abbot} rebuked {monk} in chapter for a quarrel with {monk2}."
+			},
+			{
+				"label": "Send them to dig the same ditch until they make peace",
+				"effects": {"oracle": {"odds": "likely", "yes": {"chronicle": "Within a week they were seen laughing at the end of the ditch."}, "no": {"monk_add_tag": "bitter", "monk2_add_tag": "bitter", "chronicle": "They dug the ditch in silence and finished it in silence."}}},
+				"chronicle": "{When}, {monk} and {monk2} were set to dig a ditch together after a quarrel."
+			},
+			{"label": "Let it pass", "effects": {"monk_add_tag": "bitter"}, "chronicle": ""}
+		]
+	},
+	{
+		"id": "bitter_monk",
+		"title": "A Bitter Heart",
+		"weight": 6,
+		"cooldown": 24,
+		"when": {"monk": {"has": ["bitter"]}},
+		"text": "{monk} keeps to himself. He comes late to the Office and leaves early, and he looks at the gate as if measuring the road.",
+		"choices": [
+			{
+				"label": "Walk with him in the garden",
+				"effects": {"oracle": {"odds": "likely", "yes": {"monk_remove_tag": "bitter", "chronicle": "{abbot} walked with {monk} in the garden for an hour, and afterwards {monk} was seen at Vespers on time."}, "no": {"chronicle": "{abbot} spoke with {monk}, who listened politely and changed nothing."}}}
+			},
+			{
+				"label": "Leave him to God",
+				"effects": {"oracle": {"odds": "unlikely", "yes": {"monk_departs": true, "chronicle": "{When}, {monk} left the house without a word, and took the road south."}, "no": {"chronicle": ""}}}
+			}
+		]
+	},
+	{
+		"id": "doubting_brother",
+		"title": "The Dark Night",
+		"weight": 7,
+		"cooldown": 30,
+		"when": {"monk": {"has": ["doubting"], "not": ["tested_faith"]}},
+		"text": "{monk} comes to you after Compline. He says that for months he has felt nothing in the chapel, that the psalms are only words, and that he does not know why he stays.",
+		"choices": [
+			{
+				"label": "Counsel patience: this too is a path",
+				"effects": {"oracle": {"odds": "even", "yes": {"monk_remove_tag": "doubting", "monk_add_tag": "tested_faith", "chronicle": "{When}, {monk} passed through a long darkness of the soul and came out the other side."}, "no": {"chronicle": ""}}}
+			},
+			{
+				"label": "Send him to the hermit's cave for a month",
+				"effects": {"monk_away": {"weeks": 4, "tag": "on_retreat"}},
+				"chronicle": "{When}, {monk} went up to the hermit's cave to pray alone."
+			},
+			{
+				"label": "Give him a hard penance",
+				"effects": {"monk_add_tag": "bitter"},
+				"chronicle": ""
+			}
+		]
+	},
+	{
+		"id": "restless_departure",
+		"title": "An Empty Cell",
+		"weight": 6,
+		"cooldown": 24,
+		"when": {"monk": {"has": ["restless", "denied"]}},
+		"text": "{monk}'s cell is empty this morning. His cloak and sandals are gone, and the gate was left unbarred.",
+		"choices": [
+			{
+				"label": "Send a brother after him",
+				"effects": {"oracle": {"odds": "even", "yes": {"monk_remove_tag": "denied", "chronicle": "{When}, {monk} tried to leave the house in the night, but he was found on the road and came back of his own will."}, "no": {"monk_departs": true, "chronicle": "{When}, {monk} left the house in the night. The brother sent after him came back alone."}}}
+			},
+			{
+				"label": "Let him go",
+				"effects": {"monk_departs": true},
+				"chronicle": "{When}, {monk} left the house in the night, and the abbot would not send anyone after him."
+			}
+		]
+	},
+	{
+		"id": "gluttony",
+		"title": "Crumbs",
+		"weight": 6,
+		"cooldown": 30,
+		"when": {"min": {"food": 40}, "monk": {"has": ["gluttonous"]}},
+		"text": "Bread is missing from the stores again. The cook found crumbs on the floor of {monk}'s cell.",
+		"choices": [
+			{
+				"label": "Public penance at chapter",
+				"effects": {"monk_add_tag": "humbled"},
+				"chronicle": "{When}, {monk} did penance before the chapter for taking bread from the stores."
+			},
+			{
+				"label": "A quiet word, alone",
+				"effects": {"oracle": {"odds": "likely", "yes": {"monk_remove_tag": "gluttonous", "chronicle": "After a word with {abbot}, the bread stopped going missing."}, "no": {"food": -6, "chronicle": ""}}}
+			},
+			{"label": "Pretend not to know", "effects": {"food": -10}, "chronicle": ""}
+		]
+	},
+	{
+		"id": "feast_request",
+		"title": "The Patron's Feast",
+		"weight": 6,
+		"cooldown": 48,
+		"when": {"min": {"food": 60}, "monk": {"has": ["cheerful"]}},
+		"text": "The feast of {patron} is coming. {monk} begs for a real feast this year, with the village invited and bread for everyone.",
+		"choices": [
+			{
+				"label": "Keep the feast",
+				"requires": {"food": 12},
+				"effects": {"food": -12, "goodwill": 2},
+				"chronicle": "{When}, the feast of {patron} was kept with bread and singing, and half the hill village came."
+			},
+			{"label": "Keep it plain, as always", "chronicle": ""}
+		]
+	},
+	{
+		"id": "teaching_letters",
+		"title": "Letters",
+		"weight": 6,
+		"cooldown": 24,
+		"when": {"monk": {"has_any": ["learned"]}, "monk2": {"max_age": 30, "not": ["lettered"]}},
+		"text": "{monk} has noticed that {monk2} cannot read the psalter and only follows the others by memory. He offers to teach him his letters in the evenings.",
+		"choices": [
+			{
+				"label": "Let the lessons begin",
+				"effects": {"monk2_add_tag": "lettered"},
+				"chronicle": "{When}, {monk} began teaching {monk2} his letters by candlelight."
+			},
+			{"label": "There is work enough in the fields", "chronicle": ""}
+		]
+	},
+	{
+		"id": "barred_gate_objection",
+		"title": "Why Was the Gate Barred?",
+		"weight": 8,
+		"cooldown": 24,
+		"when": {"has_tag": ["gate_barred"], "monk": {"has": ["gentle"]}},
+		"text": "{monk} stands up in chapter and asks, before everyone, why the gate was barred against a family in need.",
+		"choices": [
+			{
+				"label": "Admit you were wrong",
+				"effects": {"goodwill": 1, "remove_tag": "gate_barred"},
+				"chronicle": "{When}, {abbot} confessed before the chapter that he had been wrong to bar the gate, and ordered it left open."
+			},
+			{
+				"label": "Defend the decision",
+				"effects": {"monk_add_tag": "bitter"},
+				"chronicle": "{When}, {monk} questioned the abbot in chapter over the barred gate, and was told to hold his peace."
+			}
+		]
+	},
+	{
+		"id": "soldier_recognised",
+		"title": "A Face Remembered",
+		"weight": 5,
+		"cooldown": 60,
+		"when": {"monk": {"vocation": ["soldier"], "not": ["past_exposed"]}},
+		"text": "A trader at the gate stares at {monk}, then spits on the ground. He says he knows that face from the burning of Varela, and that a habit does not wash blood away.",
+		"choices": [
+			{
+				"label": "Let {monk} answer him",
+				"effects": {
+					"monk_add_tag": "past_exposed",
+					"oracle": {
+						"odds": "even",
+						"yes": {"goodwill": 1, "monk_add_tag": "penitent", "chronicle": "{monk} knelt in the mud before the trader and asked his forgiveness. The trader left without a word, but the story went down the road ahead of him."},
+						"no": {"goodwill": -1, "chronicle": "{monk} lost his temper and the trader left cursing the house. The story went down the road ahead of him."}
+					}
+				},
+				"chronicle": "{When}, a trader recognised {monk} from his years as a soldier."
+			},
+			{
+				"label": "Send the trader on his way",
+				"effects": {"goodwill": -1, "monk_add_tag": "past_exposed"},
+				"chronicle": ""
+			}
+		]
+	},
+	{
+		"id": "fed_rider_returns",
+		"title": "One of the Riders",
+		"weight": 8,
+		"once": true,
+		"when": {"has_tag": ["fed_the_riders"]},
+		"text": "One of the Salt King's riders, who ate at your table, comes back alone and on foot. He has left his sword in a ditch. He asks to be taught to pray.",
+		"choices": [
+			{
+				"label": "Receive him",
+				"effects": {"new_monk": {"vocation": "soldier", "traits": ["wrathful"], "age": [22, 35]}, "remove_tag": "fed_the_riders"},
+				"chronicle": "{When}, one of the Salt King's riders came back alone and asked to stay. He was received, and took the name {newcomer_name}."
+			},
+			{
+				"label": "Turn him away; it may be a trick",
+				"effects": {"remove_tag": "fed_the_riders"},
+				"chronicle": ""
+			}
+		]
+	}
+]

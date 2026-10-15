@@ -1,0 +1,36 @@
+extends Node
+## Loads the real main scene, presses its buttons for a few in-game years,
+## takes a screenshot, and quits. Catches UI script errors.
+##
+## godot --path . res://tests/ui_smoke.tscn   (needs a display; use xvfb-run on a server)
+
+var main: Control
+
+
+func _ready() -> void:
+	SaveSystem.enabled = false
+	Oracle.start(42)
+	main = load("res://scenes/main.tscn").instantiate()
+	add_child(main)
+	await get_tree().process_frame
+	for i in 160:
+		if EventEngine.has_pending():
+			var buttons: Array = main.choices_box.get_children().filter(func(b): return b is Button and not b.disabled)
+			if not buttons.is_empty():
+				buttons[0].pressed.emit()
+		else:
+			main._on_next_week()
+		if i % 20 == 0:
+			await get_tree().process_frame
+	main._on_until()
+	await get_tree().process_frame
+	await get_tree().process_frame
+	var out := "(none in headless mode)"
+	if DisplayServer.get_name() != "headless":
+		for i in 10:
+			await get_tree().process_frame
+		var img := get_viewport().get_texture().get_image()
+		out = OS.get_cmdline_user_args()[0] if not OS.get_cmdline_user_args().is_empty() else "user://ui_smoke.png"
+		img.save_png(out)
+	print("UI smoke test ok: year %d, %d entries, screenshot %s" % [WorldState.year(), Chronicle.entries.size(), out])
+	get_tree().quit()

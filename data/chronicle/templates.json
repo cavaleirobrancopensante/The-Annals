@@ -1,0 +1,56 @@
+{
+	"founding": [
+		"In the spring of the first year, {abbot} and {brothers} brothers came to the ruin at {place}. They cleared the rubble from the old chapel, sang Vespers under a broken roof, and dedicated the house to {patron}.",
+		"In the spring of the first year, {abbot} led {brothers} brothers up the road to {place}, where a chapel of the old world still stood without its windows. There they founded the house of {patron}, with three sacks of seed and one goat."
+	],
+	"death_age": [
+		"{When}, {monk} died in his sleep at {age_words} years of age, and was buried beside the chapel.",
+		"{When}, {monk}, {age_words} years old, asked for the sacraments after Compline and was dead before Lauds. The brothers said he had been ready for some time.",
+		"{When}, {monk} went to God in the fullness of his years. He was {age_words}, and had outlived the world he was born in."
+	],
+	"death_illness": [
+		"{When}, {monk} did not recover from his sickness. He was buried in the brothers' field, facing east.",
+		"{When}, the fever took {monk}. The healers did what they could, and the brothers kept vigil until the end.",
+		"{When}, {monk} died of a sickness of the chest after many weeks in the infirmary."
+	],
+	"election_after_death": [
+		"After the burial of {old}, the brothers met in chapter and chose Brother {new_name} as their abbot.",
+		"When the bell had been tolled for {old}, the brothers elected Brother {new_name} to lead the house. He wept, and did not refuse."
+	],
+	"election_after_departure": [
+		"With {old} gone from the house, the brothers met in chapter and chose Brother {new_name} as their abbot.",
+		"Since {old} was no longer among them, the brothers elected Brother {new_name} in his place."
+	],
+	"hunger": [
+		"{When}, the granary ran empty and hunger came to the house. The brothers ate nettle soup and kept the Office all the same.",
+		"{When}, there was no bread. The brothers fasted though it was no fast day, and some grew weak."
+	],
+	"cold": [
+		"{When}, the woodpile was gone and the cold came into the dormitory. The old brothers suffered most.",
+		"{When}, there was nothing left to burn, and the brothers slept in the chapel together for the warmth."
+	],
+	"harvest_good": [
+		"The harvest of the {year_ordinal} year was good. The granary was full by Michaelmas, and the abbot ordered a Te Deum.",
+		"In the {year_ordinal} year the fields gave generously, and the house went into winter without fear."
+	],
+	"harvest_fair": [
+		"The harvest of the {year_ordinal} year was neither good nor bad, and the brothers gave thanks for it.",
+		"In the {year_ordinal} year the harvest was enough, if the winter was not long."
+	],
+	"harvest_poor": [
+		"The harvest of the {year_ordinal} year was poor, and the brothers looked at the granary and said nothing.",
+		"In the {year_ordinal} year the fields failed them. The abbot ordered the rations cut before the first frost."
+	],
+	"winter_begins": [
+		"Winter came early to {place} that year, and the stream froze before Advent.",
+		"The first snow fell on the chapel roof, and the brothers moved the scriptorium desks closer to the fire."
+	],
+	"return_generic": [
+		"{monk} came home from the road with little to tell.",
+		"{monk} returned to the house, footsore, and went straight to the chapel."
+	],
+	"house_fell": [
+		"Here the annals of the house of {patron} at {place} end. No brother remained to keep them.",
+		"And the house of {patron} fell silent. The wind came in through the chapel windows as it had before the brothers came."
+	]
+}

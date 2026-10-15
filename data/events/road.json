@@ -1,0 +1,188 @@
+[
+	{
+		"id": "alms_road",
+		"title": "The Alms Road",
+		"cooldown": 16,
+		"when": {"not_season": ["winter"], "max": {"food": 180}, "monk": {"min_health": 3}},
+		"text": "The granary echoes when you knock on it. {monk} offers to take the alms road down to the river farms, as the old brothers did, and beg for the house.",
+		"choices": [
+			{
+				"label": "Send {monk} with a bag and a blessing",
+				"effects": {"monk_away": {"weeks": 4, "tag": "on_alms"}},
+				"chronicle": "{When}, {monk} went down the alms road to the river farms."
+			},
+			{"label": "Keep every pair of hands at home", "chronicle": ""}
+		]
+	},
+	{
+		"id": "pylon_lights",
+		"title": "Lights in the Pylon Field",
+		"cooldown": 30,
+		"when": {"not_season": ["winter"], "monk": {"has_any": ["curious", "restless", "brave"], "min_health": 3}},
+		"text": "Shepherds speak of lights moving at night among the dead pylons east of {place}. {monk} asks leave to go and see what the old world left behind.",
+		"choices": [
+			{
+				"label": "Let {monk} go and search",
+				"effects": {"monk_away": {"weeks": 3, "tag": "on_salvage"}},
+				"chronicle": "{When}, {monk} went east to search the pylon field."
+			},
+			{
+				"label": "Leave the dead city to the dead",
+				"effects": {"monk_add_tag": "denied"},
+				"chronicle": ""
+			}
+		]
+	},
+	{
+		"id": "dying_grandmother",
+		"title": "A Boy at the Gate",
+		"cooldown": 40,
+		"when": {"not_tag": ["village_slighted"], "monk": {"min_health": 3}},
+		"text": "A boy from the hill village has run through the night. His grandmother is dying and asks for a man of the old faith to pray with her. {monk} could reach the village in two days.",
+		"choices": [
+			{
+				"label": "Send {monk} at once",
+				"effects": {"monk_away": {"weeks": 2, "tag": "on_mission"}},
+				"chronicle": "{When}, a boy came running from the hill village, and {monk} went back with him to a deathbed."
+			},
+			{
+				"label": "No one can be spared",
+				"effects": {"goodwill": -1, "add_tag": "village_slighted", "tag_weeks": 48},
+				"chronicle": "{When}, the hill village asked for a brother to pray at a deathbed, and the house sent no one. The village did not forget it."
+			}
+		]
+	},
+	{
+		"id": "pilgrimage_request",
+		"title": "The Drowned Bells",
+		"cooldown": 48,
+		"when": {"not_season": ["winter"], "monk": {"has": ["devout"], "not": ["pilgrim"], "min_health": 3}},
+		"text": "{monk} asks leave to walk to the Shrine of the Drowned Bells, where the sea took the old cathedral and the bells are said to ring under the water at low tide. It is six weeks there and back.",
+		"choices": [
+			{
+				"label": "Give him leave and your blessing",
+				"effects": {"monk_away": {"weeks": 6, "tag": "on_pilgrimage"}},
+				"chronicle": "{When}, {monk} set out on pilgrimage to the Shrine of the Drowned Bells."
+			},
+			{
+				"label": "The house needs him here",
+				"effects": {"monk_add_tag": "denied"},
+				"chronicle": ""
+			}
+		]
+	},
+
+	{
+		"id": "return_alms",
+		"deck": "return",
+		"weight": 10,
+		"when": {"monk": {"has": ["on_alms"]}},
+		"effects": {
+			"oracle": {
+				"odds": "likely",
+				"yes": {"food": 30, "goodwill": 1, "chronicle": "{monk} came home with a cart of grain from the river farms, and their blessings with it."},
+				"no": {"food": 5, "add_tag": "bandits_on_road", "tag_weeks": 24, "chronicle": "{monk} came home with almost nothing, and with word that riders of the Salt King were taking tolls on the river road."}
+			}
+		}
+	},
+	{
+		"id": "return_alms_robbed",
+		"deck": "return",
+		"weight": 8,
+		"when": {"has_tag": ["bandits_on_road"], "monk": {"has": ["on_alms"]}},
+		"effects": {
+			"monk_health": -1,
+			"monk_add_tag": "scarred",
+			"chronicle": "{monk} was stopped on the river road by the Salt King's riders. They took the grain, beat him for having so little, and let him walk home."
+		}
+	},
+	{
+		"id": "return_salvage_device",
+		"deck": "return",
+		"weight": 10,
+		"title": "Something from the Old World",
+		"when": {"not_tag": ["old_device", "buried_device", "lamp"], "monk": {"has": ["on_salvage"]}},
+		"text": "{monk} returns from the pylon field with a box of grey metal, warm to the touch. Inside it, something hums.",
+		"choices": [
+			{
+				"label": "Keep it in the workshop and study it",
+				"effects": {"add_tag": "old_device"},
+				"chronicle": "{monk} brought back from the pylon field a humming box of the old world, and it was kept in the workshop."
+			},
+			{
+				"label": "Bury it where no one will find it",
+				"effects": {"add_tag": "buried_device"},
+				"chronicle": "{monk} brought back a humming box from the pylon field. {abbot} had it buried outside the walls, in ground that was never blessed."
+			}
+		]
+	},
+	{
+		"id": "return_salvage_books",
+		"deck": "return",
+		"weight": 8,
+		"when": {"monk": {"has": ["on_salvage"]}},
+		"effects": {"books": 2, "chronicle": "{monk} came back from the ruins with two books of the old world, swollen with damp but still legible."}
+	},
+	{
+		"id": "return_salvage_hurt",
+		"deck": "return",
+		"weight": 6,
+		"when": {"monk": {"has": ["on_salvage"]}},
+		"effects": {
+			"monk_health": -1,
+			"monk_add_tag": "scarred",
+			"add_tag": "pylon_field_inhabited",
+			"chronicle": "{monk} came back from the pylon field bleeding, and for a long time would not say what he had met there."
+		}
+	},
+	{
+		"id": "return_mission",
+		"deck": "return",
+		"when": {"monk": {"has": ["on_mission"]}},
+		"effects": {
+			"oracle": {
+				"odds": "likely",
+				"yes": {"goodwill": 2, "add_tag": "village_friend", "remove_tag": "village_slighted", "chronicle": "{monk} came back from the hill village. The old woman had died at peace, and the village said they would remember who came."},
+				"no": {"goodwill": 1, "monk_add_tag": "grieving", "chronicle": "{monk} reached the hill village too late, and could only help bury the dead. He came home quiet."}
+			}
+		}
+	},
+	{
+		"id": "return_pilgrimage",
+		"deck": "return",
+		"weight": 10,
+		"when": {"monk": {"has": ["on_pilgrimage"]}},
+		"effects": {"monk_add_tag": "pilgrim", "goodwill": 1, "chronicle": "{monk} came home from the Drowned Bells, thinner and full of joy, and said he had heard them ring."}
+	},
+	{
+		"id": "return_pilgrimage_lost",
+		"deck": "return",
+		"weight": 2,
+		"when": {"monk": {"has": ["on_pilgrimage"]}},
+		"effects": {"monk_dies": "fever on pilgrimage", "chronicle": "The weeks passed and {monk} did not come home from the Drowned Bells. A trader brought word that a monk had died of fever at the shrine and was buried there, within sound of the bells. The brothers said the Office of the Dead for him."}
+	},
+	{
+		"id": "return_retreat",
+		"deck": "return",
+		"when": {"monk": {"has": ["on_retreat"]}},
+		"effects": {
+			"oracle": {
+				"odds": "likely",
+				"yes": {"monk_remove_tag": "doubting", "monk_add_tag": "tested_faith", "chronicle": "{monk} came down from the hermit's cave after a month alone, and sang the Office that night as he had not sung it in years."},
+				"no": {"monk_departs": true, "chronicle": "{monk} did not come back from the hermit's cave. He sent word by a shepherd that he had gone to look for God elsewhere, and asked the brothers to pray for him."}
+			}
+		}
+	},
+	{
+		"id": "return_amends",
+		"deck": "return",
+		"when": {"monk": {"has": ["on_amends"]}},
+		"effects": {
+			"oracle": {
+				"odds": "even",
+				"yes": {"remove_tag": "village_slighted", "goodwill": 1, "chronicle": "{monk} spent two weeks mending roofs in the hill village. When he left, the headman walked him to the edge of the fields."},
+				"no": {"chronicle": "{monk} went to the hill village to make amends, but they would not open their doors to him."}
+			}
+		}
+	}
+]

@@ -1,0 +1,193 @@
+[
+	{
+		"id": "pump_drawing",
+		"title": "A Drawing of a Pump",
+		"weight": 6,
+		"once": true,
+		"when": {"min": {"books": 2}, "monk": {"vocation": ["scribe"]}},
+		"text": "In a damp manual of the old world, {monk} has found a drawing of a hand pump that could lift water from the stream up to the garden.",
+		"choices": [
+			{
+				"label": "Have it built",
+				"effects": {"add_tag": "pump_project"},
+				"chronicle": "{When}, {monk} found in an old book the drawing of a pump, and the abbot ordered it built."
+			},
+			{
+				"label": "Copy the drawing and keep it safe",
+				"effects": {"books": 1},
+				"chronicle": "{When}, {monk} copied out an old-world drawing of a pump, and it was kept in the library."
+			}
+		]
+	},
+	{
+		"id": "pump_building",
+		"title": "Building the Pump",
+		"weight": 12,
+		"cooldown": 8,
+		"when": {"has_tag": ["pump_project"], "not_season": ["winter"], "monk": {"vocation": ["builder"]}},
+		"text": "{monk} has the pipes cut and the leather valves ready. He needs wood for the forge to finish the iron fittings.",
+		"choices": [
+			{
+				"label": "Give him the wood",
+				"requires": {"firewood": 8},
+				"effects": {
+					"firewood": -8,
+					"remove_tag": "pump_project",
+					"oracle": {
+						"odds": "even",
+						"yes": {"add_tag": "water_pump", "chronicle": "{When}, {monk} finished the pump, and water climbed the hill to the garden. The beds would not go dry again."},
+						"no": {"chronicle": "{When}, {monk} finished the pump, but it cracked on the first day of use. The pieces were kept in the workshop."}
+					}
+				}
+			},
+			{"label": "Wait until the woodpile is fuller", "chronicle": ""}
+		]
+	},
+	{
+		"id": "device_hums",
+		"title": "The Humming Box",
+		"weight": 8,
+		"cooldown": 16,
+		"when": {"has_tag": ["old_device"]},
+		"text": "The box from the pylon field hums louder at night now. The brothers in the dormitory over the workshop say they cannot sleep.",
+		"choices": [
+			{
+				"label": "Have it opened",
+				"effects": {
+					"remove_tag": "old_device",
+					"oracle": {
+						"odds": "unlikely",
+						"yes": {"add_tag": "lamp", "chronicle": "{When}, the box from the pylon field was opened. Inside was a lamp that gave light without flame, and the scribes now work through the winter nights by it."},
+						"no": {"firewood": -10, "chronicle": "{When}, the box from the pylon field was opened, and it burst into a white fire that took half the woodpile before it went out."}
+					}
+				}
+			},
+			{
+				"label": "Bury it after all",
+				"effects": {"remove_tag": "old_device", "add_tag": "buried_device"},
+				"chronicle": "{When}, the humming box was taken out of the workshop and buried outside the walls."
+			}
+		]
+	},
+	{
+		"id": "men_in_clean_coats",
+		"title": "Men in Clean Coats",
+		"weight": 5,
+		"once": true,
+		"when": {"has_tag": ["buried_device"], "year_min": 2},
+		"text": "Three men in clean grey coats, with good boots and no weapons you can see, ask at the gate whether the brothers have found any machines of the old world.",
+		"choices": [
+			{
+				"label": "Tell them the truth",
+				"effects": {"remove_tag": "buried_device", "add_tag": "technocrats_know"},
+				"chronicle": "{When}, three men in grey coats came asking about machines of the old world. They were shown where the humming box was buried, dug it up, and carried it away with great care."
+			},
+			{
+				"label": "Say only that the dead are buried outside the walls",
+				"effects": {"add_tag": "technocrats_suspicious"},
+				"chronicle": "{When}, three men in grey coats came asking about old-world machines. They were told nothing, but one of them looked for a long time at the ground outside the walls."
+			}
+		]
+	},
+	{
+		"id": "storm_bell",
+		"weight": 3,
+		"cooldown": 96,
+		"when": {"not_tag": ["cracked_bell"]},
+		"effects": {"add_tag": "cracked_bell", "chronicle": "{When}, lightning struck the bell tower, and the bell cracked. It rang flat and sour after that."}
+	},
+	{
+		"id": "bell_recast",
+		"title": "The Cracked Bell",
+		"weight": 8,
+		"cooldown": 16,
+		"when": {"has_tag": ["cracked_bell"], "not_season": ["winter"], "monk": {"vocation": ["builder"]}},
+		"text": "{monk} believes he can recast the cracked bell if he has enough fuel to keep the furnace going for two days.",
+		"choices": [
+			{
+				"label": "Recast the bell",
+				"requires": {"firewood": 15},
+				"effects": {
+					"firewood": -15,
+					"remove_tag": "cracked_bell",
+					"oracle": {
+						"odds": "likely",
+						"yes": {"goodwill": 2, "chronicle": "{When}, {monk} recast the bell. When it rang for Vespers, people in the hill village came out of their houses to listen."},
+						"no": {"add_tag": "flat_bell", "chronicle": "{When}, {monk} recast the bell, but it came out of the mould with a flaw and still rings a little flat."}
+					}
+				}
+			},
+			{"label": "The bell can wait", "chronicle": ""}
+		]
+	},
+	{
+		"id": "healer_herbs",
+		"weight": 6,
+		"cooldown": 20,
+		"when": {"season": ["spring", "summer"], "monk": {"vocation": ["healer"]}},
+		"effects": {"medicine": 3, "chronicle": "{When}, {monk} found feverfew and willow on the north slope and filled the infirmary jars."}
+	},
+	{
+		"id": "travelling_tinker",
+		"title": "A Tinker with a Mule",
+		"weight": 6,
+		"cooldown": 20,
+		"when": {"not_season": ["winter"]},
+		"text": "A tinker with a mule and a cart of jars stops at the gate. He has medicine, he says, real medicine from the coast.",
+		"choices": [
+			{
+				"label": "Trade a book for medicine",
+				"requires": {"books": 1},
+				"effects": {"books": -1, "medicine": 3},
+				"chronicle": ""
+			},
+			{
+				"label": "Trade grain for medicine",
+				"requires": {"food": 15},
+				"effects": {"food": -15, "medicine": 2},
+				"chronicle": ""
+			},
+			{"label": "Send him on his way", "chronicle": ""}
+		]
+	},
+	{
+		"id": "village_gift",
+		"weight": 6,
+		"cooldown": 48,
+		"when": {"has_tag": ["village_friend"]},
+		"effects": {"food": 20, "goodwill": 1, "chronicle": "{When}, the hill village sent up a cart of turnips and two goats, unasked."}
+	},
+	{
+		"id": "village_cold_shoulder",
+		"title": "Empty Benches",
+		"weight": 8,
+		"cooldown": 16,
+		"when": {"has_tag": ["village_slighted"], "monk": {"min_health": 3}},
+		"text": "No one from the hill village came up for Mass on Sunday. {monk} says they are still angry that no one came to the deathbed.",
+		"choices": [
+			{
+				"label": "Send {monk} to make amends",
+				"effects": {"monk_away": {"weeks": 2, "tag": "on_amends"}},
+				"chronicle": "{When}, {monk} went down to the hill village to make amends."
+			},
+			{"label": "They will come back in time", "effects": {"goodwill": -1}, "chronicle": ""}
+		]
+	},
+	{
+		"id": "scriptorium_copy",
+		"title": "The Scriptorium",
+		"weight": 5,
+		"cooldown": 24,
+		"when": {"monk": {"vocation": ["scribe"]}},
+		"text": "{monk} asks for vellum and oak galls to copy one of the old-world books before the damp takes it entirely.",
+		"choices": [
+			{
+				"label": "Give him what he needs",
+				"requires": {"food": 6},
+				"effects": {"food": -6, "books": 1},
+				"chronicle": "{When}, {monk} finished copying a book of the old world before the damp could take it."
+			},
+			{"label": "Not this season", "chronicle": ""}
+		]
+	}
+]

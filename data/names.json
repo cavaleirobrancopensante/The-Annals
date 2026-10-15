@@ -1,0 +1,21 @@
+{
+	"monks": [
+		"Aidan", "Anselm", "Bede", "Benedict", "Brendan", "Ciarán", "Columba", "Cuthbert",
+		"Declan", "Dominic", "Fintan", "Gall", "Gregory", "Isidore", "Jerome", "Kevin",
+		"Kilian", "Malachy", "Matthias", "Odo", "Romuald", "Bruno", "Bernard", "Tomás",
+		"João", "Paulo", "Mateus", "Inácio", "Lourenço", "Bento", "Rafael", "Gabriel",
+		"Martin", "Hilary", "Ambrose", "Basil", "Ephrem", "Simeon", "Silas", "Thaddeus",
+		"Bartholomew", "Laurence", "Vincent", "Fiacre", "Colm", "Enda", "Finnian", "Moling",
+		"Aelred", "Wulfstan", "Sebastião", "Amaro", "Gonçalo", "Teodoro"
+	],
+	"patrons": [
+		"Saint Columba", "Saint Brendan", "Saint Benedict", "Saint Kevin", "Saint Isidore",
+		"Saint Bede", "Saint Anthony", "Saint Brigid", "Saint Martin", "Saint Romuald",
+		"Saint Bruno", "Saint Patrick", "Saint Scholastica", "Saint Gall"
+	],
+	"places": [
+		"the Dry Ford", "Ash Hill", "the Broken Bridge", "the Salt Road", "the Old Pylons",
+		"the Glass Waste", "Kestrel Gorge", "the Drowned Mill", "the Long Cutting", "Three Wells",
+		"the Rust Orchard", "Lantern Cross"
+	]
+}
