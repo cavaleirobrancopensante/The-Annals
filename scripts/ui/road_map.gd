@@ -33,8 +33,16 @@ func _node_px(n: Dictionary) -> Vector2:
 	return _to_px(Vector2(float(n["x"]), float(n["y"])))
 
 
+var _chart: Texture2D
+
+
 func _draw() -> void:
-	draw_rect(Rect2(Vector2.ZERO, size), Color("231c15"))
+	if _chart == null and ResourceLoader.exists("res://assets/art/map/island.svg"):
+		_chart = load("res://assets/art/map/island.svg")
+	if _chart:
+		draw_texture_rect(_chart, Rect2(Vector2.ZERO, size), false)
+	else:
+		draw_rect(Rect2(Vector2.ZERO, size), Color("231c15"))
 	var font := ThemeDB.fallback_font
 	var house := _to_px(Road.house_pos)
 

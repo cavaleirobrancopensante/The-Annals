@@ -56,7 +56,7 @@ func _build() -> void:
 	_root = Control.new()
 	_root.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(_root)
-	_root.add_child(Style.background())
+	_root.add_child(Style.background("menu"))
 	_screens = {}
 	_build_start()
 	_build_slots()
@@ -89,10 +89,18 @@ func _build_start() -> void:
 	var box := _add_screen("start")
 	box.add_child(_flags_row())
 	box.add_child(_spacer(60))
+	var banner := TextureRect.new()
+	banner.texture = load("res://assets/art/banners/title.svg")
+	banner.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	banner.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	banner.custom_minimum_size = Vector2(0, 110)
 	var title := Style.label(40, Style.GOLD)
 	title.text = tr("menu.title")
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	box.add_child(title)
+	title.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	title.set_anchors_preset(Control.PRESET_FULL_RECT)
+	banner.add_child(title)
+	box.add_child(banner)
 	var sub := Style.label(20, Style.DIM)
 	sub.text = tr("menu.subtitle")
 	sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER

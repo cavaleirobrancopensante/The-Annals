@@ -32,6 +32,7 @@ var standings_label: Label
 var _road_signature := ""
 var event_panel: PanelContainer
 var event_title: Label
+var event_scene: TextureRect
 var event_text: RichTextLabel
 var choices_box: VBoxContainer
 var controls_box: HBoxContainer
@@ -76,7 +77,7 @@ func _ready() -> void:
 
 func _build_ui() -> void:
 	theme = Style.theme()
-	add_child(Style.background())
+	add_child(Style.background("house"))
 
 	var margin := MarginContainer.new()
 	margin.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -136,6 +137,12 @@ func _build_ui() -> void:
 	event_panel.add_child(ev_scroll)
 	ev.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	ev_scroll.add_child(ev)
+	event_scene = TextureRect.new()
+	event_scene.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	event_scene.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	event_scene.custom_minimum_size = Vector2(0, 180)
+	event_scene.visible = false
+	ev.add_child(event_scene)
 	event_title = _label(24, GOLD)
 	ev.add_child(event_title)
 	event_text = RichTextLabel.new()
@@ -745,6 +752,9 @@ func _show_event(view: Dictionary) -> void:
 		return
 	event_title.text = view.get("title", "")
 	event_title.visible = event_title.text != ""
+	var scene_tex := Style.scene_for(str(EventEngine.pending.get("id", "")))
+	event_scene.texture = scene_tex
+	event_scene.visible = scene_tex != null
 	event_text.text = view.get("text", "")
 	for c in choices_box.get_children():
 		choices_box.remove_child(c)

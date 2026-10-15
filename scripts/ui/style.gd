@@ -33,11 +33,36 @@ static func theme() -> Theme:
 	return t
 
 
-static func background() -> ColorRect:
+## The screen's tapestry from the art set when it exists, otherwise a flat colour.
+static func background(screen: String = "") -> Control:
+	var path := "res://assets/art/backgrounds/%s.svg" % screen
+	if screen != "" and ResourceLoader.exists(path):
+		var art := TextureRect.new()
+		art.texture = load(path)
+		art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+		art.set_anchors_preset(Control.PRESET_FULL_RECT)
+		return art
 	var bg := ColorRect.new()
 	bg.color = BG
 	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
 	return bg
+
+
+static var _scene_map := {}
+
+
+## The scene drawn above an event card, from data/events/scenes.json. Null when the card has none.
+static func scene_for(card_id: String) -> Texture2D:
+	if _scene_map.is_empty():
+		var f := FileAccess.open("res://data/scenes/events.json", FileAccess.READ)
+		if f:
+			_scene_map = JSON.parse_string(f.get_as_text())
+	var scene := str(_scene_map.get(card_id, ""))
+	var path := "res://assets/art/scenes/%s.svg" % scene
+	if scene == "" or not ResourceLoader.exists(path):
+		return null
+	return load(path)
 
 
 static func box(fill: Color, border: Color, width: int, radius: int, pad: int = 12) -> StyleBoxFlat:

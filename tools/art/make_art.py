@@ -352,6 +352,173 @@ ITEMS = ["bread", "candle", "book", "cross", "bell", "grain", "fish", "herb",
          "log", "hammer", "sword", "shield", "bow", "quill", "ladle", "shell"]
 
 
+# --- Backgrounds, frames, banners, icons, map and event scenes -----------------------------
+
+def tapestry_bg(w, h, bg, accent):
+    """A full tapestry field for a screen: the same field as the figures, with a wide gold border."""
+    return svg(w, h, defs_common() + '<defs>' + '<pattern id="field" width="40" height="40" patternUnits="userSpaceOnUse">'
+               f'<rect width="40" height="40" fill="{bg}"/>'
+               f'<path d="M20 3 L37 20 L20 37 L3 20 Z" fill="{lighter(accent, 0.12)}" opacity="0.7"/>'
+               f'<path d="M20 10 L30 20 L20 30 L10 20 Z" fill="{lighter(accent, 0.3)}" opacity="0.45"/>'
+               '<circle cx="20" cy="20" r="2.6" fill="url(#gold)"/></pattern></defs>'
+               f'<rect width="{w}" height="{h}" fill="url(#field)"/>'
+               f'<rect x="10" y="10" width="{w-20}" height="{h-20}" fill="none" stroke="url(#gold)" stroke-width="10"/>'
+               f'<rect x="24" y="24" width="{w-48}" height="{h-48}" fill="none" stroke="{INK}" stroke-width="2"/>'
+               + "".join(f'<circle cx="{x}" cy="{y}" r="6" fill="url(#gold)" stroke="{INK}" stroke-width="2"/>'
+                         for x, y in ((10, 10), (w-10, 10), (10, h-10), (w-10, h-10))))
+
+
+def panel_nine():
+    """A 96 by 96 panel frame for nine-slice drawing: a gold border, ink line and corner roundels."""
+    return svg(96, 96, defs_common() +
+               '<rect x="1" y="1" width="94" height="94" fill="#2a2119"/>'
+               '<rect x="5" y="5" width="86" height="86" fill="none" stroke="url(#gold)" stroke-width="5"/>'
+               f'<rect x="12" y="12" width="72" height="72" fill="none" stroke="{INK}" stroke-width="2"/>'
+               + "".join(f'<circle cx="{x}" cy="{y}" r="6" fill="url(#gold)" stroke="{INK}" stroke-width="2"/>'
+                         for x, y in ((12, 12), (84, 12), (12, 84), (84, 84))))
+
+
+def title_banner():
+    """A ribbon with scrolled ends, for the title to be set over in the UI font."""
+    return svg(720, 180, defs_common() +
+               f'<path d="M80 40 L640 40 L700 90 L640 140 L80 140 L20 90 Z" fill="#2a2119" stroke="url(#gold)" stroke-width="6"/>'
+               f'<path d="M92 56 L628 56 L672 90 L628 124 L92 124 L48 90 Z" fill="none" stroke="{INK}" stroke-width="2"/>'
+               '<path d="M20 90 Q0 60 14 40 M700 90 Q720 60 706 40 M20 90 Q0 120 14 140 M700 90 Q720 120 706 140" fill="none" stroke="url(#gold)" stroke-width="5" stroke-linecap="round"/>'
+               '<circle cx="14" cy="40" r="7" fill="url(#gold)"/><circle cx="706" cy="40" r="7" fill="url(#gold)"/>'
+               '<circle cx="14" cy="140" r="7" fill="url(#gold)"/><circle cx="706" cy="140" r="7" fill="url(#gold)"/>')
+
+
+def heart_icon():
+    return ('<path d="M64 104 Q18 74 22 46 Q26 26 46 28 Q58 30 64 42 Q70 30 82 28 Q102 26 106 46 Q110 74 64 104 Z" '
+            f'fill="#b0503c" stroke="{INK}" stroke-width="4"/>'
+            '<path d="M36 44 Q40 36 48 36" fill="none" stroke="#f2c4b0" stroke-width="4" stroke-linecap="round"/>')
+
+
+def menu_icon():
+    return ''.join(f'<rect x="30" y="{y}" width="68" height="12" rx="4" fill="url(#gold)" stroke="{INK}" stroke-width="2"/>'
+                   for y in (34, 58, 82))
+
+
+def house_icon():
+    return (f'<path d="M24 60 L64 24 L104 60 Z" fill="#b0503c" stroke="{INK}" stroke-width="4"/>'
+            f'<rect x="34" y="60" width="60" height="44" fill="url(#parch)" stroke="{INK}" stroke-width="4"/>'
+            f'<rect x="56" y="78" width="16" height="26" fill="{WOOD}" stroke="{INK}" stroke-width="2"/>')
+
+
+def road_icon():
+    return (f'<path d="M24 104 Q48 40 64 64 Q80 88 104 24" fill="none" stroke="{INK}" stroke-width="10" stroke-linecap="round"/>'
+            '<path d="M24 104 Q48 40 64 64 Q80 88 104 24" fill="none" stroke="url(#parch)" stroke-width="4" stroke-linecap="round"/>'
+            f'<circle cx="104" cy="24" r="8" fill="url(#gold)" stroke="{INK}" stroke-width="2"/>')
+
+
+def stance_icon(kind):
+    if kind == "advance":
+        return (f'<path d="M64 20 L92 64 L74 64 L74 108 L54 108 L54 64 L36 64 Z" fill="url(#steel)" stroke="{INK}" stroke-width="4"/>')
+    if kind == "hold":
+        return (f'<path d="M36 28 L92 28 L92 74 Q92 102 64 112 Q36 102 36 74 Z" fill="#b0503c" stroke="{INK}" stroke-width="4"/>'
+                '<path d="M64 40 L64 96 M46 62 L82 62" stroke="url(#gold)" stroke-width="7"/>')
+    return (f'<path d="M36 64 L64 20 L64 40 L92 40 L92 88 L64 88 L64 108 Z" fill="url(#parch)" stroke="{INK}" stroke-width="4"/>')
+
+
+def map_parchment(w=720, h=520):
+    """The island as a parchment chart: a coastline, sea hatching and a compass rose. Nodes are drawn over it."""
+    import math
+    pts = []
+    for i in range(72):
+        t = i / 72 * 2 * math.pi
+        r = 1.0 + 0.12 * math.sin(3 * t + 0.7) + 0.07 * math.sin(7 * t + 1.9) + 0.04 * math.sin(13 * t + 0.3)
+        pts.append((360 + 250 * r * math.cos(t), 270 + 190 * r * math.sin(t)))
+    coast = "M" + " L".join(f"{x:.1f} {y:.1f}" for x, y in pts) + " Z"
+    hatch = "".join(f'<path d="M{x} {y} q14 -8 28 0" fill="none" stroke="{darker("#d8c49a", 0.45)}" stroke-width="1.5" opacity="0.6"/>'
+                    for y in range(40, h - 20, 22) for x in range(20 + (y // 22 % 2) * 14, w - 20, 34))
+    rose = (f'<g transform="translate(640 80)"><circle r="34" fill="none" stroke="{INK}" stroke-width="2"/>'
+            f'<path d="M0 -40 L8 0 L0 40 L-8 0 Z" fill="url(#gold)" stroke="{INK}" stroke-width="2"/>'
+            f'<path d="M-40 0 L0 8 L40 0 L0 -8 Z" fill="{darker(GOLD, 0.2)}" stroke="{INK}" stroke-width="1.5"/></g>')
+    return svg(w, h, defs_common() +
+               '<defs><radialGradient id="pg" cx="0.5" cy="0.5" r="0.75"><stop offset="0" stop-color="#f3e6c4"/>'
+               '<stop offset="1" stop-color="#c9b07e"/></radialGradient></defs>'
+               f'<rect width="{w}" height="{h}" fill="url(#pg)"/>'
+               f'<rect x="6" y="6" width="{w-12}" height="{h-12}" fill="none" stroke="{INK}" stroke-width="3"/>'
+               + hatch +
+               f'<path d="{coast}" fill="#e9dcbf" stroke="{INK}" stroke-width="3" stroke-linejoin="round"/>'
+               f'<path d="M120 300 Q200 250 260 290 Q330 330 420 300 Q500 270 560 300" fill="none" stroke="{darker("#b9a06a", 0.2)}" stroke-width="2" stroke-dasharray="6 6"/>'
+               + rose)
+
+
+def scene(kind):
+    """A small scene for an event card: sky, land and a few silhouettes. 560 by 320."""
+    w, h = 560, 320
+    sky = {"road": "#3d5a6a", "village": "#6a5a7a", "chapel": "#3a2a40", "coast": "#2f5a6a",
+           "fields": "#7a8a5a", "sickroom": "#2a3a3a", "storm": "#22303a", "hall": "#4a3320"}[kind]
+    land = {"road": "#5a6a3a", "village": "#4a5a32", "chapel": "#2a2119", "coast": "#4a5a52",
+            "fields": "#8a7a3a", "sickroom": "#3a3028", "storm": "#2a3a30", "hall": "#3a2a1a"}[kind]
+    body = [defs_common() +
+            f'<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{darker(sky, 0.3)}"/>'
+            f'<stop offset="1" stop-color="{sky}"/></linearGradient></defs>',
+            f'<rect width="{w}" height="{h}" fill="url(#sky)"/>',
+            f'<path d="M0 {h-90} Q140 {h-140} 280 {h-100} T560 {h-110} L560 {h} L0 {h} Z" fill="{land}"/>',
+            f'<rect x="4" y="4" width="{w-8}" height="{h-8}" fill="none" stroke="url(#gold)" stroke-width="6"/>']
+    if kind == "road":
+        body.append(f'<path d="M180 {h} Q260 {h-120} 300 {h-70} Q340 {h-40} 400 {h-100}" fill="none" stroke="{PARCH}" stroke-width="16" opacity="0.5"/>')
+        body.append('<circle cx="450" cy="90" r="26" fill="url(#gold)" opacity="0.8"/>')
+    elif kind == "village":
+        for x, hgt in ((110, 80), (200, 96), (300, 70), (400, 88)):
+            body.append(f'<path d="M{x-40} {h-96} L{x} {h-96-hgt} L{x+40} {h-96} Z" fill="#8a6a4a" stroke="{INK}" stroke-width="3"/>')
+            body.append(f'<rect x="{x-40}" y="{h-96}" width="80" height="60" fill="#d8c49a" stroke="{INK}" stroke-width="3"/>')
+            body.append(f'<rect x="{x-8}" y="{h-70}" width="16" height="34" fill="{INK}"/>')
+    elif kind == "chapel":
+        body.append(f'<path d="M140 {h-40} L140 110 Q280 40 420 110 L420 {h-40} Z" fill="#4a3a55" stroke="{INK}" stroke-width="4"/>')
+        body.append(f'<path d="M280 60 L280 130 M248 88 L312 88" stroke="url(#gold)" stroke-width="8"/>')
+        body.append('<path d="M270 200 L290 200 L290 260 L270 260 Z" fill="url(#parch)"/>')
+        body.append('<path d="M278 170 Q286 184 278 196 Q270 184 278 170 Z" fill="url(#gold)"/>')
+    elif kind == "coast":
+        body.append('<path d="M0 230 Q140 210 260 240 T560 220 L560 320 L0 320 Z" fill="#3a5a6a"/>')
+        body.append(f'<path d="M180 240 L260 210 L340 240 Z" fill="#e9dcbf" stroke="{INK}" stroke-width="3"/>')
+        body.append(f'<path d="M230 240 L230 190 L300 190" fill="none" stroke="{INK}" stroke-width="3"/>')
+        body.append('<circle cx="460" cy="80" r="20" fill="url(#gold)" opacity="0.8"/>')
+    elif kind == "fields":
+        for x in range(60, 540, 60):
+            body.append(f'<path d="M{x} {h-30} L{x} {h-80}" stroke="#c9a14a" stroke-width="3"/>')
+            body.append(f'<ellipse cx="{x}" cy="{h-90}" rx="9" ry="14" fill="#d9a84a" stroke="{INK}" stroke-width="2"/>')
+    elif kind == "sickroom":
+        body.append(f'<rect x="150" y="{h-120}" width="260" height="46" rx="6" fill="#6a4a2a" stroke="{INK}" stroke-width="3"/>')
+        body.append(f'<rect x="170" y="{h-146}" width="90" height="30" rx="8" fill="#e9dcbf" stroke="{INK}" stroke-width="3"/>')
+        body.append('<path d="M360 60 L380 60 L380 130 L360 130 Z" fill="url(#parch)" stroke="#2a1d14" stroke-width="2"/>')
+    elif kind == "storm":
+        body.append('<path d="M300 40 L270 120 L300 120 L262 210 L330 100 L300 100 L340 40 Z" fill="url(#gold)" stroke="#2a1d14" stroke-width="3"/>')
+        body.append('<path d="M0 240 Q120 220 240 250 T560 240 L560 320 L0 320 Z" fill="#26485a"/>')
+    elif kind == "hall":
+        body.append(f'<path d="M80 {h-60} L280 60 L480 {h-60} Z" fill="#6a4a2a" stroke="{INK}" stroke-width="4"/>')
+        body.append(f'<path d="M280 60 L280 {h-60}" stroke="{INK}" stroke-width="3"/>')
+        body.append('<rect x="250" y="150" width="60" height="50" fill="url(#parch)" stroke="#2a1d14" stroke-width="2"/>')
+    return svg(w, h, "".join(body))
+
+
+SCENES = ["road", "village", "chapel", "coast", "fields", "sickroom", "storm", "hall"]
+
+
+def write_all_extra():
+    out = {"backgrounds": {"menu": tapestry_bg(720, 1280, "#2a2119", "#4a3a28"),
+                           "house": tapestry_bg(720, 1280, "#1f2a24", "#2f4a3e")},
+           "frames": {"panel": panel_nine()},
+           "banners": {"title": title_banner()},
+           "icons": {"heart": svg(128, 128, defs_common() + heart_icon()),
+                     "menu": svg(128, 128, defs_common() + menu_icon()),
+                     "house": svg(128, 128, defs_common() + house_icon()),
+                     "road": svg(128, 128, defs_common() + road_icon()),
+                     "stance_advance": svg(128, 128, defs_common() + stance_icon("advance")),
+                     "stance_hold": svg(128, 128, defs_common() + stance_icon("hold")),
+                     "stance_withdraw": svg(128, 128, defs_common() + stance_icon("withdraw"))},
+           "map": {"island": map_parchment()},
+           "scenes": {k: scene(k) for k in SCENES}}
+    for folder, files in out.items():
+        os.makedirs(os.path.join(ROOT, folder), exist_ok=True)
+        for name, text in files.items():
+            with open(os.path.join(ROOT, folder, name + ".svg"), "w") as f:
+                f.write(text)
+    return sum(len(v) for v in out.values())
+
+
 def main():
     os.makedirs(os.path.join(ROOT, "portraits"), exist_ok=True)
     os.makedirs(os.path.join(ROOT, "figures"), exist_ok=True)
@@ -364,7 +531,8 @@ def main():
     for kind in ITEMS:
         with open(os.path.join(ROOT, "items", kind + ".svg"), "w") as f:
             f.write(item_icon(kind))
-    print("wrote", len(PATHS) * 2 + len(ITEMS), "svg files to", os.path.normpath(ROOT))
+    n = write_all_extra()
+    print("wrote", len(PATHS) * 2 + len(ITEMS) + n, "svg files to", os.path.normpath(ROOT))
 
 
 if __name__ == "__main__":
