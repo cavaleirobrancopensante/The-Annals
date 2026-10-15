@@ -1,7 +1,8 @@
 {
 	"founding": [
 		"In the spring of the first year, {abbot} and {brothers} brothers came to the ruin at {place}. They cleared the rubble from the old chapel, sang Vespers under a broken roof, and dedicated the house to {patron}.",
-		"In the spring of the first year, {abbot} led {brothers} brothers up the road to {place}, where a chapel of the old world still stood without its windows. There they founded the house of {patron}, with three sacks of seed and one goat."
+		"In the spring of the first year, {abbot} led {brothers} brothers up the road to {place}, where a chapel of the old world still stood without its windows. There they founded the house of {patron}, with three sacks of seed and one goat.",
+		"In the spring of the first year, {abbot} and {brothers} brothers came over the hill to {place}, the last house on the western edge of Ireland, where the road runs out at the sea. They found the chapel roofless and the wind coming through it, and dedicated the house to {patron}."
 	],
 	"death_age": [
 		"{When}, {monk} died in his sleep at {age_words} years of age, and was buried beside the chapel.",

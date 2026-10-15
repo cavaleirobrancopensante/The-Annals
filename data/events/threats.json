@@ -5,13 +5,13 @@
 		"weight": 5,
 		"cooldown": 36,
 		"when": {"not_tag": ["paid_salt_king", "defied_salt_king", "salt_king_wary", "fed_the_riders"], "min": {"food": 30}},
-		"text": "Five riders wait at the gate under the Salt King's banner. Their captain wants a share of the granary, for what he calls the protection of the road.",
+		"text": "Five riders wait at the gate under the Tollmaster's banner. Their captain wants a share of the granary, for what he calls the protection of the road.",
 		"choices": [
 			{
 				"label": "Pay them",
 				"requires": {"food": 25},
 				"effects": {"food": -25, "add_tag": "paid_salt_king"},
-				"chronicle": "{When}, riders of the Salt King came to the gate, and the house paid them a tithe of grain."
+				"chronicle": "{When}, riders of the Tollmaster came to the gate, and the house paid them a tithe of grain."
 			},
 			{
 				"label": "Offer them a meal instead",
@@ -24,7 +24,7 @@
 						"no": {"food": -15, "add_tag": "defied_salt_king", "chronicle": "They ate the meal, then took the grain anyway."}
 					}
 				},
-				"chronicle": "{When}, riders of the Salt King came to the gate, and {abbot} invited them to eat in the refectory."
+				"chronicle": "{When}, riders of the Tollmaster came to the gate, and {abbot} invited them to eat in the refectory."
 			},
 			{
 				"label": "Refuse them",
@@ -36,7 +36,7 @@
 						"no": {"chronicle": "They rode away laughing, and promised to come back."}
 					}
 				},
-				"chronicle": "{When}, riders of the Salt King demanded grain at the gate, and {abbot} refused them."
+				"chronicle": "{When}, riders of the Tollmaster demanded grain at the gate, and {abbot} refused them."
 			}
 		]
 	},
@@ -46,18 +46,18 @@
 		"weight": 6,
 		"cooldown": 24,
 		"when": {"has_tag": ["paid_salt_king"]},
-		"text": "As some of the brothers had warned, the Salt King's riders are back. The captain says the road has grown more dangerous, and the price has gone up.",
+		"text": "As some of the brothers had warned, the Tollmaster's riders are back. The captain says the road has grown more dangerous, and the price has gone up.",
 		"choices": [
 			{
 				"label": "Pay again",
 				"requires": {"food": 35},
 				"effects": {"food": -35},
-				"chronicle": "{When}, the Salt King's riders came back for more grain, and were paid again."
+				"chronicle": "{When}, the Tollmaster's riders came back for more grain, and were paid again."
 			},
 			{
 				"label": "Not this time",
 				"effects": {"remove_tag": "paid_salt_king", "add_tag": "defied_salt_king"},
-				"chronicle": "{When}, the Salt King's riders came back for more, and this time {abbot} sent them away empty-handed."
+				"chronicle": "{When}, the Tollmaster's riders came back for more, and this time {abbot} sent them away empty-handed."
 			}
 		]
 	},

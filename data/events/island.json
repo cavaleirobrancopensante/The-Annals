@@ -1,0 +1,98 @@
+[
+	{
+		"id": "currach_from_islands",
+		"title": "A Currach on the Tide",
+		"weight": 6,
+		"cooldown": 36,
+		"when": {
+			"not_season": [
+				"winter"
+			]
+		},
+		"text": "A currach comes in below the cliff on the evening tide, with four fishermen from the western islands. They carry salt fish and news of the islands, and they ask for shelter until the wind turns.",
+		"choices": [
+			{
+				"label": "Take them in and share the stores",
+				"requires": {
+					"food": 8
+				},
+				"effects": {
+					"food": -8,
+					"goodwill": 1,
+					"oracle": {
+						"odds": "likely",
+						"yes": {
+							"food": 14,
+							"chronicle": "{When}, a currach came in from the western islands. The house fed the four fishermen, who mended the nets and left a barrel of salt fish in the storeroom."
+						},
+						"no": {
+							"chronicle": "{When}, four fishermen from the western islands were given shelter, and they left before the mending was done, with the storeroom short."
+						}
+					}
+				}
+			},
+			{
+				"label": "Send them north along the coast",
+				"chronicle": "{When}, a currach from the western islands was turned back at the strand, and the fishermen went north along the coast."
+			}
+		]
+	},
+	{
+		"id": "atlantic_storm",
+		"weight": 4,
+		"cooldown": 60,
+		"when": {
+			"season": [
+				"autumn",
+				"winter"
+			]
+		},
+		"effects": {
+			"food": -4,
+			"firewood": -2,
+			"chronicle": "{When}, a storm came in off the Atlantic in the night. It tore the sheets from the byre roof and flattened the oats in the lower field, and the sea came over the strand white in the dark."
+		}
+	},
+	{
+		"id": "wreck_on_the_rocks",
+		"weight": 3,
+		"cooldown": 96,
+		"when": {
+			"not_season": [
+				"winter"
+			]
+		},
+		"effects": {
+			"books": 2,
+			"chronicle": "{When}, a boat from the islands was found broken on the rocks below the cliff. Among the wreckage were a sodden psalter and two books in a waxed bag, which the scriptorium dried by the fire."
+		}
+	},
+	{
+		"id": "no_word_from_abroad",
+		"weight": 3,
+		"cooldown": 48,
+		"when": {
+			"season": [
+				"winter"
+			]
+		},
+		"effects": {
+			"goodwill": -1,
+			"chronicle": "{When}, no boat came in from the mainland, and the brothers went the whole winter without news of the world beyond the sea."
+		}
+	},
+	{
+		"id": "bog_fire",
+		"weight": 3,
+		"cooldown": 60,
+		"when": {
+			"season": [
+				"summer"
+			]
+		},
+		"effects": {
+			"firewood": 6,
+			"chronicle": "{When}, the bog caught fire in the dry weeks, and the smoke hung over the glen for a fortnight. Afterwards the brothers cut the scorched turf, which burned well."
+		}
+	}
+]

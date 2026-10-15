@@ -49,7 +49,7 @@
 		"weight": 8,
 		"cooldown": 16,
 		"when": {"has_tag": ["old_device"]},
-		"text": "The box from the pylon field hums louder at night now. The brothers in the dormitory over the workshop say they cannot sleep.",
+		"text": "The box from the turbine field hums louder at night now. The brothers in the dormitory over the workshop say they cannot sleep.",
 		"choices": [
 			{
 				"label": "Have it opened",
@@ -57,8 +57,8 @@
 					"remove_tag": "old_device",
 					"oracle": {
 						"odds": "unlikely",
-						"yes": {"add_tag": "lamp", "chronicle": "{When}, the box from the pylon field was opened. Inside was a lamp that gave light without flame, and the scribes now work through the winter nights by it."},
-						"no": {"firewood": -10, "chronicle": "{When}, the box from the pylon field was opened, and it burst into a white fire that took half the woodpile before it went out."}
+						"yes": {"add_tag": "lamp", "chronicle": "{When}, the box from the turbine field was opened. Inside was a lamp that gave light without flame, and the scribes now work through the winter nights by it."},
+						"no": {"firewood": -10, "chronicle": "{When}, the box from the turbine field was opened, and it burst into a white fire that took half the woodpile before it went out."}
 					}
 				}
 			},
@@ -112,7 +112,7 @@
 					"remove_tag": "cracked_bell",
 					"oracle": {
 						"odds": "likely",
-						"yes": {"goodwill": 2, "chronicle": "{When}, {monk} recast the bell. When it rang for Vespers, people in the hill village came out of their houses to listen."},
+						"yes": {"goodwill": 2, "chronicle": "{When}, {monk} recast the bell. When it rang for Vespers, people in the glen village came out of their houses to listen."},
 						"no": {"add_tag": "flat_bell", "chronicle": "{When}, {monk} recast the bell, but it came out of the mould with a flaw and still rings a little flat."}
 					}
 				}
@@ -128,12 +128,12 @@
 		"effects": {"medicine": 3, "chronicle": "{When}, {monk} found feverfew and willow on the north slope and filled the infirmary jars."}
 	},
 	{
-		"id": "travelling_tinker",
-		"title": "A Tinker with a Mule",
+		"id": "travelling_pedlar",
+		"title": "A Pedlar with a Mule",
 		"weight": 6,
 		"cooldown": 20,
 		"when": {"not_season": ["winter"]},
-		"text": "A tinker with a mule and a cart of jars stops at the gate. He has medicine, he says, real medicine from the coast.",
+		"text": "A pedlar with a mule and a cart of jars stops at the gate. He has medicine, he says, real medicine from the coast.",
 		"choices": [
 			{
 				"label": "Trade a book for medicine",
@@ -155,7 +155,7 @@
 		"weight": 6,
 		"cooldown": 48,
 		"when": {"has_tag": ["village_friend"]},
-		"effects": {"food": 20, "goodwill": 1, "chronicle": "{When}, the hill village sent up a cart of turnips and two goats, unasked."}
+		"effects": {"food": 20, "goodwill": 1, "chronicle": "{When}, the glen village sent up a cart of turnips and two goats, unasked."}
 	},
 	{
 		"id": "village_cold_shoulder",
@@ -163,12 +163,12 @@
 		"weight": 8,
 		"cooldown": 16,
 		"when": {"has_tag": ["village_slighted"], "monk": {"min_health": 3}},
-		"text": "No one from the hill village came up for Mass on Sunday. {monk} says they are still angry that no one came to the deathbed.",
+		"text": "No one from the glen village came up for Mass on Sunday. {monk} says they are still angry that no one came to the deathbed.",
 		"choices": [
 			{
 				"label": "Send {monk} to make amends",
 				"effects": {"monk_away": {"weeks": 2, "tag": "on_amends"}},
-				"chronicle": "{When}, {monk} went down to the hill village to make amends."
+				"chronicle": "{When}, {monk} went down to the glen village to make amends."
 			},
 			{"label": "They will come back in time", "effects": {"goodwill": -1}, "chronicle": ""}
 		]

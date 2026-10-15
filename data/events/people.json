@@ -163,7 +163,7 @@
 				"label": "Keep the feast",
 				"requires": {"food": 12},
 				"effects": {"food": -12, "goodwill": 2},
-				"chronicle": "{When}, the feast of {patron} was kept with bread and singing, and half the hill village came."
+				"chronicle": "{When}, the feast of {patron} was kept with bread and singing, and half the glen village came."
 			},
 			{"label": "Keep it plain, as always", "chronicle": ""}
 		]
@@ -210,7 +210,7 @@
 		"weight": 5,
 		"cooldown": 60,
 		"when": {"monk": {"vocation": ["soldier"], "not": ["past_exposed"]}},
-		"text": "A trader at the gate stares at {monk}, then spits on the ground. He says he knows that face from the burning of Varela, and that a habit does not wash blood away.",
+		"text": "A trader at the gate stares at {monk}, then spits on the ground. He says he knows that face from the burning of Dunmore, and that a habit does not wash blood away.",
 		"choices": [
 			{
 				"label": "Let {monk} answer him",
@@ -237,12 +237,12 @@
 		"weight": 8,
 		"once": true,
 		"when": {"has_tag": ["fed_the_riders"]},
-		"text": "One of the Salt King's riders, who ate at your table, comes back alone and on foot. He has left his sword in a ditch. He asks to be taught to pray.",
+		"text": "One of the Tollmaster's riders, who ate at your table, comes back alone and on foot. He has left his sword in a ditch. He asks to be taught to pray.",
 		"choices": [
 			{
 				"label": "Receive him",
 				"effects": {"new_monk": {"vocation": "soldier", "traits": ["wrathful"], "age": [22, 35]}, "remove_tag": "fed_the_riders"},
-				"chronicle": "{When}, one of the Salt King's riders came back alone and asked to stay. He was received, and took the name {newcomer_name}."
+				"chronicle": "{When}, one of the Tollmaster's riders came back alone and asked to stay. He was received, and took the name {newcomer_name}."
 			},
 			{
 				"label": "Turn him away; it may be a trick",

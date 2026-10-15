@@ -2,7 +2,7 @@
 
 A monastery at the end of the world, and the chronicle it leaves behind.
 
-You found a small abbey in the ruins of a fallen civilisation and keep it alive across generations. Every week brings hunger, riders, sick children at the gate, brothers who doubt, and boxes that hum in the night. While you play, the game writes the house's annals in a scribe's voice. The chronicle is the reward.
+You found a small abbey in the ruins of a fallen Ireland, an island with the sea on every side, and keep it alive across generations. Every week brings hunger, riders, sick children at the gate, brothers who doubt, and boxes that hum in the night. While you play, the game writes the house's annals in a scribe's voice. The chronicle is the reward.
 
 Built in **Godot 4.7** (GDScript, GL Compatibility renderer), portrait, mobile first.
 
