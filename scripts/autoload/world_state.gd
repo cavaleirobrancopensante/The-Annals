@@ -127,6 +127,9 @@ func new_game() -> void:
 	abbot_since_year = 1
 	for voc in ["farmer", "farmer", "healer", "scribe", "builder", "cook", "soldier"]:
 		generate_monk(voc, [], 19, 58)
+	# The founders have set their paths already; only novices come with hidden ones.
+	for m in monks:
+		Paths.reveal(m)
 
 
 func house_name() -> String:
@@ -198,6 +201,7 @@ func generate_monk(vocation = "", traits: Array = [], age_min: int = 18, age_max
 		"gen": generation,
 	}
 	Skills.init_monk(m)
+	Paths.assign(m, false)
 	next_monk_id += 1
 	monks.append(m)
 	return m

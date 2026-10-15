@@ -110,6 +110,10 @@ func _monk_matches(m: Dictionary, cond: Dictionary) -> bool:
 		return false
 	if cond.has("vocation") and not m["vocation"] in cond["vocation"]:
 		return false
+	if cond.has("path_known") and bool(m.get("path_known", false)) != bool(cond["path_known"]):
+		return false
+	if cond.has("path") and not str(m.get("path", "")) in cond["path"]:
+		return false
 	for t in cond.get("has", []):
 		if not WorldState.monk_has(m, t):
 			return false
@@ -228,6 +232,7 @@ func _ctx(bind: Dictionary, node_id: String = "") -> Dictionary:
 				ctx[slot] = WorldState.display_name(m)
 				ctx[slot + "_name"] = m["name"]
 				ctx[slot + "_vocation"] = WorldState.vocation_name(m)
+				ctx[slot + "_path"] = str(Paths.name_of(str(m.get("path", "")))).to_lower()
 	if node_id != "":
 		ctx["node"] = Road.node_name(node_id)
 	return ctx
@@ -331,6 +336,10 @@ func _apply(effects: Dictionary, bind: Dictionary, lines: Array) -> void:
 			m["traits"].erase(t)
 		if effects.has(slot + "_health"):
 			WorldState.change_health(m, int(effects[slot + "_health"]))
+		if bool(effects.get(slot + "_reveal", false)):
+			Paths.reveal(m)
+		if effects.has(slot + "_path"):
+			Paths.set_path(m, str(effects[slot + "_path"]))
 		if effects.has(slot + "_away"):
 			var away: Dictionary = effects[slot + "_away"]
 			m["status"] = "away"

@@ -23,7 +23,7 @@ func _process(_delta: float) -> bool:
 	_expect("work above level earns most", sk.work_points(0, 3), 2.0)
 
 	# Levels from points.
-	var m := {}
+	var m := {"path": "householder", "path_known": true}
 	sk.init_monk(m)
 	var gained: Array = sk.add_practice(m, "labour", 5.0)
 	_expect("five points is not yet a level", sk.level(m, "labour"), 0)
@@ -38,7 +38,7 @@ func _process(_delta: float) -> bool:
 	_expect("no practice kept at the cap", m["practice"]["labour"], 0.0)
 
 	# A week at the fields for a brother with no labour.
-	var farmer := {"id": 1, "status": "home", "health": 3, "job": "fields", "vocation": "farmer",
+	var farmer := {"id": 1, "status": "home", "health": 3, "job": "fields", "vocation": "farmer", "path": "householder", "path_known": true,
 		"training": {}, "stats": {}, "skills": {}, "practice": {}}
 	sk.normalise(farmer)
 	ws.monks = [farmer]
@@ -55,9 +55,9 @@ func _process(_delta: float) -> bool:
 	farmer["health"] = 3
 
 	# Training: a brother with a teacher learns twice as fast.
-	var teacher := {"id": 2, "status": "home", "health": 3, "job": "scriptorium", "vocation": "scribe",
+	var teacher := {"id": 2, "status": "home", "health": 3, "job": "scriptorium", "vocation": "scribe", "path": "monk", "path_known": true,
 		"training": {}, "stats": {}, "skills": {"scribing": 3}, "practice": {}}
-	var pupil := {"id": 3, "status": "home", "health": 3, "job": "scriptorium", "vocation": "scribe",
+	var pupil := {"id": 3, "status": "home", "health": 3, "job": "scriptorium", "vocation": "scribe", "path": "monk", "path_known": true,
 		"training": {}, "stats": {}, "skills": {}, "practice": {}}
 	sk.normalise(teacher)
 	sk.normalise(pupil)
@@ -79,7 +79,7 @@ func _process(_delta: float) -> bool:
 	_expect("the remainder is kept", pupil["practice"]["scribing"], 12.0)
 
 	# Learning alone is slower: three points a week.
-	var lone := {"id": 4, "status": "home", "health": 3, "job": "rest", "vocation": "scribe",
+	var lone := {"id": 4, "status": "home", "health": 3, "job": "rest", "vocation": "scribe", "path": "builder", "path_known": true,
 		"training": {}, "stats": {}, "skills": {}, "practice": {}}
 	sk.normalise(lone)
 	ws.monks.append(lone)

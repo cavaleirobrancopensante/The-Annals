@@ -554,6 +554,9 @@ func _brother_row(m: Dictionary) -> Control:
 	for kid in m.get("skills", {}):
 		if int(m["skills"][kid]) > 0:
 			marks.append("%s %d" % [str(Skills.skill_names[kid]).to_lower(), int(m["skills"][kid])])
+	marks.insert(0, "path: %s" % (Paths.name_of(str(m["path"])).to_lower() if bool(m["path_known"]) else "?"))
+	for perk in Paths.perks_of(m):
+		marks.append(str(perk).to_lower())
 	var extra := ""
 	if m["status"] == "away":
 		var party := Road.party_of(m)

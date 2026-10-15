@@ -1,0 +1,24 @@
+{
+	"_note": "Paths a brother's life can take, like classes. A brother's path is hidden (shown as '?') until an event reveals it. Only the growth skills of his path advance. 'weight' sets how often a path is drawn at random. 'needs' is recorded for later; it is not enforced yet.",
+	"paths": [
+		{"id": "monk", "name": "Monk", "weight": 4, "growth": ["devotion", "scribing", "counsel"], "perks": [
+			{"skill": "scribing", "level": 3, "name": "Illuminator"},
+			{"skill": "devotion", "level": 5, "name": "Keeper of the vigil"}
+		]},
+		{"id": "priest", "name": "Priest", "weight": 1, "needs": "a letter of orders", "growth": ["devotion", "counsel", "persuasion"], "perks": [
+			{"skill": "devotion", "level": 3, "name": "Sacraments"}
+		]},
+		{"id": "householder", "name": "Householder", "weight": 3, "growth": ["labour", "building", "cookery"], "perks": [
+			{"skill": "labour", "level": 3, "name": "Head of a household"}
+		]},
+		{"id": "soldier", "name": "Soldier", "weight": 1, "growth": ["melee", "ranged", "holding_gate"], "perks": [
+			{"skill": "melee", "level": 3, "name": "Shield wall"}
+		]},
+		{"id": "hunter", "name": "Hunter", "weight": 1, "growth": ["hunting", "tracking", "snaring"], "perks": []},
+		{"id": "healer", "name": "Healer", "weight": 1, "growth": ["medicine", "foraging", "resisting_sickness"], "perks": []},
+		{"id": "scribe", "name": "Scribe", "weight": 1, "growth": ["scribing", "old_tongues", "accounts"], "perks": []},
+		{"id": "builder", "name": "Builder", "weight": 1, "growth": ["building", "smithing", "ruins_machines"], "perks": []},
+		{"id": "cook", "name": "Cook", "weight": 1, "growth": ["cookery", "foraging", "hospitality"], "perks": []},
+		{"id": "pilgrim", "name": "Pilgrim", "weight": 1, "growth": ["endurance", "tracking", "hospitality"], "perks": []}
+	]
+}

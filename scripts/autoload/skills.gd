@@ -19,6 +19,8 @@ const TRAINING_WEEKS := 4
 const TRAINING_POINTS := 3.0
 ## A teacher must hold the skill at this level or above.
 const TEACHER_LEVEL := 3
+## Until a brother's path is known, he can grow his skills only to this level.
+const GENERALIST_CAP := 3
 
 var stat_ids: Array = []
 var stat_names := {}
@@ -68,6 +70,9 @@ func normalise(m: Dictionary) -> void:
 	for kid in m.get("skills", {}):
 		skills[kid] = int(m["skills"][kid])
 	m["skills"] = skills
+	if not m.has("path"):
+		Paths.assign(m, true)
+	m["path_known"] = bool(m.get("path_known", false))
 	var practice := {}
 	for kid in m.get("practice", {}):
 		practice[kid] = float(m["practice"][kid])
@@ -120,6 +125,17 @@ func points_to_next(lvl: int) -> float:
 	return POINTS_PER_LEVEL * (lvl + 1)
 
 
+## The highest level a brother can reach in a skill, given his path.
+## Hidden path: the generalist cap. Known path: the top level if the skill is on it, otherwise
+## the level he already has (off-path skills stop growing).
+func growth_cap(m: Dictionary, kid: String) -> int:
+	if not bool(m.get("path_known", false)):
+		return GENERALIST_CAP
+	if Paths.grows(str(m.get("path", "")), kid):
+		return MAX_LEVEL
+	return level(m, kid)
+
+
 ## Points a week's work earns. Work well below a brother's level earns little.
 func work_points(lvl: int, difficulty: int) -> float:
 	var gap := difficulty - lvl
@@ -136,15 +152,16 @@ func add_practice(m: Dictionary, kid: String, amount: float) -> Array:
 	if not m.has("practice"):
 		m["practice"] = {}
 	var lvl := level(m, kid)
-	if lvl >= MAX_LEVEL:
+	var cap := growth_cap(m, kid)
+	if lvl >= cap:
 		m["practice"][kid] = 0.0
 		return gained
 	var pool := float(m["practice"].get(kid, 0.0)) + amount
-	while lvl < MAX_LEVEL and pool >= points_to_next(lvl):
+	while lvl < cap and pool >= points_to_next(lvl):
 		pool -= points_to_next(lvl)
 		lvl += 1
 		gained.append({"skill": kid, "level": lvl})
-	if lvl >= MAX_LEVEL:
+	if lvl >= cap:
 		pool = 0.0
 	set_level(m, kid, lvl)
 	m["practice"][kid] = pool
@@ -186,8 +203,10 @@ func start_training(m: Dictionary, kid: String, teacher_id: int) -> String:
 		return "He is too unwell to train."
 	if not training_of(m).is_empty():
 		return "He is already training."
-	if level(m, kid) >= MAX_LEVEL:
-		return "He has nothing more to learn in that."
+	if bool(m.get("path_known", false)) and not Paths.grows(str(m.get("path", "")), kid):
+		return "That is not the path he is set on."
+	if level(m, kid) >= growth_cap(m, kid):
+		return "He has nothing more to learn in that yet."
 	if teacher_id >= 0:
 		var t := WorldState.get_monk(teacher_id)
 		if t.is_empty() or int(t["id"]) == int(m["id"]) or t["status"] != "home" or level(t, kid) < TEACHER_LEVEL:

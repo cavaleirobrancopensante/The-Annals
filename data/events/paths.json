@@ -1,0 +1,42 @@
+[
+	{
+		"id": "novice_dream",
+		"title": "A Dream Before Lauds",
+		"weight": 5,
+		"once": true,
+		"when": {"monk": {"path_known": false, "status": "home", "max_age": 35}},
+		"text": "{monk} came to the office before Lauds white-faced, and would not say at first what had troubled him. Then he told the abbot that in the night he had been called by name, and the voice had not sounded like his own.",
+		"choices": [
+			{
+				"label": "Ask the abbot to hear him",
+				"effects": {"monk_reveal": true},
+				"chronicle": "{When}, {monk} told the abbot his dream, and the abbot read in it a calling to be a {monk_path}."
+			},
+			{
+				"label": "Tell him a dream is only a dream",
+				"effects": {},
+				"chronicle": "{When}, {monk} was told that a dream is only a dream, and he took the advice with a troubled face."
+			}
+		]
+	},
+	{
+		"id": "monk_asks_to_marry",
+		"title": "A Request for Leave",
+		"weight": 8,
+		"once": true,
+		"when": {"monk": {"path_known": true, "path": ["householder"], "status": "home", "min_age": 18}},
+		"text": "{monk} came to the abbot's door with his hat in his hands and asked leave to go down to the village. There is a girl there, he said, and he believes God means him to marry her.",
+		"choices": [
+			{
+				"label": "Give him leave and his blessing",
+				"effects": {"monk_departs": true},
+				"chronicle": "{When}, {monk} left the house for the village, and the abbot blessed him at the gate."
+			},
+			{
+				"label": "Ask him to wait a year",
+				"effects": {},
+				"chronicle": "{When}, {monk} agreed to wait a year before he spoke again of the village."
+			}
+		]
+	}
+]
