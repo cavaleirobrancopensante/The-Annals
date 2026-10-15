@@ -1,0 +1,85 @@
+{
+  "riders_at_gate": {
+    "title": "The Riders at the Gate",
+    "enemy": "the Tollmaster's riders",
+    "strength": 7,
+    "rounds": 7,
+    "intro": "Eight riders in grey cloaks have reined in before the gate. Their captain wants the toll in full, and the house has already said no.",
+    "victory": {
+      "chronicle": "{When}, the house beat back the Tollmaster's riders at the gate. They rode off with their captain's pride and nothing else.",
+      "effects": {
+        "standing": {
+          "tollmaster": -2
+        },
+        "goodwill": 1
+      }
+    },
+    "defeat": {
+      "chronicle": "{When}, the riders broke into the yard and took what they wanted from the store before they rode away.",
+      "effects": {
+        "food": -8,
+        "firewood": -4,
+        "standing": {
+          "tollmaster": -1
+        }
+      }
+    },
+    "withdraw": {
+      "chronicle": "{When}, the brothers drew back inside the gate and barred it, and the riders shouted at the wall until they tired.",
+      "effects": {
+        "food": -2
+      }
+    }
+  },
+  "ambush_on_road": {
+    "title": "An Ambush on the Road",
+    "enemy": "road men",
+    "strength": 5,
+    "rounds": 4,
+    "intro": "At {node}, men with cudgels stepped out of the hedge across the road. They want the cart, and the brothers have only their staves.",
+    "victory": {
+      "chronicle": "{When}, the party beat off the road men at {node}, and kept the road as far as home.",
+      "effects": {
+        "goodwill": 1
+      }
+    },
+    "defeat": {
+      "chronicle": "{When}, road men took the party's bread at {node} and left a brother bleeding in the ditch.",
+      "effects": {
+        "food": -3,
+        "monk_health": -1
+      }
+    },
+    "withdraw": {
+      "chronicle": "{When}, the party backed off from the hedge at {node} and went round by the bog road.",
+      "effects": {}
+    }
+  },
+  "machines_in_the_field": {
+    "title": "The Machines in the Turbine Field",
+    "enemy": "the old machines",
+    "strength": 7,
+    "rounds": 7,
+    "unbreakable": true,
+    "intro": "The grey machines of the turbine field have begun to turn. They make no sound. They come on steadily, and the brothers' staves are small against them.",
+    "victory": {
+      "chronicle": "{When}, the brothers broke the machines in the turbine field one by one, and carried home the least broken of their parts. Nothing came out of the field after that.",
+      "effects": {
+        "add_tag": "turbine_field_quiet",
+        "books": 1
+      }
+    },
+    "defeat": {
+      "chronicle": "{When}, the machines drove the brothers back from the turbine field, and one of them did not come home.",
+      "effects": {
+        "monk_dies": "the old machines"
+      }
+    },
+    "withdraw": {
+      "chronicle": "{When}, the brothers came back from the turbine field with their staves broken, and the machines stayed where they were.",
+      "effects": {
+        "monk_add_tag": "scarred"
+      }
+    }
+  }
+}

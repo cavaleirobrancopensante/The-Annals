@@ -185,6 +185,18 @@ The Rule has four axes: `prayer`, `labour`, `hospitality` and `learning`. Each a
 
 Add a new option by editing `data/rule/rule.json`. Cards written against the option ids pick it up at once.
 
+## Skirmishes
+
+A card starts a fight with the `skirmish` effect, naming an encounter in `data/skirmish/encounters.json`:
+
+```json
+"effects": {"skirmish": "riders_at_gate"}
+```
+
+The three best brothers at home go out unless the caller names fighters. Each encounter has `strength` (how many exchanges the enemy can lose), `rounds` (how long the enemy holds), an `intro`, and three outcomes: `victory`, `defeat` and `withdraw`. Each outcome has a `chronicle` line and `effects`, applied as for any card. Set `"unbreakable": true` for enemies that never run.
+
+Road men can also ambush a party that arrives at a town, hold or ruin whose people have turned against the house.
+
 ## Tips
 
 - Every card should either **write a tag or read one**. Cards that do neither are dead ends.

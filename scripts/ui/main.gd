@@ -49,8 +49,8 @@ func _ready() -> void:
 		Game.new_game()
 	_render_chronicle()
 	_refresh()
-	if EventEngine.has_pending():
-		_show_event(EventEngine.current_view())
+	if Game.waiting():
+		_show_event(Game.current_view())
 
 
 # --- Building the interface ---------------------------------------------
@@ -222,7 +222,7 @@ func _refresh() -> void:
 	forecast_label.add_theme_color_override("font_color", RED if _winter_short() else DIM)
 	_render_estate_if_changed()
 	_refresh_road()
-	var waiting := EventEngine.has_pending()
+	var waiting := Game.waiting()
 	event_panel.visible = waiting
 	controls_box.visible = not waiting and not WorldState.fallen
 	fallen_box.visible = WorldState.fallen

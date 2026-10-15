@@ -22,7 +22,7 @@ func new_game(seed_value: int = -1) -> void:
 
 
 func advance_week() -> void:
-	if WorldState.fallen or EventEngine.has_pending():
+	if WorldState.fallen or waiting():
 		return
 	var old_season := WorldState.season()
 	WorldState.week += 1
@@ -39,7 +39,7 @@ func advance_week() -> void:
 	if _check_fall():
 		return
 	# One thing at a time: a waiting choice (an arrival, say) holds back the rest.
-	if EventEngine.has_pending():
+	if waiting():
 		pass
 	elif not return_queue.is_empty():
 		var id = return_queue.pop_front()
@@ -56,14 +56,28 @@ func advance_until_something(max_weeks: int = 48) -> void:
 	var start_entries := Chronicle.entries.size()
 	for i in max_weeks:
 		advance_week()
-		if EventEngine.has_pending() or WorldState.fallen:
+		if waiting() or WorldState.fallen:
 			return
 		if Chronicle.entries.size() > start_entries:
 			return
 
 
+## True while the house is waiting on a choice: an event card or a skirmish order.
+func waiting() -> bool:
+	return EventEngine.has_pending() or Skirmish.is_active()
+
+
+func current_view() -> Dictionary:
+	if Skirmish.is_active():
+		return Skirmish.current_view()
+	return EventEngine.current_view()
+
+
 func choose(index: int) -> void:
-	EventEngine.resolve(index)
+	if Skirmish.is_active():
+		Skirmish.choose(index)
+	else:
+		EventEngine.resolve(index)
 	_after_change()
 
 
@@ -224,7 +238,9 @@ func _road() -> void:
 			_found_priory(p)
 			continue
 		var living := _living_ids(p)
-		if EventEngine.has_pending() or not EventEngine.pick_event("node", living[0] if not living.is_empty() else -1, p["node"]):
+		if not waiting() and _ambushed(p, living):
+			continue
+		if waiting() or not EventEngine.pick_event("node", living[0] if not living.is_empty() else -1, p["node"]):
 			Chronicle.add_template("road_arrival_generic", {
 				"party": Road.party_names(p),
 				"node": Road.node_name(p["node"]),
@@ -421,6 +437,19 @@ func _check_saint(m: Dictionary) -> void:
 func _novice() -> void:
 	var m := WorldState.generate_monk("", [], 17, 24, true)
 	Chronicle.add_template("novice_joins", {"monk": WorldState.display_name(m)}, "joining")
+
+
+## Road men may wait at a place whose people do not love the house.
+func _ambushed(p: Dictionary, living: Array) -> bool:
+	var node_id := str(p["node"])
+	var node := Road.node(node_id)
+	if living.is_empty() or Road.standing(str(node.get("faction", ""))) > -1:
+		return false
+	if not str(node.get("kind", "")) in ["town", "hold", "ruin"]:
+		return false
+	if not Oracle.chance(0.3):
+		return false
+	return Skirmish.start("ambush_on_road", living, node_id)
 
 
 # --- Save ---------------------------------------------------------------

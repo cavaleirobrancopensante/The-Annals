@@ -59,8 +59,8 @@ func _ready() -> void:
 		if WorldState.has_tag("cold"):
 			cold_weeks += 1
 		var guard := 0
-		while EventEngine.has_pending() and guard < 10:
-			var view := EventEngine.current_view()
+		while Game.waiting() and guard < 10:
+			var view := Game.current_view()
 			var enabled := []
 			for c in view["choices"].size():
 				if view["choices"][c]["enabled"]:
@@ -82,6 +82,7 @@ func _ready() -> void:
 	print("Standings: %s" % str(Road.standings))
 	print("Phase 4: colonies sent %d, daughter houses standing %d, rule changes %d, generation %d, saints %s" % [colonies, WorldState.priories.size(), rule_changes, WorldState.generation, str(WorldState.saints)])
 	print("Rule now: %s" % str(Rule.chosen))
+	print("Skirmishes fought: %d" % Chronicle.entries.filter(func(e): return e.get("kind", "") == "skirmish").size())
 	print("Weeks hungry: %d, weeks cold: %d" % [hunger_weeks, cold_weeks])
 	print("World tags: %s" % str(WorldState.tags.keys()))
 	var fired := EventEngine.fired.keys()

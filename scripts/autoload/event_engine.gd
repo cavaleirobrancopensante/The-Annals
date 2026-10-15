@@ -304,6 +304,8 @@ func _as_array(v) -> Array:
 
 
 func _apply(effects: Dictionary, bind: Dictionary, lines: Array) -> void:
+	if effects.has("skirmish"):
+		Skirmish.start(str(effects["skirmish"]))
 	for r in WorldState.RESOURCES:
 		if effects.has(r):
 			WorldState.change_resource(r, int(effects[r]))

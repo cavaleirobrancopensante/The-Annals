@@ -1,0 +1,45 @@
+[
+	{
+		"id": "riders_at_gate",
+		"title": "Riders at the Gate",
+		"deck": "abbey",
+		"weight": 2,
+		"cooldown": 120,
+		"when": {"min_monks": 5, "not_season": ["winter"]},
+		"text": "Eight riders in grey cloaks have come up the glen road and stopped below the gate. The Tollmaster's captain wants the toll the house refused him last year.",
+		"choices": [
+			{
+				"label": "Bar the gate and stand with staves",
+				"effects": {"skirmish": "riders_at_gate"},
+				"chronicle": ""
+			},
+			{
+				"label": "Pay the toll in full",
+				"requires": {"food": 8},
+				"effects": {"food": -8, "standing": {"tollmaster": 1}},
+				"chronicle": "{When}, the house paid the Tollmaster's riders their toll in full, and they went away without a word."
+			}
+		]
+	},
+	{
+		"id": "machines_wake",
+		"title": "The Turbine Field Stirs",
+		"deck": "abbey",
+		"weight": 1,
+		"cooldown": 200,
+		"when": {"has_tag": ["turbine_field_inhabited"], "not_tag": ["turbine_field_quiet"], "min_monks": 4},
+		"text": "In the night the grey machines of the turbine field began to turn, and in the morning they were coming up the field toward the wall. Nothing has ever come out of that field before.",
+		"choices": [
+			{
+				"label": "Go out and meet them",
+				"effects": {"skirmish": "machines_in_the_field"},
+				"chronicle": ""
+			},
+			{
+				"label": "Shut the chapel and wait",
+				"effects": {"goodwill": -1},
+				"chronicle": "{When}, the brothers shut themselves in the chapel while the machines stood at the wall, and by morning they had gone back to the field."
+			}
+		]
+	}
+]

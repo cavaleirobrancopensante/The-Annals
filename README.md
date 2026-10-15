@@ -6,7 +6,7 @@ You found a small abbey in the ruins of a fallen Ireland, an island with the sea
 
 Built in **Godot 4.7** (GDScript, GL Compatibility renderer), portrait, mobile first.
 
-## Status: Phase 4, the Rule and the generations
+## Status: Phase 5, skirmishes
 
 A text-only prototype. Phase 1 asked whether the chronicle reads like a story; Phase 2 asked whether winter feels tense enough to plan for; Phase 3 asked whether the road gives the house a reason to leave its walls; Phase 4 asks whether a 50-year house stays varied.
 
@@ -20,6 +20,7 @@ What works now:
 - Brothers with names, vocations, a virtue and a flaw, ages, health and memories (tags)
 - 47 event cards with choices, oracle rolls and callbacks
 - Journeys on the road and homecoming events
+- Skirmishes: rare fights played a round at a time. Each round the house orders its line to hold the gate, press the attack, pray and close ranks, or withdraw. Brothers who are struck leave the line and may die. Three encounters so far: the Tollmaster's riders at the gate, road men on the road, and the machines of the turbine field
 - The Rule: four axes (prayer, labour, hospitality, learning), each with options that change the house's economy and the events it meets. Changing the Rule costs a little goodwill and is written into the annals
 - Generations: about fifteen years each. The first novice after that span starts the next generation
 - Novices join at the gate, more often under an open gate and less often when the house is large
@@ -46,6 +47,7 @@ data/
   names.json        brothers' names, patron saints, place names
   road/map.json     places on the road, factions, the house's position
   rule/rule.json    the Rule: its axes and options
+  skirmish/encounters.json  the fights: enemies, strength, outcomes
 scripts/
   autoload/         the engine
     event_bus.gd      global signals
@@ -56,6 +58,7 @@ scripts/
     game.gd           the weekly turn: economy, health, travel, ageing, succession
     road.gd           places, factions and standing, parties on the road
     rule.gd           the Rule: the house's chosen customs
+    skirmish.gd       fights played a round at a time
     save_system.gd    save and load to user://
   ui/main.gd        the phone interface
   ui/road_map.gd    the map of the road, drawn and tappable
@@ -94,6 +97,6 @@ godot --headless --path . res://tests/ui_smoke.tscn
 | 1 | Chronicle engine | Three generated years read like a story |
 | 2 | Abbey loop: jobs, buildings, storage | Winter feels tense even without events (not yet playtested) |
 | 3 | The road: map, parties, factions | Public text prototype and first feedback (built, not yet playtested) |
-| 4 | **The Rule, generations, saints, daughter houses (this)** | A 50-year game stays varied |
-| 5 | Skirmish combat | Fights are rare and memorable |
+| 4 | The Rule, generations, saints, daughter houses | A 50-year game stays varied (built, not yet playtested) |
+| 5 | **Skirmish combat (this)** | Fights are rare and memorable |
 | 6 | Art, 200+ events, Portuguese, release | |

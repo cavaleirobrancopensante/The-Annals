@@ -14,7 +14,7 @@ func _ready() -> void:
 	add_child(main)
 	await get_tree().process_frame
 	for i in 160:
-		if EventEngine.has_pending():
+		if Game.waiting():
 			var buttons: Array = main.choices_box.get_children().filter(func(b): return b is Button and not b.disabled)
 			if not buttons.is_empty():
 				buttons[0].pressed.emit()
@@ -30,13 +30,13 @@ func _ready() -> void:
 	await get_tree().process_frame
 	# Road tab: settle any waiting choice, then choose a place, tick two brothers at home, send them.
 	var settle := 0
-	while EventEngine.has_pending() and settle < 10:
+	while Game.waiting() and settle < 10:
 		var waiting: Array = main.choices_box.get_children().filter(func(b): return b is Button and not b.disabled)
 		if waiting.is_empty():
 			break
 		waiting[0].pressed.emit()
 		settle += 1
-	if not EventEngine.has_pending():
+	if not Game.waiting():
 		main.road_map.selected = "inishkeel"
 		main._refresh_road()
 		var ticked := 0
@@ -46,6 +46,10 @@ func _ready() -> void:
 				ticked += 1
 		main._on_send_party()
 		print("Road tab: %d parties out, note '%s'" % [Road.parties.size(), main.send_note.text])
+	# A skirmish: the riders at the gate, shown in the event panel.
+	if not Game.waiting():
+		Skirmish.start("riders_at_gate")
+		print("Skirmish started: %s" % Skirmish.is_active())
 	main.tabs.current_tab = 1 if "estate" in OS.get_cmdline_user_args() else 2
 	await get_tree().process_frame
 	await get_tree().process_frame
