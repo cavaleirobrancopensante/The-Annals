@@ -1,0 +1,992 @@
+[
+	{
+		"id": "monk_mends_shoes",
+		"title": "Shoes for the Dormitory",
+		"weight": 3,
+		"cooldown": 50,
+		"when": {
+			"monk": {
+				"status": "home"
+			}
+		},
+		"text": "{monk} has mended the shoes of the whole dormitory in a week, and will not take thanks for it.",
+		"choices": [
+			{
+				"label": "Thank him in chapter",
+				"effects": {
+					"goodwill": 1
+				},
+				"chronicle": "{When}, {monk} was thanked in chapter for the shoes, and went red to the ears."
+			},
+			{
+				"label": "Tell him to rest",
+				"effects": {
+					"monk_health": 1
+				},
+				"chronicle": "{When}, {monk} was told to rest, and slept for a day and a night."
+			}
+		]
+	},
+	{
+		"id": "monk_adder_bite",
+		"title": "An Adder in the Bracken",
+		"weight": 3,
+		"cooldown": 45,
+		"when": {
+			"monk": {
+				"status": "home"
+			}
+		},
+		"text": "{monk} was bitten by an adder in the bracken and is pale and slow on the path.",
+		"choices": [
+			{
+				"label": "Send him to the infirmary",
+				"effects": {
+					"medicine": -1,
+					"monk_health": 1
+				},
+				"chronicle": "{When}, {monk} was sent to the infirmary with the medicine, and the swelling went down by evening."
+			},
+			{
+				"label": "Let him walk it off",
+				"effects": {
+					"monk_health": -1
+				},
+				"chronicle": "{When}, {monk} was told to walk it off, and the swelling took a week to go."
+			}
+		]
+	},
+	{
+		"id": "monk_bad_night",
+		"title": "A Name in the Dark",
+		"weight": 3,
+		"cooldown": 45,
+		"when": {
+			"monk": {
+				"status": "home"
+			}
+		},
+		"text": "{monk} has woken the house three nights running, shouting a name that nobody in the house knows.",
+		"choices": [
+			{
+				"label": "Sit with him through the night",
+				"effects": {
+					"monk_health": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, a brother sat with {monk} through the night, and the name was not said again until morning."
+			},
+			{
+				"label": "Tell him to sleep",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, {monk} was told to sleep, and the house slept badly for the rest of the month."
+			}
+		]
+	},
+	{
+		"id": "monk_old_book",
+		"title": "A Book Under the Floor",
+		"weight": 3,
+		"cooldown": 60,
+		"when": {
+			"monk": {
+				"status": "home"
+			}
+		},
+		"text": "{monk} has found an old book under a loose board in the scriptorium, written in a language no one in the house reads.",
+		"choices": [
+			{
+				"label": "Keep it in the library",
+				"effects": {
+					"books": 1
+				},
+				"chronicle": "{When}, the old book was put in the library, and {monk} copied out the first page by candlelight."
+			},
+			{
+				"label": "Bury it again where it was",
+				"effects": {},
+				"chronicle": "{When}, the book was put back under the board, and {monk} did not ask about it again."
+			}
+		]
+	},
+	{
+		"id": "monk_pilgrim_leave",
+		"title": "A Walk to the Lough",
+		"weight": 3,
+		"cooldown": 55,
+		"when": {
+			"monk": {
+				"status": "home",
+				"min_age": 20
+			}
+		},
+		"text": "{monk} asks leave to walk to the shrine at Lough Dearg for a week of penance.",
+		"choices": [
+			{
+				"label": "Give leave",
+				"effects": {
+					"monk_away": {
+						"weeks": 3
+					}
+				},
+				"chronicle": "{When}, {monk} was given leave for the shrine, and walked out of the gate with a stick and a loaf."
+			},
+			{
+				"label": "Refuse; there is work",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, {monk} was refused leave for the shrine, and went back to the fields without a word."
+			}
+		]
+	},
+	{
+		"id": "monk_herb_broth",
+		"title": "The Broth of the Last Herbs",
+		"weight": 3,
+		"cooldown": 50,
+		"when": {
+			"monk": {
+				"status": "home"
+			}
+		},
+		"text": "{monk} has made a broth from the last of the dried herbs, and the whole house is asking for more.",
+		"choices": [
+			{
+				"label": "Let him cook for the house",
+				"effects": {
+					"food": 2
+				},
+				"chronicle": "{When}, {monk} cooked the broth for the house, and the bowls came back empty for three days."
+			},
+			{
+				"label": "Keep the herbs for the sick",
+				"effects": {
+					"medicine": 1
+				},
+				"chronicle": "{When}, the herbs were kept for the sick, and the broth was not made again."
+			}
+		]
+	},
+	{
+		"id": "village_boats_blessed",
+		"title": "The Boats Before Spring",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "Fishermen from the village ask the house to bless their boats before the spring fishing.",
+		"choices": [
+			{
+				"label": "Bless the boats",
+				"effects": {
+					"village_standing": 2
+				},
+				"chronicle": "{When}, the brothers went down to the shore and blessed every boat, and the fishermen wept at the water's edge."
+			},
+			{
+				"label": "Bless them from the gate",
+				"effects": {
+					"village_standing": 1
+				},
+				"chronicle": "{When}, the blessing was given from the gate, and the fishermen took it kindly enough."
+			}
+		]
+	},
+	{
+		"id": "village_fever_again",
+		"title": "The Fever Comes Back",
+		"weight": 4,
+		"cooldown": 45,
+		"when": {
+			"min": {
+				"medicine": 0
+			}
+		},
+		"text": "Fever has come back to the village, and the headman asks the infirmary for help again.",
+		"choices": [
+			{
+				"label": "Send medicine down with a brother",
+				"effects": {
+					"medicine": -1,
+					"village_standing": 3
+				},
+				"chronicle": "{When}, medicine went down to the village with a brother, and the headman stood at the lane's end until the cart was out of sight."
+			},
+			{
+				"label": "Send a letter of prayers",
+				"effects": {
+					"village_standing": -1
+				},
+				"chronicle": "{When}, a letter of prayers was sent down, and the village read it at the well and was not comforted."
+			}
+		]
+	},
+	{
+		"id": "village_tithe_late",
+		"title": "The Tithe Comes Late",
+		"weight": 4,
+		"cooldown": 45,
+		"when": {
+			"min": {
+				"food": 0
+			}
+		},
+		"text": "The village brings the grain tithe a fortnight late, with a request for patience.",
+		"choices": [
+			{
+				"label": "Grant patience",
+				"effects": {
+					"village_standing": 1
+				},
+				"chronicle": "{When}, patience was granted, and the village said the house was a fair landlord, which is not a thing said often."
+			},
+			{
+				"label": "Demand the tithe at once",
+				"effects": {
+					"food": 3,
+					"village_standing": -2
+				},
+				"chronicle": "{When}, the tithe was demanded at once and counted at the gate, and the village went home with its faces shut."
+			}
+		]
+	},
+	{
+		"id": "engine_groans",
+		"title": "The Engine Groans",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "The engine under its rock has begun a sound like a wounded animal, and the fishermen will not walk past it.",
+		"choices": [
+			{
+				"label": "Bring it oil and a brother to tend it",
+				"effects": {
+					"firewood": -2,
+					"attitude": {
+						"engine": 1
+					}
+				},
+				"chronicle": "{When}, oil was carried to the engine, and a brother sat by it with a lamp, and the groaning stopped."
+			},
+			{
+				"label": "Let it be",
+				"effects": {
+					"attitude": {
+						"engine": -1
+					}
+				},
+				"chronicle": "{When}, the engine was left to groan, and the fishermen said the house had abandoned it."
+			}
+		]
+	},
+	{
+		"id": "marred_rider_message",
+		"title": "A Message at the Gate",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "A rider of the Marred leaves a message at the gate: their chief wants to know whether the house still keeps its promises.",
+		"choices": [
+			{
+				"label": "Send back a promise",
+				"effects": {
+					"attitude": {
+						"marred": 1
+					}
+				},
+				"chronicle": "{When}, the house sent back a promise in writing, and the rider took it without a word."
+			},
+			{
+				"label": "Say the house keeps none",
+				"effects": {
+					"attitude": {
+						"marred": -1
+					}
+				},
+				"chronicle": "{When}, the house said it kept none, and the rider laughed and rode away down the valley."
+			}
+		]
+	},
+	{
+		"id": "chimera_tracks",
+		"title": "Tracks in the Top Field",
+		"weight": 4,
+		"cooldown": 45,
+		"text": "Chimera tracks have been found in the top field, very close to the sheep.",
+		"choices": [
+			{
+				"label": "Move the sheep to the sheds",
+				"effects": {
+					"firewood": -1
+				},
+				"chronicle": "{When}, the sheep were moved to the sheds, and the tracks went on round the field for a week."
+			},
+			{
+				"label": "Leave a gift of mutton at the wall",
+				"effects": {
+					"food": -2,
+					"attitude": {
+						"chimera": 1
+					}
+				},
+				"chronicle": "{When}, mutton was left at the wall, and the tracks went back up the hill."
+			}
+		]
+	},
+	{
+		"id": "road_snow_pass",
+		"title": "The High Road Closed",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "The high road is shut by snow, and a party of pilgrims is camped at the foot of it.",
+		"choices": [
+			{
+				"label": "Send food up to them",
+				"effects": {
+					"food": -3,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, bread and salt were sent up to the pilgrims, and they sang the house's name at the foot of the pass."
+			},
+			{
+				"label": "Tell them to turn back",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, the pilgrims were told to turn back, and they did, grumbling down the valley."
+			}
+		]
+	},
+	{
+		"id": "ford_toll_blessing",
+		"title": "A Blessing for the Ford",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "A toll-keeper at the ford wants the house's blessing in exchange for passage.",
+		"choices": [
+			{
+				"label": "Give the blessing",
+				"effects": {
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the blessing was given at the ford, and the toll-keeper let the carts through without counting them."
+			},
+			{
+				"label": "Pay the toll in bread",
+				"effects": {
+					"food": -2
+				},
+				"chronicle": "{When}, the toll was paid in bread, and the toll-keeper said nothing about the bread's quality."
+			}
+		]
+	},
+	{
+		"id": "stray_dog",
+		"title": "The Dog at the Gate",
+		"weight": 3,
+		"cooldown": 40,
+		"text": "A stray dog has followed a party back from the road and will not leave the gate.",
+		"choices": [
+			{
+				"label": "Keep the dog",
+				"effects": {
+					"food": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the dog was kept at the gate, and it learned the bell faster than the novices."
+			},
+			{
+				"label": "Drive it off",
+				"effects": {},
+				"chronicle": "{When}, the dog was driven off, and came back the next morning, and was driven off again."
+			}
+		]
+	},
+	{
+		"id": "road_news_gossip",
+		"title": "News from the Glen",
+		"weight": 3,
+		"cooldown": 45,
+		"text": "A carrier brings word that the Tollmaster's men are quarrelling with the glen lords.",
+		"choices": [
+			{
+				"label": "Write it in the chronicle",
+				"effects": {
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the news was written in the chronicle, and the house read it aloud at supper."
+			},
+			{
+				"label": "Ignore the gossip",
+				"effects": {},
+				"chronicle": "{When}, the gossip was ignored, and the carrier went off to tell it somewhere else."
+			}
+		]
+	},
+	{
+		"id": "bog_men_work",
+		"title": "Men from the Bog for the Harvest",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "Men from the bog come up to ask for work at harvest.",
+		"choices": [
+			{
+				"label": "Hire them for wages in grain",
+				"effects": {
+					"food": -3,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the bog men were hired for wages in grain, and they worked the stubble from dawn to dark."
+			},
+			{
+				"label": "Send them on",
+				"effects": {},
+				"chronicle": "{When}, the bog men were sent on, and the harvest was slower by a week."
+			}
+		]
+	},
+	{
+		"id": "rule_silence",
+		"title": "The Silence at Meals",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "The reader in chapter stumbles on a passage about silence at meals, and the house argues about how long to keep it.",
+		"choices": [
+			{
+				"label": "Keep the silence longer",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, the silence at meals was kept longer, and the young brothers ate their bread in fear of a cough."
+			},
+			{
+				"label": "Shorten it for the old",
+				"effects": {
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the silence was shortened for the old brothers, and the house agreed it was the sensible thing."
+			}
+		]
+	},
+	{
+		"id": "damp_copy",
+		"title": "Mould in the Press",
+		"weight": 3,
+		"cooldown": 45,
+		"text": "A book copied last year has grown mould in the press, and the leaves are spotted green.",
+		"choices": [
+			{
+				"label": "Scrape the mould off and dry it",
+				"effects": {
+					"firewood": -1
+				},
+				"chronicle": "{When}, the mould was scraped away and the leaves dried by the fire, and the book looked almost new."
+			},
+			{
+				"label": "Burn the spoiled leaves",
+				"effects": {
+					"books": -1
+				},
+				"chronicle": "{When}, the spoiled leaves were burned in the yard, and the copyist watched them go without a word."
+			}
+		]
+	},
+	{
+		"id": "blue_ink_gift",
+		"title": "Blue Ink from the City",
+		"weight": 3,
+		"cooldown": 60,
+		"text": "A patron sends a jar of blue ink from the city, with a request for a copy of the illuminated hours.",
+		"choices": [
+			{
+				"label": "Accept and copy the illuminations",
+				"effects": {
+					"books": 1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the blue ink was used for the illuminated hours, and the patron's name was written in the margin."
+			},
+			{
+				"label": "Sell it in the town",
+				"effects": {
+					"food": 4
+				},
+				"chronicle": "{When}, the blue ink was sold in the town for bread and a sack of salt."
+			}
+		]
+	},
+	{
+		"id": "daughter_house_letter",
+		"title": "A Letter from a Daughter House",
+		"weight": 3,
+		"cooldown": 60,
+		"text": "A letter comes from one of the daughter houses, asking for two copies of the hours.",
+		"choices": [
+			{
+				"label": "Send the copies",
+				"effects": {
+					"books": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, two copies of the hours went down the road to the daughter house, and the reply was full of thanks."
+			},
+			{
+				"label": "Ask them to copy it themselves",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, the daughter house was asked to copy the hours themselves, and they did not reply for a year."
+			}
+		]
+	},
+	{
+		"id": "scribe_eyes",
+		"title": "The Failing Eyes",
+		"weight": 3,
+		"cooldown": 60,
+		"text": "The old scribe's eyes are failing, and he asks for a younger hand to take his place at the desk.",
+		"choices": [
+			{
+				"label": "Give him an apprentice",
+				"effects": {
+					"goodwill": 1,
+					"food": -1
+				},
+				"chronicle": "{When}, a young brother was given to the scribe as his apprentice, and the old man taught him the ink with his hands."
+			},
+			{
+				"label": "Let him work until he cannot",
+				"effects": {
+					"goodwill": -1,
+					"books": 1
+				},
+				"chronicle": "{When}, the old scribe was left at the desk, and produced one more book, badly, before he gave up."
+			}
+		]
+	},
+	{
+		"id": "chapter_fast",
+		"title": "The Fast on Wednesdays",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "The chapter has voted to fast on Wednesdays until the bishop's visit, and two brothers are already faint.",
+		"choices": [
+			{
+				"label": "Keep the fast",
+				"effects": {
+					"food": 2,
+					"goodwill": -1
+				},
+				"chronicle": "{When}, the chapter kept its fast, and the kitchen saved the bread, and the faint brothers said nothing."
+			},
+			{
+				"label": "Lift it for the sick",
+				"effects": {
+					"food": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the fast was lifted for the sick, and the chapter went back to its bread with a little shame."
+			}
+		]
+	},
+	{
+		"id": "winter_wolves",
+		"title": "Wolves in the Hills",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "Wolves have come down from the hills and taken a sheep from the fold.",
+		"choices": [
+			{
+				"label": "Set a watch on the fold",
+				"effects": {
+					"firewood": -1
+				},
+				"chronicle": "{When}, a watch was set on the fold for a month, and the wolves did not come down again."
+			},
+			{
+				"label": "Put out poisoned meat",
+				"effects": {
+					"medicine": -1,
+					"food": 1
+				},
+				"chronicle": "{When}, poisoned meat was put out, and a wolf was found dead in the bracken, and the rest kept away."
+			}
+		]
+	},
+	{
+		"id": "lamb_twin_cold",
+		"title": "A Lamb in the Cold",
+		"weight": 3,
+		"cooldown": 45,
+		"text": "A ewe has had twins in the cold, and one is too weak to stand.",
+		"choices": [
+			{
+				"label": "Warm the lamb by the kitchen fire",
+				"effects": {
+					"firewood": -1,
+					"food": 1
+				},
+				"chronicle": "{When}, the lamb was warmed by the kitchen fire, and stood on its legs by morning, bleating for its mother."
+			},
+			{
+				"label": "Leave it to nature",
+				"effects": {
+					"food": -1
+				},
+				"chronicle": "{When}, the weak lamb was left to nature, and by the next day it had gone."
+			}
+		]
+	},
+	{
+		"id": "drought_well",
+		"title": "Six Weeks Without Rain",
+		"weight": 3,
+		"cooldown": 55,
+		"text": "No rain has fallen for six weeks, and the well in the yard is low and brown.",
+		"choices": [
+			{
+				"label": "Carry water from the river",
+				"effects": {
+					"food": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the brothers carried water from the river every morning, and the garden was saved in the carrying."
+			},
+			{
+				"label": "Ration the water",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, the water was rationed, and the garden withered, and the brothers measured every cup."
+			}
+		]
+	},
+	{
+		"id": "boat_overdue",
+		"title": "The Boat Is Overdue",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "A fog has come down over the sea, and a fishing boat from the village is long overdue.",
+		"choices": [
+			{
+				"label": "Ring the bell all night",
+				"effects": {
+					"firewood": -2,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the bell was rung all night, and the boat came in on the last of the tide, its crew singing."
+			},
+			{
+				"label": "Pray for the boat",
+				"effects": {},
+				"chronicle": "{When}, the house prayed for the boat, and the boat came in at noon with a torn sail."
+			}
+		]
+	},
+	{
+		"id": "midwinter_hens",
+		"title": "Frozen Hens",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "A killing frost has come in the midwinter night, and the hens are frozen on their perch.",
+		"choices": [
+			{
+				"label": "Bring the hens into the kitchen",
+				"effects": {
+					"firewood": -1,
+					"food": 1
+				},
+				"chronicle": "{When}, the hens were brought into the kitchen, and half of them lived to lay again in spring."
+			},
+			{
+				"label": "Count the losses in the morning",
+				"effects": {
+					"food": -2
+				},
+				"chronicle": "{When}, the losses were counted in the morning, and the kitchen made do with the eggs it did not have."
+			}
+		]
+	},
+	{
+		"id": "pigs_orchard",
+		"title": "The Pigs in the Orchard",
+		"weight": 3,
+		"cooldown": 40,
+		"text": "The pigs have broken out of their pen and are rooting in the orchard among the windfalls.",
+		"choices": [
+			{
+				"label": "Chase them back with the boys",
+				"effects": {},
+				"chronicle": "{When}, the boys chased the pigs back to the pen, and the orchard was mostly saved."
+			},
+			{
+				"label": "Let them eat the windfalls",
+				"effects": {
+					"food": 1,
+					"goodwill": -1
+				},
+				"chronicle": "{When}, the pigs were let eat the windfalls, and they grew fat, and the brothers said so at every meal."
+			}
+		]
+	},
+	{
+		"id": "saints_day_pilgrims",
+		"title": "A Saint's Day Visit",
+		"weight": 3,
+		"cooldown": 60,
+		"text": "A group of pilgrims arrives on the feast of a local saint and asks for the saint's story.",
+		"choices": [
+			{
+				"label": "Tell it in the chapel",
+				"effects": {
+					"goodwill": 1,
+					"food": -1
+				},
+				"chronicle": "{When}, the saint's story was told in the chapel, and the pilgrims wept at the part with the well."
+			},
+			{
+				"label": "Send them to the village priest",
+				"effects": {
+					"village_standing": -1
+				},
+				"chronicle": "{When}, the pilgrims were sent down to the village priest, who was not pleased to see them."
+			}
+		]
+	},
+	{
+		"id": "cider_barrel",
+		"title": "A Barrel of Cider",
+		"weight": 3,
+		"cooldown": 55,
+		"text": "A barrel of cider has arrived as a gift for the feast, with a card from the village.",
+		"choices": [
+			{
+				"label": "Share it at the table",
+				"effects": {
+					"food": -1,
+					"goodwill": 2
+				},
+				"chronicle": "{When}, the cider was shared at the table, and the feast was remembered for the rest of the year."
+			},
+			{
+				"label": "Store it for the sick",
+				"effects": {
+					"medicine": 1
+				},
+				"chronicle": "{When}, the cider was stored for the sick, and it was used in three cases of fever."
+			}
+		]
+	},
+	{
+		"id": "name_day_fast",
+		"title": "A Name Day on a Fast Day",
+		"weight": 3,
+		"cooldown": 60,
+		"text": "A brother's name day falls on a fast day, and he asks whether the feast may be kept.",
+		"choices": [
+			{
+				"label": "Keep the feast",
+				"effects": {
+					"food": -2,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the feast was kept for the brother's name day, and the fast was put off until the next week."
+			},
+			{
+				"label": "Keep the fast",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, the fast was kept on the name day, and the brother said nothing, but went to bed early."
+			}
+		]
+	},
+	{
+		"id": "abbot_twenty_years",
+		"title": "Twenty Years of the Abbot",
+		"weight": 3,
+		"cooldown": 80,
+		"text": "The abbot has been in the house twenty years, and the brothers want to give him something small.",
+		"choices": [
+			{
+				"label": "Give him a new cloak",
+				"effects": {
+					"firewood": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the abbot was given a new cloak, and wore it to the next three chapters, and said the old one was warmer."
+			},
+			{
+				"label": "Give him a poem",
+				"effects": {
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the abbot was given a poem written in the copyists' best hand, and kept it under his pillow."
+			}
+		]
+	},
+	{
+		"id": "plough_snapped",
+		"title": "The Plough Snaps",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "The plough has snapped at the share, and the spring sowing waits.",
+		"choices": [
+			{
+				"label": "Mend it with a smith's iron",
+				"effects": {
+					"firewood": -2
+				},
+				"chronicle": "{When}, the share was mended with iron from the village smith, and the sowing went on a day late."
+			},
+			{
+				"label": "Dig the furrows by hand",
+				"effects": {
+					"food": -2
+				},
+				"chronicle": "{When}, the furrows were dug by hand, and the sowing was slow and the brothers' backs complained."
+			}
+		]
+	},
+	{
+		"id": "wall_stone_fall",
+		"title": "A Stone from the Old Wall",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "A stone has fallen from the old wall above the kitchen garden, and a gap is open to the hill.",
+		"choices": [
+			{
+				"label": "Rebuild the wall",
+				"effects": {
+					"food": -1,
+					"firewood": -1
+				},
+				"chronicle": "{When}, the wall was rebuilt stone by stone, and the goats stayed on their side of it."
+			},
+			{
+				"label": "Leave a gap for the goats",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, the gap was left for the goats, and the goats came through it to the garden every morning."
+			}
+		]
+	},
+	{
+		"id": "chapel_oil_out",
+		"title": "The Lamps Are Dry",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "The lamps in the chapel have run out of oil, and the evening office is said in the dark.",
+		"choices": [
+			{
+				"label": "Buy oil from the village",
+				"effects": {
+					"food": -2,
+					"village_standing": 1
+				},
+				"chronicle": "{When}, oil was bought from the village, and the chapel lamps burned again for Compline."
+			},
+			{
+				"label": "Light them with tallow",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, the lamps were lit with tallow, and the chapel smelled of it for a week."
+			}
+		]
+	},
+	{
+		"id": "cart_borrowed",
+		"title": "The Cart Is Asked For",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "A neighbouring house asks to borrow the house's cart for a month.",
+		"choices": [
+			{
+				"label": "Lend it",
+				"effects": {
+					"goodwill": 1,
+					"food": -1
+				},
+				"chronicle": "{When}, the cart was lent for a month, and came back with a load of turf and a jug of milk for the kitchen."
+			},
+			{
+				"label": "Refuse",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, the cart was refused, and the neighbouring house said the house was closefisted."
+			}
+		]
+	},
+	{
+		"id": "loft_bats",
+		"title": "Bats in the Loft",
+		"weight": 3,
+		"cooldown": 45,
+		"text": "Bats have made a home in the scriptorium loft, and the copyists cannot work at dusk for the flutter of them.",
+		"choices": [
+			{
+				"label": "Keep the loft shut at dusk",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, the loft was kept shut at dusk, and the copyists worked by the window and complained of the cold."
+			},
+			{
+				"label": "Light the lamps early",
+				"effects": {
+					"firewood": -1
+				},
+				"chronicle": "{When}, the lamps were lit early, and the bats went on fluttering above the copyists' heads."
+			}
+		]
+	},
+	{
+		"id": "soapmaker_yard",
+		"title": "The Soapmaker",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "A soapmaker from the village wants to boil fat in the kitchen yard, and the smell would carry to the chapel.",
+		"choices": [
+			{
+				"label": "Let him boil in the yard",
+				"effects": {
+					"food": -1,
+					"village_standing": 1
+				},
+				"chronicle": "{When}, the soapmaker boiled his fat in the yard, and the house had clean linen for the first time that spring."
+			},
+			{
+				"label": "Send him away",
+				"effects": {
+					"village_standing": -1
+				},
+				"chronicle": "{When}, the soapmaker was sent away, and the village had a poor opinion of the house's linen since."
+			}
+		]
+	},
+	{
+		"id": "bell_rope_frayed",
+		"title": "The Frayed Bell Rope",
+		"weight": 3,
+		"cooldown": 60,
+		"text": "The bell-rope has frayed through, and the sexton cannot ring for Vespers.",
+		"choices": [
+			{
+				"label": "Splice a new rope",
+				"effects": {
+					"firewood": -1
+				},
+				"chronicle": "{When}, a new rope was spliced from the old hemp, and the bell rang for Vespers as if nothing had happened."
+			},
+			{
+				"label": "Ring by hand from the tower",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, the bell was rung by hand from the tower, and the sexton's arms were sore for a week."
+			}
+		]
+	}
+]

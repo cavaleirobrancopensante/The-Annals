@@ -1,0 +1,992 @@
+[
+	{
+		"id": "monk_mends_shoes",
+		"title": "Sapatos da casa",
+		"weight": 3,
+		"cooldown": 50,
+		"when": {
+			"monk": {
+				"status": "home"
+			}
+		},
+		"text": "{monk} remendou os sapatos de todo o dormitório numa semana, e não quer agradecimentos.",
+		"choices": [
+			{
+				"label": "Agradecer-lhe no capítulo",
+				"effects": {
+					"goodwill": 1
+				},
+				"chronicle": "{When}, {monk} foi agradecido no capítulo pelos sapatos, e ficou vermelho até às orelhas."
+			},
+			{
+				"label": "Mandá-lo descansar",
+				"effects": {
+					"monk_health": 1
+				},
+				"chronicle": "{When}, {monk} foi mandado descansar, e dormiu um dia e uma noite."
+			}
+		]
+	},
+	{
+		"id": "monk_adder_bite",
+		"title": "Mordida de víbora",
+		"weight": 3,
+		"cooldown": 45,
+		"when": {
+			"monk": {
+				"status": "home"
+			}
+		},
+		"text": "Uma víbora mordeu {monk} no feto, e ele está pálido e lento no caminho.",
+		"choices": [
+			{
+				"label": "Mandá-lo à enfermaria",
+				"effects": {
+					"medicine": -1,
+					"monk_health": 1
+				},
+				"chronicle": "{When}, {monk} foi mandado à enfermaria com o remédio, e o inchaço baixou ao anoitecer."
+			},
+			{
+				"label": "Deixá-lo andar até passar",
+				"effects": {
+					"monk_health": -1
+				},
+				"chronicle": "{When}, {monk} foi mandado andar até passar, e o inchaço levou uma semana a ir-se."
+			}
+		]
+	},
+	{
+		"id": "monk_bad_night",
+		"title": "Um nome no escuro",
+		"weight": 3,
+		"cooldown": 45,
+		"when": {
+			"monk": {
+				"status": "home"
+			}
+		},
+		"text": "{monk} acordou a casa três noites seguidas, a gritar um nome que ninguém na casa conhece.",
+		"choices": [
+			{
+				"label": "Ficar com ele a noite toda",
+				"effects": {
+					"monk_health": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, um irmão ficou com {monk} a noite toda, e o nome não foi dito outra vez até de manhã."
+			},
+			{
+				"label": "Mandá-lo dormir",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, {monk} foi mandado dormir, e a casa dormiu mal o resto do mês."
+			}
+		]
+	},
+	{
+		"id": "monk_old_book",
+		"title": "Um livro debaixo do chão",
+		"weight": 3,
+		"cooldown": 60,
+		"when": {
+			"monk": {
+				"status": "home"
+			}
+		},
+		"text": "{monk} encontrou um livro antigo debaixo de uma tábua solta no escriptório, escrito numa língua que ninguém na casa lê.",
+		"choices": [
+			{
+				"label": "Guardá-lo na biblioteca",
+				"effects": {
+					"books": 1
+				},
+				"chronicle": "{When}, o livro antigo foi posto na biblioteca, e {monk} copiou a primeira página à luz de velas."
+			},
+			{
+				"label": "Enterrá-lo outra vez onde estava",
+				"effects": {},
+				"chronicle": "{When}, o livro foi posto de volta debaixo da tábua, e {monk} não perguntou mais por ele."
+			}
+		]
+	},
+	{
+		"id": "monk_pilgrim_leave",
+		"title": "A caminho do lago",
+		"weight": 3,
+		"cooldown": 55,
+		"when": {
+			"monk": {
+				"status": "home",
+				"min_age": 20
+			}
+		},
+		"text": "{monk} pede licença para ir em penitência ao santuário do Lough Dearg durante uma semana.",
+		"choices": [
+			{
+				"label": "Dar-lhe licença",
+				"effects": {
+					"monk_away": {
+						"weeks": 3
+					}
+				},
+				"chronicle": "{When}, {monk} recebeu licença para o santuário, e saiu do portão com um bordão e um pão."
+			},
+			{
+				"label": "Recusar; há trabalho",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, {monk} teve a licença recusada, e voltou aos campos sem uma palavra."
+			}
+		]
+	},
+	{
+		"id": "monk_herb_broth",
+		"title": "O caldo das últimas ervas",
+		"weight": 3,
+		"cooldown": 50,
+		"when": {
+			"monk": {
+				"status": "home"
+			}
+		},
+		"text": "{monk} fez um caldo com as últimas ervas secas, e a casa inteira pede mais.",
+		"choices": [
+			{
+				"label": "Deixá-lo cozinhar para a casa",
+				"effects": {
+					"food": 2
+				},
+				"chronicle": "{When}, {monk} cozinhou o caldo para a casa, e as tigelas voltaram vazias durante três dias."
+			},
+			{
+				"label": "Guardar as ervas para os doentes",
+				"effects": {
+					"medicine": 1
+				},
+				"chronicle": "{When}, as ervas foram guardadas para os doentes, e o caldo não voltou a ser feito."
+			}
+		]
+	},
+	{
+		"id": "village_boats_blessed",
+		"title": "A bênção dos barcos",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "Pescadores da aldeia pedem à casa que benza os barcos antes da pesca da primavera.",
+		"choices": [
+			{
+				"label": "Abençoar os barcos",
+				"effects": {
+					"village_standing": 2
+				},
+				"chronicle": "{When}, os irmãos desceram à praia e benzeram cada barco, e os pescadores choraram à beira da água."
+			},
+			{
+				"label": "Benzê-los do portão",
+				"effects": {
+					"village_standing": 1
+				},
+				"chronicle": "{When}, a bênção foi dada do portão, e os pescadores aceitaram-na de boa vontade."
+			}
+		]
+	},
+	{
+		"id": "village_fever_again",
+		"title": "A febre volta",
+		"weight": 4,
+		"cooldown": 45,
+		"when": {
+			"min": {
+				"medicine": 0
+			}
+		},
+		"text": "A febre voltou à aldeia, e o chefe pede outra vez ajuda à enfermaria.",
+		"choices": [
+			{
+				"label": "Mandar remédio com um irmão",
+				"effects": {
+					"medicine": -1,
+					"village_standing": 3
+				},
+				"chronicle": "{When}, o remédio desceu à aldeia com um irmão, e o chefe ficou no fim do caminho até o carro desaparecer."
+			},
+			{
+				"label": "Mandar uma carta de orações",
+				"effects": {
+					"village_standing": -1
+				},
+				"chronicle": "{When}, uma carta de orações foi mandada, e a aldeia leu-a no poço e não se consolou."
+			}
+		]
+	},
+	{
+		"id": "village_tithe_late",
+		"title": "O dízimo atrasado",
+		"weight": 4,
+		"cooldown": 45,
+		"when": {
+			"min": {
+				"food": 0
+			}
+		},
+		"text": "A aldeia traz o dízimo de grão com duas semanas de atraso, e pede paciência.",
+		"choices": [
+			{
+				"label": "Conceder paciência",
+				"effects": {
+					"village_standing": 1
+				},
+				"chronicle": "{When}, concedeu-se paciência, e a aldeia disse que a casa era um senhorio justo, o que não se diz com frequência."
+			},
+			{
+				"label": "Exigir o dízimo já",
+				"effects": {
+					"food": 3,
+					"village_standing": -2
+				},
+				"chronicle": "{When}, o dízimo foi exigido de imediato e contado ao portão, e a aldeia voltou para casa de rosto fechado."
+			}
+		]
+	},
+	{
+		"id": "engine_groans",
+		"title": "A máquina geme",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "A máquina debaixo da sua rocha começou a emitir um som de animal ferido, e os pescadores não passam por ali.",
+		"choices": [
+			{
+				"label": "Levar-lhe óleo e um irmão para cuidar dela",
+				"effects": {
+					"firewood": -2,
+					"attitude": {
+						"engine": 1
+					}
+				},
+				"chronicle": "{When}, levou-se óleo à máquina, e um irmão ficou junto dela com uma lamparina, e o gemido parou."
+			},
+			{
+				"label": "Deixá-la como está",
+				"effects": {
+					"attitude": {
+						"engine": -1
+					}
+				},
+				"chronicle": "{When}, a máquina foi deixada a gemer, e os pescadores disseram que a casa a tinha abandonado."
+			}
+		]
+	},
+	{
+		"id": "marred_rider_message",
+		"title": "Uma mensagem à porta",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "Um cavaleiro do Povo Marcado deixa uma mensagem à porta: o seu chefe quer saber se a casa ainda cumpre as suas promessas.",
+		"choices": [
+			{
+				"label": "Mandar de volta uma promessa",
+				"effects": {
+					"attitude": {
+						"marred": 1
+					}
+				},
+				"chronicle": "{When}, a casa mandou de volta uma promessa por escrito, e o cavaleiro levou-a sem uma palavra."
+			},
+			{
+				"label": "Dizer que a casa não cumpre nenhuma",
+				"effects": {
+					"attitude": {
+						"marred": -1
+					}
+				},
+				"chronicle": "{When}, a casa disse que não cumpria nenhuma, e o cavaleiro riu-se e partiu pelo vale."
+			}
+		]
+	},
+	{
+		"id": "chimera_tracks",
+		"title": "Pegadas na campina de cima",
+		"weight": 4,
+		"cooldown": 45,
+		"text": "Encontraram-se pegadas de quimeras no campo de cima, muito perto das ovelhas.",
+		"choices": [
+			{
+				"label": "Levar as ovelhas para os abrigos",
+				"effects": {
+					"firewood": -1
+				},
+				"chronicle": "{When}, as ovelhas foram levadas para os abrigos, e as pegadas continuaram à volta do campo durante uma semana."
+			},
+			{
+				"label": "Deixar um presente de carneiro junto ao muro",
+				"effects": {
+					"food": -2,
+					"attitude": {
+						"chimera": 1
+					}
+				},
+				"chronicle": "{When}, deixou-se carneiro junto ao muro, e as pegadas voltaram para a colina."
+			}
+		]
+	},
+	{
+		"id": "road_snow_pass",
+		"title": "A estrada alta fechada",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "A estrada alta está fechada pela neve, e um grupo de peregrinos acampa ao pé dela.",
+		"choices": [
+			{
+				"label": "Mandar comida até eles",
+				"effects": {
+					"food": -3,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, mandou-se pão e sal aos peregrinos, e eles cantaram o nome da casa ao pé do passo."
+			},
+			{
+				"label": "Mandá-los voltar",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, os peregrinos foram mandados voltar, e voltaram, resmungando pelo vale abaixo."
+			}
+		]
+	},
+	{
+		"id": "ford_toll_blessing",
+		"title": "A bênção do vau",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "Um cobrador de portagem no vau quer a bênção da casa em troca da passagem.",
+		"choices": [
+			{
+				"label": "Dar a bênção",
+				"effects": {
+					"goodwill": 1
+				},
+				"chronicle": "{When}, a bênção foi dada no vau, e o cobrador deixou passar as carroças sem as contar."
+			},
+			{
+				"label": "Pagar a portagem em pão",
+				"effects": {
+					"food": -2
+				},
+				"chronicle": "{When}, a portagem foi paga em pão, e o cobrador não disse nada sobre a qualidade dele."
+			}
+		]
+	},
+	{
+		"id": "stray_dog",
+		"title": "Um cão à porta",
+		"weight": 3,
+		"cooldown": 40,
+		"text": "Um cão sem dono seguiu um grupo da estrada e não quer sair da porta.",
+		"choices": [
+			{
+				"label": "Ficar com o cão",
+				"effects": {
+					"food": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, o cão ficou à porta, e aprendeu o sino mais depressa do que os noviços."
+			},
+			{
+				"label": "Afastá-lo",
+				"effects": {},
+				"chronicle": "{When}, o cão foi afastado, voltou na manhã seguinte, e foi afastado outra vez."
+			}
+		]
+	},
+	{
+		"id": "road_news_gossip",
+		"title": "Notícias do vale",
+		"weight": 3,
+		"cooldown": 45,
+		"text": "Um mensageiro traz a notícia de que os homens do Coletor de Pedágio estão a discutir com os senhores do vale.",
+		"choices": [
+			{
+				"label": "Escrever na crónica",
+				"effects": {
+					"goodwill": 1
+				},
+				"chronicle": "{When}, a notícia foi escrita na crónica, e a casa leu-a em voz alta à ceia."
+			},
+			{
+				"label": "Ignorar o mexerico",
+				"effects": {},
+				"chronicle": "{When}, o mexerico foi ignorado, e o mensageiro foi contá-lo a outro lado."
+			}
+		]
+	},
+	{
+		"id": "bog_men_work",
+		"title": "Homens do pântano para a colheita",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "Homens do pântano sobem para pedir trabalho na colheita.",
+		"choices": [
+			{
+				"label": "Contratá-los por salário em grão",
+				"effects": {
+					"food": -3,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, os homens do pântano foram contratados por salário em grão, e trabalharam o restolho do amanhecer ao anoitecer."
+			},
+			{
+				"label": "Mandá-los embora",
+				"effects": {},
+				"chronicle": "{When}, os homens do pântano foram mandados embora, e a colheita atrasou uma semana."
+			}
+		]
+	},
+	{
+		"id": "rule_silence",
+		"title": "O silêncio nas refeições",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "O leitor do capítulo tropeça numa passagem sobre o silêncio nas refeições, e a casa discute durante quanto tempo deve mantê-lo.",
+		"choices": [
+			{
+				"label": "Manter o silêncio mais tempo",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, o silêncio nas refeições foi mantido mais tempo, e os irmãos novos comeram o pão com medo de tossir."
+			},
+			{
+				"label": "Encurtá-lo para os velhos",
+				"effects": {
+					"goodwill": 1
+				},
+				"chronicle": "{When}, o silêncio foi encurtado para os irmãos mais velhos, e a casa concordou que era o mais sensato."
+			}
+		]
+	},
+	{
+		"id": "damp_copy",
+		"title": "Bolor no prelo",
+		"weight": 3,
+		"cooldown": 45,
+		"text": "Um livro copiado no ano passado criou bolor no prelo, e as folhas estão manchadas de verde.",
+		"choices": [
+			{
+				"label": "Raspar o bolor e secá-lo",
+				"effects": {
+					"firewood": -1
+				},
+				"chronicle": "{When}, o bolor foi raspado e as folhas secas junto ao fogo, e o livro ficou quase novo."
+			},
+			{
+				"label": "Queimar as folhas estragadas",
+				"effects": {
+					"books": -1
+				},
+				"chronicle": "{When}, as folhas estragadas foram queimadas no pátio, e o copista viu-as arder sem uma palavra."
+			}
+		]
+	},
+	{
+		"id": "blue_ink_gift",
+		"title": "Tinta azul da cidade",
+		"weight": 3,
+		"cooldown": 60,
+		"text": "Um mecenas manda da cidade um frasco de tinta azul, com um pedido de cópia das horas iluminadas.",
+		"choices": [
+			{
+				"label": "Aceitar e copiar as iluminuras",
+				"effects": {
+					"books": 1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, a tinta azul foi usada nas horas iluminadas, e o nome do mecenas foi escrito na margem."
+			},
+			{
+				"label": "Vendê-la na cidade",
+				"effects": {
+					"food": 4
+				},
+				"chronicle": "{When}, a tinta azul foi vendida na cidade por pão e um saco de sal."
+			}
+		]
+	},
+	{
+		"id": "daughter_house_letter",
+		"title": "Carta de uma casa-filha",
+		"weight": 3,
+		"cooldown": 60,
+		"text": "Chega uma carta de uma das casas-filhas a pedir duas cópias das horas.",
+		"choices": [
+			{
+				"label": "Mandar as cópias",
+				"effects": {
+					"books": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, duas cópias das horas desceram a estrada até à casa-filha, e a resposta veio cheia de agradecimentos."
+			},
+			{
+				"label": "Pedir-lhes que as copiem eles",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, pediu-se à casa-filha que copiasse as horas por si, e ela não respondeu durante um ano."
+			}
+		]
+	},
+	{
+		"id": "scribe_eyes",
+		"title": "Os olhos do copista",
+		"weight": 3,
+		"cooldown": 60,
+		"text": "Os olhos do velho copista estão a falhar, e ele pede uma mão mais nova para ocupar o seu lugar na mesa.",
+		"choices": [
+			{
+				"label": "Dar-lhe um aprendiz",
+				"effects": {
+					"goodwill": 1,
+					"food": -1
+				},
+				"chronicle": "{When}, um irmão jovem foi dado ao copista como aprendiz, e o velho ensinou-lhe a tinta com as próprias mãos."
+			},
+			{
+				"label": "Deixá-lo trabalhar até não poder",
+				"effects": {
+					"goodwill": -1,
+					"books": 1
+				},
+				"chronicle": "{When}, o velho copista foi deixado à mesa, e fez mais um livro, mal, antes de desistir."
+			}
+		]
+	},
+	{
+		"id": "chapter_fast",
+		"title": "O jejum das quartas-feiras",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "O capítulo votou jejum às quartas-feiras até à visita do bispo, e dois irmãos já estão desfalecidos.",
+		"choices": [
+			{
+				"label": "Manter o jejum",
+				"effects": {
+					"food": 2,
+					"goodwill": -1
+				},
+				"chronicle": "{When}, o capítulo manteve o jejum, e a cozinha poupou o pão, e os irmãos desfalecidos não disseram nada."
+			},
+			{
+				"label": "Levantá-lo para os doentes",
+				"effects": {
+					"food": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, o jejum foi levantado para os doentes, e o capítulo voltou ao seu pão com um pouco de vergonha."
+			}
+		]
+	},
+	{
+		"id": "winter_wolves",
+		"title": "Lobos nas colinas",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "Lobos desceram das colinas e levaram uma ovelha do redil.",
+		"choices": [
+			{
+				"label": "Pôr vigia no redil",
+				"effects": {
+					"firewood": -1
+				},
+				"chronicle": "{When}, pôs-se vigia no redil durante um mês, e os lobos não voltaram a descer."
+			},
+			{
+				"label": "Pôr carne envenenada",
+				"effects": {
+					"medicine": -1,
+					"food": 1
+				},
+				"chronicle": "{When}, pôs-se carne envenenada, um lobo foi encontrado morto no feto, e os outros mantiveram-se longe."
+			}
+		]
+	},
+	{
+		"id": "lamb_twin_cold",
+		"title": "Um cordeiro com frio",
+		"weight": 3,
+		"cooldown": 45,
+		"text": "Uma ovelha teve gémeos com frio, e um deles é fraco de mais para se pôr de pé.",
+		"choices": [
+			{
+				"label": "Aquecer o cordeiro junto ao fogo da cozinha",
+				"effects": {
+					"firewood": -1,
+					"food": 1
+				},
+				"chronicle": "{When}, o cordeiro foi aquecido junto ao fogo da cozinha, e de manhã já estava de pé, a balir pela mãe."
+			},
+			{
+				"label": "Deixá-lo à natureza",
+				"effects": {
+					"food": -1
+				},
+				"chronicle": "{When}, o cordeiro fraco foi deixado à natureza, e no dia seguinte já tinha desaparecido."
+			}
+		]
+	},
+	{
+		"id": "drought_well",
+		"title": "Seis semanas sem chuva",
+		"weight": 3,
+		"cooldown": 55,
+		"text": "Não choveu há seis semanas, e o poço do pátio está baixo e castanho.",
+		"choices": [
+			{
+				"label": "Trazer água do rio",
+				"effects": {
+					"food": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, os irmãos trouxeram água do rio todas as manhãs, e a horta salvou-se à custa do carregar."
+			},
+			{
+				"label": "Racionar a água",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, a água foi racionada, a horta secou, e os irmãos mediram cada copo."
+			}
+		]
+	},
+	{
+		"id": "boat_overdue",
+		"title": "O barco atrasado",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "Uma névoa desceu sobre o mar, e um barco de pesca da aldeia está muito atrasado.",
+		"choices": [
+			{
+				"label": "Tocar o sino a noite toda",
+				"effects": {
+					"firewood": -2,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, o sino tocou a noite toda, e o barco entrou na última maré, com a tripulação a cantar."
+			},
+			{
+				"label": "Rezar pelo barco",
+				"effects": {},
+				"chronicle": "{When}, a casa rezou pelo barco, e ele entrou ao meio-dia com a vela rasgada."
+			}
+		]
+	},
+	{
+		"id": "midwinter_hens",
+		"title": "Galinhas gélidas",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "Uma geada mortal chegou na noite do solstício, e as galinhas estão congeladas no poleiro.",
+		"choices": [
+			{
+				"label": "Trazer as galinhas para a cozinha",
+				"effects": {
+					"firewood": -1,
+					"food": 1
+				},
+				"chronicle": "{When}, as galinhas foram trazidas para a cozinha, e metade viveu para pôr ovos outra vez na primavera."
+			},
+			{
+				"label": "Contar as perdas de manhã",
+				"effects": {
+					"food": -2
+				},
+				"chronicle": "{When}, as perdas foram contadas de manhã, e a cozinha passou sem os ovos que não tinha."
+			}
+		]
+	},
+	{
+		"id": "pigs_orchard",
+		"title": "Porcos no pomar",
+		"weight": 3,
+		"cooldown": 40,
+		"text": "Os porcos saíram do chiqueiro e fuçam no pomar, entre a fruta caída.",
+		"choices": [
+			{
+				"label": "Levá-los de volta com os rapazes",
+				"effects": {},
+				"chronicle": "{When}, os rapazes levaram os porcos de volta ao chiqueiro, e o pomar foi quase todo salvo."
+			},
+			{
+				"label": "Deixá-los comer a fruta caída",
+				"effects": {
+					"food": 1,
+					"goodwill": -1
+				},
+				"chronicle": "{When}, deixaram-se os porcos comer a fruta caída, engordaram, e os irmãos disseram-no a cada refeição."
+			}
+		]
+	},
+	{
+		"id": "saints_day_pilgrims",
+		"title": "Peregrinos no dia de um santo",
+		"weight": 3,
+		"cooldown": 60,
+		"text": "Um grupo de peregrinos chega no dia de um santo local e pede a história do santo.",
+		"choices": [
+			{
+				"label": "Contá-la na capela",
+				"effects": {
+					"goodwill": 1,
+					"food": -1
+				},
+				"chronicle": "{When}, a história do santo foi contada na capela, e os peregrinos choraram na parte do poço."
+			},
+			{
+				"label": "Mandá-los ao padre da aldeia",
+				"effects": {
+					"village_standing": -1
+				},
+				"chronicle": "{When}, os peregrinos foram mandados ao padre da aldeia, que não ficou satisfeito por os ver."
+			}
+		]
+	},
+	{
+		"id": "cider_barrel",
+		"title": "Um barril de sidra",
+		"weight": 3,
+		"cooldown": 55,
+		"text": "Chegou um barril de sidra como presente para a festa, com um cartão da aldeia.",
+		"choices": [
+			{
+				"label": "Partilhá-lo à mesa",
+				"effects": {
+					"food": -1,
+					"goodwill": 2
+				},
+				"chronicle": "{When}, a sidra foi partilhada à mesa, e a festa foi lembrada durante o resto do ano."
+			},
+			{
+				"label": "Guardá-lo para os doentes",
+				"effects": {
+					"medicine": 1
+				},
+				"chronicle": "{When}, a sidra foi guardada para os doentes, e usou-se em três casos de febre."
+			}
+		]
+	},
+	{
+		"id": "name_day_fast",
+		"title": "O dia do santo no jejum",
+		"weight": 3,
+		"cooldown": 60,
+		"text": "O dia de santo de um irmão cai num dia de jejum, e ele pergunta se pode fazer a festa.",
+		"choices": [
+			{
+				"label": "Fazer a festa",
+				"effects": {
+					"food": -2,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, a festa foi feita no dia de santo do irmão, e o jejum foi adiado para a semana seguinte."
+			},
+			{
+				"label": "Manter o jejum",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, o jejum foi mantido no dia de santo, e o irmão nada disse, mas foi cedo para a cama."
+			}
+		]
+	},
+	{
+		"id": "abbot_twenty_years",
+		"title": "Vinte anos do abade",
+		"weight": 3,
+		"cooldown": 80,
+		"text": "O abade está na casa há vinte anos, e os irmãos querem dar-lhe uma pequena lembrança.",
+		"choices": [
+			{
+				"label": "Dar-lhe uma capa nova",
+				"effects": {
+					"firewood": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, o abade recebeu uma capa nova, usou-a nos três capítulos seguintes, e disse que a velha era mais quente."
+			},
+			{
+				"label": "Dar-lhe um poema",
+				"effects": {
+					"goodwill": 1
+				},
+				"chronicle": "{When}, o abade recebeu um poema escrito na melhor letra dos copistas, e guardou-o debaixo da almofada."
+			}
+		]
+	},
+	{
+		"id": "plough_snapped",
+		"title": "O arado partiu",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "O arado partiu na aiveca, e a sementeira da primavera está à espera.",
+		"choices": [
+			{
+				"label": "Consertá-lo com ferro de ferreiro",
+				"effects": {
+					"firewood": -2
+				},
+				"chronicle": "{When}, a aiveca foi consertada com ferro do ferreiro da aldeia, e a sementeira atrasou apenas um dia."
+			},
+			{
+				"label": "Abrir os sulcos à mão",
+				"effects": {
+					"food": -2
+				},
+				"chronicle": "{When}, os sulcos foram abertos à mão, a sementeira foi lenta, e as costas dos irmãos queixaram-se."
+			}
+		]
+	},
+	{
+		"id": "wall_stone_fall",
+		"title": "Uma pedra do muro velho",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "Uma pedra caiu do muro velho acima da horta da cozinha, e abriu-se uma brecha para a colina.",
+		"choices": [
+			{
+				"label": "Reconstruir o muro",
+				"effects": {
+					"food": -1,
+					"firewood": -1
+				},
+				"chronicle": "{When}, o muro foi reconstruído pedra a pedra, e as cabras ficaram do seu lado dele."
+			},
+			{
+				"label": "Deixar a brecha para as cabras",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, a brecha foi deixada para as cabras, e as cabras entraram por ela na horta todas as manhãs."
+			}
+		]
+	},
+	{
+		"id": "chapel_oil_out",
+		"title": "As lamparinas secaram",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "As lamparinas da capela ficaram sem óleo, e o ofício da tarde é dito no escuro.",
+		"choices": [
+			{
+				"label": "Comprar óleo à aldeia",
+				"effects": {
+					"food": -2,
+					"village_standing": 1
+				},
+				"chronicle": "{When}, comprou-se óleo à aldeia, e as lamparinas da capela voltaram a arder para a Completas."
+			},
+			{
+				"label": "Acendê-las com sebo",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, as lamparinas foram acesas com sebo, e a capela cheirou a isso durante uma semana."
+			}
+		]
+	},
+	{
+		"id": "cart_borrowed",
+		"title": "Pedem a carroça",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "Uma casa vizinha pede para emprestar a carroça da casa durante um mês.",
+		"choices": [
+			{
+				"label": "Emprestá-la",
+				"effects": {
+					"goodwill": 1,
+					"food": -1
+				},
+				"chronicle": "{When}, a carroça foi emprestada por um mês, e voltou com uma carga de turfa e um jarro de leite para a cozinha."
+			},
+			{
+				"label": "Recusar",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, a carroça foi recusada, e a casa vizinha disse que a casa era mesquinha."
+			}
+		]
+	},
+	{
+		"id": "loft_bats",
+		"title": "Morcegos no sótão",
+		"weight": 3,
+		"cooldown": 45,
+		"text": "Morcegos fizeram casa no sótão do escriptório, e os copistas não podem trabalhar ao crepúsculo por causa do bater de asas.",
+		"choices": [
+			{
+				"label": "Manter o sótão fechado ao crepúsculo",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, o sótão foi mantido fechado ao crepúsculo, e os copistas trabalharam junto à janela e queixaram-se do frio."
+			},
+			{
+				"label": "Acender as lamparinas mais cedo",
+				"effects": {
+					"firewood": -1
+				},
+				"chronicle": "{When}, as lamparinas foram acesas mais cedo, e os morcegos continuaram a bater as asas por cima das cabeças dos copistas."
+			}
+		]
+	},
+	{
+		"id": "soapmaker_yard",
+		"title": "O fabricante de sabão",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "Um fabricante de sabão da aldeia quer ferver gordura no pátio da cozinha, e o cheiro chegaria à capela.",
+		"choices": [
+			{
+				"label": "Deixá-lo ferver no pátio",
+				"effects": {
+					"food": -1,
+					"village_standing": 1
+				},
+				"chronicle": "{When}, o fabricante de sabão ferveu a gordura no pátio, e a casa teve roupa lavada pela primeira vez naquela primavera."
+			},
+			{
+				"label": "Mandá-lo embora",
+				"effects": {
+					"village_standing": -1
+				},
+				"chronicle": "{When}, o fabricante de sabão foi mandado embora, e a aldeia passou a ter uma má opinião da roupa da casa."
+			}
+		]
+	},
+	{
+		"id": "bell_rope_frayed",
+		"title": "A corda do sino",
+		"weight": 3,
+		"cooldown": 60,
+		"text": "A corda do sino desfiou-se, e o sacristão não consegue tocar para as Vésperas.",
+		"choices": [
+			{
+				"label": "Emendar uma corda nova",
+				"effects": {
+					"firewood": -1
+				},
+				"chronicle": "{When}, uma corda nova foi emendada do cânhamo velho, e o sino tocou para as Vésperas como se nada tivesse acontecido."
+			},
+			{
+				"label": "Tocar à mão da torre",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, o sino foi tocado à mão da torre, e os braços do sacristão doeram durante uma semana."
+			}
+		]
+	}
+]
