@@ -105,6 +105,7 @@ func dispatch_party(node_id: String, member_ids: Array) -> bool:
 ## The economy, the road and the house's events, once a week.
 func _weekly_turn() -> void:
 	_economy()
+	_practice()
 	_health()
 	_travel()
 	_road()
@@ -130,6 +131,49 @@ func _feast_today() -> void:
 	if f.is_empty():
 		return
 	Chronicle.add_template("feast_kept", {"feast": f["name"]}, "feast")
+
+
+## Work and training teach the brothers; the annals note a skill once it reaches level three.
+func _practice() -> void:
+	for g in Skills.weekly_practice():
+		_note_level(g)
+	var t := Skills.weekly_training()
+	for g in t["gained"]:
+		_note_level(g)
+	for f in t["finished"]:
+		Chronicle.add_template("training_done", {
+			"monk": WorldState.display_name(f["monk"]),
+			"skill": str(Skills.skill_names[f["skill"]]).to_lower(),
+		}, "training")
+
+
+func _note_level(g: Dictionary) -> void:
+	if int(g["level"]) < 3:
+		return
+	Chronicle.add_template("skill_rose", {
+		"monk": WorldState.display_name(g["monk"]),
+		"skill": str(Skills.skill_names[g["skill"]]).to_lower(),
+		"level": Chronicle.number_word(int(g["level"])),
+	}, "skill")
+
+
+## Sets a brother to learn a skill, from a teacher at home or alone. Returns "" or the reason.
+func start_training(monk_id: int, kid: String, teacher_id: int = -1) -> String:
+	var m := WorldState.get_monk(monk_id)
+	var reason := Skills.start_training(m, kid, teacher_id)
+	if reason != "":
+		return reason
+	var skill := str(Skills.skill_names[kid]).to_lower()
+	if teacher_id >= 0:
+		Chronicle.add_template("training_begun", {
+			"monk": WorldState.display_name(m),
+			"skill": skill,
+			"teacher": WorldState.display_name(WorldState.get_monk(teacher_id)),
+		}, "training")
+	else:
+		Chronicle.add_template("training_alone", {"monk": WorldState.display_name(m), "skill": skill}, "training")
+	_after_change()
+	return ""
 
 
 func _after_change() -> void:

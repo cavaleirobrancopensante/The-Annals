@@ -283,7 +283,12 @@ func job_blocked(job: String) -> bool:
 func count_working(job: String) -> int:
 	if job_blocked(job):
 		return 0
-	return home_monks().filter(func(m): return job_of(m) == job and int(m["health"]) >= 2).size()
+	return home_monks().filter(func(m): return job_of(m) == job and int(m["health"]) >= 2 and training_free(m)).size()
+
+
+## A brother learning a skill is not at his job.
+func training_free(m: Dictionary) -> bool:
+	return m.get("training", {}).is_empty()
 
 
 func cooks_at_work() -> int:

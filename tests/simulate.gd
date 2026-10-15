@@ -33,6 +33,7 @@ func _ready() -> void:
 	var arrived_ids := {}
 	var colonies := 0
 	var rule_changes := 0
+	var trainings := 0
 	for i in years * WorldState.WEEKS_PER_YEAR:
 		if build_policy:
 			for b in ["granary", "woodshed", "scriptorium", "infirmary"]:
@@ -45,6 +46,8 @@ func _ready() -> void:
 			colonies += 1 if _send_colony() else 0
 		if i % 48 == 20 and _change_rule():
 			rule_changes += 1
+		if i % 40 == 10 and _train():
+			trainings += 1
 		var out_before := Road.parties.size()
 		var priories_before := WorldState.priories.size()
 		Game.advance_week()
@@ -82,6 +85,14 @@ func _ready() -> void:
 	print("Standings: %s" % str(Road.standings))
 	print("Phase 4: colonies sent %d, daughter houses standing %d, rule changes %d, generation %d, saints %s" % [colonies, WorldState.priories.size(), rule_changes, WorldState.generation, str(WorldState.saints)])
 	print("Rule now: %s" % str(Rule.chosen))
+	var best := 0
+	var learned := 0
+	for m in WorldState.monks:
+		for kid in m["skills"]:
+			best = maxi(best, int(m["skills"][kid]))
+			if int(m["skills"][kid]) >= 3:
+				learned += 1
+	print("Practice: trainings started %d, skills at level three or more %d, highest level %d" % [trainings, learned, best])
 	print("Skirmishes fought: %d" % Chronicle.entries.filter(func(e): return e.get("kind", "") == "skirmish").size())
 	print("Great feasts kept: %d" % Chronicle.entries.filter(func(e): return e.get("kind", "") == "feast").size())
 	print("Weeks hungry: %d, weeks cold: %d" % [hunger_weeks, cold_weeks])
@@ -132,6 +143,24 @@ func _send_colony() -> bool:
 		ids.append(int(pick["id"]))
 		home.erase(pick)
 	return Game.send_colony(node_id, ids) == ""
+
+
+## Sets a random home brother to learn his job's skill, with a teacher at home if one can teach.
+func _train() -> bool:
+	var home := WorldState.home_monks().filter(func(m): return Skills.training_of(m).is_empty() and int(m["health"]) >= 2)
+	if home.is_empty():
+		return false
+	var m = Oracle.pick(home)
+	var job := WorldState.job_of(m)
+	if not Skills.JOB_SKILL.has(job):
+		return false
+	var kid: String = Skills.JOB_SKILL[job]
+	var teacher := -1
+	for t in WorldState.home_monks():
+		if int(t["id"]) != int(m["id"]) and Skills.level(t, kid) >= Skills.TEACHER_LEVEL:
+			teacher = int(t["id"])
+			break
+	return Game.start_training(int(m["id"]), kid, teacher) == ""
 
 
 ## Picks a random option on a random axis of the Rule.

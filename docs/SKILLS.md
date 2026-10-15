@@ -1,6 +1,6 @@
 # Skills, stats and vocations (design draft)
 
-Status: phase 1 built (stats, skills and the 2d6 check, in scripts/autoload/skills.gd and data/skills/skills.json). Practice, paths, uses and village control are still to come.
+Status: phases 1 and 2 built (stats, skills and the 2d6 check; practice and training, in scripts/autoload/skills.gd). Paths, uses and village control are still to come. Training is started by the player's Game.start_training; the estate screen only shows it, so the player cannot start a block yet.
 
 ## Principles
 

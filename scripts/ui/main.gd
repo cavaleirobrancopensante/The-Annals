@@ -551,6 +551,9 @@ func _brother_row(m: Dictionary) -> Control:
 	for t in m["tags"]:
 		if not str(t).begins_with("on_"):
 			marks.append(str(t).replace("_", " "))
+	for kid in m.get("skills", {}):
+		if int(m["skills"][kid]) > 0:
+			marks.append("%s %d" % [str(Skills.skill_names[kid]).to_lower(), int(m["skills"][kid])])
 	var extra := ""
 	if m["status"] == "away":
 		var party := Road.party_of(m)
@@ -559,6 +562,8 @@ func _brother_row(m: Dictionary) -> Control:
 		else:
 			var w := int(m["away_weeks"])
 			extra = "  · on the road, %d week%s" % [w, "" if w == 1 else "s"]
+	elif not Skills.training_of(m).is_empty():
+		extra = "  · learning %s" % str(Skills.skill_names[Skills.training_of(m)["skill"]]).to_lower()
 	elif int(m["health"]) < 3:
 		extra = "  · %s" % WorldState.HEALTH_WORDS[int(m["health"])]
 	info.text = "%s, %d, %s%s\n%s" % [WorldState.display_name(m), int(m["age"]),

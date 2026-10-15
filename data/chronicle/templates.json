@@ -107,5 +107,19 @@
 		"On the feast of {feast} the brothers kept the whole office and sang High Mass with the doors open to the road.",
 		"On the feast of {feast} the bell was rung at every hour, and the house ate better than it had any right to.",
 		"On the feast of {feast} the brothers walked the boundary wall in procession, singing, as the old rule asks."
+	],
+	"skill_rose": [
+		"{monk} has grown to the level of {level} in {skill}, and the house has begun to rely on him for it.",
+		"After many weeks at it, {monk} reached the level of {level} in {skill}. The older brothers said nothing, which was their praise."
+	],
+	"training_done": [
+		"{monk} finished his weeks of learning {skill} and went back to his own work, a little surer of his hands.",
+		"The weeks of learning {skill} were done for {monk}, and he returned to the house's work with more to give it."
+	],
+	"training_begun": [
+		"{monk} was set to learn {skill} from {teacher}, and his usual work passed to another pair of hands."
+	],
+	"training_alone": [
+		"{monk} was set to learn {skill} alone, from the old books, which is slow work. He knew it and did not complain."
 	]
 }
