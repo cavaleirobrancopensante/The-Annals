@@ -50,7 +50,8 @@
       "distance": 3,
       "x": 0.34,
       "y": 0.36,
-      "desc": "A hermit's island in a grey lake, reached by a boat that may not be there."
+      "desc": "A hermit's island in a grey lake, reached by a boat that may not be there.",
+      "label": "left"
     },
     {
       "id": "knockmore",
@@ -60,7 +61,8 @@
       "distance": 2,
       "x": 0.4,
       "y": 0.2,
-      "desc": "A stone hold on a hill, with dogs at the gate and a lord who keeps accounts."
+      "desc": "A stone hold on a hill, with dogs at the gate and a lord who keeps accounts.",
+      "label": "left"
     },
     {
       "id": "slieve_bloom",
@@ -80,7 +82,8 @@
       "distance": 3,
       "x": 0.44,
       "y": 0.56,
-      "desc": "A market town at the Shannon crossing, where the Tollmaster's men count every cart."
+      "desc": "A market town at the Shannon crossing, where the Tollmaster's men count every cart.",
+      "label": "left"
     },
     {
       "id": "kilcullen",
@@ -100,7 +103,8 @@
       "distance": 3,
       "x": 0.54,
       "y": 0.36,
-      "desc": "Old turbines stand dead on the bog. Some still turn in a strong wind."
+      "desc": "Old turbines stand dead on the bog. Some still turn in a strong wind.",
+      "label": "above"
     },
     {
       "id": "glen_of_imaal",
@@ -110,7 +114,8 @@
       "distance": 4,
       "x": 0.68,
       "y": 0.7,
-      "desc": "Scattered farms in a green glen, with a hurling field and a wary headman."
+      "desc": "Scattered farms in a green glen, with a hurling field and a wary headman.",
+      "label": "left"
     },
     {
       "id": "kilmore_quay",
@@ -120,7 +125,8 @@
       "distance": 5,
       "x": 0.82,
       "y": 0.84,
-      "desc": "A harbour of fishing boats and smoked fish, where the sea wind never stops."
+      "desc": "A harbour of fishing boats and smoked fish, where the sea wind never stops.",
+      "label": "left"
     },
     {
       "id": "clare_cliffs",

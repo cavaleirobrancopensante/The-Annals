@@ -11,7 +11,11 @@ const RED := Style.RED
 
 var title_label: Label
 var status_label: Label
+var feast_label: Label
 var resources_label: Label
+var stores_label: Label
+var until_hint: Label
+var _unread := 0
 var forecast_label: Label
 var tabs: TabContainer
 var chronicle_text: RichTextLabel
@@ -89,8 +93,12 @@ func _build_ui() -> void:
 	root.add_child(title_label)
 	status_label = _label(20, DIM)
 	root.add_child(status_label)
+	feast_label = _label(22, GOLD)
+	root.add_child(feast_label)
 	resources_label = _label(20, PARCHMENT)
 	root.add_child(resources_label)
+	stores_label = _label(20, PARCHMENT)
+	root.add_child(stores_label)
 	forecast_label = _label(19, DIM)
 	root.add_child(forecast_label)
 
@@ -110,6 +118,10 @@ func _build_ui() -> void:
 	estate_box.add_theme_constant_override("separation", 10)
 	estate_scroll.add_child(estate_box)
 	_build_road_tab()
+	tabs.set_tab_title(0, tr("house.chronicle"))
+	tabs.set_tab_title(1, tr("house.estate"))
+	tabs.set_tab_title(2, tr("house.road"))
+	tabs.tab_changed.connect(_on_tab_changed)
 
 	event_panel = PanelContainer.new()
 	event_panel.add_theme_stylebox_override("panel", _box(PANEL, GOLD, 2, 10, 16))
@@ -117,7 +129,13 @@ func _build_ui() -> void:
 	root.add_child(event_panel)
 	var ev := VBoxContainer.new()
 	ev.add_theme_constant_override("separation", 10)
-	event_panel.add_child(ev)
+	event_panel.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	var ev_scroll := ScrollContainer.new()
+	ev_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	ev_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	event_panel.add_child(ev_scroll)
+	ev.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	ev_scroll.add_child(ev)
 	event_title = _label(24, GOLD)
 	ev.add_child(event_title)
 	event_text = RichTextLabel.new()
@@ -173,6 +191,9 @@ func _build_ui() -> void:
 	controls_box = HBoxContainer.new()
 	controls_box.add_theme_constant_override("separation", 8)
 	root.add_child(controls_box)
+	until_hint = _label(17, DIM)
+	until_hint.text = tr("house.until_hint")
+	root.add_child(until_hint)
 	var day_btn := _button(tr("house.next_day"))
 	day_btn.pressed.connect(_on_next_day)
 	controls_box.add_child(day_btn)
@@ -247,14 +268,18 @@ func _refresh() -> void:
 	title_label.text = WorldState.full_house_name()
 	var ab := WorldState.abbot()
 	var feasts := Calendar.feasts_on(WorldState.cal_year, WorldState.cal_month, WorldState.cal_day)
-	var today := "  ·  Today is %s" % str(feasts[0]["name"]) if not feasts.is_empty() else ""
-	status_label.text = "%s%s\nYear %d  ·  %s, week %d  ·  Abbot %s  ·  Generation %d" % [
-		WorldState.date_text(), today, WorldState.year(), WorldState.season().capitalize(),
+	status_label.text = "%s\nYear %d  ·  %s, week %d  ·  Abbot %s  ·  Generation %d" % [
+		WorldState.date_text(), WorldState.year(), WorldState.season().capitalize(),
 		WorldState.week_in_season(), ab.get("name", "none"), WorldState.generation]
-	resources_label.text = "Food %d/%d   Firewood %d/%d   Medicine %d/%d   Books %d   Goodwill %d   ·   %d brothers" % [
+	feast_label.visible = not feasts.is_empty()
+	if not feasts.is_empty():
+		feast_label.text = tr("house.feast") % str(feasts[0]["name"])
+	resources_label.text = "Food %d/%d   Firewood %d/%d   Medicine %d/%d" % [
 		WorldState.res("food"), WorldState.cap("food"), WorldState.res("firewood"), WorldState.cap("firewood"),
-		WorldState.res("medicine"), WorldState.cap("medicine"), WorldState.res("books"), WorldState.res("goodwill"),
-		WorldState.living_monks().size()]
+		WorldState.res("medicine"), WorldState.cap("medicine")]
+	resources_label.add_theme_color_override("font_color", RED if _winter_short() else PARCHMENT)
+	stores_label.text = "Books %d   Goodwill %d   ·   %d brothers" % [
+		WorldState.res("books"), WorldState.res("goodwill"), WorldState.living_monks().size()]
 	forecast_label.text = _forecast_text()
 	forecast_label.add_theme_color_override("font_color", RED if _winter_short() else DIM)
 	_render_estate_if_changed()
@@ -266,8 +291,9 @@ func _refresh() -> void:
 	var sheet_open := settings_sheet.visible
 	event_panel.visible = waiting and not sheet_open
 	controls_box.visible = controls_box.visible and not sheet_open
-	tabs.visible = not sheet_open
+	tabs.visible = not sheet_open and not waiting
 	settings_sheet.visible = sheet_open
+	until_hint.visible = controls_box.visible
 	_refresh_tutorial()
 
 
@@ -696,6 +722,19 @@ func _append_entry(e: Dictionary) -> void:
 
 func _on_chronicle_added(e: Dictionary) -> void:
 	_append_entry(e)
+	if tabs.current_tab != 0:
+		_unread += 1
+		_update_chronicle_title()
+
+
+func _on_tab_changed(index: int) -> void:
+	if index == 0:
+		_unread = 0
+	_update_chronicle_title()
+
+
+func _update_chronicle_title() -> void:
+	tabs.set_tab_title(0, tr("house.chronicle") + (" •" if _unread > 0 else ""))
 
 
 # --- Events -------------------------------------------------------------
@@ -719,14 +758,21 @@ func _show_event(view: Dictionary) -> void:
 				needs.append("%d %s" % [int(ch["requires"][r]), r])
 			b.text += "  (needs %s)" % ", ".join(needs)
 			b.disabled = true
+		if Settings.hints and ch.has("roll"):
+			var roll: Dictionary = ch["roll"]
+			b.text += "\n" + tr("event.roll") % [roll["stat"], roll["skill"], int(roll["difficulty"])]
 		b.pressed.connect(_on_choice.bind(i))
 		choices_box.add_child(b)
 	event_panel.visible = true
+	tabs.visible = false
 	controls_box.visible = false
+	until_hint.visible = false
+	tutorial_box.visible = false
 
 
 func _on_choice(index: int) -> void:
 	event_panel.visible = false
+	tabs.visible = true
 	Game.choose(index)
 
 
@@ -765,6 +811,7 @@ func _open_settings() -> void:
 	tabs.visible = false
 	event_panel.visible = false
 	controls_box.visible = false
+	until_hint.visible = false
 	tutorial_box.visible = false
 
 

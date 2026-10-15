@@ -51,10 +51,25 @@ func _draw() -> void:
 			draw_arc(p, 15.0, 0.0, TAU, 32, Color("c9a14a"), 3.0)
 		if n["id"] == selected:
 			draw_arc(p, 17.0, 0.0, TAU, 32, INK, 2.0)
-		draw_string(font, p + Vector2(14, 6), str(n["name"]), HORIZONTAL_ALIGNMENT_LEFT, -1, 18, INK)
+		_draw_label(font, p, str(n["name"]), str(n.get("label", "right")))
 
 	draw_rect(Rect2(house - Vector2(8, 8), Vector2(16, 16)), INK)
-	draw_string(font, house + Vector2(14, 6), "the house", HORIZONTAL_ALIGNMENT_LEFT, -1, 18, INK)
+	_draw_label(font, house, "the house", "right")
+
+
+## Draws a place name beside its dot on the side the map data gives, with a dark halo so it reads over lines.
+func _draw_label(font: Font, p: Vector2, text: String, side: String) -> void:
+	var w := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, 18).x
+	var at := p + Vector2(14, 6)
+	match side:
+		"left":
+			at = p + Vector2(-14 - w, 6)
+		"above":
+			at = p + Vector2(-w / 2.0, -14)
+		"below":
+			at = p + Vector2(-w / 2.0, 26)
+	draw_string_outline(font, at, text, HORIZONTAL_ALIGNMENT_LEFT, -1, 18, 4, Color("231c15"))
+	draw_string(font, at, text, HORIZONTAL_ALIGNMENT_LEFT, -1, 18, INK)
 
 
 func _gui_input(event: InputEvent) -> void:

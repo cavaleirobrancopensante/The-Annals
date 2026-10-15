@@ -257,11 +257,19 @@ func current_view() -> Dictionary:
 		var label := Chronicle.format(ch.get("label", "..."), ctx)
 		if ch.has("check"):
 			label += "  [%s, %s]" % [_check_name(ch["check"]), Skills.difficulty_word(int(ch["check"].get("difficulty", Skills.EASY)))]
-		choices.append({
+		var entry := {
 			"label": label,
 			"enabled": requirements_met(ch),
 			"requires": ch.get("requires", {}),
-		})
+		}
+		if ch.has("check"):
+			var c: Dictionary = ch["check"]
+			entry["roll"] = {
+				"stat": str(Skills.stat_names.get(str(c.get("stat", "")), c.get("stat", ""))),
+				"skill": _check_name(c),
+				"difficulty": int(c.get("difficulty", Skills.EASY)),
+			}
+		choices.append(entry)
 	return {
 		"id": card["id"],
 		"title": Chronicle.format(card.get("title", ""), ctx),

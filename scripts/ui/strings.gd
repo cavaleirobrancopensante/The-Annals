@@ -73,6 +73,12 @@ const TABLE := {
 	"tut.paths.text": ["Skills grow by work and training. A brother's path shows as ? until an event reveals it.", "As habilidades crescem com o trabalho e o treino. O caminho de um irmão aparece como ? até um evento revelá-lo.", "Las habilidades crecen con el trabajo y el entrenamiento. El camino de un hermano aparece como ? hasta que un evento lo revele."],
 	"tut.menu.title": ["The menu", "O menu", "El menú"],
 	"tut.menu.text": ["The Menu button saves the chronicle as text, opens Settings and returns you to the main menu. You can replay this walk-through from Settings.", "O botão Menu salva a crônica em texto, abre as Configurações e leva ao menu principal. Você pode refazer este passeio em Configurações.", "El botón Menú guarda la crónica como texto, abre Ajustes y te lleva al menú principal. Puedes repetir este recorrido desde Ajustes."],
+	"house.chronicle": ["Chronicle", "Crônica", "Crónica"],
+	"house.estate": ["Estate", "Propriedade", "Hacienda"],
+	"house.road": ["Road", "Estrada", "Camino"],
+	"house.until_hint": ["Until event runs until a choice, a feast or a chronicle entry.", "Até o evento corre até uma escolha, uma festa ou um registro na crônica.", "Hasta el evento avanza hasta una decisión, una fiesta o una entrada en la crónica."],
+	"house.feast": ["Today: %s", "Hoje: %s", "Hoy: %s"],
+	"event.roll": ["Dice: 2d6 + %s + %s against %d", "Dados: 2d6 + %s + %s contra %d", "Dados: 2d6 + %s + %s contra %d"],
 }
 
 

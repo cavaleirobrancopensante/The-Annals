@@ -1,6 +1,6 @@
 # Menus, screens and the first-play tutorial (study)
 
-Status: steps 1 to 3 and the tutorial (section 7) built, with the language flags. Steps 4 to 7 (header, event sheet, road labels) are still to come. Tutorial hints are stored but not yet used by the event sheet.
+Status: steps 1 to 7 built: slots, main menu, settings, language flags, the tutorial, the header and bottom bar, the scrolling event sheet, road label placement, and the chronicle new-entry dot. Still to do: tutorial steps that wait for the player to act, and coach cards tied to the Tutorial hints setting.
 Target: a 720 × 1280 portrait phone screen, as the project is set up now (`project.godot`).
 
 ## 1. What exists today (as built)
