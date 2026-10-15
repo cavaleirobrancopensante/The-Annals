@@ -119,9 +119,8 @@ def face(hair, hair_color, beard=None):
     # Nose: a bridge line, a shaded side, and nostrils.
     g.append(f'<path d="M1 -2 Q5 7 1 13 Q-2 15 -5 13" fill="none" stroke="{INK}" stroke-width="2" stroke-linecap="round"/>')
     g.append(f'<path d="M3 0 Q7 8 3 13 Q6 10 5 2 Z" fill="{SKIN_SH}" opacity="0.55"/>')
-    # Lips: upper and lower, with a parting line.
-    g.append(f'<path d="M-9 24 Q-4 19 0 21 Q4 19 9 24 Q4 27 0 26 Q-4 27 -9 24 Z" fill="#b8665a" stroke="{INK}" stroke-width="1.3"/>')
-    g.append(f'<path d="M-7 28 Q0 33 7 28" fill="#c97a6a" stroke="{INK}" stroke-width="1.1"/>')
+    # Mouth: a single simple smile line, no fill.
+    g.append('<path d="M-8 25 Q0 30 8 25" fill="none" stroke="#2a1d14" stroke-width="2.2" stroke-linecap="round"/>')
     if beard:
         g.append(f'<path d="M-30 12 Q-27 48 0 50 Q27 48 30 12 Q24 30 0 33 Q-24 30 -30 12 Z" fill="{beard}" stroke="{darker(beard, 0.4)}" stroke-width="1.5"/>')
         g.append(f'<path d="M-14 36 Q0 40 14 36" fill="none" stroke="{lighter(beard, 0.2)}" stroke-width="1.5" opacity="0.7"/>')
