@@ -11,6 +11,12 @@ const STANDING_LIMIT := 5
 var factions: Dictionary = {}
 var nodes: Array = []
 var node_by_id: Dictionary = {}
+## Roads as [a, b, weeks]. The house is the node "house"; it is not a place on the map.
+var roads: Array = []
+## Width and height of the map in the same units as the places' x and y: the true shape of the island.
+var bounds := Vector2(0.7614, 1.0)
+## Places the house knows the way to. Unknown places are in the fog and cannot be sent to.
+var known: Dictionary = {}
 ## Where the house stands on the map, in the same 0-1 units as the places.
 var house_pos := Vector2(0.03, 0.5)
 
@@ -34,6 +40,9 @@ func load_data() -> void:
 		nodes = data.get("nodes", [])
 		for n in nodes:
 			node_by_id[n["id"]] = n
+		roads = data.get("roads", [])
+		var b: Dictionary = data.get("bounds", {})
+		bounds = Vector2(float(b.get("width", 0.7614)), float(b.get("height", 1.0)))
 		var h: Dictionary = data.get("house", {})
 		house_pos = Vector2(float(h.get("x", 0.03)), float(h.get("y", 0.5)))
 	else:
@@ -46,6 +55,9 @@ func new_game() -> void:
 		standings[f] = 0
 	parties = []
 	next_party_id = 1
+	known = {}
+	for id in neighbours("house"):
+		known[id] = true
 
 
 # --- Places and factions ------------------------------------------------
@@ -64,6 +76,10 @@ func node_kind(id: String) -> String:
 
 func faction_name(f: String) -> String:
 	return str(factions.get(f, {}).get("name", f))
+
+
+func faction_desc(f: String) -> String:
+	return str(factions.get(f, {}).get("desc", ""))
 
 
 func standing(f: String) -> int:
@@ -93,6 +109,29 @@ func being_holds(node_id: String) -> bool:
 	return b != "" and Beings.state(b) == "hostile"
 
 
+## Places joined to this one by road, the house included.
+func neighbours(id: String) -> Array:
+	var out := []
+	for r in roads:
+		if r[0] == id:
+			out.append(str(r[1]))
+		elif r[1] == id:
+			out.append(str(r[0]))
+	return out
+
+
+func is_known(node_id: String) -> bool:
+	return known.has(node_id)
+
+
+## The house learns a place, and every place the road leads on from it.
+func reveal_from(node_id: String) -> void:
+	known[node_id] = true
+	for id in neighbours(node_id):
+		if id != "house":
+			known[id] = true
+
+
 func weeks_one_way(node_id: String) -> int:
 	var d := int(node(node_id).get("distance", 3))
 	return d * 2 if WorldState.season() == "winter" else d
@@ -108,6 +147,8 @@ func refusal(node_id: String, member_ids: Array) -> String:
 		return "Three parties are already on the road."
 	if member_ids.is_empty() or member_ids.size() > MAX_PARTY:
 		return "A party is one to three brothers."
+	if not is_known(node_id):
+		return tr("road.unknown")
 	if being_holds(node_id):
 		return tr("road.held_by_being") % Beings.name_of(being_at(node_id))
 	if standing(str(node(node_id).get("faction", ""))) <= HOSTILE:
@@ -182,6 +223,7 @@ func tick() -> Dictionary:
 					var m := WorldState.get_monk(id)
 					if not m.is_empty() and WorldState.is_living(m):
 						m["status"] = "away"
+				reveal_from(str(p["node"]))
 				arrived.append(p.duplicate(true))
 		else:
 			p["back"] = int(p["back"]) - 1
@@ -208,7 +250,7 @@ func _find(pid: int) -> Dictionary:
 # --- Save ---------------------------------------------------------------
 
 func to_dict() -> Dictionary:
-	return {"standings": standings, "parties": parties, "next_party_id": next_party_id}
+	return {"standings": standings, "parties": parties, "next_party_id": next_party_id, "known": known.keys()}
 
 
 func from_dict(d: Dictionary) -> void:
@@ -223,3 +265,13 @@ func from_dict(d: Dictionary) -> void:
 		p["members"] = p["members"].map(func(x): return int(x))
 		parties.append(p)
 	next_party_id = int(d.get("next_party_id", 1))
+	known = {}
+	if d.has("known"):
+		for id in d["known"]:
+			known[str(id)] = true
+	else:
+		# An older save: the house knows its neighbours, and any place a party is already on its way to.
+		for id in neighbours("house"):
+			known[id] = true
+	for p in parties:
+		known[str(p["node"])] = true

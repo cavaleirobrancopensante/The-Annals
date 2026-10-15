@@ -44,7 +44,10 @@ func _ready() -> void:
 		waiting[0].pressed.emit()
 		settle += 1
 	if not Game.waiting():
-		main.road_map.selected = "inishkeel"
+		# The house knows only its neighbours at first; a few more places are shown so the map has some detail.
+		Road.reveal_from("ennis")
+		Road.reveal_from("limerick")
+		main.road_map.selected = str(Road.neighbours("house")[0])
 		main._refresh_road()
 		var ticked := 0
 		for cb in main.party_checks:
@@ -54,7 +57,7 @@ func _ready() -> void:
 		main._on_send_party()
 		print("Road tab: %d parties out, note '%s'" % [Road.parties.size(), main.send_note.text])
 	# A skirmish: the riders at the gate, shown in the event panel.
-	if not Game.waiting():
+	if not Game.waiting() and not "road" in OS.get_cmdline_user_args():
 		Skirmish.start("riders_at_gate")
 		print("Skirmish started: %s" % Skirmish.is_active())
 	main.tabs.current_tab = 1 if "estate" in OS.get_cmdline_user_args() else 2

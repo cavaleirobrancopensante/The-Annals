@@ -106,6 +106,7 @@ func _process(_delta: float) -> bool:
 	var road = root.get_node("Road")
 	road.new_game()
 	b.new_game()
+	road.known["slieve_bloom"] = true
 	_expect("the nest holds slieve bloom", road.being_at("slieve_bloom"), "chimera")
 	_expect("a neutral nest does not close its place", road.is_hostile("slieve_bloom"), false)
 	b.change("chimera", -3)

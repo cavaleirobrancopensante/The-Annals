@@ -93,6 +93,7 @@ func _ready() -> void:
 	print("Builds: %s" % str(builds))
 	print("Road: parties sent %d, arrivals %d, returns %d, still out %d" % [sent, arrivals, returns, Road.parties.size()])
 	print("Standings: %s" % str(Road.standings))
+	print("Known places: %d of %d" % [Road.known.size(), Road.nodes.size()])
 	print("Phase 4: colonies sent %d, daughter houses standing %d, rule changes %d, generation %d, saints %s" % [colonies, WorldState.priories.size(), rule_changes, WorldState.generation, str(WorldState.saints)])
 	print("Rule now: %s" % str(Rule.chosen))
 	var best := 0
@@ -130,7 +131,7 @@ func _send_party() -> int:
 		return 0
 	var open := []
 	for n in Road.nodes:
-		if not Road.is_hostile(n["id"]):
+		if Road.is_known(n["id"]) and not Road.is_hostile(n["id"]):
 			open.append(n["id"])
 	if open.is_empty():
 		return 0
@@ -150,7 +151,7 @@ func _send_colony() -> bool:
 		return false
 	var spots := []
 	for n in Road.nodes:
-		if n["kind"] != "town" and not Road.is_hostile(n["id"]) and not WorldState.has_priory(n["id"]):
+		if Road.is_known(n["id"]) and n["kind"] != "town" and not Road.is_hostile(n["id"]) and not WorldState.has_priory(n["id"]):
 			spots.append(n["id"])
 	if spots.is_empty():
 		return false

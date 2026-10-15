@@ -1,25 +1,34 @@
 {
+  "bounds": {
+    "width": 0.7614,
+    "height": 1.0
+  },
   "factions": {
     "tollmaster": {
-      "name": "el recaudador del peaje",
-      "desc": "Controla los puentes del Shannon y cobra peaje en todos los caminos."
+      "name": "el Pale",
+      "desc": "Las tierras inglesas alrededor de Dublín. Sus hombres guardan los puentes y cobran peaje en cada camino."
     },
     "glen_lords": {
-      "name": "los señores del valle",
-      "desc": "Dominan las colinas y los valles con lanzas y perros."
+      "name": "los señores gaélicos",
+      "desc": "Los señoríos irlandeses de las colinas, los valles y las costas del oeste. Se reúnen en sus montes para repartir el ganado."
     },
     "church": {
-      "name": "los lugares sagrados",
-      "desc": "Ermitaños, pozos y oratorios en ruinas que aún guardan el Oficio."
+      "name": "los lugares santos",
+      "desc": "Los obispos, las abadías y los santuarios. Reciben a la casa como a una hermana."
     },
     "fishers": {
-      "name": "la gente de la costa",
-      "desc": "Pescadores y barqueros que comercian con pescado salado a lo largo de las playas."
+      "name": "las ciudades portuarias",
+      "desc": "Las ciudades de puerto y las costas de pesca, donde los barcos entran y salen con la marea."
     },
     "bog": {
-      "name": "la gente de la turbera",
-      "desc": "Cortadores de turba que viven donde se alzan las viejas turbinas."
+      "name": "el pueblo del pantano",
+      "desc": "El pueblo de los pantanos del centro, que corta turba y se mantiene aparte."
     }
+  },
+  "house": {
+    "name": "el Burren",
+    "x": 0.2792,
+    "y": 0.5711
   },
   "nodes": [
     {
@@ -27,123 +36,2503 @@
       "name": "Inishkeel",
       "kind": "shrine",
       "faction": "church",
-      "distance": 2,
-      "x": 0.14,
-      "y": 0.44,
-      "desc": "Una iglesia sumergida en una isla de marea. Dicen que sus campanas suenan con la marea baja."
+      "distance": 8,
+      "x": 0.4113,
+      "y": 0.2289
     },
     {
       "id": "three_wells",
-      "name": "Tres Pozos",
+      "name": "Three Wells",
       "kind": "shrine",
       "faction": "church",
-      "distance": 2,
-      "x": 0.24,
-      "y": 0.66,
-      "desc": "Tres pozos sagrados junto a un oratorio sin techo."
+      "distance": 6,
+      "x": 0.6094,
+      "y": 0.3494
     },
     {
       "id": "lough_dearg",
       "name": "Lough Dearg",
       "kind": "hermitage",
       "faction": "church",
-      "distance": 3,
-      "x": 0.34,
-      "y": 0.36,
-      "desc": "La isla de un ermitaño en un lago gris, a la que se llega en un bote que quizá ya no esté allí.",
-      "label": "left"
+      "distance": 10,
+      "x": 0.4868,
+      "y": 0.2024
     },
     {
       "id": "knockmore",
       "name": "Knockmore",
       "kind": "hold",
       "faction": "glen_lords",
-      "distance": 2,
-      "x": 0.4,
-      "y": 0.2,
-      "desc": "Una fortaleza de piedra sobre una colina, con perros en la puerta y un señor que lleva cuentas.",
-      "label": "left"
+      "distance": 4,
+      "x": 0.2434,
+      "y": 0.3831
     },
     {
       "id": "slieve_bloom",
-      "being": "chimera",
       "name": "Slieve Bloom",
       "kind": "hold",
       "faction": "glen_lords",
-      "distance": 5,
-      "x": 0.58,
-      "y": 0.18,
-      "desc": "Una fortaleza alta donde los señores del valle se reúnen en otoño para repartirse el ganado."
+      "distance": 7,
+      "x": 0.5566,
+      "y": 0.5904,
+      "being": "chimera"
     },
     {
       "id": "ballyhale",
       "name": "Ballyhale",
       "kind": "town",
       "faction": "tollmaster",
-      "distance": 3,
-      "x": 0.44,
-      "y": 0.56,
-      "desc": "Un pueblo de mercado en el cruce del Shannon, donde los hombres del recaudador cuentan cada carro.",
-      "label": "left"
+      "distance": 12,
+      "x": 0.6358,
+      "y": 0.6892
     },
     {
       "id": "kilcullen",
       "name": "Kilcullen",
       "kind": "town",
       "faction": "tollmaster",
-      "distance": 4,
-      "x": 0.64,
-      "y": 0.5,
-      "desc": "Un pueblo concurrido con un puente, una feria y un alguacil que lo anota todo."
+      "distance": 11,
+      "x": 0.734,
+      "y": 0.5687
     },
     {
       "id": "bog_of_allen",
-      "being": "engine",
-      "name": "el Bog of Allen",
+      "name": "the Bog of Allen",
       "kind": "ruin",
       "faction": "bog",
-      "distance": 3,
-      "x": 0.54,
-      "y": 0.36,
-      "desc": "Viejas turbinas muertas en la turbera. Algunas aún giran con un viento fuerte.",
-      "label": "above"
+      "distance": 9,
+      "x": 0.6792,
+      "y": 0.5422,
+      "being": "engine"
     },
     {
       "id": "glen_of_imaal",
-      "name": "el Glen of Imaal",
+      "name": "the Glen of Imaal",
       "kind": "village",
       "faction": "glen_lords",
-      "distance": 4,
-      "x": 0.68,
-      "y": 0.7,
-      "desc": "Granjas dispersas en un valle verde, con un campo de hurling y un jefe de pueblo receloso.",
-      "label": "left"
+      "distance": 13,
+      "x": 0.7774,
+      "y": 0.5904
     },
     {
       "id": "kilmore_quay",
       "name": "Kilmore Quay",
       "kind": "coast",
       "faction": "fishers",
-      "distance": 5,
-      "x": 0.82,
-      "y": 0.84,
-      "desc": "Un puerto de barcos de pesca y pescado ahumado, donde el viento del mar nunca cesa.",
-      "label": "left"
+      "distance": 13,
+      "x": 0.7585,
+      "y": 0.7904
     },
     {
       "id": "clare_cliffs",
-      "name": "los acantilados de Clare",
+      "name": "the Clare cliffs",
       "kind": "ruin",
       "faction": "fishers",
+      "distance": 1,
+      "x": 0.2208,
+      "y": 0.5976
+    },
+    {
+      "id": "dublin",
+      "name": "Dublin",
+      "kind": "town",
+      "faction": "tollmaster",
+      "distance": 12,
+      "x": 0.8189,
+      "y": 0.506
+    },
+    {
+      "id": "drogheda",
+      "name": "Drogheda",
+      "kind": "town",
+      "faction": "tollmaster",
+      "distance": 10,
+      "x": 0.8019,
+      "y": 0.4169
+    },
+    {
+      "id": "navan",
+      "name": "Navan",
+      "kind": "town",
+      "faction": "tollmaster",
+      "distance": 8,
+      "x": 0.7396,
+      "y": 0.4337
+    },
+    {
+      "id": "trim",
+      "name": "Trim",
+      "kind": "town",
+      "faction": "tollmaster",
+      "distance": 7,
+      "x": 0.7189,
+      "y": 0.4578
+    },
+    {
+      "id": "mellifont",
+      "name": "Mellifont",
+      "kind": "church",
+      "faction": "church",
+      "distance": 10,
+      "x": 0.7811,
+      "y": 0.4096
+    },
+    {
+      "id": "monasterboice",
+      "name": "Monasterboice",
+      "kind": "church",
+      "faction": "church",
+      "distance": 11,
+      "x": 0.7887,
+      "y": 0.3952
+    },
+    {
+      "id": "slane",
+      "name": "Slane",
+      "kind": "hold",
+      "faction": "tollmaster",
+      "distance": 9,
+      "x": 0.7642,
+      "y": 0.4193
+    },
+    {
+      "id": "tara",
+      "name": "the Hill of Tara",
+      "kind": "hold",
+      "faction": "tollmaster",
+      "distance": 9,
+      "x": 0.7528,
+      "y": 0.4506
+    },
+    {
+      "id": "clonard",
+      "name": "Clonard",
+      "kind": "church",
+      "faction": "church",
+      "distance": 9,
+      "x": 0.7245,
+      "y": 0.4795
+    },
+    {
+      "id": "kells",
+      "name": "Kells",
+      "kind": "church",
+      "faction": "church",
+      "distance": 8,
+      "x": 0.7019,
+      "y": 0.4169
+    },
+    {
+      "id": "naas",
+      "name": "Naas",
+      "kind": "town",
+      "faction": "tollmaster",
+      "distance": 10,
+      "x": 0.7434,
+      "y": 0.5373
+    },
+    {
+      "id": "maynooth",
+      "name": "Maynooth",
+      "kind": "town",
+      "faction": "tollmaster",
+      "distance": 10,
+      "x": 0.7566,
+      "y": 0.4988
+    },
+    {
+      "id": "celbridge",
+      "name": "Celbridge",
+      "kind": "village",
+      "faction": "tollmaster",
+      "distance": 11,
+      "x": 0.7679,
+      "y": 0.5084
+    },
+    {
+      "id": "swords",
+      "name": "Swords",
+      "kind": "village",
+      "faction": "tollmaster",
+      "distance": 12,
+      "x": 0.8264,
+      "y": 0.4795
+    },
+    {
+      "id": "malahide",
+      "name": "Malahide",
+      "kind": "coast",
+      "faction": "tollmaster",
+      "distance": 12,
+      "x": 0.8396,
+      "y": 0.4819
+    },
+    {
+      "id": "balbriggan",
+      "name": "Balbriggan",
+      "kind": "coast",
+      "faction": "tollmaster",
+      "distance": 11,
+      "x": 0.834,
+      "y": 0.4434
+    },
+    {
+      "id": "ardee",
+      "name": "Ardee",
+      "kind": "village",
+      "faction": "tollmaster",
+      "distance": 11,
+      "x": 0.766,
+      "y": 0.3807
+    },
+    {
+      "id": "kildare",
+      "name": "Kildare",
+      "kind": "church",
+      "faction": "church",
+      "distance": 9,
+      "x": 0.6962,
+      "y": 0.5518
+    },
+    {
+      "id": "athy",
+      "name": "Athy",
+      "kind": "town",
+      "faction": "tollmaster",
+      "distance": 10,
+      "x": 0.6811,
+      "y": 0.5928
+    },
+    {
+      "id": "glendalough",
+      "name": "Glendalough",
+      "kind": "hermitage",
+      "faction": "church",
+      "distance": 15,
+      "x": 0.8075,
+      "y": 0.588
+    },
+    {
+      "id": "bray",
+      "name": "Bray",
+      "kind": "village",
+      "faction": "tollmaster",
+      "distance": 14,
+      "x": 0.8491,
+      "y": 0.5422
+    },
+    {
+      "id": "dun_laoghaire",
+      "name": "Dun Laoghaire",
+      "kind": "coast",
+      "faction": "tollmaster",
+      "distance": 13,
+      "x": 0.8434,
+      "y": 0.5205
+    },
+    {
+      "id": "wicklow",
+      "name": "Wicklow",
+      "kind": "coast",
+      "faction": "tollmaster",
+      "distance": 15,
+      "x": 0.8604,
+      "y": 0.5952
+    },
+    {
+      "id": "arklow",
+      "name": "Arklow",
+      "kind": "coast",
+      "faction": "fishers",
+      "distance": 15,
+      "x": 0.8396,
+      "y": 0.6386
+    },
+    {
+      "id": "lugnaquilla",
+      "name": "Lugnaquilla",
+      "kind": "hold",
+      "faction": "glen_lords",
+      "distance": 13,
+      "x": 0.7811,
+      "y": 0.6024
+    },
+    {
+      "id": "edenderry",
+      "name": "Edenderry",
+      "kind": "village",
+      "faction": "bog",
+      "distance": 7,
+      "x": 0.6698,
+      "y": 0.506
+    },
+    {
+      "id": "lough_boora",
+      "name": "Lough Boora",
+      "kind": "village",
+      "faction": "bog",
+      "distance": 7,
+      "x": 0.5528,
+      "y": 0.5542
+    },
+    {
+      "id": "tullamore",
+      "name": "Tullamore",
+      "kind": "town",
+      "faction": "bog",
+      "distance": 7,
+      "x": 0.5868,
+      "y": 0.5253
+    },
+    {
+      "id": "mullingar",
+      "name": "Mullingar",
+      "kind": "town",
+      "faction": "tollmaster",
+      "distance": 6,
+      "x": 0.6151,
+      "y": 0.4651
+    },
+    {
+      "id": "athlone",
+      "name": "Athlone",
+      "kind": "town",
+      "faction": "tollmaster",
+      "distance": 6,
+      "x": 0.5019,
+      "y": 0.4892
+    },
+    {
+      "id": "longford",
+      "name": "Longford",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 5,
+      "x": 0.5283,
+      "y": 0.4145
+    },
+    {
+      "id": "cavan",
+      "name": "Cavan",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 6,
+      "x": 0.6113,
+      "y": 0.3518
+    },
+    {
+      "id": "portlaoise",
+      "name": "Portlaoise",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 9,
+      "x": 0.6226,
+      "y": 0.5831
+    },
+    {
+      "id": "dunamase",
+      "name": "Dunamase",
+      "kind": "ruin",
+      "faction": "glen_lords",
+      "distance": 9,
+      "x": 0.6245,
+      "y": 0.5904
+    },
+    {
+      "id": "durrow",
+      "name": "Durrow",
+      "kind": "church",
+      "faction": "church",
+      "distance": 8,
+      "x": 0.6113,
+      "y": 0.5542
+    },
+    {
+      "id": "clonmacnoise",
+      "name": "Clonmacnoise",
+      "kind": "church",
+      "faction": "church",
+      "distance": 6,
+      "x": 0.4943,
+      "y": 0.5108
+    },
+    {
+      "id": "clonfert",
+      "name": "Clonfert",
+      "kind": "church",
+      "faction": "church",
+      "distance": 5,
+      "x": 0.4906,
+      "y": 0.5301
+    },
+    {
+      "id": "birr",
+      "name": "Birr",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 5,
+      "x": 0.5075,
+      "y": 0.5687
+    },
+    {
+      "id": "roscrea",
+      "name": "Roscrea",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 5,
+      "x": 0.5283,
+      "y": 0.6024
+    },
+    {
+      "id": "carlow",
+      "name": "Carlow",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 10,
+      "x": 0.6925,
+      "y": 0.6289
+    },
+    {
+      "id": "kilkenny",
+      "name": "Kilkenny",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 11,
+      "x": 0.6321,
+      "y": 0.6747
+    },
+    {
+      "id": "enniscorthy",
+      "name": "Enniscorthy",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 13,
+      "x": 0.7623,
+      "y": 0.7108
+    },
+    {
+      "id": "new_ross",
+      "name": "New Ross",
+      "kind": "town",
+      "faction": "fishers",
+      "distance": 12,
+      "x": 0.6906,
+      "y": 0.7373
+    },
+    {
+      "id": "wexford",
+      "name": "Wexford",
+      "kind": "coast",
+      "faction": "fishers",
+      "distance": 14,
+      "x": 0.7811,
+      "y": 0.7518
+    },
+    {
+      "id": "rosslare",
+      "name": "Rosslare",
+      "kind": "coast",
+      "faction": "fishers",
+      "distance": 14,
+      "x": 0.7962,
+      "y": 0.7711
+    },
+    {
+      "id": "waterford",
+      "name": "Waterford",
+      "kind": "coast",
+      "faction": "fishers",
+      "distance": 13,
+      "x": 0.6585,
+      "y": 0.7687
+    },
+    {
+      "id": "cashel",
+      "name": "Cashel",
+      "kind": "shrine",
+      "faction": "church",
+      "distance": 19,
+      "x": 0.5113,
+      "y": 0.706
+    },
+    {
+      "id": "holycross",
+      "name": "Holy Cross",
+      "kind": "shrine",
+      "faction": "church",
+      "distance": 19,
+      "x": 0.4962,
+      "y": 0.6843
+    },
+    {
+      "id": "lismore",
+      "name": "Lismore",
+      "kind": "church",
+      "faction": "church",
+      "distance": 19,
+      "x": 0.5038,
+      "y": 0.7976
+    },
+    {
+      "id": "clonmel",
+      "name": "Clonmel",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 17,
+      "x": 0.5472,
+      "y": 0.747
+    },
+    {
+      "id": "cahir",
+      "name": "Cahir",
+      "kind": "village",
+      "faction": "glen_lords",
+      "distance": 17,
+      "x": 0.5038,
+      "y": 0.7422
+    },
+    {
+      "id": "comeraghs",
+      "name": "the Comeraghs",
+      "kind": "hold",
+      "faction": "glen_lords",
+      "distance": 15,
+      "x": 0.5642,
+      "y": 0.7566
+    },
+    {
+      "id": "knockmealdown",
+      "name": "the Knockmealdowns",
+      "kind": "hold",
+      "faction": "glen_lords",
+      "distance": 17,
+      "x": 0.5,
+      "y": 0.7711
+    },
+    {
+      "id": "dungarvan",
+      "name": "Dungarvan",
+      "kind": "coast",
+      "faction": "fishers",
+      "distance": 17,
+      "x": 0.5623,
+      "y": 0.8096
+    },
+    {
+      "id": "youghal",
+      "name": "Youghal",
+      "kind": "coast",
+      "faction": "fishers",
+      "distance": 18,
+      "x": 0.5189,
+      "y": 0.8434
+    },
+    {
+      "id": "tipperary",
+      "name": "Tipperary",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 19,
+      "x": 0.4604,
+      "y": 0.7181
+    },
+    {
+      "id": "nenagh",
+      "name": "Nenagh",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 3,
+      "x": 0.4528,
+      "y": 0.6241
+    },
+    {
+      "id": "killaloe",
+      "name": "Killaloe",
+      "kind": "church",
+      "faction": "church",
+      "distance": 3,
+      "x": 0.4057,
+      "y": 0.6386
+    },
+    {
+      "id": "portumna",
+      "name": "Portumna",
+      "kind": "village",
+      "faction": "glen_lords",
       "distance": 4,
-      "x": 0.06,
-      "y": 0.62,
-      "desc": "Una torre de señales en ruinas sobre los acantilados, donde la gente de la costa deja sus barcos muertos."
+      "x": 0.4491,
+      "y": 0.5663
+    },
+    {
+      "id": "galtymore",
+      "name": "Galtymore",
+      "kind": "hold",
+      "faction": "glen_lords",
+      "distance": 19,
+      "x": 0.4528,
+      "y": 0.747
+    },
+    {
+      "id": "limerick",
+      "name": "Limerick",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 2,
+      "x": 0.3717,
+      "y": 0.6723
+    },
+    {
+      "id": "mallow",
+      "name": "Mallow",
+      "kind": "village",
+      "faction": "glen_lords",
+      "distance": 21,
+      "x": 0.3679,
+      "y": 0.8
+    },
+    {
+      "id": "fermoy",
+      "name": "Fermoy",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 19,
+      "x": 0.4396,
+      "y": 0.7976
+    },
+    {
+      "id": "cork",
+      "name": "Cork",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 20,
+      "x": 0.4019,
+      "y": 0.8554
+    },
+    {
+      "id": "kinsale",
+      "name": "Kinsale",
+      "kind": "coast",
+      "faction": "fishers",
+      "distance": 20,
+      "x": 0.3925,
+      "y": 0.9012
+    },
+    {
+      "id": "ballycotton",
+      "name": "Ballycotton",
+      "kind": "coast",
+      "faction": "fishers",
+      "distance": 19,
+      "x": 0.4906,
+      "y": 0.8723
+    },
+    {
+      "id": "bantry",
+      "name": "Bantry",
+      "kind": "coast",
+      "faction": "fishers",
+      "distance": 10,
+      "x": 0.217,
+      "y": 0.9084
+    },
+    {
+      "id": "skibbereen",
+      "name": "Skibbereen",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 10,
+      "x": 0.2528,
+      "y": 0.9398
+    },
+    {
+      "id": "mizen",
+      "name": "Mizen Head",
+      "kind": "coast",
+      "faction": "fishers",
+      "distance": 10,
+      "x": 0.1472,
+      "y": 0.9663
+    },
+    {
+      "id": "kenmare",
+      "name": "Kenmare",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 8,
+      "x": 0.1925,
+      "y": 0.8602
+    },
+    {
+      "id": "killarney",
+      "name": "Killarney",
+      "kind": "village",
+      "faction": "glen_lords",
+      "distance": 6,
+      "x": 0.2057,
+      "y": 0.8169
+    },
+    {
+      "id": "tralee",
+      "name": "Tralee",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 4,
+      "x": 0.1698,
+      "y": 0.7663
+    },
+    {
+      "id": "dingle",
+      "name": "Dingle",
+      "kind": "coast",
+      "faction": "fishers",
+      "distance": 6,
+      "x": 0.0623,
+      "y": 0.7976
+    },
+    {
+      "id": "valentia",
+      "name": "Valentia",
+      "kind": "coast",
+      "faction": "fishers",
+      "distance": 7,
+      "x": 0.0453,
+      "y": 0.8482
+    },
+    {
+      "id": "skellig",
+      "name": "Skellig Michael",
+      "kind": "hermitage",
+      "faction": "church",
+      "distance": 8,
+      "x": 0.0113,
+      "y": 0.8867
+    },
+    {
+      "id": "carrantuohil",
+      "name": "Carrantuohil",
+      "kind": "hold",
+      "faction": "glen_lords",
+      "distance": 6,
+      "x": 0.1623,
+      "y": 0.8313
+    },
+    {
+      "id": "kilrush",
+      "name": "Kilrush",
+      "kind": "coast",
+      "faction": "fishers",
+      "distance": 2,
+      "x": 0.2094,
+      "y": 0.6771
+    },
+    {
+      "id": "scattery",
+      "name": "Scattery Island",
+      "kind": "church",
+      "faction": "church",
+      "distance": 3,
+      "x": 0.1962,
+      "y": 0.6795
+    },
+    {
+      "id": "ennis",
+      "name": "Ennis",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 1,
+      "x": 0.3057,
+      "y": 0.6289
+    },
+    {
+      "id": "kilkee",
+      "name": "Kilkee",
+      "kind": "coast",
+      "faction": "fishers",
+      "distance": 3,
+      "x": 0.1792,
+      "y": 0.6675
+    },
+    {
+      "id": "aran",
+      "name": "Inishmore",
+      "kind": "shrine",
+      "faction": "church",
+      "distance": 2,
+      "x": 0.166,
+      "y": 0.5614
+    },
+    {
+      "id": "galway",
+      "name": "Galway",
+      "kind": "town",
+      "faction": "fishers",
+      "distance": 1,
+      "x": 0.2925,
+      "y": 0.5253
+    },
+    {
+      "id": "tuam",
+      "name": "Tuam",
+      "kind": "church",
+      "faction": "church",
+      "distance": 2,
+      "x": 0.3302,
+      "y": 0.4675
+    },
+    {
+      "id": "clifden",
+      "name": "Clifden",
+      "kind": "coast",
+      "faction": "fishers",
+      "distance": 8,
+      "x": 0.1094,
+      "y": 0.4723
+    },
+    {
+      "id": "mweelrea",
+      "name": "Mweelrea",
+      "kind": "hold",
+      "faction": "glen_lords",
+      "distance": 8,
+      "x": 0.1604,
+      "y": 0.4434
+    },
+    {
+      "id": "croagh_patrick",
+      "name": "Croagh Patrick",
+      "kind": "shrine",
+      "faction": "church",
+      "distance": 6,
+      "x": 0.1792,
+      "y": 0.4072
+    },
+    {
+      "id": "knock",
+      "name": "Knock",
+      "kind": "shrine",
+      "faction": "church",
+      "distance": 3,
+      "x": 0.3189,
+      "y": 0.3976
+    },
+    {
+      "id": "westport",
+      "name": "Westport",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 6,
+      "x": 0.2038,
+      "y": 0.3976
+    },
+    {
+      "id": "rathcroghan",
+      "name": "Rathcroghan",
+      "kind": "ruin",
+      "faction": "glen_lords",
+      "distance": 3,
+      "x": 0.4226,
+      "y": 0.4024
+    },
+    {
+      "id": "boyle",
+      "name": "Boyle",
+      "kind": "church",
+      "faction": "church",
+      "distance": 4,
+      "x": 0.4358,
+      "y": 0.3566
+    },
+    {
+      "id": "ballina",
+      "name": "Ballina",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 6,
+      "x": 0.2717,
+      "y": 0.3205
+    },
+    {
+      "id": "killala",
+      "name": "Killala",
+      "kind": "church",
+      "faction": "church",
+      "distance": 7,
+      "x": 0.2623,
+      "y": 0.2988
+    },
+    {
+      "id": "nephin",
+      "name": "Nephin",
+      "kind": "hold",
+      "faction": "glen_lords",
+      "distance": 6,
+      "x": 0.2358,
+      "y": 0.3253
+    },
+    {
+      "id": "sligo",
+      "name": "Sligo",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 6,
+      "x": 0.4019,
+      "y": 0.2843
+    },
+    {
+      "id": "benbulben",
+      "name": "Benbulben",
+      "kind": "hold",
+      "faction": "glen_lords",
+      "distance": 6,
+      "x": 0.4,
+      "y": 0.2771
+    },
+    {
+      "id": "longford_west",
+      "name": "Ballymote",
+      "kind": "village",
+      "faction": "glen_lords",
+      "distance": 4,
+      "x": 0.3925,
+      "y": 0.3277
+    },
+    {
+      "id": "bundoran",
+      "name": "Bundoran",
+      "kind": "coast",
+      "faction": "fishers",
+      "distance": 9,
+      "x": 0.4377,
+      "y": 0.2337
+    },
+    {
+      "id": "ballyshannon",
+      "name": "Ballyshannon",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 9,
+      "x": 0.4566,
+      "y": 0.2289
+    },
+    {
+      "id": "donegal",
+      "name": "Donegal",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 10,
+      "x": 0.4698,
+      "y": 0.1928
+    },
+    {
+      "id": "slieve_league",
+      "name": "Slieve League",
+      "kind": "hold",
+      "faction": "glen_lords",
+      "distance": 10,
+      "x": 0.3736,
+      "y": 0.1904
+    },
+    {
+      "id": "errigal",
+      "name": "Errigal",
+      "kind": "hold",
+      "faction": "glen_lords",
+      "distance": 12,
+      "x": 0.4717,
+      "y": 0.1012
+    },
+    {
+      "id": "dunfanaghy",
+      "name": "Dunfanaghy",
+      "kind": "coast",
+      "faction": "fishers",
+      "distance": 14,
+      "x": 0.4962,
+      "y": 0.0651
+    },
+    {
+      "id": "letterkenny",
+      "name": "Letterkenny",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 13,
+      "x": 0.5415,
+      "y": 0.1205
+    },
+    {
+      "id": "malin_head",
+      "name": "Malin Head",
+      "kind": "coast",
+      "faction": "fishers",
+      "distance": 13,
+      "x": 0.6151,
+      "y": 0.0169
+    },
+    {
+      "id": "derry",
+      "name": "Derry",
+      "kind": "town",
+      "faction": "fishers",
+      "distance": 12,
+      "x": 0.6189,
+      "y": 0.1084
+    },
+    {
+      "id": "omagh",
+      "name": "Omagh",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 8,
+      "x": 0.6226,
+      "y": 0.2048
+    },
+    {
+      "id": "enniskillen",
+      "name": "Enniskillen",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 9,
+      "x": 0.5585,
+      "y": 0.2675
+    },
+    {
+      "id": "monaghan",
+      "name": "Monaghan",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 7,
+      "x": 0.6849,
+      "y": 0.2892
+    },
+    {
+      "id": "armagh",
+      "name": "Armagh",
+      "kind": "church",
+      "faction": "church",
+      "distance": 8,
+      "x": 0.7453,
+      "y": 0.2651
+    },
+    {
+      "id": "dundalk",
+      "name": "Dundalk",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 12,
+      "x": 0.7925,
+      "y": 0.3494
+    },
+    {
+      "id": "newry",
+      "name": "Newry",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 10,
+      "x": 0.8038,
+      "y": 0.306
+    },
+    {
+      "id": "slieve_donard",
+      "name": "Slieve Donard",
+      "kind": "hold",
+      "faction": "glen_lords",
+      "distance": 16,
+      "x": 0.883,
+      "y": 0.306
+    },
+    {
+      "id": "downpatrick",
+      "name": "Downpatrick",
+      "kind": "church",
+      "faction": "church",
+      "distance": 12,
+      "x": 0.9208,
+      "y": 0.2699
+    },
+    {
+      "id": "newcastle",
+      "name": "Newcastle",
+      "kind": "coast",
+      "faction": "fishers",
+      "distance": 14,
+      "x": 0.8887,
+      "y": 0.2964
+    },
+    {
+      "id": "belfast",
+      "name": "Belfast",
+      "kind": "town",
+      "faction": "fishers",
+      "distance": 11,
+      "x": 0.8811,
+      "y": 0.2048
+    },
+    {
+      "id": "bangor",
+      "name": "Bangor",
+      "kind": "church",
+      "faction": "church",
+      "distance": 11,
+      "x": 0.9302,
+      "y": 0.1904
+    },
+    {
+      "id": "carrickfergus",
+      "name": "Carrickfergus",
+      "kind": "coast",
+      "faction": "fishers",
+      "distance": 11,
+      "x": 0.9057,
+      "y": 0.1759
+    },
+    {
+      "id": "antrim",
+      "name": "Antrim",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 10,
+      "x": 0.8283,
+      "y": 0.1759
+    },
+    {
+      "id": "lisburn",
+      "name": "Lisburn",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 10,
+      "x": 0.8604,
+      "y": 0.2241
+    },
+    {
+      "id": "toome",
+      "name": "Toome",
+      "kind": "village",
+      "faction": "bog",
+      "distance": 9,
+      "x": 0.7887,
+      "y": 0.1855
+    },
+    {
+      "id": "ballymena",
+      "name": "Ballymena",
+      "kind": "town",
+      "faction": "glen_lords",
+      "distance": 10,
+      "x": 0.8151,
+      "y": 0.1422
+    },
+    {
+      "id": "coleraine",
+      "name": "Coleraine",
+      "kind": "coast",
+      "faction": "fishers",
+      "distance": 11,
+      "x": 0.7415,
+      "y": 0.0771
+    },
+    {
+      "id": "sawel",
+      "name": "Sawel",
+      "kind": "hold",
+      "faction": "glen_lords",
+      "distance": 10,
+      "x": 0.6887,
+      "y": 0.1566
+    },
+    {
+      "id": "mourne_gap",
+      "name": "Mourne Gap",
+      "kind": "village",
+      "faction": "glen_lords",
+      "distance": 12,
+      "x": 0.8642,
+      "y": 0.3157
+    },
+    {
+      "id": "dunluce",
+      "name": "Dunluce",
+      "kind": "ruin",
+      "faction": "fishers",
+      "distance": 11,
+      "x": 0.7623,
+      "y": 0.0602
     }
   ],
-  "house": {
-    "name": "the Burren",
-    "x": 0.03,
-    "y": 0.5
-  }
+  "roads": [
+    [
+      "antrim",
+      "ballymena",
+      1
+    ],
+    [
+      "antrim",
+      "belfast",
+      1
+    ],
+    [
+      "antrim",
+      "carrickfergus",
+      1
+    ],
+    [
+      "antrim",
+      "lisburn",
+      1
+    ],
+    [
+      "antrim",
+      "toome",
+      1
+    ],
+    [
+      "aran",
+      "galway",
+      1
+    ],
+    [
+      "aran",
+      "kilkee",
+      1
+    ],
+    [
+      "ardee",
+      "dundalk",
+      2
+    ],
+    [
+      "ardee",
+      "mellifont",
+      1
+    ],
+    [
+      "ardee",
+      "monasterboice",
+      1
+    ],
+    [
+      "arklow",
+      "glendalough",
+      2
+    ],
+    [
+      "arklow",
+      "lugnaquilla",
+      2
+    ],
+    [
+      "arklow",
+      "wicklow",
+      2
+    ],
+    [
+      "armagh",
+      "monaghan",
+      1
+    ],
+    [
+      "armagh",
+      "newry",
+      2
+    ],
+    [
+      "armagh",
+      "toome",
+      1
+    ],
+    [
+      "athlone",
+      "clonfert",
+      1
+    ],
+    [
+      "athlone",
+      "clonmacnoise",
+      1
+    ],
+    [
+      "athlone",
+      "longford",
+      1
+    ],
+    [
+      "athlone",
+      "tullamore",
+      1
+    ],
+    [
+      "athy",
+      "carlow",
+      1
+    ],
+    [
+      "athy",
+      "dunamase",
+      1
+    ],
+    [
+      "athy",
+      "kildare",
+      2
+    ],
+    [
+      "athy",
+      "portlaoise",
+      1
+    ],
+    [
+      "balbriggan",
+      "drogheda",
+      1
+    ],
+    [
+      "balbriggan",
+      "malahide",
+      1
+    ],
+    [
+      "balbriggan",
+      "swords",
+      1
+    ],
+    [
+      "ballina",
+      "killala",
+      2
+    ],
+    [
+      "ballina",
+      "knockmore",
+      2
+    ],
+    [
+      "ballina",
+      "nephin",
+      2
+    ],
+    [
+      "ballycotton",
+      "cork",
+      1
+    ],
+    [
+      "ballycotton",
+      "kinsale",
+      1
+    ],
+    [
+      "ballycotton",
+      "lismore",
+      3
+    ],
+    [
+      "ballycotton",
+      "youghal",
+      1
+    ],
+    [
+      "ballyhale",
+      "carlow",
+      2
+    ],
+    [
+      "ballyhale",
+      "kilkenny",
+      1
+    ],
+    [
+      "ballyhale",
+      "new_ross",
+      1
+    ],
+    [
+      "ballymena",
+      "carrickfergus",
+      1
+    ],
+    [
+      "ballymena",
+      "coleraine",
+      1
+    ],
+    [
+      "ballymena",
+      "dunluce",
+      1
+    ],
+    [
+      "ballymena",
+      "toome",
+      1
+    ],
+    [
+      "ballyshannon",
+      "bundoran",
+      1
+    ],
+    [
+      "ballyshannon",
+      "donegal",
+      1
+    ],
+    [
+      "ballyshannon",
+      "enniskillen",
+      1
+    ],
+    [
+      "ballyshannon",
+      "inishkeel",
+      1
+    ],
+    [
+      "ballyshannon",
+      "lough_dearg",
+      1
+    ],
+    [
+      "bangor",
+      "belfast",
+      1
+    ],
+    [
+      "bangor",
+      "carrickfergus",
+      1
+    ],
+    [
+      "bangor",
+      "lisburn",
+      1
+    ],
+    [
+      "bantry",
+      "kenmare",
+      2
+    ],
+    [
+      "bantry",
+      "mizen",
+      1
+    ],
+    [
+      "bantry",
+      "skibbereen",
+      1
+    ],
+    [
+      "belfast",
+      "carrickfergus",
+      1
+    ],
+    [
+      "belfast",
+      "lisburn",
+      1
+    ],
+    [
+      "benbulben",
+      "inishkeel",
+      2
+    ],
+    [
+      "benbulben",
+      "longford_west",
+      2
+    ],
+    [
+      "benbulben",
+      "sligo",
+      2
+    ],
+    [
+      "birr",
+      "clonfert",
+      1
+    ],
+    [
+      "birr",
+      "clonmacnoise",
+      1
+    ],
+    [
+      "birr",
+      "lough_boora",
+      2
+    ],
+    [
+      "birr",
+      "portumna",
+      1
+    ],
+    [
+      "birr",
+      "roscrea",
+      2
+    ],
+    [
+      "birr",
+      "slieve_bloom",
+      2
+    ],
+    [
+      "bog_of_allen",
+      "edenderry",
+      2
+    ],
+    [
+      "bog_of_allen",
+      "kildare",
+      1
+    ],
+    [
+      "bog_of_allen",
+      "naas",
+      1
+    ],
+    [
+      "boyle",
+      "longford_west",
+      1
+    ],
+    [
+      "boyle",
+      "rathcroghan",
+      1
+    ],
+    [
+      "boyle",
+      "sligo",
+      2
+    ],
+    [
+      "bray",
+      "dun_laoghaire",
+      1
+    ],
+    [
+      "bray",
+      "newcastle",
+      2
+    ],
+    [
+      "bray",
+      "slieve_donard",
+      2
+    ],
+    [
+      "bundoran",
+      "donegal",
+      1
+    ],
+    [
+      "bundoran",
+      "inishkeel",
+      1
+    ],
+    [
+      "bundoran",
+      "lough_dearg",
+      1
+    ],
+    [
+      "bundoran",
+      "slieve_league",
+      2
+    ],
+    [
+      "cahir",
+      "cashel",
+      2
+    ],
+    [
+      "cahir",
+      "clonmel",
+      2
+    ],
+    [
+      "cahir",
+      "comeraghs",
+      2
+    ],
+    [
+      "cahir",
+      "galtymore",
+      2
+    ],
+    [
+      "cahir",
+      "holycross",
+      2
+    ],
+    [
+      "cahir",
+      "knockmealdown",
+      2
+    ],
+    [
+      "cahir",
+      "tipperary",
+      2
+    ],
+    [
+      "carlow",
+      "dunamase",
+      1
+    ],
+    [
+      "carlow",
+      "kilkenny",
+      1
+    ],
+    [
+      "carrantuohil",
+      "dingle",
+      2
+    ],
+    [
+      "carrantuohil",
+      "kenmare",
+      2
+    ],
+    [
+      "carrantuohil",
+      "killarney",
+      2
+    ],
+    [
+      "carrantuohil",
+      "tralee",
+      2
+    ],
+    [
+      "carrantuohil",
+      "valentia",
+      2
+    ],
+    [
+      "carrickfergus",
+      "lisburn",
+      1
+    ],
+    [
+      "cashel",
+      "holycross",
+      1
+    ],
+    [
+      "cashel",
+      "tipperary",
+      2
+    ],
+    [
+      "cavan",
+      "longford",
+      1
+    ],
+    [
+      "cavan",
+      "monaghan",
+      1
+    ],
+    [
+      "cavan",
+      "three_wells",
+      1
+    ],
+    [
+      "celbridge",
+      "dublin",
+      1
+    ],
+    [
+      "celbridge",
+      "maynooth",
+      1
+    ],
+    [
+      "celbridge",
+      "naas",
+      1
+    ],
+    [
+      "clare_cliffs",
+      "ennis",
+      1
+    ],
+    [
+      "clare_cliffs",
+      "galway",
+      1
+    ],
+    [
+      "clare_cliffs",
+      "house",
+      1
+    ],
+    [
+      "clifden",
+      "croagh_patrick",
+      2
+    ],
+    [
+      "clifden",
+      "mweelrea",
+      2
+    ],
+    [
+      "clifden",
+      "westport",
+      2
+    ],
+    [
+      "clonard",
+      "edenderry",
+      2
+    ],
+    [
+      "clonard",
+      "maynooth",
+      1
+    ],
+    [
+      "clonard",
+      "tara",
+      1
+    ],
+    [
+      "clonard",
+      "trim",
+      2
+    ],
+    [
+      "clonfert",
+      "clonmacnoise",
+      1
+    ],
+    [
+      "clonfert",
+      "portumna",
+      1
+    ],
+    [
+      "clonmel",
+      "comeraghs",
+      2
+    ],
+    [
+      "clonmel",
+      "knockmealdown",
+      2
+    ],
+    [
+      "coleraine",
+      "dunluce",
+      1
+    ],
+    [
+      "coleraine",
+      "sawel",
+      2
+    ],
+    [
+      "comeraghs",
+      "dungarvan",
+      2
+    ],
+    [
+      "comeraghs",
+      "knockmealdown",
+      2
+    ],
+    [
+      "comeraghs",
+      "waterford",
+      2
+    ],
+    [
+      "cork",
+      "fermoy",
+      2
+    ],
+    [
+      "cork",
+      "kinsale",
+      1
+    ],
+    [
+      "cork",
+      "mallow",
+      2
+    ],
+    [
+      "croagh_patrick",
+      "knockmore",
+      2
+    ],
+    [
+      "croagh_patrick",
+      "mweelrea",
+      2
+    ],
+    [
+      "croagh_patrick",
+      "westport",
+      2
+    ],
+    [
+      "derry",
+      "letterkenny",
+      1
+    ],
+    [
+      "derry",
+      "malin_head",
+      1
+    ],
+    [
+      "derry",
+      "sawel",
+      2
+    ],
+    [
+      "dingle",
+      "tralee",
+      2
+    ],
+    [
+      "dingle",
+      "valentia",
+      1
+    ],
+    [
+      "donegal",
+      "errigal",
+      2
+    ],
+    [
+      "donegal",
+      "lough_dearg",
+      1
+    ],
+    [
+      "donegal",
+      "slieve_league",
+      2
+    ],
+    [
+      "downpatrick",
+      "lisburn",
+      2
+    ],
+    [
+      "downpatrick",
+      "mourne_gap",
+      2
+    ],
+    [
+      "downpatrick",
+      "newcastle",
+      2
+    ],
+    [
+      "drogheda",
+      "mellifont",
+      1
+    ],
+    [
+      "drogheda",
+      "monasterboice",
+      1
+    ],
+    [
+      "drogheda",
+      "slane",
+      1
+    ],
+    [
+      "dublin",
+      "dun_laoghaire",
+      1
+    ],
+    [
+      "dublin",
+      "malahide",
+      1
+    ],
+    [
+      "dublin",
+      "swords",
+      1
+    ],
+    [
+      "dun_laoghaire",
+      "malahide",
+      1
+    ],
+    [
+      "dunamase",
+      "durrow",
+      1
+    ],
+    [
+      "dunamase",
+      "portlaoise",
+      1
+    ],
+    [
+      "dundalk",
+      "monasterboice",
+      2
+    ],
+    [
+      "dundalk",
+      "newry",
+      2
+    ],
+    [
+      "dunfanaghy",
+      "errigal",
+      2
+    ],
+    [
+      "dunfanaghy",
+      "letterkenny",
+      2
+    ],
+    [
+      "dunfanaghy",
+      "malin_head",
+      2
+    ],
+    [
+      "dungarvan",
+      "lismore",
+      2
+    ],
+    [
+      "dungarvan",
+      "youghal",
+      1
+    ],
+    [
+      "dunluce",
+      "sawel",
+      3
+    ],
+    [
+      "durrow",
+      "portlaoise",
+      1
+    ],
+    [
+      "durrow",
+      "tullamore",
+      1
+    ],
+    [
+      "edenderry",
+      "kildare",
+      2
+    ],
+    [
+      "edenderry",
+      "mullingar",
+      1
+    ],
+    [
+      "ennis",
+      "house",
+      1
+    ],
+    [
+      "ennis",
+      "killaloe",
+      2
+    ],
+    [
+      "ennis",
+      "kilrush",
+      1
+    ],
+    [
+      "ennis",
+      "limerick",
+      1
+    ],
+    [
+      "enniscorthy",
+      "new_ross",
+      1
+    ],
+    [
+      "enniscorthy",
+      "rosslare",
+      1
+    ],
+    [
+      "enniscorthy",
+      "wexford",
+      1
+    ],
+    [
+      "enniskillen",
+      "lough_dearg",
+      1
+    ],
+    [
+      "enniskillen",
+      "omagh",
+      1
+    ],
+    [
+      "errigal",
+      "letterkenny",
+      2
+    ],
+    [
+      "fermoy",
+      "galtymore",
+      2
+    ],
+    [
+      "fermoy",
+      "knockmealdown",
+      2
+    ],
+    [
+      "fermoy",
+      "lismore",
+      2
+    ],
+    [
+      "fermoy",
+      "mallow",
+      2
+    ],
+    [
+      "galtymore",
+      "knockmealdown",
+      2
+    ],
+    [
+      "galtymore",
+      "mallow",
+      2
+    ],
+    [
+      "galtymore",
+      "tipperary",
+      2
+    ],
+    [
+      "galway",
+      "house",
+      1
+    ],
+    [
+      "galway",
+      "tuam",
+      1
+    ],
+    [
+      "glen_of_imaal",
+      "glendalough",
+      2
+    ],
+    [
+      "glen_of_imaal",
+      "kilcullen",
+      2
+    ],
+    [
+      "glen_of_imaal",
+      "lugnaquilla",
+      2
+    ],
+    [
+      "glendalough",
+      "lugnaquilla",
+      2
+    ],
+    [
+      "glendalough",
+      "wicklow",
+      2
+    ],
+    [
+      "holycross",
+      "tipperary",
+      2
+    ],
+    [
+      "inishkeel",
+      "slieve_league",
+      2
+    ],
+    [
+      "inishkeel",
+      "sligo",
+      2
+    ],
+    [
+      "kells",
+      "navan",
+      1
+    ],
+    [
+      "kells",
+      "slane",
+      1
+    ],
+    [
+      "kells",
+      "trim",
+      1
+    ],
+    [
+      "kenmare",
+      "killarney",
+      2
+    ],
+    [
+      "kenmare",
+      "mizen",
+      2
+    ],
+    [
+      "kenmare",
+      "skibbereen",
+      2
+    ],
+    [
+      "kilcullen",
+      "kildare",
+      2
+    ],
+    [
+      "kilcullen",
+      "lugnaquilla",
+      2
+    ],
+    [
+      "kilcullen",
+      "naas",
+      2
+    ],
+    [
+      "kildare",
+      "naas",
+      1
+    ],
+    [
+      "kilkee",
+      "kilrush",
+      1
+    ],
+    [
+      "kilkee",
+      "scattery",
+      1
+    ],
+    [
+      "kilkee",
+      "tralee",
+      1
+    ],
+    [
+      "kilkenny",
+      "new_ross",
+      1
+    ],
+    [
+      "killala",
+      "knockmore",
+      3
+    ],
+    [
+      "killala",
+      "nephin",
+      3
+    ],
+    [
+      "killaloe",
+      "limerick",
+      1
+    ],
+    [
+      "killaloe",
+      "nenagh",
+      1
+    ],
+    [
+      "killarney",
+      "tralee",
+      2
+    ],
+    [
+      "kilmore_quay",
+      "new_ross",
+      1
+    ],
+    [
+      "kilmore_quay",
+      "rosslare",
+      1
+    ],
+    [
+      "kilmore_quay",
+      "waterford",
+      2
+    ],
+    [
+      "kilmore_quay",
+      "wexford",
+      1
+    ],
+    [
+      "kilrush",
+      "scattery",
+      1
+    ],
+    [
+      "kinsale",
+      "mallow",
+      2
+    ],
+    [
+      "knock",
+      "knockmore",
+      1
+    ],
+    [
+      "knock",
+      "rathcroghan",
+      1
+    ],
+    [
+      "knock",
+      "tuam",
+      1
+    ],
+    [
+      "knockmealdown",
+      "lismore",
+      2
+    ],
+    [
+      "knockmore",
+      "nephin",
+      2
+    ],
+    [
+      "knockmore",
+      "westport",
+      2
+    ],
+    [
+      "letterkenny",
+      "malin_head",
+      1
+    ],
+    [
+      "limerick",
+      "nenagh",
+      1
+    ],
+    [
+      "lisburn",
+      "toome",
+      1
+    ],
+    [
+      "lismore",
+      "youghal",
+      2
+    ],
+    [
+      "longford",
+      "mullingar",
+      1
+    ],
+    [
+      "longford",
+      "rathcroghan",
+      2
+    ],
+    [
+      "longford",
+      "three_wells",
+      1
+    ],
+    [
+      "longford_west",
+      "rathcroghan",
+      1
+    ],
+    [
+      "longford_west",
+      "sligo",
+      2
+    ],
+    [
+      "lough_boora",
+      "roscrea",
+      2
+    ],
+    [
+      "lough_boora",
+      "slieve_bloom",
+      2
+    ],
+    [
+      "lough_boora",
+      "tullamore",
+      2
+    ],
+    [
+      "lugnaquilla",
+      "wicklow",
+      2
+    ],
+    [
+      "malahide",
+      "swords",
+      1
+    ],
+    [
+      "maynooth",
+      "naas",
+      1
+    ],
+    [
+      "mellifont",
+      "monasterboice",
+      1
+    ],
+    [
+      "mellifont",
+      "slane",
+      1
+    ],
+    [
+      "mizen",
+      "skibbereen",
+      1
+    ],
+    [
+      "monaghan",
+      "omagh",
+      1
+    ],
+    [
+      "monaghan",
+      "three_wells",
+      1
+    ],
+    [
+      "mourne_gap",
+      "newcastle",
+      2
+    ],
+    [
+      "mourne_gap",
+      "newry",
+      2
+    ],
+    [
+      "mullingar",
+      "trim",
+      1
+    ],
+    [
+      "mullingar",
+      "tullamore",
+      1
+    ],
+    [
+      "mweelrea",
+      "westport",
+      2
+    ],
+    [
+      "navan",
+      "slane",
+      1
+    ],
+    [
+      "navan",
+      "tara",
+      1
+    ],
+    [
+      "navan",
+      "trim",
+      1
+    ],
+    [
+      "nenagh",
+      "portumna",
+      1
+    ],
+    [
+      "nenagh",
+      "roscrea",
+      2
+    ],
+    [
+      "new_ross",
+      "waterford",
+      1
+    ],
+    [
+      "newcastle",
+      "slieve_donard",
+      2
+    ],
+    [
+      "omagh",
+      "sawel",
+      2
+    ],
+    [
+      "rathcroghan",
+      "tuam",
+      1
+    ],
+    [
+      "roscrea",
+      "slieve_bloom",
+      2
+    ],
+    [
+      "rosslare",
+      "wexford",
+      1
+    ],
+    [
+      "sawel",
+      "toome",
+      2
+    ],
+    [
+      "scattery",
+      "tralee",
+      1
+    ],
+    [
+      "skellig",
+      "valentia",
+      1
+    ],
+    [
+      "slane",
+      "tara",
+      2
+    ],
+    [
+      "tara",
+      "trim",
+      2
+    ]
+  ]
 }

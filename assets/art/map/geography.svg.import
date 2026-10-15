@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dax02bp0glh1c"
-path="res://.godot/imported/island.svg-7d411bbfdb5d1c2e38c84279f4411a84.ctex"
+uid="uid://dn531bpcu3u35"
+path="res://.godot/imported/geography.svg-10fffec33d18469296d6f596f8ace7fc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/map/island.svg"
-dest_files=["res://.godot/imported/island.svg-7d411bbfdb5d1c2e38c84279f4411a84.ctex"]
+source_file="res://assets/art/map/geography.svg"
+dest_files=["res://.godot/imported/geography.svg-10fffec33d18469296d6f596f8ace7fc.ctex"]
 
 [params]
 

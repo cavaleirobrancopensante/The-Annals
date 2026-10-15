@@ -470,7 +470,7 @@ func _refresh_road() -> void:
 		var n := Road.node(sel)
 		var f := str(n["faction"])
 		var weeks := Road.weeks_one_way(sel)
-		road_info.text = tr("ui.road_info") % [n["name"], n["kind"], n["desc"],
+		road_info.text = tr("ui.road_info") % [n["name"], tr("kind." + str(n["kind"])), Road.faction_desc(f),
 			_weeks_text(weeks), Road.faction_name(f).capitalize(), _standing_word(Road.standing(f))]
 		if Road.is_hostile(sel):
 			road_info.text += "\n" + tr("ui.closed_note")
