@@ -284,5 +284,34 @@
 				"chronicle": "{When}, {monk} oyó que la campana toca para las horas y no para él, y lo aceptó con humildad."
 			}
 		]
+	},
+	{
+		"id": "bishop_examines",
+		"title": "Las preguntas del obispo",
+		"weight": 3,
+		"once": true,
+		"when": {
+			"monk": {
+				"path_known": false,
+				"status": "home",
+				"min_age": 25
+			}
+		},
+		"text": "El obispo subió la colina en una mula gris y pidió ver a los hermanos uno por uno. Le hizo a {monk} sus preguntas durante una hora en la sala capitular, y al final se quedó mucho rato en silencio.",
+		"choices": [
+			{
+				"label": "Pedir al obispo que lo presente para las órdenes",
+				"effects": {
+					"monk_add_tag": "ordained",
+					"monk_path": "priest"
+				},
+				"chronicle": "{When}, el obispo impuso las manos sobre la cabeza de {monk}, y la casa tiene ahora un sacerdote entre sus hermanos."
+			},
+			{
+				"label": "Dar las gracias al obispo y mantenerlo en su trabajo",
+				"effects": {},
+				"chronicle": "{When}, el obispo bendijo la casa y bajó la colina, y {monk} volvió a su trabajo."
+			}
+		]
 	}
 ]

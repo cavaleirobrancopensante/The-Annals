@@ -284,5 +284,34 @@
 				"chronicle": "{When}, {monk} was told that the bell rings for the hours and not for him, and he took it humbly."
 			}
 		]
+	},
+	{
+		"id": "bishop_examines",
+		"title": "The Bishop's Questions",
+		"weight": 3,
+		"once": true,
+		"when": {
+			"monk": {
+				"path_known": false,
+				"status": "home",
+				"min_age": 25
+			}
+		},
+		"text": "The bishop came up the hill on a grey mule and asked to see the brothers one by one. He put his questions to {monk} for an hour in the chapter house, and at the end he sat a long time without speaking.",
+		"choices": [
+			{
+				"label": "Ask the bishop to present him for orders",
+				"effects": {
+					"monk_add_tag": "ordained",
+					"monk_path": "priest"
+				},
+				"chronicle": "{When}, the bishop laid his hands on {monk}'s head, and the house has a priest among its brothers."
+			},
+			{
+				"label": "Thank the bishop and keep him at his work",
+				"effects": {},
+				"chronicle": "{When}, the bishop blessed the house and went down the hill, and {monk} went back to his work."
+			}
+		]
 	}
 ]

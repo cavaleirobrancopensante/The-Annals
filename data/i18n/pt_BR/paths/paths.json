@@ -1,11 +1,11 @@
 {
-	"_note": "Caminhos que a vida de um irmão pode tomar, como classes. O caminho de um irmão fica oculto (mostrado como '?') até que um evento o revele. Só as habilidades de crescimento do seu caminho avançam. 'weight' define com que frequência um caminho é sorteado. 'needs' fica registrado para uso futuro; ainda não é imposto.",
+	"_note": "Caminhos que a vida de um irmão pode tomar, como classes. O caminho de um irmão fica oculto (mostrado como '?') até que um evento o revele. Só as habilidades de crescimento do seu caminho avançam. 'weight' define com que frequência um caminho é sorteado. 'needs' é o texto que o jogador lê; 'needs_tag' é a marca que o irmão precisa ter, e um caminho com ela nunca é sorteado.",
 	"paths": [
 		{"id": "monk", "name": "Monge", "weight": 4, "growth": ["devotion", "scribing", "counsel"], "perks": [
 			{"skill": "scribing", "level": 3, "name": "Iluminador"},
 			{"skill": "devotion", "level": 5, "name": "Guardião da vigília"}
 		]},
-		{"id": "priest", "name": "Padre", "weight": 1, "needs": "uma carta de ordenação", "growth": ["devotion", "counsel", "persuasion"], "perks": [
+		{"id": "priest", "name": "Padre", "weight": 1, "needs": "uma carta de ordenação", "needs_tag": "ordained", "growth": ["devotion", "counsel", "persuasion"], "perks": [
 			{"skill": "devotion", "level": 3, "name": "Sacramentos"}
 		]},
 		{"id": "householder", "name": "Chefe de Família", "weight": 3, "growth": ["labour", "building", "cookery"], "perks": [

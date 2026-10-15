@@ -57,12 +57,18 @@ func perks_of(m: Dictionary) -> Array:
 	return out
 
 
+## The tag a brother must have to take this path, or "" if it needs none.
+func _needs_tag(id: String) -> String:
+	return str(_paths.get(id, {}).get("needs_tag", ""))
+
+
 ## Draws a path at random, weighted by the data. Known paths are shown; hidden ones are not.
 func assign(m: Dictionary, known: bool) -> void:
 	if str(m.get("path", "")) == "":
 		var weights := []
 		for id in _order:
-			weights.append(float(_paths[id].get("weight", 1)))
+			# A path that needs a tag is never drawn: a brother must earn it in play.
+			weights.append(0.0 if _needs_tag(id) != "" else float(_paths[id].get("weight", 1)))
 		m["path"] = _order[Oracle.pick_weighted_index(weights)]
 	m["path_known"] = known
 
@@ -78,6 +84,9 @@ func reveal(m: Dictionary) -> bool:
 ## Moves a brother to another path (an exit and a new calling). The new path is known.
 func set_path(m: Dictionary, id: String) -> bool:
 	if not _paths.has(id):
+		return false
+	var tag := _needs_tag(id)
+	if tag != "" and not WorldState.monk_has(m, tag):
 		return false
 	m["path"] = id
 	m["path_known"] = true

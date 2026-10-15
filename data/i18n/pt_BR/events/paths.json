@@ -284,5 +284,34 @@
 				"chronicle": "{When}, {monk} ouviu que o sino toca para as horas e não para ele, e aceitou com humildade."
 			}
 		]
+	},
+	{
+		"id": "bishop_examines",
+		"title": "As Perguntas do Bispo",
+		"weight": 3,
+		"once": true,
+		"when": {
+			"monk": {
+				"path_known": false,
+				"status": "home",
+				"min_age": 25
+			}
+		},
+		"text": "O bispo subiu a colina numa mula cinzenta e pediu para ver os irmãos um a um. Fez a {monk} as suas perguntas durante uma hora na sala do capítulo, e no fim ficou muito tempo calado.",
+		"choices": [
+			{
+				"label": "Pedir ao bispo que o apresente para as ordens",
+				"effects": {
+					"monk_add_tag": "ordained",
+					"monk_path": "priest"
+				},
+				"chronicle": "{When}, o bispo impôs as mãos sobre a cabeça de {monk}, e a casa tem agora um padre entre os seus irmãos."
+			},
+			{
+				"label": "Agradecer ao bispo e mantê-lo no seu trabalho",
+				"effects": {},
+				"chronicle": "{When}, o bispo abençoou a casa e desceu a colina, e {monk} voltou ao seu trabalho."
+			}
+		]
 	}
 ]
