@@ -1,0 +1,632 @@
+[
+	{
+		"id": "harvest_rain",
+		"title": "Oats in the Rain",
+		"weight": 5,
+		"cooldown": 30,
+		"text": "The oats are still standing in the low field when the rain comes in from the west.",
+		"choices": [
+			{
+				"label": "Send everyone to cut them in the rain",
+				"effects": {
+					"food": 6,
+					"goodwill": -1
+				},
+				"chronicle": "{When}, the whole house went out in the rain and brought in the oats, wet and cold, and the brothers did not forgive it quickly."
+			},
+			{
+				"label": "Cut the dry strips and leave the rest",
+				"effects": {
+					"food": 2
+				},
+				"chronicle": "{When}, the dry strips were cut and the wet oats were left to rot in the field."
+			}
+		]
+	},
+	{
+		"id": "bees_swarm",
+		"title": "The Swarm on the Apple Tree",
+		"weight": 4,
+		"cooldown": 40,
+		"text": "The bees have swarmed onto the old apple tree by the wall, and hang there like a brown beard.",
+		"choices": [
+			{
+				"label": "Hive them in an old straw skep",
+				"effects": {
+					"food": 2
+				},
+				"chronicle": "{When}, the swarm was taken into a straw skep, and by autumn the house had a little honey."
+			},
+			{
+				"label": "Let them go over the wall",
+				"effects": {},
+				"chronicle": "{When}, the swarm went over the wall to the village, and the village kept the bees."
+			}
+		]
+	},
+	{
+		"id": "granary_rats",
+		"title": "Rats in the Granary",
+		"weight": 5,
+		"cooldown": 35,
+		"text": "Rats have got under the granary door in the night and eaten into the corner of the sacks.",
+		"choices": [
+			{
+				"label": "Set traps and check every sack",
+				"effects": {
+					"food": -1
+				},
+				"chronicle": "{When}, the traps were set, and every sack was turned out, and a little was lost to the rats all the same."
+			},
+			{
+				"label": "Move the sacks into the hall",
+				"effects": {
+					"food": -4
+				},
+				"chronicle": "{When}, the sacks were carried into the hall in a hurry, and the rats had their share before anyone noticed."
+			}
+		]
+	},
+	{
+		"id": "hall_roof_leak",
+		"title": "The Drip in the Hall",
+		"weight": 4,
+		"cooldown": 35,
+		"text": "Water is coming through the roof of the hall onto the bench where the copyists sit.",
+		"choices": [
+			{
+				"label": "Send two brothers up with tar and rope",
+				"effects": {
+					"firewood": -3
+				},
+				"chronicle": "{When}, two brothers went up on the roof with tar and rope, and the drip stopped before the feast."
+			},
+			{
+				"label": "Move the bench and wait for fair weather",
+				"effects": {},
+				"chronicle": "{When}, the bench was moved, and the drip went on for a month in another place."
+			}
+		]
+	},
+	{
+		"id": "lost_key",
+		"title": "The Missing Key",
+		"weight": 4,
+		"cooldown": 40,
+		"text": "The key of the book cupboard has been missing for three days, and the copyists have started to complain.",
+		"choices": [
+			{
+				"label": "Search every cell",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, every cell was searched, and the key was found in the abbot's own sleeve, which no one spoke of."
+			},
+			{
+				"label": "Break the lock and fit a new one",
+				"effects": {
+					"firewood": -1
+				},
+				"chronicle": "{When}, the lock was broken and a new one fitted, and the key that had been lost turned up later in the rushes."
+			}
+		]
+	},
+	{
+		"id": "pilgrim_sandals",
+		"title": "Shoes for the Pilgrims",
+		"weight": 4,
+		"cooldown": 35,
+		"text": "Two pilgrims at the gate ask for shoes for the road. The cobbler has leather for one pair only.",
+		"choices": [
+			{
+				"label": "Give the leather to the pilgrims",
+				"effects": {
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the leather went to the pilgrims, who blessed the gate and went on barefoot in their hearts."
+			},
+			{
+				"label": "Keep it for the brothers' feet",
+				"effects": {},
+				"chronicle": "{When}, the leather was kept for the brothers, and the pilgrims went on down the road without it."
+			}
+		]
+	},
+	{
+		"id": "frost_orchard",
+		"title": "Frost on the Blossom",
+		"weight": 4,
+		"cooldown": 40,
+		"text": "A hard frost in the night has taken the blossom from the small orchard.",
+		"choices": [
+			{
+				"label": "Smoke the orchard with the firewood",
+				"effects": {
+					"firewood": -4,
+					"food": 2
+				},
+				"chronicle": "{When}, the orchard was smoked all night, and a little fruit was saved from the frost."
+			},
+			{
+				"label": "Accept the loss",
+				"effects": {
+					"food": -1
+				},
+				"chronicle": "{When}, the blossom was let go, and the autumn was poorer by a few barrels."
+			}
+		]
+	},
+	{
+		"id": "spring_flood",
+		"title": "The Race Overflows",
+		"weight": 4,
+		"cooldown": 40,
+		"text": "The river has come up over the mill race in the night, and the water is in the lower yard.",
+		"choices": [
+			{
+				"label": "Dig a channel with everyone",
+				"effects": {
+					"food": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the whole house dug a channel by lamplight, and the water went where it was wanted."
+			},
+			{
+				"label": "Let the mill wait for the water to drop",
+				"effects": {},
+				"chronicle": "{When}, the mill stood idle for a week, and the yard was left to the river."
+			}
+		]
+	},
+	{
+		"id": "bishop_letter",
+		"title": "A Letter from the Bishop",
+		"weight": 4,
+		"cooldown": 50,
+		"text": "A letter comes from the bishop asking how many brothers the house can feed through the winter.",
+		"choices": [
+			{
+				"label": "Answer honestly",
+				"effects": {
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the abbot wrote the true number of mouths and the true store, and the bishop answered with a blessing and no more questions."
+			},
+			{
+				"label": "Answer with a larger number",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, the abbot wrote a larger number than the house had, and the bishop's answer came back with a visitor."
+			}
+		]
+	},
+	{
+		"id": "brothers_quarrel",
+		"title": "A Quarrel at the Desk",
+		"weight": 5,
+		"cooldown": 35,
+		"text": "Two brothers have stopped speaking over the use of the copying desk by the window.",
+		"choices": [
+			{
+				"label": "Put them to work together in the garden",
+				"effects": {
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the two brothers were set to the garden together, and by the end of the month they were arguing about the beans instead."
+			},
+			{
+				"label": "Separate them for a month",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, the two brothers were kept apart for a month, and the house took sides, quietly."
+			}
+		]
+	},
+	{
+		"id": "iron_cistern",
+		"title": "The Taste of Iron",
+		"weight": 4,
+		"cooldown": 40,
+		"text": "The water in the cistern has tasted of iron since the thaw, and the children will not drink it.",
+		"choices": [
+			{
+				"label": "Drain it and scrub the stone",
+				"effects": {
+					"firewood": -2
+				},
+				"chronicle": "{When}, the cistern was drained and scrubbed, and the water came back sweet within the week."
+			},
+			{
+				"label": "Drink it and hope for the best",
+				"effects": {
+					"medicine": -1
+				},
+				"chronicle": "{When}, the house drank the iron water, and two brothers took the flux, and the medicine went on them."
+			}
+		]
+	},
+	{
+		"id": "village_bee_girl",
+		"title": "A Visit for the Bees",
+		"weight": 4,
+		"cooldown": 40,
+		"text": "A girl from the village brings a basket of eggs up the hill and asks to see the house's bees.",
+		"choices": [
+			{
+				"label": "Show her the hives",
+				"effects": {
+					"goodwill": 1,
+					"food": 2
+				},
+				"chronicle": "{When}, the girl was shown the hives, and went down the hill with a comb wrapped in a cloth."
+			},
+			{
+				"label": "Send her back to the gate",
+				"effects": {},
+				"chronicle": "{When}, the girl was sent back to the gate with her eggs, and the village heard of it."
+			}
+		]
+	},
+	{
+		"id": "psalter_finished",
+		"title": "The Psalter Is Finished",
+		"weight": 3,
+		"cooldown": 60,
+		"text": "The scribe has finished the psalter a month early, and asks the house to mark the day.",
+		"choices": [
+			{
+				"label": "Keep a feast for it",
+				"effects": {
+					"food": -3,
+					"goodwill": 2
+				},
+				"chronicle": "{When}, a small feast was kept for the finished psalter, and the scribe wept over his bread."
+			},
+			{
+				"label": "Put it on the shelf without fuss",
+				"effects": {
+					"books": 1
+				},
+				"chronicle": "{When}, the psalter went on the shelf without fuss, and a copy was ordered for the chapter house."
+			}
+		]
+	},
+	{
+		"id": "snow_sheep",
+		"title": "Sheep in the Snow",
+		"weight": 4,
+		"cooldown": 40,
+		"text": "Snow fell hard through the night, and two sheep have been found dead in the glen.",
+		"choices": [
+			{
+				"label": "Bring the flock down to the sheds",
+				"effects": {
+					"firewood": -1,
+					"food": 1
+				},
+				"chronicle": "{When}, the flock was brought down to the sheds, and the rest of the sheep lived to be shorn."
+			},
+			{
+				"label": "Leave them to the hill",
+				"effects": {
+					"food": -2
+				},
+				"chronicle": "{When}, the flock was left on the hill, and the lambs were lost before spring."
+			}
+		]
+	},
+	{
+		"id": "widow_wool",
+		"title": "Wool from a Widow",
+		"weight": 4,
+		"cooldown": 45,
+		"text": "A widow from the village sends a bolt of wool up to the house, unasked.",
+		"choices": [
+			{
+				"label": "Accept it and send bread back",
+				"effects": {
+					"food": -2,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the wool was accepted, and bread was sent down in return, and the widow's door stayed open."
+			},
+			{
+				"label": "Accept it and say nothing",
+				"effects": {
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the wool was taken in quietly, and the widow was not thanked by name."
+			}
+		]
+	},
+	{
+		"id": "mice_vellum",
+		"title": "Mice in the Vellum",
+		"weight": 4,
+		"cooldown": 40,
+		"text": "Mice have got into the box of old vellum in the scriptorium loft.",
+		"choices": [
+			{
+				"label": "Lay out poison",
+				"effects": {
+					"medicine": -1
+				},
+				"chronicle": "{When}, poison was laid out, and the mice died in the loft, and the brothers found it hard to breathe up there for a week."
+			},
+			{
+				"label": "Move the box to the lower store",
+				"effects": {
+					"firewood": -1
+				},
+				"chronicle": "{When}, the box was carried down to the lower store, and the mice were left to the loft."
+			}
+		]
+	},
+	{
+		"id": "kitchen_flux",
+		"title": "The Flux in the Kitchen",
+		"weight": 4,
+		"cooldown": 40,
+		"when": {
+			"min": {
+				"medicine": 0
+			}
+		},
+		"text": "The cook's boy has a flux, and it is spreading through the kitchen.",
+		"choices": [
+			{
+				"label": "Give the cook's boy the medicine",
+				"effects": {
+					"medicine": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the cook's boy was given the medicine, and the flux went out of the kitchen with him."
+			},
+			{
+				"label": "Close the kitchen for a week",
+				"effects": {
+					"food": -2
+				},
+				"chronicle": "{When}, the kitchen was closed for a week, and the bread was late every day of it."
+			}
+		]
+	},
+	{
+		"id": "bake_house_fire",
+		"title": "Sparks on the Thatch",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "Sparks from the kitchen chimney have caught the thatch of the bake house.",
+		"choices": [
+			{
+				"label": "Fight it with buckets from the well",
+				"effects": {
+					"firewood": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the whole house fought the fire with buckets from the well, and the bake house stood, black at the eaves."
+			},
+			{
+				"label": "Let it burn itself out",
+				"effects": {
+					"firewood": -3,
+					"food": -2
+				},
+				"chronicle": "{When}, the fire was let burn, and the bake house was lost to the eaves, and the bread that week was made in the hall."
+			}
+		]
+	},
+	{
+		"id": "geese_stubble",
+		"title": "Geese on the Stubble",
+		"weight": 4,
+		"cooldown": 35,
+		"text": "A flock of geese has come down on the stubble in the low field.",
+		"choices": [
+			{
+				"label": "Drive them off with the boys",
+				"effects": {
+					"food": 2
+				},
+				"chronicle": "{When}, the boys drove the geese off, and two were caught in the reeds and brought up for the pot."
+			},
+			{
+				"label": "Let them feed",
+				"effects": {},
+				"chronicle": "{When}, the geese were let feed, and the field went to them for a week."
+			}
+		]
+	},
+	{
+		"id": "mason_wall",
+		"title": "A Mason on the Road",
+		"weight": 3,
+		"cooldown": 50,
+		"when": {
+			"min": {
+				"food": 0
+			}
+		},
+		"text": "A stonemason passing on the road offers to mend the church wall for bread.",
+		"choices": [
+			{
+				"label": "Hire him for bread",
+				"effects": {
+					"food": -6,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the mason was given bread for his work, and the church wall stood straight by the autumn."
+			},
+			{
+				"label": "Send him on his way",
+				"effects": {},
+				"chronicle": "{When}, the mason was sent on, and the wall was propped with timber until spring."
+			}
+		]
+	},
+	{
+		"id": "ox_barley",
+		"title": "The Ox in the Barley",
+		"weight": 4,
+		"cooldown": 40,
+		"text": "The house's ox has broken through the hedge into the neighbour's barley.",
+		"choices": [
+			{
+				"label": "Pay for the damage",
+				"effects": {
+					"food": -2,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the damage was paid for in grain, and the neighbour sent back a jug of cider."
+			},
+			{
+				"label": "Say the ox is old and wandered",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, the house said the ox was old and had wandered, and the neighbour did not believe it."
+			}
+		]
+	},
+	{
+		"id": "chapter_bell_hours",
+		"title": "The Old Hours",
+		"weight": 3,
+		"cooldown": 60,
+		"text": "The chapter has spent a whole morning arguing whether the bell should still ring at the old hours.",
+		"choices": [
+			{
+				"label": "Decide for the old hours",
+				"effects": {
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the chapter kept the old hours, and the old brothers were glad of it."
+			},
+			{
+				"label": "Decide for the new hours",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, the chapter chose the new hours, and the old brothers rang the bell themselves at dawn, out of spite."
+			}
+		]
+	},
+	{
+		"id": "gate_latch",
+		"title": "The Latch",
+		"weight": 4,
+		"cooldown": 35,
+		"text": "The gate latch has rusted through, and the gate swings at every wind.",
+		"choices": [
+			{
+				"label": "Forge a new latch",
+				"effects": {
+					"firewood": -2
+				},
+				"chronicle": "{When}, a new latch was forged at the kitchen fire, and the gate stayed shut through the winter."
+			},
+			{
+				"label": "Tie it with rope",
+				"effects": {},
+				"chronicle": "{When}, the gate was tied with rope, and it banged all winter long."
+			}
+		]
+	},
+	{
+		"id": "vespers_singer",
+		"title": "The Young Voice",
+		"weight": 4,
+		"cooldown": 45,
+		"text": "A young brother's singing at Vespers has moved the old ones to tears.",
+		"choices": [
+			{
+				"label": "Let him sing at every feast",
+				"effects": {
+					"goodwill": 2
+				},
+				"chronicle": "{When}, the young brother was given the Vespers hymn at every feast, and the old ones said it was like hearing the first brothers again."
+			},
+			{
+				"label": "Ask him to sing more softly",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, the young brother was asked to sing more softly, and he did, and the old ones were sorry for it."
+			}
+		]
+	},
+	{
+		"id": "charcoal_burners",
+		"title": "Charcoal Burners from the Bog",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "Charcoal burners from the bog ask for leave to cut in the house's wood.",
+		"choices": [
+			{
+				"label": "Let them cut a little",
+				"effects": {
+					"firewood": 2
+				},
+				"chronicle": "{When}, the burners cut a little and left a sack of charcoal at the gate, which the kitchen was glad of."
+			},
+			{
+				"label": "Refuse them",
+				"effects": {},
+				"chronicle": "{When}, the burners were refused, and went back to the bog, and the wood was left to the house."
+			}
+		]
+	},
+	{
+		"id": "cow_calving",
+		"title": "A Hard Calving",
+		"weight": 4,
+		"cooldown": 40,
+		"text": "A cow is calving badly in the byre, and the brother who knows cattle is ill in bed.",
+		"choices": [
+			{
+				"label": "Call the old shepherd from the village",
+				"effects": {
+					"food": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the old shepherd came up from the village in the dark and turned the calf, and cow and calf both lived."
+			},
+			{
+				"label": "Do it ourselves",
+				"effects": {
+					"goodwill": -1,
+					"food": 2
+				},
+				"chronicle": "{When}, the brothers did it themselves, badly; the calf lived and the cow did not, and the meat was salted down."
+			}
+		]
+	},
+	{
+		"id": "night_watch_fever",
+		"title": "The Night Watch",
+		"weight": 4,
+		"cooldown": 40,
+		"when": {
+			"monk": {
+				"min_health": 2
+			}
+		},
+		"text": "A brother has taken a fever and asks to keep the night watch as penance.",
+		"choices": [
+			{
+				"label": "Let him keep the watch",
+				"effects": {
+					"monk_health": -1
+				},
+				"chronicle": "{When}, {monk} kept the night watch through the fever, and came out of it with a cough that did not leave him."
+			},
+			{
+				"label": "Send him to bed",
+				"effects": {},
+				"chronicle": "{When}, {monk} was sent to bed, and the night watch was shared out among the others."
+			}
+		]
+	}
+]

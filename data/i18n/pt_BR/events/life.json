@@ -1,0 +1,632 @@
+[
+	{
+		"id": "harvest_rain",
+		"title": "Aveia na chuva",
+		"weight": 5,
+		"cooldown": 30,
+		"text": "A aveia ainda está de pé no campo baixo quando a chuva chega do oeste.",
+		"choices": [
+			{
+				"label": "Mandar todos cortar na chuva",
+				"effects": {
+					"food": 6,
+					"goodwill": -1
+				},
+				"chronicle": "{When}, a casa inteira saiu na chuva e trouxe a aveia, molhada e fria, e os irmãos não perdoaram logo."
+			},
+			{
+				"label": "Cortar as faixas secas e deixar o resto",
+				"effects": {
+					"food": 2
+				},
+				"chronicle": "{When}, as faixas secas foram cortadas e a aveia molhada apodreceu no campo."
+			}
+		]
+	},
+	{
+		"id": "bees_swarm",
+		"title": "O enxame na macieira",
+		"weight": 4,
+		"cooldown": 40,
+		"text": "As abelhas enxamearam na velha macieira junto ao muro, e pendem dela como uma barba castanha.",
+		"choices": [
+			{
+				"label": "Recolhê-las numa colmeia de palha velha",
+				"effects": {
+					"food": 2
+				},
+				"chronicle": "{When}, o enxame foi recolhido numa colmeia de palha, e no outono a casa teve um pouco de mel."
+			},
+			{
+				"label": "Deixá-las passar o muro",
+				"effects": {},
+				"chronicle": "{When}, o enxame passou o muro para a aldeia, e a aldeia ficou com as abelhas."
+			}
+		]
+	},
+	{
+		"id": "granary_rats",
+		"title": "Ratos no celeiro",
+		"weight": 5,
+		"cooldown": 35,
+		"text": "Os ratos entraram pela porta do celeiro durante a noite e roeram o canto dos sacos.",
+		"choices": [
+			{
+				"label": "Pôr armadilhas e verificar cada saco",
+				"effects": {
+					"food": -1
+				},
+				"chronicle": "{When}, as armadilhas foram postas, cada saco foi revirado, e ainda assim os ratos levaram um pouco."
+			},
+			{
+				"label": "Levar os sacos para o salão",
+				"effects": {
+					"food": -4
+				},
+				"chronicle": "{When}, os sacos foram levados às pressas para o salão, e os ratos já tinham a sua parte antes que alguém reparasse."
+			}
+		]
+	},
+	{
+		"id": "hall_roof_leak",
+		"title": "Goteira no salão",
+		"weight": 4,
+		"cooldown": 35,
+		"text": "A água está a entrar pelo telhado do salão, em cima do banco onde se sentam os copistas.",
+		"choices": [
+			{
+				"label": "Mandar dois irmãos ao telhado com breu e corda",
+				"effects": {
+					"firewood": -3
+				},
+				"chronicle": "{When}, dois irmãos subiram ao telhado com breu e corda, e a goteira parou antes da festa."
+			},
+			{
+				"label": "Mudar o banco e esperar bom tempo",
+				"effects": {},
+				"chronicle": "{When}, o banco foi mudado, e a goteira continuou durante um mês, noutro lugar."
+			}
+		]
+	},
+	{
+		"id": "lost_key",
+		"title": "A chave perdida",
+		"weight": 4,
+		"cooldown": 40,
+		"text": "A chave do armário dos livros está desaparecida há três dias, e os copistas já começaram a queixar-se.",
+		"choices": [
+			{
+				"label": "Revistar todas as celas",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, todas as celas foram revistadas, e a chave foi encontrada na manga do abade, de que ninguém falou."
+			},
+			{
+				"label": "Partir a fechadura e pôr uma nova",
+				"effects": {
+					"firewood": -1
+				},
+				"chronicle": "{When}, a fechadura foi partida e outra posta, e a chave perdida apareceu depois entre os juncos."
+			}
+		]
+	},
+	{
+		"id": "pilgrim_sandals",
+		"title": "Sapatos para os peregrinos",
+		"weight": 4,
+		"cooldown": 35,
+		"text": "Dois peregrinos à porta pedem sapatos para a estrada. O sapateiro tem couro para um par só.",
+		"choices": [
+			{
+				"label": "Dar o couro aos peregrinos",
+				"effects": {
+					"goodwill": 1
+				},
+				"chronicle": "{When}, o couro foi para os peregrinos, que abençoaram a porta e seguiram descalços no coração."
+			},
+			{
+				"label": "Guardá-lo para os pés dos irmãos",
+				"effects": {},
+				"chronicle": "{When}, o couro foi guardado para os irmãos, e os peregrinos seguiram estrada abaixo sem ele."
+			}
+		]
+	},
+	{
+		"id": "frost_orchard",
+		"title": "Geada na flor",
+		"weight": 4,
+		"cooldown": 40,
+		"text": "Uma geada forte durante a noite levou a flor do pequeno pomar.",
+		"choices": [
+			{
+				"label": "Defumar o pomar com lenha",
+				"effects": {
+					"firewood": -4,
+					"food": 2
+				},
+				"chronicle": "{When}, o pomar foi defumado a noite inteira, e um pouco de fruta foi salvo da geada."
+			},
+			{
+				"label": "Aceitar a perda",
+				"effects": {
+					"food": -1
+				},
+				"chronicle": "{When}, a flor foi deixada perder-se, e o outono ficou mais pobre em alguns barris."
+			}
+		]
+	},
+	{
+		"id": "spring_flood",
+		"title": "A levada transborda",
+		"weight": 4,
+		"cooldown": 40,
+		"text": "O rio subiu sobre a levada do moinho durante a noite, e a água chegou ao pátio de baixo.",
+		"choices": [
+			{
+				"label": "Cavar um canal com todos",
+				"effects": {
+					"food": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, a casa inteira cavou um canal à luz das lamparinas, e a água foi para onde se queria."
+			},
+			{
+				"label": "Deixar o moinho esperar que a água baixe",
+				"effects": {},
+				"chronicle": "{When}, o moinho ficou parado uma semana, e o pátio ficou entregue ao rio."
+			}
+		]
+	},
+	{
+		"id": "bishop_letter",
+		"title": "Uma carta do bispo",
+		"weight": 4,
+		"cooldown": 50,
+		"text": "Chega uma carta do bispo a perguntar quantos irmãos a casa consegue alimentar durante o inverno.",
+		"choices": [
+			{
+				"label": "Responder com verdade",
+				"effects": {
+					"goodwill": 1
+				},
+				"chronicle": "{When}, o abade escreveu o número verdadeiro de bocas e a reserva verdadeira, e o bispo respondeu com uma bênção e sem mais perguntas."
+			},
+			{
+				"label": "Responder com um número maior",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, o abade escreveu um número maior do que a casa tinha, e a resposta do bispo trouxe uma visita."
+			}
+		]
+	},
+	{
+		"id": "brothers_quarrel",
+		"title": "Uma briga na mesa",
+		"weight": 5,
+		"cooldown": 35,
+		"text": "Dois irmãos deixaram de falar por causa do uso da mesa de copiar junto à janela.",
+		"choices": [
+			{
+				"label": "Pôr os dois a trabalhar juntos na horta",
+				"effects": {
+					"goodwill": 1
+				},
+				"chronicle": "{When}, os dois irmãos foram postos juntos na horta, e no fim do mês discutiam sobre os feijões."
+			},
+			{
+				"label": "Separá-los durante um mês",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, os dois irmãos foram mantidos à parte por um mês, e a casa tomou partido, em silêncio."
+			}
+		]
+	},
+	{
+		"id": "iron_cistern",
+		"title": "O gosto de ferro",
+		"weight": 4,
+		"cooldown": 40,
+		"text": "A água da cisterna tem sabor a ferro desde o degelo, e as crianças não a querem beber.",
+		"choices": [
+			{
+				"label": "Esvaziá-la e esfregar a pedra",
+				"effects": {
+					"firewood": -2
+				},
+				"chronicle": "{When}, a cisterna foi esvaziada e esfregada, e a água voltou doce em menos de uma semana."
+			},
+			{
+				"label": "Beber assim e ter esperança",
+				"effects": {
+					"medicine": -1
+				},
+				"chronicle": "{When}, a casa bebeu a água de ferro, e dois irmãos apanharam a diarreia, e o remédio foi para eles."
+			}
+		]
+	},
+	{
+		"id": "village_bee_girl",
+		"title": "Uma visita pelas abelhas",
+		"weight": 4,
+		"cooldown": 40,
+		"text": "Uma rapariga da aldeia traz uma cesta de ovos colina acima e pede para ver as abelhas da casa.",
+		"choices": [
+			{
+				"label": "Mostrar-lhe as colmeias",
+				"effects": {
+					"goodwill": 1,
+					"food": 2
+				},
+				"chronicle": "{When}, a rapariga foi levada às colmeias, e desceu a colina com um favo embrulhado num pano."
+			},
+			{
+				"label": "Mandá-la de volta ao portão",
+				"effects": {},
+				"chronicle": "{When}, a rapariga foi mandada de volta ao portão com os seus ovos, e a aldeia soube disso."
+			}
+		]
+	},
+	{
+		"id": "psalter_finished",
+		"title": "O saltério está acabado",
+		"weight": 3,
+		"cooldown": 60,
+		"text": "O copista terminou o saltério um mês antes do prazo e pede que a casa assinale o dia.",
+		"choices": [
+			{
+				"label": "Fazer uma pequena festa",
+				"effects": {
+					"food": -3,
+					"goodwill": 2
+				},
+				"chronicle": "{When}, foi feita uma pequena festa pelo saltério acabado, e o copista chorou sobre o pão."
+			},
+			{
+				"label": "Pô-lo na estante sem alarde",
+				"effects": {
+					"books": 1
+				},
+				"chronicle": "{When}, o saltério foi para a estante sem alarde, e foi encomendada uma cópia para a sala do capítulo."
+			}
+		]
+	},
+	{
+		"id": "snow_sheep",
+		"title": "Ovelhas na neve",
+		"weight": 4,
+		"cooldown": 40,
+		"text": "Nevou muito durante a noite, e duas ovelhas foram encontradas mortas no vale.",
+		"choices": [
+			{
+				"label": "Trazer o rebanho para os abrigos",
+				"effects": {
+					"firewood": -1,
+					"food": 1
+				},
+				"chronicle": "{When}, o rebanho foi trazido para os abrigos, e as outras ovelhas viveram para ser tosquiadas."
+			},
+			{
+				"label": "Deixá-las na colina",
+				"effects": {
+					"food": -2
+				},
+				"chronicle": "{When}, o rebanho foi deixado na colina, e os cordeiros se perderam antes da primavera."
+			}
+		]
+	},
+	{
+		"id": "widow_wool",
+		"title": "Lã de uma viúva",
+		"weight": 4,
+		"cooldown": 45,
+		"text": "Uma viúva da aldeia manda à casa um rolo de lã, sem que ninguém lho pedisse.",
+		"choices": [
+			{
+				"label": "Aceitar e mandar pão em troca",
+				"effects": {
+					"food": -2,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, a lã foi aceite, e mandou-se pão em troca, e a porta da viúva ficou aberta."
+			},
+			{
+				"label": "Aceitar e não dizer nada",
+				"effects": {
+					"goodwill": 1
+				},
+				"chronicle": "{When}, a lã foi recebida em silêncio, e a viúva não foi agradecida pelo nome."
+			}
+		]
+	},
+	{
+		"id": "mice_vellum",
+		"title": "Ratos no pergaminho",
+		"weight": 4,
+		"cooldown": 40,
+		"text": "Ratos entraram na caixa de pergaminho velho no sótão do escriptório.",
+		"choices": [
+			{
+				"label": "Pôr veneno",
+				"effects": {
+					"medicine": -1
+				},
+				"chronicle": "{When}, pôs-se veneno, os ratos morreram no sótão, e os irmãos tiveram dificuldade em respirar lá em cima durante uma semana."
+			},
+			{
+				"label": "Levar a caixa para a arrecadação de baixo",
+				"effects": {
+					"firewood": -1
+				},
+				"chronicle": "{When}, a caixa foi levada para a arrecadação de baixo, e os ratos ficaram no sótão."
+			}
+		]
+	},
+	{
+		"id": "kitchen_flux",
+		"title": "A diarreia na cozinha",
+		"weight": 4,
+		"cooldown": 40,
+		"when": {
+			"min": {
+				"medicine": 0
+			}
+		},
+		"text": "O rapaz da cozinha tem uma diarreia, e ela se espalha pela cozinha.",
+		"choices": [
+			{
+				"label": "Dar o remédio ao rapaz da cozinha",
+				"effects": {
+					"medicine": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, o rapaz da cozinha recebeu o remédio, e a diarreia saiu da cozinha com ele."
+			},
+			{
+				"label": "Fechar a cozinha durante uma semana",
+				"effects": {
+					"food": -2
+				},
+				"chronicle": "{When}, a cozinha foi fechada durante uma semana, e o pão atrasou todos os dias."
+			}
+		]
+	},
+	{
+		"id": "bake_house_fire",
+		"title": "Faíscas no colmo",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "Faíscas da chaminé da cozinha pegaram no colmo do forno.",
+		"choices": [
+			{
+				"label": "Combater o fogo com baldes do poço",
+				"effects": {
+					"firewood": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, a casa inteira combateu o fogo com baldes do poço, e o forno ficou de pé, negro nos beirais."
+			},
+			{
+				"label": "Deixar o fogo consumir-se",
+				"effects": {
+					"firewood": -3,
+					"food": -2
+				},
+				"chronicle": "{When}, o fogo foi deixado arder, e o forno se perdeu nos beirais, e o pão daquela semana foi feito no salão."
+			}
+		]
+	},
+	{
+		"id": "geese_stubble",
+		"title": "Gansos na restolho",
+		"weight": 4,
+		"cooldown": 35,
+		"text": "Um bando de gansos desceu sobre a restolho do campo baixo.",
+		"choices": [
+			{
+				"label": "Afastá-los com os rapazes",
+				"effects": {
+					"food": 2
+				},
+				"chronicle": "{When}, os rapazes afastaram os gansos, e dois foram apanhados nos juncos e levados para a panela."
+			},
+			{
+				"label": "Deixá-los comer",
+				"effects": {},
+				"chronicle": "{When}, os gansos foram deixados a comer, e o campo ficou com eles durante uma semana."
+			}
+		]
+	},
+	{
+		"id": "mason_wall",
+		"title": "Um pedreiro na estrada",
+		"weight": 3,
+		"cooldown": 50,
+		"when": {
+			"min": {
+				"food": 0
+			}
+		},
+		"text": "Um pedreiro de passagem pela estrada oferece-se para reparar o muro da igreja em troca de pão.",
+		"choices": [
+			{
+				"label": "Contratá-lo por pão",
+				"effects": {
+					"food": -6,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, o pedreiro recebeu pão pelo seu trabalho, e o muro da igreja estava direito no outono."
+			},
+			{
+				"label": "Mandá-lo seguir caminho",
+				"effects": {},
+				"chronicle": "{When}, o pedreiro seguiu caminho, e o muro foi escorado com madeira até à primavera."
+			}
+		]
+	},
+	{
+		"id": "ox_barley",
+		"title": "O boi na cevada",
+		"weight": 4,
+		"cooldown": 40,
+		"text": "O boi da casa rompeu a sebe e entrou na cevada do vizinho.",
+		"choices": [
+			{
+				"label": "Pagar o prejuízo",
+				"effects": {
+					"food": -2,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, o prejuízo foi pago em grão, e o vizinho mandou de volta um jarro de sidra."
+			},
+			{
+				"label": "Dizer que o boi é velho e se perdeu",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, a casa disse que o boi era velho e se tinha perdido, e o vizinho não acreditou."
+			}
+		]
+	},
+	{
+		"id": "chapter_bell_hours",
+		"title": "As horas antigas",
+		"weight": 3,
+		"cooldown": 60,
+		"text": "O capítulo passou uma manhã inteira a discutir se o sino deve ainda tocar nas horas antigas.",
+		"choices": [
+			{
+				"label": "Decidir pelas horas antigas",
+				"effects": {
+					"goodwill": 1
+				},
+				"chronicle": "{When}, o capítulo manteve as horas antigas, e os irmãos mais velhos alegraram-se com isso."
+			},
+			{
+				"label": "Decidir pelas horas novas",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, o capítulo escolheu as horas novas, e os irmãos mais velhos tocaram o sino eles mesmos ao amanhecer, por despeito."
+			}
+		]
+	},
+	{
+		"id": "gate_latch",
+		"title": "A fechadura do portão",
+		"weight": 4,
+		"cooldown": 35,
+		"text": "A fechadura do portão enferrujou de vez, e o portão bate a cada vento.",
+		"choices": [
+			{
+				"label": "Forjar uma fechadura nova",
+				"effects": {
+					"firewood": -2
+				},
+				"chronicle": "{When}, uma fechadura nova foi forjada ao fogo da cozinha, e o portão ficou fechado durante o inverno."
+			},
+			{
+				"label": "Amarrá-lo com corda",
+				"effects": {},
+				"chronicle": "{When}, o portão foi amarrado com corda, e bateu durante todo o inverno."
+			}
+		]
+	},
+	{
+		"id": "vespers_singer",
+		"title": "A voz jovem",
+		"weight": 4,
+		"cooldown": 45,
+		"text": "O canto de um irmão jovem nas Vésperas comoveu os mais velhos até às lágrimas.",
+		"choices": [
+			{
+				"label": "Deixá-lo cantar em todas as festas",
+				"effects": {
+					"goodwill": 2
+				},
+				"chronicle": "{When}, o irmão jovem recebeu o hino das Vésperas em todas as festas, e os mais velhos disseram que era como ouvir os primeiros irmãos outra vez."
+			},
+			{
+				"label": "Pedir-lhe que cante mais baixo",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, pediu-se ao irmão jovem que cantasse mais baixo, e ele o fez, e os mais velhos lamentaram."
+			}
+		]
+	},
+	{
+		"id": "charcoal_burners",
+		"title": "Carvoeiros do pântano",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "Carvoeiros do pântano pedem licença para cortar na madeira da casa.",
+		"choices": [
+			{
+				"label": "Deixá-los cortar um pouco",
+				"effects": {
+					"firewood": 2
+				},
+				"chronicle": "{When}, os carvoeiros cortaram um pouco e deixaram um saco de carvão ao portão, que a cozinha agradeceu."
+			},
+			{
+				"label": "Recusar",
+				"effects": {},
+				"chronicle": "{When}, os carvoeiros foram recusados, voltaram ao pântano, e a madeira ficou para a casa."
+			}
+		]
+	},
+	{
+		"id": "cow_calving",
+		"title": "Uma parição difícil",
+		"weight": 4,
+		"cooldown": 40,
+		"text": "Uma vaca está a parir mal no curral, e o irmão que entende de gado está de cama doente.",
+		"choices": [
+			{
+				"label": "Chamar o velho pastor da aldeia",
+				"effects": {
+					"food": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, o velho pastor subiu da aldeia de noite e virou o bezerro, e a vaca e o bezerro viveram os dois."
+			},
+			{
+				"label": "Fazê-lo nós mesmos",
+				"effects": {
+					"goodwill": -1,
+					"food": 2
+				},
+				"chronicle": "{When}, os irmãos o fizeram eles mesmos, mal; o bezerro viveu e a vaca não, e a carne foi salgada."
+			}
+		]
+	},
+	{
+		"id": "night_watch_fever",
+		"title": "A vigília da noite",
+		"weight": 4,
+		"cooldown": 40,
+		"when": {
+			"monk": {
+				"min_health": 2
+			}
+		},
+		"text": "Um irmão apanhou uma febre e pede para fazer a vigília da noite como penitência.",
+		"choices": [
+			{
+				"label": "Deixá-lo fazer a vigília",
+				"effects": {
+					"monk_health": -1
+				},
+				"chronicle": "{When}, {monk} fez a vigília da noite com febre, e saiu dela com uma tosse que não o largou."
+			},
+			{
+				"label": "Mandá-lo para a cama",
+				"effects": {},
+				"chronicle": "{When}, {monk} foi mandado para a cama, e a vigília foi repartida pelos outros."
+			}
+		]
+	}
+]
