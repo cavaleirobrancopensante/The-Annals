@@ -38,5 +38,145 @@
 				"chronicle": "{When}, {monk} agreed to wait a year before he spoke again of the village."
 			}
 		]
+	},
+	{
+		"id": "vigil_light",
+		"title": "The Light at Vigil",
+		"weight": 5,
+		"once": true,
+		"when": {"monk": {"path_known": false, "status": "home", "has": ["doubting"], "min_age": 18}},
+		"text": "{monk} kept the night vigil alone, as he had asked to, and in the small hours he came to the abbot pale and unsure what he had seen. He would not say it was a sign. He would only say the candle had not gone out, however far he turned from it.",
+		"choices": [
+			{
+				"label": "Let him tell all he saw",
+				"effects": {"monk_reveal": true},
+				"chronicle": "{When}, {monk} told the abbot everything he had seen in the vigil, and the abbot knew him for a {monk_path}."
+			},
+			{
+				"label": "Send him to bed; a candle is only a candle",
+				"effects": {},
+				"chronicle": "{When}, {monk} was sent to bed, and he slept, or said that he slept."
+			}
+		]
+	},
+	{
+		"id": "ledger_confession",
+		"title": "A Confession Over the Ledger",
+		"weight": 5,
+		"once": true,
+		"when": {"monk": {"path_known": false, "status": "home", "vocation": ["scribe"], "min_age": 20}},
+		"text": "{monk} sat down across from the abbot with the account book between them and confessed that for years he had copied more psalms than the house asked for, and kept the spare sheets for himself. He did not say why. He asked only whether that was a sin.",
+		"choices": [
+			{
+				"label": "Ask what he was making with them",
+				"effects": {"monk_reveal": true},
+				"chronicle": "{When}, {monk} said he had been making a book of his own, and the abbot saw in it the work of a {monk_path}."
+			},
+			{
+				"label": "Tell him to return the sheets and say his penance",
+				"effects": {},
+				"chronicle": "{When}, {monk} returned the sheets and said his penance without asking why it had been set."
+			}
+		]
+	},
+	{
+		"id": "pilgrim_ford",
+		"title": "Back From the Road",
+		"weight": 5,
+		"once": true,
+		"when": {"monk": {"path_known": false, "status": "home", "has": ["on_pilgrimage"]}},
+		"text": "{monk} came back from the pilgrim road thinner than he went, and at supper he would not eat until the abbot had said grace twice. When asked what had kept him so long, he said he had been stopped at a ford by a man who knew his name.",
+		"choices": [
+			{
+				"label": "Ask what the man told him",
+				"effects": {"monk_reveal": true},
+				"chronicle": "{When}, {monk} repeated what the man at the ford had told him, and the abbot heard in it the calling of a {monk_path}."
+			},
+			{
+				"label": "Let him rest and say no more of the ford",
+				"effects": {},
+				"chronicle": "{When}, {monk} rested, and the ford was not spoken of again in the house."
+			}
+		]
+	},
+	{
+		"id": "amends_fields",
+		"title": "Work Without Words",
+		"weight": 4,
+		"once": true,
+		"when": {"monk": {"path_known": false, "status": "home", "has": ["on_amends"]}},
+		"text": "{monk} came back from his amends and went straight out to the fields, where he worked until dark without a word. The steward asked him what he had learned on the road. He said he had learned how to be quiet, and then he asked to be told what he was good for.",
+		"choices": [
+			{
+				"label": "Tell him to show what he is good for",
+				"effects": {"monk_reveal": true},
+				"chronicle": "{When}, {monk} worked the fields as a {monk_path} would, and the steward said so to the abbot."
+			},
+			{
+				"label": "Tell him to keep to the fields",
+				"effects": {},
+				"chronicle": "{When}, {monk} was set to the fields, and he kept to them without complaint."
+			}
+		]
+	},
+	{
+		"id": "offer_at_gate",
+		"title": "A Stranger at the Gate",
+		"weight": 4,
+		"once": true,
+		"when": {"monk": {"path_known": false, "status": "home", "min_age": 18, "has_any": ["curious", "restless", "brave"]}},
+		"text": "A stranger came to the gate asking for {monk} by a name he had not used in years. {monk} went down to meet him and came back a long while later with the look of a man who has been offered something. He would not say what it was.",
+		"choices": [
+			{
+				"label": "Ask him what was offered",
+				"effects": {"monk_reveal": true},
+				"chronicle": "{When}, {monk} told the abbot he had been offered a road, and the abbot saw that it was the road of a {monk_path}."
+			},
+			{
+				"label": "Ask the porter to send the stranger away",
+				"effects": {},
+				"chronicle": "{When}, the stranger was sent away from the gate, and {monk} did not ask who he was."
+			}
+		]
+	},
+	{
+		"id": "fever_nursing",
+		"title": "Nursing a Fever",
+		"weight": 4,
+		"once": true,
+		"when": {"monk": {"path_known": false, "status": "home", "min_age": 18}},
+		"text": "The fever went through the lower cells in a week, and {monk} nursed every brother who took it without sleeping, and with a steadiness nobody had taught him. When the fever broke, the infirmarian asked where he had learned it. {monk} said he had not learned it. He had only known what to do.",
+		"choices": [
+			{
+				"label": "Ask the infirmarian to set him to the sick",
+				"effects": {"monk_reveal": true},
+				"chronicle": "{When}, {monk} was set to the sick, and the infirmarian wrote that he had the gift of a {monk_path}."
+			},
+			{
+				"label": "Thank him and send him back to his own work",
+				"effects": {},
+				"chronicle": "{When}, {monk} went back to his own work, and the sick were left to the infirmarian."
+			}
+		]
+	},
+	{
+		"id": "bell_at_night",
+		"title": "The Bell in the Night",
+		"weight": 4,
+		"once": true,
+		"when": {"monk": {"path_known": false, "status": "home", "has": ["devout"]}},
+		"text": "{monk} rang the night bell on his own, long after Compline, and when the brothers came down he was kneeling beside it with his hands flat on the bronze. He said the bell had told him to stay. He did not look sorry.",
+		"choices": [
+			{
+				"label": "Ask what the bell said",
+				"effects": {"monk_reveal": true},
+				"chronicle": "{When}, {monk} said the bell had told him to keep vigil for the house, and the abbot named him a {monk_path}."
+			},
+			{
+				"label": "Tell him the bell rings for the hours, not for him",
+				"effects": {},
+				"chronicle": "{When}, {monk} was told that the bell rings for the hours and not for him, and he took it humbly."
+			}
+		]
 	}
 ]

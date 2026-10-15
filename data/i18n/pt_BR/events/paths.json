@@ -38,5 +38,145 @@
 				"chronicle": "{When}, {monk} concordou em esperar um ano antes de voltar a falar da aldeia."
 			}
 		]
+	},
+	{
+		"id": "vigil_light",
+		"title": "A Luz da Vigília",
+		"weight": 5,
+		"once": true,
+		"when": {"monk": {"path_known": false, "status": "home", "has": ["doubting"], "min_age": 18}},
+		"text": "{monk} fez sozinho a vigília da noite, como pedira, e de madrugada foi ao abade, pálido, sem saber bem o que vira. Não disse que fosse um sinal. Disse apenas que a vela não se apagara, por mais que ele se virasse para o outro lado.",
+		"choices": [
+			{
+				"label": "Deixá-lo contar tudo o que viu",
+				"effects": {"monk_reveal": true},
+				"chronicle": "{When}, {monk} contou ao abade tudo o que vira na vigília, e o abade o conheceu como {monk_path}."
+			},
+			{
+				"label": "Mandá-lo dormir; uma vela é só uma vela",
+				"effects": {},
+				"chronicle": "{When}, {monk} foi mandado dormir, e dormiu, ou disse que dormiu."
+			}
+		]
+	},
+	{
+		"id": "ledger_confession",
+		"title": "Uma Confissão sobre o Livro de Contas",
+		"weight": 5,
+		"once": true,
+		"when": {"monk": {"path_known": false, "status": "home", "vocation": ["scribe"], "min_age": 20}},
+		"text": "{monk} sentou-se diante do abade, com o livro de contas entre os dois, e confessou que, havia anos, copiava mais salmos do que a casa pedia e guardava as folhas sobradas para si. Não disse por quê. Perguntou apenas se isso era pecado.",
+		"choices": [
+			{
+				"label": "Perguntar o que ele fazia com elas",
+				"effects": {"monk_reveal": true},
+				"chronicle": "{When}, {monk} disse que fazia um livro próprio, e o abade viu nele o trabalho de {monk_path}."
+			},
+			{
+				"label": "Mandá-lo devolver as folhas e cumprir a penitência",
+				"effects": {},
+				"chronicle": "{When}, {monk} devolveu as folhas e cumpriu a penitência sem perguntar por que lhe fora imposta."
+			}
+		]
+	},
+	{
+		"id": "pilgrim_ford",
+		"title": "De Volta da Estrada",
+		"weight": 5,
+		"once": true,
+		"when": {"monk": {"path_known": false, "status": "home", "has": ["on_pilgrimage"]}},
+		"text": "{monk} voltou da estrada de peregrinação mais magro do que partira, e na ceia não quis comer antes que o abade dissesse a graça duas vezes. Quando lhe perguntaram o que o retivera tanto, disse que fora parado num vau por um homem que sabia o seu nome.",
+		"choices": [
+			{
+				"label": "Perguntar o que o homem lhe disse",
+				"effects": {"monk_reveal": true},
+				"chronicle": "{When}, {monk} repetiu o que o homem do vau lhe dissera, e o abade ouviu nisso o chamado de {monk_path}."
+			},
+			{
+				"label": "Deixá-lo descansar e não falar mais do vau",
+				"effects": {},
+				"chronicle": "{When}, {monk} descansou, e o vau não voltou a ser mencionado na casa."
+			}
+		]
+	},
+	{
+		"id": "amends_fields",
+		"title": "Trabalho sem Palavras",
+		"weight": 4,
+		"once": true,
+		"when": {"monk": {"path_known": false, "status": "home", "has": ["on_amends"]}},
+		"text": "{monk} voltou da sua penitência e foi direto para os campos, onde trabalhou até escurecer sem dizer uma palavra. O despenseiro perguntou o que aprendera na estrada. Respondeu que aprendera a calar-se, e depois pediu que lhe dissessem para que servia.",
+		"choices": [
+			{
+				"label": "Pedir que mostre para que serve",
+				"effects": {"monk_reveal": true},
+				"chronicle": "{When}, {monk} trabalhou nos campos como trabalharia {monk_path}, e o despenseiro disse isso ao abade."
+			},
+			{
+				"label": "Mandá-lo continuar nos campos",
+				"effects": {},
+				"chronicle": "{When}, {monk} foi posto nos campos, e continuou ali sem queixa."
+			}
+		]
+	},
+	{
+		"id": "offer_at_gate",
+		"title": "Um Estranho no Portão",
+		"weight": 4,
+		"once": true,
+		"when": {"monk": {"path_known": false, "status": "home", "min_age": 18, "has_any": ["curious", "restless", "brave"]}},
+		"text": "Um estranho chegou ao portão perguntando por {monk}, por um nome que ele não usava havia anos. {monk} desceu para recebê-lo e voltou muito tempo depois, com o ar de quem recebeu uma oferta. Não quis dizer qual era.",
+		"choices": [
+			{
+				"label": "Perguntar qual foi a oferta",
+				"effects": {"monk_reveal": true},
+				"chronicle": "{When}, {monk} contou ao abade que lhe ofereceram um caminho, e o abade viu que era o caminho de {monk_path}."
+			},
+			{
+				"label": "Pedir ao porteiro que mande o estranho embora",
+				"effects": {},
+				"chronicle": "{When}, o estranho foi mandado embora do portão, e {monk} não perguntou quem era."
+			}
+		]
+	},
+	{
+		"id": "fever_nursing",
+		"title": "Cuidando de uma Febre",
+		"weight": 4,
+		"once": true,
+		"when": {"monk": {"path_known": false, "status": "home", "min_age": 18}},
+		"text": "A febre passou pelas celas de baixo em uma semana, e {monk} cuidou de cada irmão que a pegou sem dormir, com uma firmeza que ninguém lhe ensinara. Quando a febre cedeu, o enfermeiro perguntou onde aprendera aquilo. {monk} disse que não aprendera. Apenas sabia o que fazer.",
+		"choices": [
+			{
+				"label": "Pedir ao enfermeiro que o ponha junto aos doentes",
+				"effects": {"monk_reveal": true},
+				"chronicle": "{When}, {monk} foi posto junto aos doentes, e o enfermeiro escreveu que ele tinha o dom de {monk_path}."
+			},
+			{
+				"label": "Agradecer e mandá-lo de volta ao seu trabalho",
+				"effects": {},
+				"chronicle": "{When}, {monk} voltou ao seu trabalho, e os doentes ficaram com o enfermeiro."
+			}
+		]
+	},
+	{
+		"id": "bell_at_night",
+		"title": "O Sino na Noite",
+		"weight": 4,
+		"once": true,
+		"when": {"monk": {"path_known": false, "status": "home", "has": ["devout"]}},
+		"text": "{monk} tocou o sino da noite por conta própria, muito depois das completas, e quando os irmãos desceram ele estava ajoelhado ao lado dele, com as mãos espalmadas sobre o bronze. Disse que o sino lhe mandara ficar. Não parecia arrependido.",
+		"choices": [
+			{
+				"label": "Perguntar o que o sino disse",
+				"effects": {"monk_reveal": true},
+				"chronicle": "{When}, {monk} disse que o sino lhe mandara velar pela casa, e o abade o nomeou {monk_path}."
+			},
+			{
+				"label": "Dizer-lhe que o sino toca para as horas, e não para ele",
+				"effects": {},
+				"chronicle": "{When}, {monk} ouviu que o sino toca para as horas e não para ele, e aceitou com humildade."
+			}
+		]
 	}
 ]
