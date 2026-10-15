@@ -87,7 +87,6 @@ func _send_party() -> int:
 	var home := WorldState.home_monks().filter(func(m): return int(m["id"]) != WorldState.abbot_id)
 	if home.size() < 2 or Road.parties.size() >= Road.MAX_PARTIES:
 		return 0
-	home.shuffle()
 	var open := []
 	for n in Road.nodes:
 		if not Road.is_hostile(n["id"]):
@@ -95,5 +94,9 @@ func _send_party() -> int:
 	if open.is_empty():
 		return 0
 	var node_id: String = open[Oracle.range_int(0, open.size() - 1)]
-	var ids := [int(home[0]["id"]), int(home[1]["id"])]
+	var ids := []
+	for k in 2:
+		var pick = Oracle.pick(home)
+		ids.append(int(pick["id"]))
+		home.erase(pick)
 	return 1 if Game.dispatch_party(node_id, ids) else 0
