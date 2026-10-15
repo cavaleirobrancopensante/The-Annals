@@ -116,6 +116,15 @@ func _process(_delta: float) -> bool:
 	b.change("chimera", 6)
 	_expect("an allied nest leaves its place open", road.is_hostile("slieve_bloom"), false)
 
+	# The Marred hold Mweelrea: hostile, they close the road there, as the nest closes its place.
+	road.known["mweelrea"] = true
+	_expect("the Marred hold Mweelrea", road.being_at("mweelrea"), "marred")
+	_expect("neutral Marred leave Mweelrea open", road.is_hostile("mweelrea"), false)
+	b.change("marred", -3)
+	_expect("hostile Marred close Mweelrea", road.is_hostile("mweelrea"), true)
+	_expect("the refusal names the Marred", road.refusal("mweelrea", [1]).contains("The Marred"), true)
+	b.change("marred", 3)
+
 	print("beings test: %d failure(s)" % failures)
 	quit(1 if failures > 0 else 0)
 	return false

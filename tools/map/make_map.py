@@ -130,7 +130,7 @@ PLACES = [
     ("galway", "Galway", "town", "fishers", 53.27, -9.05),
     ("tuam", "Tuam", "church", "church", 53.51, -8.85),
     ("clifden", "Clifden", "coast", "fishers", 53.49, -10.02),
-    ("mweelrea", "Mweelrea", "hold", "glen_lords", 53.61, -9.75),
+    ("mweelrea", "Mweelrea", "hold", "glen_lords", 53.61, -9.75, "marred"),
     ("croagh_patrick", "Croagh Patrick", "shrine", "church", 53.76, -9.65),
     ("knock", "Knock", "shrine", "church", 53.80, -8.91),
     ("westport", "Westport", "town", "glen_lords", 53.80, -9.52),

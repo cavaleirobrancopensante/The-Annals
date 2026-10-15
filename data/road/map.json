@@ -895,7 +895,8 @@
       "faction": "glen_lords",
       "distance": 8,
       "x": 0.1604,
-      "y": 0.4434
+      "y": 0.4434,
+      "being": "marred"
     },
     {
       "id": "croagh_patrick",

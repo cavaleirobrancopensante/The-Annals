@@ -20,12 +20,11 @@ Every being starts at 0 (neutral). Allied from 3 upward, hostile from -3 downwar
 - **The Hollow's deck** (`deck: "hollow"`) is drawn one week in twenty-five while the Hollow is hostile. Its cards only fire while it is hostile. The cards that turn it hostile are in the abbey deck, such as the lamp in the crypt.
 - **The engine** adds one firewood a week while allied.
 - Cards: `data/events/beings.json` (translated in `data/i18n/`).
+- **On the road map:** the chimera nest holds Slieve Bloom, the engine holds the Bog of Allen, and the Marred hold Mweelrea in the west. A hostile being closes the place it holds to parties, and the refusal names it.
 
 ## Not yet built
 
-- Beings on the road map (a nest at a place, the Marred as a faction on the road, an engine at a ruin).
 - Several nests, several engines, or several Hollows.
 - Engine effects beyond firewood.
 - The Hollow's threat to the brothers' health and the house's graves.
-- The Marred closing a road node when hostile.
 - Showing attitudes on the estate screen.
