@@ -35,7 +35,7 @@ func building_desc(b: String) -> String:
 	return tr("building.%s.desc" % b)
 
 ## Jobs a brother can be given. Only brothers at home and well enough can work.
-const JOB_ORDER := ["fields", "woods", "hunt", "kitchen", "infirmary", "scriptorium", "rest"]
+const JOB_ORDER := ["fields", "woods", "hunt", "kitchen", "infirmary", "scriptorium", "chapel", "confessional", "gate", "guesthouse", "rest"]
 const JOB_NAMES := {
 	"fields": "Fields",
 	"woods": "Woodcutting",
@@ -43,6 +43,10 @@ const JOB_NAMES := {
 	"kitchen": "Kitchen",
 	"infirmary": "Infirmary",
 	"scriptorium": "Scriptorium",
+	"chapel": "Chapel",
+	"confessional": "Confessional",
+	"gate": "Gate",
+	"guesthouse": "Guesthouse",
 	"rest": "Rest",
 }
 ## Jobs that need a building before anyone can work them.

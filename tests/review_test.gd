@@ -59,6 +59,24 @@ func _process(_delta: float) -> bool:
 	_expect("no reveal for the non-match", _has_reveal(reviews, 2), false)
 	_expect("the ruled-out job is no longer counted", float(no_m["job_weeks"]), 52.0)
 
+	# A monk at the chapel: the new jobs test their paths the same way.
+	var chapel_m := _brother(4, "chapel", "monk", sk, pa)
+	ws.monks.append(chapel_m)
+	_weeks(sk, 52)
+	_expect("the chapel job gives a monk a hint at a year", _candidates_of(chapel_m).has("monk"), true)
+	reviews = _weeks(sk, 52)
+	_expect("the chapel job reveals a monk at two years", _has_reveal(reviews, 4), true)
+
+	# Events move the review: a setback takes progress away, and progress never goes below zero.
+	var ee = root.get_node("EventEngine")
+	var setback_m := _brother(5, "fields", "householder", sk, pa)
+	ws.monks.append(setback_m)
+	_weeks(sk, 10)
+	ee._apply({"monk_review": -26}, {"monk": 5}, [])
+	_expect("a setback takes progress away", float(setback_m["job_weeks"]), 0.0)
+	ee._apply({"monk_review": 13}, {"monk": 5}, [])
+	_expect("a steady event adds progress", float(setback_m["job_weeks"]), 13.0)
+
 	print("Review checks: %s" % ("all passed" if failures == 0 else "%d failed" % failures))
 	quit(failures)
 	return false

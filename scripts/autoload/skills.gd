@@ -11,8 +11,8 @@ const EASY := 7
 const HARD := 10
 const VERY_HARD := 13
 ## The skill each job exercises, and how hard the work is (1 to 3).
-const JOB_SKILL := {"fields": "labour", "woods": "labour", "hunt": "hunting", "kitchen": "cookery", "infirmary": "medicine", "scriptorium": "scribing"}
-const JOB_DIFFICULTY := {"fields": 1, "woods": 1, "hunt": 2, "kitchen": 2, "infirmary": 3, "scriptorium": 3}
+const JOB_SKILL := {"fields": "labour", "woods": "labour", "hunt": "hunting", "kitchen": "cookery", "infirmary": "medicine", "scriptorium": "scribing", "chapel": "devotion", "confessional": "counsel", "gate": "holding_gate", "guesthouse": "hospitality"}
+const JOB_DIFFICULTY := {"fields": 1, "woods": 1, "hunt": 2, "kitchen": 2, "infirmary": 3, "scriptorium": 3, "chapel": 1, "confessional": 2, "gate": 2, "guesthouse": 1}
 ## Food a successful hunt brings in, and more on a critical success.
 const HUNT_FOOD := 3
 const HUNT_FOOD_CRITICAL := 5
@@ -25,7 +25,7 @@ const TEACHER_LEVEL := 3
 ## Until a brother's path is known, he can grow his skills only to this level.
 const GENERALIST_CAP := 3
 ## The path each job tests at the year's review. Monks, priests, soldiers and pilgrims have no job here.
-const JOB_PATH := {"fields": "householder", "woods": "builder", "hunt": "hunter", "kitchen": "cook", "infirmary": "healer", "scriptorium": "scribe"}
+const JOB_PATH := {"fields": "householder", "woods": "builder", "hunt": "hunter", "kitchen": "cook", "infirmary": "healer", "scriptorium": "scribe", "chapel": "monk", "confessional": "priest", "gate": "soldier", "guesthouse": "pilgrim"}
 ## A hidden brother's progress at one job. At HINT_WEEKS he gets a hint of his path (a shortlist
 ## that always holds the true path). At REVEAL_WEEKS, if his job is his path, the path is revealed.
 ## Work at level EXPERIENCED_LEVEL or more adds double progress, so skilled brothers are reviewed sooner.

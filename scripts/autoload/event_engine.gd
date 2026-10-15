@@ -371,6 +371,9 @@ func _apply(effects: Dictionary, bind: Dictionary, lines: Array) -> void:
 			WorldState.change_health(m, int(effects[slot + "_health"]))
 		if bool(effects.get(slot + "_reveal", false)):
 			Paths.reveal(m)
+		# An event can move the year review along (positive) or set it back (negative).
+		if effects.has(slot + "_review"):
+			m["job_weeks"] = maxf(0.0, float(m.get("job_weeks", 0.0)) + float(effects[slot + "_review"]))
 		if effects.has(slot + "_path"):
 			Paths.set_path(m, str(effects[slot + "_path"]))
 		if effects.has(slot + "_away"):

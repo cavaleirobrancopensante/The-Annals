@@ -4,17 +4,27 @@
 		"title": "Un sueño antes de Laudes",
 		"weight": 5,
 		"once": true,
-		"when": {"monk": {"path_known": false, "status": "home", "max_age": 35}},
+		"when": {
+			"monk": {
+				"path_known": false,
+				"status": "home",
+				"max_age": 35
+			}
+		},
 		"text": "{monk} llegó a la oficina antes de Laudes con el rostro pálido, y al principio no quiso decir qué lo había turbado. Luego le contó al abad que en la noche lo había llamado alguien por su nombre, y que la voz no sonaba como la suya.",
 		"choices": [
 			{
 				"label": "Pedir al abad que lo escuche",
-				"effects": {"monk_reveal": true},
+				"effects": {
+					"monk_reveal": true
+				},
 				"chronicle": "{When}, {monk} contó su sueño al abad, y el abad vio en él una llamada a ser {monk_path}."
 			},
 			{
 				"label": "Decirle que un sueño no es más que un sueño",
-				"effects": {},
+				"effects": {
+					"monk_review": -26
+				},
 				"chronicle": "{When}, a {monk} se le dijo que un sueño no es más que un sueño, y aceptó el consejo con semblante turbado."
 			}
 		]
@@ -24,12 +34,23 @@
 		"title": "Una petición de licencia",
 		"weight": 8,
 		"once": true,
-		"when": {"monk": {"path_known": true, "path": ["householder"], "status": "home", "min_age": 18}},
+		"when": {
+			"monk": {
+				"path_known": true,
+				"path": [
+					"householder"
+				],
+				"status": "home",
+				"min_age": 18
+			}
+		},
 		"text": "{monk} se presentó en la puerta del abad con el sombrero en las manos y pidió permiso para bajar al pueblo. Hay una muchacha allí, dijo, y cree que Dios quiere que se case con ella.",
 		"choices": [
 			{
 				"label": "Darle licencia y su bendición",
-				"effects": {"monk_departs": true},
+				"effects": {
+					"monk_departs": true
+				},
 				"chronicle": "{When}, {monk} salió de la casa hacia el pueblo, y el abad lo bendijo en la puerta."
 			},
 			{
@@ -44,17 +65,30 @@
 		"title": "La luz de la vigilia",
 		"weight": 5,
 		"once": true,
-		"when": {"monk": {"path_known": false, "status": "home", "has": ["doubting"], "min_age": 18}},
+		"when": {
+			"monk": {
+				"path_known": false,
+				"status": "home",
+				"has": [
+					"doubting"
+				],
+				"min_age": 18
+			}
+		},
 		"text": "{monk} hizo solo la vigilia de la noche, como había pedido, y al amanecer fue hasta el abad, pálido y sin saber bien lo que había visto. No dijo que fuera una señal. Solo dijo que la vela no se había apagado, por mucho que él se volviera hacia el otro lado.",
 		"choices": [
 			{
 				"label": "Dejar que cuente todo lo que vio",
-				"effects": {"monk_reveal": true},
+				"effects": {
+					"monk_reveal": true
+				},
 				"chronicle": "{When}, {monk} contó al abad todo lo que vio en la vigilia, y el abad lo reconoció como {monk_path}."
 			},
 			{
 				"label": "Mandarlo a dormir; una vela es solo una vela",
-				"effects": {},
+				"effects": {
+					"monk_review": -13
+				},
 				"chronicle": "{When}, {monk} fue mandado a dormir, y durmió, o dijo que durmió."
 			}
 		]
@@ -64,17 +98,30 @@
 		"title": "Una confesión sobre el libro de cuentas",
 		"weight": 5,
 		"once": true,
-		"when": {"monk": {"path_known": false, "status": "home", "vocation": ["scribe"], "min_age": 20}},
+		"when": {
+			"monk": {
+				"path_known": false,
+				"status": "home",
+				"vocation": [
+					"scribe"
+				],
+				"min_age": 20
+			}
+		},
 		"text": "{monk} se sentó frente al abad, con el libro de cuentas entre los dos, y confesó que durante años había copiado más salmos de los que la casa pedía, y había guardado las hojas sobrantes para sí. No dijo por qué. Solo preguntó si aquello era pecado.",
 		"choices": [
 			{
 				"label": "Preguntarle para qué las usaba",
-				"effects": {"monk_reveal": true},
+				"effects": {
+					"monk_reveal": true
+				},
 				"chronicle": "{When}, {monk} dijo que estaba haciendo un libro propio, y el abad vio en él la obra de {monk_path}."
 			},
 			{
 				"label": "Mandarlo a devolver las hojas y cumplir su penitencia",
-				"effects": {},
+				"effects": {
+					"monk_review": 13
+				},
 				"chronicle": "{When}, {monk} devolvió las hojas y cumplió la penitencia sin preguntar por qué se le había impuesto."
 			}
 		]
@@ -84,12 +131,22 @@
 		"title": "De vuelta del camino",
 		"weight": 5,
 		"once": true,
-		"when": {"monk": {"path_known": false, "status": "home", "has": ["on_pilgrimage"]}},
+		"when": {
+			"monk": {
+				"path_known": false,
+				"status": "home",
+				"has": [
+					"on_pilgrimage"
+				]
+			}
+		},
 		"text": "{monk} volvió del camino de peregrinación más delgado de lo que había salido, y en la cena no quiso comer hasta que el abad dijo la bendición dos veces. Cuando le preguntaron qué lo había retenido tanto, dijo que en un vado lo había detenido un hombre que conocía su nombre.",
 		"choices": [
 			{
 				"label": "Preguntar qué le dijo el hombre",
-				"effects": {"monk_reveal": true},
+				"effects": {
+					"monk_reveal": true
+				},
 				"chronicle": "{When}, {monk} repitió lo que le había dicho el hombre del vado, y el abad oyó en ello la llamada a ser {monk_path}."
 			},
 			{
@@ -104,17 +161,29 @@
 		"title": "Trabajo sin palabras",
 		"weight": 4,
 		"once": true,
-		"when": {"monk": {"path_known": false, "status": "home", "has": ["on_amends"]}},
+		"when": {
+			"monk": {
+				"path_known": false,
+				"status": "home",
+				"has": [
+					"on_amends"
+				]
+			}
+		},
 		"text": "{monk} volvió de su penitencia y fue directamente a los campos, donde trabajó hasta que oscureció sin decir una palabra. El despensero le preguntó qué había aprendido en el camino. Respondió que había aprendido a callar, y luego pidió que le dijeran para qué servía.",
 		"choices": [
 			{
 				"label": "Pedirle que muestre para qué sirve",
-				"effects": {"monk_reveal": true},
+				"effects": {
+					"monk_reveal": true
+				},
 				"chronicle": "{When}, {monk} trabajó en los campos como trabajaría {monk_path}, y el despensero se lo dijo al abad."
 			},
 			{
 				"label": "Mandarlo a seguir en los campos",
-				"effects": {},
+				"effects": {
+					"monk_review": 13
+				},
 				"chronicle": "{When}, {monk} fue puesto en los campos, y allí siguió sin queja."
 			}
 		]
@@ -124,17 +193,32 @@
 		"title": "Un extraño en la puerta",
 		"weight": 4,
 		"once": true,
-		"when": {"monk": {"path_known": false, "status": "home", "min_age": 18, "has_any": ["curious", "restless", "brave"]}},
+		"when": {
+			"monk": {
+				"path_known": false,
+				"status": "home",
+				"min_age": 18,
+				"has_any": [
+					"curious",
+					"restless",
+					"brave"
+				]
+			}
+		},
 		"text": "Un extraño llegó a la puerta preguntando por {monk} con un nombre que él no usaba desde hacía años. {monk} bajó a recibirlo y volvió mucho después, con el aire de quien ha recibido una oferta. No quiso decir cuál era.",
 		"choices": [
 			{
 				"label": "Preguntar cuál fue la oferta",
-				"effects": {"monk_reveal": true},
+				"effects": {
+					"monk_reveal": true
+				},
 				"chronicle": "{When}, {monk} contó al abad que le habían ofrecido un camino, y el abad vio que era el camino de {monk_path}."
 			},
 			{
 				"label": "Pedir al portero que despida al extraño",
-				"effects": {},
+				"effects": {
+					"monk_review": -13
+				},
 				"chronicle": "{When}, el extraño fue despedido de la puerta, y {monk} no preguntó quién era."
 			}
 		]
@@ -144,17 +228,27 @@
 		"title": "Cuidando una fiebre",
 		"weight": 4,
 		"once": true,
-		"when": {"monk": {"path_known": false, "status": "home", "min_age": 18}},
+		"when": {
+			"monk": {
+				"path_known": false,
+				"status": "home",
+				"min_age": 18
+			}
+		},
 		"text": "La fiebre recorrió las celdas de abajo en una semana, y {monk} cuidó a cada hermano que la contrajo sin dormir, con una firmeza que nadie le había enseñado. Cuando la fiebre cedió, el enfermero le preguntó dónde lo había aprendido. {monk} dijo que no lo había aprendido. Simplemente sabía qué hacer.",
 		"choices": [
 			{
 				"label": "Pedir al enfermero que lo ponga con los enfermos",
-				"effects": {"monk_reveal": true},
+				"effects": {
+					"monk_reveal": true
+				},
 				"chronicle": "{When}, {monk} fue puesto con los enfermos, y el enfermero escribió que tenía el don de {monk_path}."
 			},
 			{
 				"label": "Darle las gracias y mandarlo de vuelta a su trabajo",
-				"effects": {},
+				"effects": {
+					"monk_review": 13
+				},
 				"chronicle": "{When}, {monk} volvió a su trabajo, y los enfermos quedaron al cuidado del enfermero."
 			}
 		]
@@ -164,17 +258,29 @@
 		"title": "La campana de la noche",
 		"weight": 4,
 		"once": true,
-		"when": {"monk": {"path_known": false, "status": "home", "has": ["devout"]}},
+		"when": {
+			"monk": {
+				"path_known": false,
+				"status": "home",
+				"has": [
+					"devout"
+				]
+			}
+		},
 		"text": "{monk} tocó la campana de la noche por su cuenta, mucho después de completas, y cuando bajaron los hermanos estaba arrodillado junto a ella, con las manos apoyadas sobre el bronce. Dijo que la campana le había mandado quedarse. No parecía arrepentido.",
 		"choices": [
 			{
 				"label": "Preguntar qué le dijo la campana",
-				"effects": {"monk_reveal": true},
+				"effects": {
+					"monk_reveal": true
+				},
 				"chronicle": "{When}, {monk} dijo que la campana le había mandado velar por la casa, y el abad lo nombró {monk_path}."
 			},
 			{
 				"label": "Decirle que la campana toca para las horas, no para él",
-				"effects": {},
+				"effects": {
+					"monk_review": -26
+				},
 				"chronicle": "{When}, {monk} oyó que la campana toca para las horas y no para él, y lo aceptó con humildad."
 			}
 		]
