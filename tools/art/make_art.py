@@ -18,28 +18,76 @@ STEEL = "#8a8f96"
 WOOD = "#7a4f2a"
 
 
+def mix(hex_a, hex_b, t):
+    a = [int(hex_a[i:i + 2], 16) for i in (1, 3, 5)]
+    b = [int(hex_b[i:i + 2], 16) for i in (1, 3, 5)]
+    return "#%02x%02x%02x" % tuple(round(a[i] + (b[i] - a[i]) * t) for i in range(3))
+
+
+def lighter(hex_c, t=0.35):
+    return mix(hex_c, "#ffffff", t)
+
+
+def darker(hex_c, t=0.35):
+    return mix(hex_c, "#000000", t)
+
+
+def defs_common():
+    """Gradients shared by every piece: gold leaf, steel, skin and parchment."""
+    return ('<defs>'
+            f'<linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3dc92"/>'
+            f'<stop offset="0.55" stop-color="{GOLD}"/><stop offset="1" stop-color="#8a6320"/></linearGradient>'
+            f'<linearGradient id="steel" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#eef1f4"/>'
+            f'<stop offset="0.5" stop-color="{STEEL}"/><stop offset="1" stop-color="#4b5058"/></linearGradient>'
+            f'<linearGradient id="skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4d8b6"/>'
+            f'<stop offset="1" stop-color="{SKIN}"/></linearGradient>'
+            f'<linearGradient id="parch" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4ead2"/>'
+            f'<stop offset="1" stop-color="{PARCH}"/></linearGradient>'
+            '</defs>')
+
+
+def robe_grad(gid, c):
+    return (f'<linearGradient id="{gid}" x1="0" y1="0" x2="1" y2="0">'
+            f'<stop offset="0" stop-color="{lighter(c, 0.18)}"/><stop offset="0.45" stop-color="{c}"/>'
+            f'<stop offset="1" stop-color="{darker(c, 0.35)}"/></linearGradient>')
+
+
+def emb_pattern():
+    return ('<pattern id="emb" width="12" height="12" patternUnits="userSpaceOnUse">'
+            f'<rect width="12" height="12" fill="{darker(GOLD, 0.2)}"/>'
+            '<path d="M6 1 L11 6 L6 11 L1 6 Z" fill="url(#gold)"/>'
+            f'<circle cx="6" cy="6" r="1.3" fill="{INK}"/></pattern>')
+
+
 def frame(w, h, bg, accent):
-    """A tapestry field of diamonds and quatrefoils, with a gold double border and roundels."""
+    """A tapestry field of quatrefoils and diamonds, a knotwork band, and gold roundels at the corners."""
     s = []
     s.append('<defs><pattern id="field" width="32" height="32" patternUnits="userSpaceOnUse">'
              f'<rect width="32" height="32" fill="{bg}"/>'
-             f'<path d="M16 3 L29 16 L16 29 L3 16 Z" fill="{accent}" opacity="0.38"/>'
-             f'<circle cx="16" cy="16" r="2.6" fill="{GOLD}"/>'
-             '<circle cx="0" cy="0" r="2" fill="' + GOLD + '" opacity="0.5"/>'
-             '<circle cx="32" cy="32" r="2" fill="' + GOLD + '" opacity="0.5"/>'
+             f'<path d="M16 2 L30 16 L16 30 L2 16 Z" fill="{darker(accent, 0.15)}" opacity="0.55"/>'
+             f'<path d="M16 7 L25 16 L16 25 L7 16 Z" fill="{lighter(accent, 0.1)}" opacity="0.4"/>'
+             f'<circle cx="16" cy="16" r="2.4" fill="url(#gold)"/>'
+             f'<circle cx="0" cy="0" r="1.6" fill="url(#gold)" opacity="0.6"/>'
+             f'<circle cx="32" cy="32" r="1.6" fill="url(#gold)" opacity="0.6"/>'
              '</pattern></defs>')
     s.append(f'<rect x="0" y="0" width="{w}" height="{h}" fill="url(#field)"/>')
-    s.append(f'<rect x="6" y="6" width="{w-12}" height="{h-12}" fill="none" stroke="{GOLD}" stroke-width="5"/>')
-    s.append(f'<rect x="15" y="15" width="{w-30}" height="{h-30}" fill="none" stroke="{INK}" stroke-width="2"/>')
-    step = 14
-    for x in range(24, w - 23, step):
-        for y in (9, h - 9):
-            s.append(f'<circle cx="{x}" cy="{y}" r="2.2" fill="{GOLD}"/>')
-    for y in range(24, h - 23, step):
-        for x in (9, w - 9):
-            s.append(f'<circle cx="{x}" cy="{y}" r="2.2" fill="{GOLD}"/>')
-    for x, y in ((9, 9), (w - 9, 9), (9, h - 9), (w - 9, h - 9)):
-        s.append(f'<circle cx="{x}" cy="{y}" r="8" fill="{GOLD}" stroke="{INK}" stroke-width="2"/>')
+    # A vignette so the figure sits in light.
+    s.append(f'<rect x="0" y="0" width="{w}" height="{h}" fill="#000" opacity="0.12"/>')
+    s.append(f'<rect x="5" y="5" width="{w-10}" height="{h-10}" fill="none" stroke="url(#gold)" stroke-width="7"/>')
+    s.append(f'<rect x="14" y="14" width="{w-28}" height="{h-28}" fill="none" stroke="{INK}" stroke-width="2"/>')
+    # Knotwork: a twisted band of S-curves along each side.
+    band = []
+    step = 12
+    for x in range(22, w - 21, step):
+        band.append(f'M{x} 22 q6 -5 12 0 t12 0')
+        band.append(f'M{x} {h-22} q6 5 12 0 t12 0')
+    for y in range(22, h - 21, step):
+        band.append(f'M22 {y} q-5 6 0 12 t0 12')
+        band.append(f'M{w-22} {y} q5 6 0 12 t0 12')
+    s.append(f'<path d="{" ".join(band)}" fill="none" stroke="{GOLD}" stroke-width="2" opacity="0.8"/>')
+    for x, y in ((12, 12), (w - 12, 12), (12, h - 12), (w - 12, h - 12)):
+        s.append(f'<circle cx="{x}" cy="{y}" r="10" fill="url(#gold)" stroke="{INK}" stroke-width="2"/>')
+        s.append(f'<circle cx="{x}" cy="{y}" r="4" fill="{accent}" stroke="{INK}" stroke-width="1.5"/>')
     return "".join(s)
 
 
@@ -49,21 +97,38 @@ def svg(w, h, body):
 
 
 def face(hair, hair_color, beard=None):
-    """A flat face in three-quarter view, centred on (0,0), about 80 units tall."""
+    """A face in three-quarter view, centred on (0,0), about 90 units tall."""
     g = []
-    g.append(f'<ellipse cx="0" cy="0" rx="34" ry="42" fill="{SKIN}" stroke="{INK}" stroke-width="4"/>')
-    g.append(f'<path d="M-30 -6 Q-34 -40 0 -44 Q34 -40 30 -6" fill="none" stroke="{SKIN_SH}" stroke-width="3" opacity="0.6"/>')
-    g.append(f'<circle cx="-18" cy="14" r="7" fill="{BLUSH}" opacity="0.45"/>')
-    g.append(f'<circle cx="18" cy="14" r="7" fill="{BLUSH}" opacity="0.45"/>')
-    g.append(f'<ellipse cx="-13" cy="-4" rx="4.5" ry="3.5" fill="{INK}"/>')
-    g.append(f'<ellipse cx="13" cy="-4" rx="4.5" ry="3.5" fill="{INK}"/>')
-    g.append(f'<path d="M-22 -14 Q-13 -20 -5 -14 M5 -14 Q13 -20 22 -14" fill="none" stroke="{INK}" stroke-width="3" stroke-linecap="round"/>')
-    g.append(f'<path d="M0 0 Q4 10 -2 16 Q2 18 5 16" fill="none" stroke="{INK}" stroke-width="2.5" stroke-linecap="round"/>')
-    g.append(f'<path d="M-12 26 Q0 32 12 26" fill="none" stroke="{INK}" stroke-width="3" stroke-linecap="round"/>')
+    # Head shape with a shaded side.
+    g.append(f'<ellipse cx="0" cy="0" rx="34" ry="42" fill="url(#skin)" stroke="{INK}" stroke-width="3.5"/>')
+    g.append(f'<path d="M14 -30 Q34 -8 30 18 Q26 36 8 40 Q22 22 20 0 Q20 -20 14 -30 Z" fill="{SKIN_SH}" opacity="0.45"/>')
+    # Cheeks and jaw.
+    g.append(f'<ellipse cx="-19" cy="12" rx="8" ry="6" fill="{BLUSH}" opacity="0.4"/>')
+    g.append(f'<ellipse cx="19" cy="12" rx="8" ry="6" fill="{BLUSH}" opacity="0.4"/>')
+    g.append(f'<path d="M-8 37 Q0 41 8 37" fill="none" stroke="{SKIN_SH}" stroke-width="2" opacity="0.7"/>')
+    # Eyes: white, iris, pupil, highlight and a lid line.
+    for cx in (-13, 13):
+        g.append(f'<ellipse cx="{cx}" cy="-4" rx="6" ry="3.6" fill="#fbf4e4" stroke="{INK}" stroke-width="1.2"/>')
+        g.append(f'<circle cx="{cx}" cy="-4" r="2.6" fill="#4a3320"/>')
+        g.append(f'<circle cx="{cx}" cy="-4" r="1.1" fill="{INK}"/>')
+        g.append(f'<circle cx="{cx + 0.9}" cy="-5" r="0.6" fill="#ffffff"/>')
+        g.append(f'<path d="M{cx-6.5} -4.5 Q{cx} -9 {cx+6.5} -4.5" fill="none" stroke="{INK}" stroke-width="1.8" stroke-linecap="round"/>')
+    # Brows, tapered by two strokes.
+    g.append(f'<path d="M-20 -13 Q-13 -18 -5 -13" fill="none" stroke="{INK}" stroke-width="2.6" stroke-linecap="round"/>')
+    g.append(f'<path d="M5 -13 Q13 -18 20 -13" fill="none" stroke="{INK}" stroke-width="2.6" stroke-linecap="round"/>')
+    # Nose: a bridge line, a shaded side, and nostrils.
+    g.append(f'<path d="M1 -2 Q5 7 1 13 Q-2 15 -5 13" fill="none" stroke="{INK}" stroke-width="2" stroke-linecap="round"/>')
+    g.append(f'<path d="M3 0 Q7 8 3 13 Q6 10 5 2 Z" fill="{SKIN_SH}" opacity="0.55"/>')
+    # Lips: upper and lower, with a parting line.
+    g.append(f'<path d="M-9 24 Q-4 19 0 21 Q4 19 9 24 Q4 27 0 26 Q-4 27 -9 24 Z" fill="#b8665a" stroke="{INK}" stroke-width="1.3"/>')
+    g.append(f'<path d="M-7 28 Q0 33 7 28" fill="#c97a6a" stroke="{INK}" stroke-width="1.1"/>')
     if beard:
-        g.append(f'<path d="M-30 14 Q-26 46 0 48 Q26 46 30 14 Q24 30 0 32 Q-24 30 -30 14 Z" fill="{beard}"/>')
+        g.append(f'<path d="M-30 12 Q-27 48 0 50 Q27 48 30 12 Q24 30 0 33 Q-24 30 -30 12 Z" fill="{beard}" stroke="{darker(beard, 0.4)}" stroke-width="1.5"/>')
+        g.append(f'<path d="M-14 36 Q0 40 14 36" fill="none" stroke="{lighter(beard, 0.2)}" stroke-width="1.5" opacity="0.7"/>')
     if hair:
-        g.append(f'<path d="M-36 -10 Q-40 -48 0 -50 Q40 -48 36 -10 Q30 -26 18 -30 Q0 -22 -18 -30 Q-30 -26 -36 -10 Z" fill="{hair_color}" stroke="{INK}" stroke-width="3"/>')
+        g.append(f'<path d="M-37 -10 Q-42 -50 0 -52 Q42 -50 37 -10 Q31 -28 18 -32 Q0 -22 -18 -32 Q-31 -28 -37 -10 Z" fill="{hair_color}" stroke="{INK}" stroke-width="3"/>')
+        for x in (-24, -12, 0, 12, 24):
+            g.append(f'<path d="M{x} -34 Q{x*0.6} -26 {x*0.8} -18" fill="none" stroke="{darker(hair_color, 0.3)}" stroke-width="1.2" opacity="0.7"/>')
     return "".join(g)
 
 
@@ -74,7 +139,7 @@ def headgear(kind, color, accent):
                 f'fill="{color}" stroke="{INK}" stroke-width="4"/>')
     if kind == "tonsure":
         return (f'<path d="M-40 -6 Q-42 -46 0 -48 Q42 -46 40 -6 Q34 -22 0 -24 Q-34 -22 -40 -6 Z" fill="{color}" stroke="{INK}" stroke-width="3"/>'
-                f'<circle cx="0" cy="-40" r="9" fill="{SKIN}" stroke="{INK}" stroke-width="2"/>')
+                f'<circle cx="0" cy="-40" r="9" fill="url(#skin)" stroke="{INK}" stroke-width="2"/>')
     if kind == "helm":
         return (f'<path d="M-44 6 Q-46 -60 0 -62 Q46 -60 44 6 L38 6 L38 -4 Q0 -20 -38 -4 L-38 6 Z" fill="{color}" stroke="{INK}" stroke-width="4"/>'
                 f'<path d="M-6 -18 L-6 14 L6 14 L6 -18 Z" fill="{accent}" stroke="{INK}" stroke-width="2"/>')
@@ -145,12 +210,12 @@ def head_group(p, spec, scale):
 def symbol(kind, x, y, s=1.0):
     """A small house symbol for the chest or the hand."""
     if kind == "rosary":
-        beads = "".join(f'<circle cx="{round(math_cos(t)*34, 1)}" cy="{round(math_sin(t)*34 + 10, 1)}" r="3.5" fill="{GOLD}" stroke="{INK}" stroke-width="1"/>'
+        beads = "".join(f'<circle cx="{round(math_cos(t)*34, 1)}" cy="{round(math_sin(t)*34 + 10, 1)}" r="3.5" fill="url(#gold)" stroke="{INK}" stroke-width="1"/>'
                         for t in [i * 6.2832 / 14 for i in range(14)])
-        return f'<g transform="translate({x} {y}) scale({s})">{beads}<circle cx="0" cy="44" r="5" fill="{GOLD}" stroke="{INK}" stroke-width="2"/></g>'
+        return f'<g transform="translate({x} {y}) scale({s})">{beads}<circle cx="0" cy="44" r="5" fill="url(#gold)" stroke="{INK}" stroke-width="2"/></g>'
     if kind == "cross":
-        return (f'<g transform="translate({x} {y}) scale({s})"><rect x="-6" y="-26" width="12" height="52" fill="{GOLD}" stroke="{INK}" stroke-width="2"/>'
-                f'<rect x="-22" y="-12" width="44" height="10" fill="{GOLD}" stroke="{INK}" stroke-width="2"/></g>')
+        return (f'<g transform="translate({x} {y}) scale({s})"><rect x="-6" y="-26" width="12" height="52" fill="url(#gold)" stroke="{INK}" stroke-width="2"/>'
+                f'<rect x="-22" y="-12" width="44" height="10" fill="url(#gold)" stroke="{INK}" stroke-width="2"/></g>')
     return f'<g transform="translate({x} {y}) scale({s})">{item(kind)}</g>'
 
 
@@ -166,9 +231,12 @@ def math_sin(t):
 
 def portrait(pid):
     p = PATHS[pid]
-    body = [frame(256, 256, p["bg"], p["accent"])]
-    body.append(f'<path d="M34 256 Q34 186 96 170 L160 170 Q222 186 222 256 Z" fill="{p["robe"]}" stroke="{INK}" stroke-width="5"/>')
-    body.append(f'<path d="M96 170 Q128 196 160 170" fill="none" stroke="{p["trim"]}" stroke-width="6"/>')
+    body = [defs_common() + "<defs>" + robe_grad("robe", p["robe"]) + emb_pattern() + "</defs>",
+            frame(256, 256, p["bg"], p["accent"])]
+    body.append(f'<path d="M34 256 Q34 186 96 170 L160 170 Q222 186 222 256 Z" fill="url(#robe)" stroke="{INK}" stroke-width="5"/>')
+    body.append(f'<path d="M96 170 Q128 196 160 170" fill="none" stroke="url(#emb)" stroke-width="9"/>')
+    body.append(f'<path d="M40 252 Q44 214 96 204" fill="none" stroke="{darker(p["robe"], 0.45)}" stroke-width="2.5" opacity="0.5"/>')
+    body.append(f'<path d="M216 252 Q212 214 160 204" fill="none" stroke="{darker(p["robe"], 0.45)}" stroke-width="2.5" opacity="0.5"/>')
     body.append(f'<rect x="112" y="136" width="32" height="40" fill="{SKIN_SH}" stroke="{INK}" stroke-width="3"/>')
     body.append(head_group(p, p, 1.0).replace('<g transform="scale(1.0)">', '<g transform="translate(128 112)">'))
     body.append(symbol(p["symbol"], 128, 226, 0.85))
@@ -177,20 +245,24 @@ def portrait(pid):
 
 def figure(pid):
     p = PATHS[pid]
-    body = [frame(256, 512, p["bg"], p["accent"])]
+    body = [defs_common() + "<defs>" + robe_grad("robe", p["robe"]) + emb_pattern() + "</defs>",
+            frame(256, 512, p["bg"], p["accent"])]
     # legs and feet under the robe
     body.append(f'<rect x="102" y="420" width="24" height="60" fill="{INK}"/><rect x="130" y="420" width="24" height="60" fill="{INK}"/>')
     body.append(f'<ellipse cx="112" cy="484" rx="16" ry="8" fill="{WOOD}" stroke="{INK}" stroke-width="3"/>'
                 f'<ellipse cx="144" cy="484" rx="16" ry="8" fill="{WOOD}" stroke="{INK}" stroke-width="3"/>')
     # the robe, flaring to the hem
-    body.append(f'<path d="M92 168 L164 168 Q186 260 194 426 L62 426 Q70 260 92 168 Z" fill="{p["robe"]}" stroke="{INK}" stroke-width="5"/>')
-    body.append(f'<path d="M62 426 L194 426" stroke="{p["trim"]}" stroke-width="7"/>')
-    body.append(f'<path d="M128 176 L128 420" stroke="{p["trim"]}" stroke-width="4" opacity="0.6"/>')
+    body.append(f'<path d="M92 168 L164 168 Q186 260 194 426 L62 426 Q70 260 92 168 Z" fill="url(#robe)" stroke="{INK}" stroke-width="5"/>')
+    body.append(f'<path d="M62 426 L194 426" stroke="url(#emb)" stroke-width="11"/>')
+    body.append(f'<path d="M128 176 L128 420" stroke="url(#gold)" stroke-width="4" opacity="0.7"/>')
+    for x0, x1 in ((112, 104), (144, 152)):
+        body.append(f'<path d="M{x0} 200 Q{x1} 300 {x0 - 6 if x0 < 128 else x0 + 6} 420" fill="none" stroke="{darker(p["robe"], 0.45)}" stroke-width="3" opacity="0.5"/>')
+    body.append(f'<path d="M96 178 L160 178" stroke="url(#emb)" stroke-width="9"/>')
     # arms
-    body.append(f'<path d="M92 180 Q66 260 80 332 L98 326 Q90 264 110 196 Z" fill="{p["robe"]}" stroke="{INK}" stroke-width="4"/>')
-    body.append(f'<path d="M164 180 Q190 260 178 330 L160 326 Q168 264 146 196 Z" fill="{p["robe"]}" stroke="{INK}" stroke-width="4"/>')
-    body.append(f'<circle cx="89" cy="334" r="9" fill="{SKIN}" stroke="{INK}" stroke-width="3"/>')
-    body.append(f'<circle cx="169" cy="332" r="9" fill="{SKIN}" stroke="{INK}" stroke-width="3"/>')
+    body.append(f'<path d="M92 180 Q66 260 80 332 L98 326 Q90 264 110 196 Z" fill="url(#robe)" stroke="{INK}" stroke-width="4"/>')
+    body.append(f'<path d="M164 180 Q190 260 178 330 L160 326 Q168 264 146 196 Z" fill="url(#robe)" stroke="{INK}" stroke-width="4"/>')
+    body.append(f'<circle cx="89" cy="334" r="9" fill="url(#skin)" stroke="{INK}" stroke-width="3"/>')
+    body.append(f'<circle cx="169" cy="332" r="9" fill="url(#skin)" stroke="{INK}" stroke-width="3"/>')
     # head at the top
     body.append(f'<g transform="translate(128 112)">{head_group(p, p, 0.82).replace(chr(60)+"g transform=\"scale(0.82)\">", "")}</g>'
                 .replace('</g></g>', '</g>'))
@@ -205,17 +277,17 @@ def item(kind):
         return (f'<ellipse cx="64" cy="72" rx="40" ry="24" fill="#c58a4a" stroke="{INK}" stroke-width="4"/>'
                 f'<path d="M44 66 Q64 52 84 66" fill="none" stroke="{INK}" stroke-width="3"/>')
     if kind == "candle":
-        return (f'<rect x="56" y="50" width="16" height="56" fill="{PARCH}" stroke="{INK}" stroke-width="3"/>'
-                f'<path d="M64 24 Q76 42 64 52 Q52 42 64 24 Z" fill="{GOLD}" stroke="{INK}" stroke-width="2"/>')
+        return (f'<rect x="56" y="50" width="16" height="56" fill="url(#parch)" stroke="{INK}" stroke-width="3"/>'
+                f'<path d="M64 24 Q76 42 64 52 Q52 42 64 24 Z" fill="url(#gold)" stroke="{INK}" stroke-width="2"/>')
     if kind == "book":
         return (f'<rect x="30" y="38" width="68" height="52" rx="3" fill="#7a2e2a" stroke="{INK}" stroke-width="4"/>'
-                f'<rect x="36" y="44" width="56" height="40" fill="{PARCH}"/>'
-                f'<rect x="60" y="38" width="8" height="52" fill="{GOLD}" stroke="{INK}" stroke-width="2"/>')
+                f'<rect x="36" y="44" width="56" height="40" fill="url(#parch)"/>'
+                f'<rect x="60" y="38" width="8" height="52" fill="url(#gold)" stroke="{INK}" stroke-width="2"/>')
     if kind == "cross":
-        return (f'<rect x="56" y="22" width="16" height="84" fill="{GOLD}" stroke="{INK}" stroke-width="3"/>'
-                f'<rect x="34" y="42" width="60" height="16" fill="{GOLD}" stroke="{INK}" stroke-width="3"/>')
+        return (f'<rect x="56" y="22" width="16" height="84" fill="url(#gold)" stroke="{INK}" stroke-width="3"/>'
+                f'<rect x="34" y="42" width="60" height="16" fill="url(#gold)" stroke="{INK}" stroke-width="3"/>')
     if kind == "bell":
-        return (f'<path d="M38 88 Q38 38 64 34 Q90 38 90 88 L98 100 L30 100 Z" fill="{GOLD}" stroke="{INK}" stroke-width="4"/>'
+        return (f'<path d="M38 88 Q38 38 64 34 Q90 38 90 88 L98 100 L30 100 Z" fill="url(#gold)" stroke="{INK}" stroke-width="4"/>'
                 f'<circle cx="64" cy="106" r="7" fill="{INK}"/>')
     if kind == "grain":
         out = [f'<path d="M64 118 L64 26" stroke="#b8862e" stroke-width="4" fill="none"/>']
@@ -241,10 +313,10 @@ def item(kind):
                 f'<circle cx="28" cy="69" r="3.5" fill="{WOOD}"/>')
     if kind == "hammer":
         return (f'<rect x="60" y="40" width="8" height="78" fill="{WOOD}" stroke="{INK}" stroke-width="2"/>'
-                f'<rect x="36" y="26" width="52" height="20" fill="{STEEL}" stroke="{INK}" stroke-width="3"/>')
+                f'<rect x="36" y="26" width="52" height="20" fill="url(#steel)" stroke="{INK}" stroke-width="3"/>')
     if kind == "sword":
         return (f'<path d="M64 14 L72 84 L64 94 L56 84 Z" fill="#c8ccd2" stroke="{INK}" stroke-width="3"/>'
-                f'<rect x="40" y="84" width="48" height="8" fill="{GOLD}" stroke="{INK}" stroke-width="2"/>'
+                f'<rect x="40" y="84" width="48" height="8" fill="url(#gold)" stroke="{INK}" stroke-width="2"/>'
                 f'<rect x="60" y="92" width="8" height="22" fill="#5a3a22" stroke="{INK}" stroke-width="2"/>')
     if kind == "shield":
         return (f'<path d="M34 28 L94 28 L94 74 Q94 102 64 112 Q34 102 34 74 Z" fill="#b0503c" stroke="{INK}" stroke-width="4"/>'
@@ -257,7 +329,7 @@ def item(kind):
                 f'<path d="M98 14 Q76 36 58 60" fill="none" stroke="{INK}" stroke-width="2" opacity="0.4"/>'
                 f'<path d="M46 112 L40 120" stroke="{INK}" stroke-width="3"/>')
     if kind == "ladle":
-        return (f'<circle cx="58" cy="50" r="20" fill="{STEEL}" stroke="{INK}" stroke-width="4"/>'
+        return (f'<circle cx="58" cy="50" r="20" fill="url(#steel)" stroke="{INK}" stroke-width="4"/>'
                 f'<rect x="72" y="62" width="9" height="56" fill="{WOOD}" stroke="{INK}" stroke-width="2" transform="rotate(30 76 62)"/>')
     if kind == "shell":
         ribs = "".join(f'<path d="M64 110 L{x} {y}" stroke="{INK}" stroke-width="2"/>'
@@ -268,7 +340,7 @@ def item(kind):
 
 def item_icon(kind):
     """An item on its own: a roundel of tapestry with the item centred."""
-    body = [f'<defs><pattern id="f" width="24" height="24" patternUnits="userSpaceOnUse"><rect width="24" height="24" fill="#2a2119"/>'
+    body = [defs_common() + '<defs><pattern id="f" width="24" height="24" patternUnits="userSpaceOnUse"><rect width="24" height="24" fill="#2a2119"/>'
             f'<path d="M12 2 L22 12 L12 22 L2 12 Z" fill="#3d3024" opacity="0.8"/></pattern></defs>',
             f'<rect width="128" height="128" fill="url(#f)"/>',
             f'<circle cx="64" cy="64" r="58" fill="none" stroke="{GOLD}" stroke-width="5"/>',
