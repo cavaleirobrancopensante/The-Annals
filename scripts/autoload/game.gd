@@ -140,10 +140,13 @@ func _practice() -> void:
 		_note_level(g)
 	for r in Skills.weekly_reviews():
 		var name := WorldState.display_name(r["monk"])
-		if r["yes"]:
-			Chronicle.add(tr("review.yes") % [name, Paths.name_of(str(r["monk"]["path"]))], "review")
+		if r.has("reveal"):
+			Chronicle.add(tr("review.reveal") % [name, Paths.name_of(str(r["monk"]["path"]))], "review")
 		else:
-			Chronicle.add(tr("review.no") % [WorldState.job_name(str(r["job"])), name], "review")
+			var names := []
+			for id in r["candidates"]:
+				names.append(Paths.name_of(str(id)))
+			Chronicle.add(tr("review.hint") % [WorldState.job_name(str(r["job"])), name, ", ".join(names)], "review")
 	var t := Skills.weekly_training()
 	for g in t["gained"]:
 		_note_level(g)

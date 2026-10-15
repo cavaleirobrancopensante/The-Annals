@@ -26,8 +26,12 @@ const TEACHER_LEVEL := 3
 const GENERALIST_CAP := 3
 ## The path each job tests at the year's review. Monks, priests, soldiers and pilgrims have no job here.
 const JOB_PATH := {"fields": "householder", "woods": "builder", "hunt": "hunter", "kitchen": "cook", "infirmary": "healer", "scriptorium": "scribe"}
-## Weeks at one job before a hidden brother's year review.
-const REVIEW_WEEKS := 52
+## A hidden brother's progress at one job. At HINT_WEEKS he gets a hint of his path (a shortlist
+## that always holds the true path). At REVEAL_WEEKS, if his job is his path, the path is revealed.
+## Work at level EXPERIENCED_LEVEL or more adds double progress, so skilled brothers are reviewed sooner.
+const HINT_WEEKS := 52.0
+const REVEAL_WEEKS := 104.0
+const EXPERIENCED_LEVEL := 3
 
 var stat_ids: Array = []
 var stat_names := {}
@@ -200,9 +204,10 @@ func weekly_practice() -> Array:
 
 
 ## The year at a job. A brother with a hidden path who has worked one job for a year learns whether
-## his calling is that work. Yes reveals his path; no adds the job to his ruled-out list and the path stays hidden.
+## his calling is that work, in degrees. A hint names a shortlist of paths; a job that is not his path
+## is ruled out and not counted again. Reveal comes later, only if the job is his path.
 ## Only the jobs in JOB_PATH are reviewed; monks, priests, soldiers and pilgrims are revealed by events alone.
-## Returns the reviews made this week, each with its brother, the job, and whether it was a yes.
+## Returns this week's hints and reveals, each with its brother and job.
 func weekly_reviews() -> Array:
 	var reviews := []
 	for m in WorldState.home_monks():
@@ -211,17 +216,39 @@ func weekly_reviews() -> Array:
 		var job := WorldState.job_of(m)
 		if not JOB_PATH.has(job) or WorldState.job_blocked(job) or job in _ruled_out(m):
 			continue
-		m["job_weeks"] = int(m.get("job_weeks", 0)) + 1
-		if int(m["job_weeks"]) < REVIEW_WEEKS:
-			continue
-		m["job_weeks"] = 0
-		var yes := str(JOB_PATH[job]) == str(m.get("path", ""))
-		if yes:
+		# Work at a job adds progress; work already at level three or more adds twice as much.
+		var skill := str(JOB_SKILL[job])
+		m["job_weeks"] = float(m.get("job_weeks", 0.0)) + (2.0 if level(m, skill) >= EXPERIENCED_LEVEL else 1.0)
+		var matches := str(JOB_PATH[job]) == str(m.get("path", ""))
+		if not bool(m.get("hinted", false)) and float(m["job_weeks"]) >= HINT_WEEKS:
+			m["hinted"] = true
+			m["candidates"] = _candidates(m, job, matches)
+			if not matches:
+				_ruled_out(m).append(job)
+			reviews.append({"monk": m, "job": job, "hint": true, "candidates": m["candidates"]})
+		if matches and float(m["job_weeks"]) >= REVEAL_WEEKS:
 			Paths.reveal(m)
-		else:
-			_ruled_out(m).append(job)
-		reviews.append({"monk": m, "job": job, "yes": yes})
+			reviews.append({"monk": m, "job": job, "reveal": true})
 	return reviews
+
+
+## A hint names the true path with two others. A brother whose job is not his path also has
+## that job left out of the hint, so the hint never names the job he is ruled out from.
+func _candidates(m: Dictionary, job: String, matches: bool) -> Array:
+	var true_path := str(m.get("path", ""))
+	var pool := []
+	for id in Paths._order:
+		if id != true_path and (matches or id != str(JOB_PATH[job])):
+			pool.append(id)
+	var out := [true_path]
+	for i in 2:
+		if pool.is_empty():
+			break
+		out.append(pool.pop_at(Oracle.range_int(0, pool.size() - 1)))
+	var shuffled := []
+	while not out.is_empty():
+		shuffled.append(out.pop_at(Oracle.range_int(0, out.size() - 1)))
+	return shuffled
 
 
 func _ruled_out(m: Dictionary) -> Array:
