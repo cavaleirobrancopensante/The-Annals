@@ -12,6 +12,7 @@ func _ready() -> void:
 	var years := 3
 	var build_policy := true
 	var road_policy := true
+	var job_policy := "--passive" not in OS.get_cmdline_user_args()
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--seed="):
 			seed_value = int(arg.get_slice("=", 1))
@@ -25,6 +26,8 @@ func _ready() -> void:
 	Game.new_game(seed_value)
 	var choices_made := 0
 	var hunger_weeks := 0
+	var field_sum := 0
+	var home_sum := 0
 	var cold_weeks := 0
 	var builds := []
 	var sent := 0
@@ -40,6 +43,8 @@ func _ready() -> void:
 				if WorldState.can_build(b) and Game.build(b):
 					builds.append("%s (year %d)" % [b, WorldState.year()])
 					break
+		if job_policy and i % 4 == 0:
+			_assign_jobs()
 		if road_policy and i % 16 == 4:
 			sent += _send_party()
 		if road_policy and i % 60 == 30:
@@ -57,6 +62,8 @@ func _ready() -> void:
 			if p["arrived"] and not arrived_ids.has(p["id"]):
 				arrived_ids[p["id"]] = true
 				arrivals += 1
+		field_sum += WorldState.count_working("fields")
+		home_sum += WorldState.home_monks().size()
 		if WorldState.has_tag("hunger"):
 			hunger_weeks += 1
 		if WorldState.has_tag("cold"):
@@ -96,6 +103,12 @@ func _ready() -> void:
 	print("Skirmishes fought: %d" % Chronicle.entries.filter(func(e): return e.get("kind", "") == "skirmish").size())
 	print("Great feasts kept: %d" % Chronicle.entries.filter(func(e): return e.get("kind", "") == "feast").size())
 	print("Weeks hungry: %d, weeks cold: %d" % [hunger_weeks, cold_weeks])
+	var weeks_run := maxi(1, WorldState.week)
+	var known := 0
+	for mm in WorldState.monks:
+		if bool(mm.get("path_known", false)):
+			known += 1
+	print("Field workers: %.1f a week of %.1f at home. Paths known: %d of %d brothers ever." % [float(field_sum) / weeks_run, float(home_sum) / weeks_run, known, WorldState.monks.size()])
 	print("World tags: %s" % str(WorldState.tags.keys()))
 	var fired := EventEngine.fired.keys()
 	fired.sort()
@@ -169,4 +182,23 @@ func _change_rule() -> bool:
 	var options: Array = axis["options"]
 	var option = Oracle.pick(options)
 	return Game.set_rule(str(axis["id"]), str(option["id"]))
+
+
+## A careful keeper's rota: three on the fields, two at the woods, one hunting, one in the kitchen,
+## and the rest on the fields. Scriptorium and infirmary once built.
+func _assign_jobs() -> void:
+	var home := WorldState.home_monks()
+	home.sort_custom(func(a, b): return int(a["id"]) < int(b["id"]))
+	var plan := ["fields", "fields", "fields", "woods", "woods", "hunt", "kitchen"]
+	var i := 0
+	for m in home:
+		var job := "fields"
+		if i < plan.size():
+			job = plan[i]
+		elif WorldState.has_building("scriptorium") and i % 3 == 0:
+			job = "scriptorium"
+		elif WorldState.has_building("infirmary") and i % 3 == 1:
+			job = "infirmary"
+		Game.set_job(m, job)
+		i += 1
 

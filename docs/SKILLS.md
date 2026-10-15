@@ -115,3 +115,11 @@ Decided for now: a village is either under the house's control or not. Allied lo
 1. Does the skill cap of 5 apply to stats too? (Drafted as yes.)
 2. Can a brother leave his path and take another, or does each path end his growth permanently? (Drafted: he can leave by event only.)
 3. How strongly should placement raise the odds of a reveal (a village alms trip, a retreat, a road party) compared with the odds of a plain event? (Not yet set.)
+
+## Balance check (simulator, 50 years, seeds 7, 11, 23)
+
+Run with `tests/simulate.tscn -- --seed=N --years=50`. The simulator keeps a careful rota by default (about four or five brothers on the fields, two at the woods, one hunting, one in the kitchen); `--passive` leaves every brother on the job his vocation gives.
+
+- **Food.** Passive houses went hungry in 195 to 713 weeks of 2,600. The rota reduced it to zero on all three seeds, with about 10 cold weeks. The default jobs are the problem, not the yields. A starving house is warned by the forecast, but it has no signal that the fields are the fix. The tutorial's estate step is the place to say so.
+- **Growth.** Under the rota, 112 to 119 skills reached level 3, but the highest level reached was 3 or 4. Only 8 or 9 brothers in about 70 ever had their path revealed. Hidden brothers stop at level 3, so most of the house never grows past it.
+- **Decision for the designer.** Three options: reveal a path by time served (a brother who has worked a job for a year shows his path), raise the generalist cap from 3 to 4, or keep the cap and add reveal events. The numbers do not choose between them.
