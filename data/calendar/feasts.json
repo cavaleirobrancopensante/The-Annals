@@ -1,5 +1,5 @@
 {
-  "_note": "The Roman calendar of 1962, before the Second Vatican Council. Ranks: great = first class, high = second class. Fixed feasts and their classes are checked against the 1960 General Roman Calendar, which has the 1962 rubrics. Corpus Christi and the Sacred Heart are not yet checked. Local feasts are marked.",
+  "_note": "The Roman calendar of 1962, before the Second Vatican Council. Ranks: great = first class, high = second class. Fixed feasts and their classes are checked against the 1960 General Roman Calendar, which has the 1962 rubrics. Corpus Christi and the Sacred Heart are first class, as in the 1960 rubrics; the web sources checked did not state their rank, so confirm against a 1962 Ordo. Local feasts are marked.",
   "fixed": [
     {
       "id": "circumcision",
