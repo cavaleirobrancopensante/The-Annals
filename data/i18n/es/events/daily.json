@@ -1,0 +1,581 @@
+[
+	{
+		"id": "thaw_road",
+		"title": "El camino es un río",
+		"weight": 4,
+		"cooldown": 35,
+		"text": "El deshielo ha convertido el camino al pueblo en un río de barro.",
+		"choices": [
+			{
+				"label": "Mandar a los muchachos con piedras",
+				"effects": {
+					"firewood": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, los muchachos pusieron piedras en lo peor del camino, y las carretas volvieron a pasar el domingo."
+			},
+			{
+				"label": "Dejar que el camino espere al sol",
+				"effects": {},
+				"chronicle": "{When}, el camino se dejó al sol, y el pueblo dio la vuelta por el pantano."
+			}
+		]
+	},
+	{
+		"id": "weevil_flour",
+		"title": "Gorgojos en la harina",
+		"weight": 4,
+		"cooldown": 35,
+		"text": "La harina de la última entrega está llena de gorgojos, y el pan huele a ellos.",
+		"choices": [
+			{
+				"label": "Tamizarla y hornearla igual",
+				"effects": {
+					"food": -1
+				},
+				"chronicle": "{When}, la harina se tamizó con un paño, y el pan se comió sin preguntar qué tenía dentro."
+			},
+			{
+				"label": "Tirar el saco entero",
+				"effects": {
+					"food": -3
+				},
+				"chronicle": "{When}, el saco fue al montón de basura, y la casa pasó un día con menos pan."
+			}
+		]
+	},
+	{
+		"id": "tallow_candles",
+		"title": "Sebo, no cera",
+		"weight": 3,
+		"cooldown": 45,
+		"text": "El fabricante de velas ha subido del pueblo con un tarro de sebo en vez de cera.",
+		"choices": [
+			{
+				"label": "Comprar el sebo",
+				"effects": {
+					"food": -2
+				},
+				"chronicle": "{When}, se compró el sebo, y la capilla olió a carnero todo el invierno."
+			},
+			{
+				"label": "Usar el sebo en la cocina y guardar la cera",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, el sebo fue a la cocina, la capilla se alumbró con la cera vieja, y los hermanos mayores refunfuñaron."
+			}
+		]
+	},
+	{
+		"id": "snoring_brother",
+		"title": "El hermano que ronca",
+		"weight": 3,
+		"cooldown": 40,
+		"text": "Los ronquidos de un hermano han mantenido despierto el dormitorio durante un mes.",
+		"choices": [
+			{
+				"label": "Mudarlo a la hospedería",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, el hermano que ronca fue mudado a la hospedería, y el dormitorio durmió, y la hospedería no."
+			},
+			{
+				"label": "Dejarles dormir en la capilla",
+				"effects": {
+					"goodwill": 1,
+					"firewood": -1
+				},
+				"chronicle": "{When}, el dormitorio durmió en la capilla junto al fuego, y los ronquidos siguieron solos."
+			}
+		]
+	},
+	{
+		"id": "swallows_nest",
+		"title": "Golondrinas en el campanario",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "Un par de golondrinas ha hecho un nido en el campanario, sobre la cuerda de la campana.",
+		"choices": [
+			{
+				"label": "Dejarlas en paz",
+				"effects": {
+					"goodwill": 1
+				},
+				"chronicle": "{When}, las golondrinas se quedaron en el campanario, y los hermanos dijeron que eran señal de primavera."
+			},
+			{
+				"label": "Derribar el nido",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, el nido se derribó, y las golondrinas se fueron por el pantano y no volvieron ese año."
+			}
+		]
+	},
+	{
+		"id": "turnips_stolen",
+		"title": "Nabos robados",
+		"weight": 4,
+		"cooldown": 40,
+		"when": {
+			"min": {
+				"food": 0
+			}
+		},
+		"text": "Alguien ha desenterrado nabos durante la noche en el campo de arriba.",
+		"choices": [
+			{
+				"label": "Poner vigilancia en el campo",
+				"effects": {
+					"firewood": -1
+				},
+				"chronicle": "{When}, se puso vigilancia en el campo de arriba, y un hermano estuvo tres noches al frío."
+			},
+			{
+				"label": "Culpar a los muchachos del pueblo",
+				"effects": {
+					"village_standing": -2
+				},
+				"chronicle": "{When}, la casa culpó a los muchachos del pueblo, y el pueblo no olvidó quién lo dijo."
+			}
+		]
+	},
+	{
+		"id": "wet_woodshed",
+		"title": "Leña mojada",
+		"weight": 4,
+		"cooldown": 40,
+		"text": "El tejado de la leñera ha dejado entrar la lluvia sobre la leña del invierno.",
+		"choices": [
+			{
+				"label": "Secarla junto al fuego de la cocina",
+				"effects": {
+					"firewood": -2,
+					"food": 1
+				},
+				"chronicle": "{When}, la leña se secó junto al fuego de la cocina, y la cocina tuvo calor una semana y un poco de pan de más."
+			},
+			{
+				"label": "Quemarla húmeda a ver qué pasa",
+				"effects": {
+					"medicine": -1
+				},
+				"chronicle": "{When}, la leña húmeda se quemó, el humo fue malo, y dos hermanos tosieron por el salón durante días."
+			}
+		]
+	},
+	{
+		"id": "pilgrim_cough",
+		"title": "Una tos a la puerta",
+		"weight": 4,
+		"cooldown": 40,
+		"when": {
+			"min": {
+				"food": 0
+			}
+		},
+		"text": "Un peregrino ha llegado a la puerta con una tos fuerte y pide cama en la hospedería.",
+		"choices": [
+			{
+				"label": "Darle cama y la medicina",
+				"effects": {
+					"medicine": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, al peregrino se le dio cama y medicina, y partió al amanecer con una bendición."
+			},
+			{
+				"label": "Mandarlo al pueblo",
+				"effects": {
+					"village_standing": -1
+				},
+				"chronicle": "{When}, el peregrino fue mandado al pueblo, y el pueblo tuvo que recibirlo."
+			}
+		]
+	},
+	{
+		"id": "bog_road_map",
+		"title": "Un mapa del camino del pantano",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "Un viajero enseña un mapa del camino del pantano mejor que el de la casa.",
+		"choices": [
+			{
+				"label": "Comprar el mapa con pan",
+				"effects": {
+					"food": -3,
+					"books": 1
+				},
+				"chronicle": "{When}, el mapa se compró por pan, y se copió en el libro de caminos del scriptorium."
+			},
+			{
+				"label": "Copiarlo en el scriptorium",
+				"effects": {},
+				"chronicle": "{When}, el mapa se copió deprisa y sin cuidado, y la copia no era mejor que la de la casa."
+			}
+		]
+	},
+	{
+		"id": "weir_eels",
+		"title": "La cerca de las anguilas",
+		"weight": 3,
+		"cooldown": 45,
+		"text": "La cerca de anguilas en la desembocadura del río está llena, pero los pescadores dicen que la casa no tiene derecho a ella.",
+		"choices": [
+			{
+				"label": "Repartir la pesca",
+				"effects": {
+					"food": 3,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, la pesca se repartió con los pescadores, y dijeron la bendición sobre las anguilas con los hermanos."
+			},
+			{
+				"label": "Quedarse con la cerca",
+				"effects": {
+					"food": 4,
+					"goodwill": -1
+				},
+				"chronicle": "{When}, la cerca se quedó con la casa, y los pescadores volvieron a casa refunfuñando por la orilla."
+			}
+		]
+	},
+	{
+		"id": "gate_snow_carter",
+		"title": "Un carretero en la nieve",
+		"weight": 3,
+		"cooldown": 45,
+		"text": "La nieve ha cegado la puerta, y un carretero se ha quedado fuera con una carga de sal.",
+		"choices": [
+			{
+				"label": "Desenterrarlo",
+				"effects": {
+					"food": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, los hermanos desenterraron al carretero, y él les dio un saco de sal por su trabajo."
+			},
+			{
+				"label": "Esperar el deshielo",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, el carretero esperó tres días en la nieve, y la sal se echó a perder con la humedad."
+			}
+		]
+	},
+	{
+		"id": "hymnal_pages",
+		"title": "Tres páginas perdidas",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "Faltan tres páginas del himnario en el libro del atril.",
+		"choices": [
+			{
+				"label": "Copiarlas otra vez",
+				"effects": {
+					"books": -1
+				},
+				"chronicle": "{When}, las tres páginas se copiaron otra vez del libro de la sala capitular, y el atril tuvo sus himnos."
+			},
+			{
+				"label": "Cantar de memoria",
+				"effects": {},
+				"chronicle": "{When}, los himnos se cantaron de memoria, y las páginas perdidas solo las echó de menos el copista."
+			}
+		]
+	},
+	{
+		"id": "sick_goat",
+		"title": "La cabra coja",
+		"weight": 3,
+		"cooldown": 40,
+		"text": "La cabra que da leche se ha quedado coja de una pata trasera.",
+		"choices": [
+			{
+				"label": "Entablillarle la pata",
+				"effects": {
+					"medicine": -1,
+					"food": 1
+				},
+				"chronicle": "{When}, la pata se entablilló, la cabra volvió a andar y dio un poco de leche."
+			},
+			{
+				"label": "Matarla para el puchero",
+				"effects": {
+					"food": 3,
+					"goodwill": -1
+				},
+				"chronicle": "{When}, la cabra fue al puchero, y los niños preguntaron adónde había ido la leche."
+			}
+		]
+	},
+	{
+		"id": "young_boy_letters",
+		"title": "Un muchacho pide letras",
+		"weight": 3,
+		"cooldown": 60,
+		"text": "Un muchacho de doce años ha llegado a la puerta y pregunta si puede aprender sus letras.",
+		"choices": [
+			{
+				"label": "Recibirlo para enseñarle",
+				"effects": {
+					"goodwill": 1,
+					"food": -1
+				},
+				"chronicle": "{When}, el muchacho fue recibido para aprender sus letras, y aprendió el abecedario antes de la helada."
+			},
+			{
+				"label": "Mandarlo a casa con una hoja del salterio",
+				"effects": {
+					"books": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, el muchacho volvió a casa con una hoja del salterio, y la madre lloró en la puerta."
+			}
+		]
+	},
+	{
+		"id": "fire_drill",
+		"title": "El simulacro nocturno",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "El abad ordena un simulacro de incendio de noche, y los hermanos se quejan amargamente.",
+		"choices": [
+			{
+				"label": "Mantener el simulacro",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, el simulacro se mantuvo, y la casa salió al frío en camisa, y refunfuñó de camino a la cama."
+			},
+			{
+				"label": "Cancelarlo",
+				"effects": {
+					"goodwill": 1
+				},
+				"chronicle": "{When}, el simulacro se canceló, los hermanos durmieron, y los cubos se quedaron junto al pozo."
+			}
+		]
+	},
+	{
+		"id": "merchant_salt",
+		"title": "Sal por una regla",
+		"weight": 3,
+		"cooldown": 50,
+		"when": {
+			"min": {
+				"books": 1
+			}
+		},
+		"text": "Un mercader ofrece un saco de sal a cambio de una copia de la Regla.",
+		"choices": [
+			{
+				"label": "Cambiar la copia por sal",
+				"effects": {
+					"books": -1,
+					"food": 4
+				},
+				"chronicle": "{When}, una copia de la Regla bajó por el camino a cambio de sal, y el mercader juró que la casa había hecho buen negocio."
+			},
+			{
+				"label": "Rechazarlo",
+				"effects": {},
+				"chronicle": "{When}, el mercader fue rechazado, y siguió camino abajo con la sal sin vender."
+			}
+		]
+	},
+	{
+		"id": "oak_from_bog",
+		"title": "Un roble del pantano",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "Hombres del pantano han desenterrado un gran tronco de roble y lo ofrecen como madera a la casa.",
+		"choices": [
+			{
+				"label": "Llevarlo para leña",
+				"effects": {
+					"firewood": 6,
+					"food": -2
+				},
+				"chronicle": "{When}, el roble se cortó y se apiló, y ardió despacio durante el invierno con olor a pantano."
+			},
+			{
+				"label": "Rechazarlo",
+				"effects": {},
+				"chronicle": "{When}, el roble fue rechazado, y los hombres del pantano se lo llevaron para vender en la ciudad."
+			}
+		]
+	},
+	{
+		"id": "storm_sheet",
+		"title": "Plomo arrancado",
+		"weight": 4,
+		"cooldown": 40,
+		"text": "Una tormenta ha arrancado una plancha de plomo del tejado de la capilla, y cuelga de un clavo.",
+		"choices": [
+			{
+				"label": "Tirar de ella con cuerdas",
+				"effects": {
+					"firewood": -2,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, el plomo se tiró de vuelta con cuerdas en el viento, y los hermanos cantaron todo el tiempo para tener firmes las manos."
+			},
+			{
+				"label": "Remendarla con tela embreada",
+				"effects": {
+					"firewood": -1
+				},
+				"chronicle": "{When}, el tejado se remendó con tela embreada, y el remiendo aguantó hasta la primavera."
+			}
+		]
+	},
+	{
+		"id": "rain_barrel",
+		"title": "El barril agrietado",
+		"weight": 3,
+		"cooldown": 40,
+		"text": "El barril de la lluvia junto a la puerta de la cocina se ha agrietado a lo largo de una duela.",
+		"choices": [
+			{
+				"label": "Remendarlo con brea",
+				"effects": {
+					"firewood": -1
+				},
+				"chronicle": "{When}, el barril se remendó con brea y volvió a recoger la lluvia."
+			},
+			{
+				"label": "Poner un cubo bajo la grieta",
+				"effects": {},
+				"chronicle": "{When}, se puso un cubo bajo la grieta, y la cocina refunfuñó con cada gota."
+			}
+		]
+	},
+	{
+		"id": "sea_mist_bells",
+		"title": "Campanas en el agua",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "Ha entrado una niebla del mar, y los pescadores dicen que oyen campanas allá afuera, en el agua.",
+		"choices": [
+			{
+				"label": "Tocar la campana de la capilla para ellos",
+				"effects": {
+					"goodwill": 1,
+					"firewood": -1
+				},
+				"chronicle": "{When}, la campana de la capilla sonó para los pescadores a través de la niebla, y los barcos volvieron guiándose por ella."
+			},
+			{
+				"label": "Ignorarlo",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, la casa ignoró las campanas del agua, y los pescadores dijeron que no olvidarían quién se quedó callado."
+			}
+		]
+	},
+	{
+		"id": "bishop_secretary",
+		"title": "La visita del secretario",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "El secretario de un obispo quiere ver las cuentas de la casa, todas.",
+		"choices": [
+			{
+				"label": "Mostrarle todas las cuentas",
+				"effects": {
+					"goodwill": 1
+				},
+				"chronicle": "{When}, se mostraron todas las cuentas al secretario, y él escribió en su libro que la casa no tenía nada que ocultar."
+			},
+			{
+				"label": "Mostrarle solo las buenas páginas",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, solo se mostraron las buenas páginas, y el secretario lo sabía, y lo escribió también."
+			}
+		]
+	},
+	{
+		"id": "raven_bread",
+		"title": "El cuervo y los estantes",
+		"weight": 3,
+		"cooldown": 40,
+		"text": "Un cuervo roba migas de los estantes de secar, una a una, mientras la cocina lo mira.",
+		"choices": [
+			{
+				"label": "Poner una red sobre los estantes",
+				"effects": {
+					"firewood": -1
+				},
+				"chronicle": "{When}, se puso una red sobre los estantes, el cuervo fue atrapado y soltado de nuevo más allá del muro."
+			},
+			{
+				"label": "Dejar al pájaro su parte",
+				"effects": {
+					"food": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, el cuervo tuvo su parte, y la cocina se rio de él toda la semana."
+			}
+		]
+	},
+	{
+		"id": "young_brother_lost",
+		"title": "Una noche en el bosque",
+		"weight": 3,
+		"cooldown": 45,
+		"when": {
+			"monk": {
+				"max_age": 30,
+				"status": "home"
+			}
+		},
+		"text": "Un hermano joven ha estado desaparecido en el bosque durante una noche y un día.",
+		"choices": [
+			{
+				"label": "Enviar a dos hombres a buscarlo",
+				"effects": {
+					"food": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, dos hombres entraron en el bosque con antorchas, y encontraron al hermano al amanecer, dormido bajo un acebo, con un pájaro en las manos."
+			},
+			{
+				"label": "Rezar por él y esperar",
+				"effects": {
+					"monk_health": -1
+				},
+				"chronicle": "{When}, la casa rezó y esperó, y el hermano volvió al mediodía, helado y asustado, y lloró en la puerta."
+			}
+		]
+	},
+	{
+		"id": "wine_thief",
+		"title": "Alguien ha tocado el vino",
+		"weight": 3,
+		"cooldown": 40,
+		"text": "Alguien ha tocado el vino de la sacristía, y el jarro está medio vacío.",
+		"choices": [
+			{
+				"label": "Preguntar a los muchachos de la cocina",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, los muchachos de la cocina fueron interrogados uno a uno, y cada uno juró sobre el salterio que no lo había tocado."
+			},
+			{
+				"label": "Callar y comprar más",
+				"effects": {
+					"food": -2
+				},
+				"chronicle": "{When}, el jarro se volvió a llenar de la bodega, y nadie preguntó quién había bebido la primera mitad."
+			}
+		]
+	}
+]

@@ -1,0 +1,581 @@
+[
+	{
+		"id": "thaw_road",
+		"title": "A estrada virou rio",
+		"weight": 4,
+		"cooldown": 35,
+		"text": "O degelo transformou a estrada para a aldeia num rio de lama.",
+		"choices": [
+			{
+				"label": "Mandar os rapazes com pedras",
+				"effects": {
+					"firewood": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, os rapazes puseram pedras no pior da estrada, e as carroças voltaram a passar no domingo."
+			},
+			{
+				"label": "Deixar a estrada esperar pelo sol",
+				"effects": {},
+				"chronicle": "{When}, a estrada foi deixada ao sol, e a aldeia deu a volta pelo pântano."
+			}
+		]
+	},
+	{
+		"id": "weevil_flour",
+		"title": "Gorgulho na farinha",
+		"weight": 4,
+		"cooldown": 35,
+		"text": "A farinha da última entrega está cheia de gorgulhos, e o pão tem cheiro deles.",
+		"choices": [
+			{
+				"label": "Peneirá-la e cozer assim mesmo",
+				"effects": {
+					"food": -1
+				},
+				"chronicle": "{When}, a farinha foi peneirada num pano, e o pão foi comido sem perguntar o que tinha dentro."
+			},
+			{
+				"label": "Deitar fora o saco inteiro",
+				"effects": {
+					"food": -3
+				},
+				"chronicle": "{When}, o saco foi para o monte de lixo, e a casa passou um dia com menos pão."
+			}
+		]
+	},
+	{
+		"id": "tallow_candles",
+		"title": "Sebo, não cera",
+		"weight": 3,
+		"cooldown": 45,
+		"text": "O fabricante de velas subiu da aldeia com um pote de sebo em vez de cera.",
+		"choices": [
+			{
+				"label": "Comprar o sebo",
+				"effects": {
+					"food": -2
+				},
+				"chronicle": "{When}, o sebo foi comprado, e a capela cheirou a carneiro durante todo o inverno."
+			},
+			{
+				"label": "Usar o sebo na cozinha e guardar a cera",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, o sebo foi para a cozinha, a capela foi iluminada com a cera antiga, e os irmãos mais velhos resmungaram."
+			}
+		]
+	},
+	{
+		"id": "snoring_brother",
+		"title": "O irmão que ronca",
+		"weight": 3,
+		"cooldown": 40,
+		"text": "O ronco de um irmão mantém o dormitório acordado há um mês.",
+		"choices": [
+			{
+				"label": "Mudá-lo para a hospedaria",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, o irmão que ronca foi mudado para a hospedaria, e o dormitório dormiu, e a hospedaria não."
+			},
+			{
+				"label": "Deixá-los dormir na capela",
+				"effects": {
+					"goodwill": 1,
+					"firewood": -1
+				},
+				"chronicle": "{When}, o dormitório dormiu na capela junto ao fogo, e o ronco continuou sozinho."
+			}
+		]
+	},
+	{
+		"id": "swallows_nest",
+		"title": "Andorinhas no campanário",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "Um par de andorinhas fez um ninho no campanário, por cima da corda do sino.",
+		"choices": [
+			{
+				"label": "Deixá-las em paz",
+				"effects": {
+					"goodwill": 1
+				},
+				"chronicle": "{When}, as andorinhas ficaram no campanário, e os irmãos disseram que eram sinal da primavera."
+			},
+			{
+				"label": "Derrubar o ninho",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, o ninho foi derrubado, e as andorinhas foram-se pelo pântano e não voltaram naquele ano."
+			}
+		]
+	},
+	{
+		"id": "turnips_stolen",
+		"title": "Nabos roubados",
+		"weight": 4,
+		"cooldown": 40,
+		"when": {
+			"min": {
+				"food": 0
+			}
+		},
+		"text": "Alguém desenterrou nabos durante a noite no campo de cima.",
+		"choices": [
+			{
+				"label": "Pôr vigia no campo",
+				"effects": {
+					"firewood": -1
+				},
+				"chronicle": "{When}, pôs-se vigia no campo de cima, e um irmão ficou ao frio três noites."
+			},
+			{
+				"label": "Culpar os rapazes da aldeia",
+				"effects": {
+					"village_standing": -2
+				},
+				"chronicle": "{When}, a casa culpou os rapazes da aldeia, e a aldeia não esqueceu quem o disse."
+			}
+		]
+	},
+	{
+		"id": "wet_woodshed",
+		"title": "Lenha molhada",
+		"weight": 4,
+		"cooldown": 40,
+		"text": "O telhado da lenheira deixou entrar a chuva sobre a lenha do inverno.",
+		"choices": [
+			{
+				"label": "Secá-la junto ao fogo da cozinha",
+				"effects": {
+					"firewood": -2,
+					"food": 1
+				},
+				"chronicle": "{When}, a lenha foi seca junto ao fogo da cozinha, e a cozinha teve calor por uma semana e um pouco de pão a mais."
+			},
+			{
+				"label": "Queimá-la húmida e ver",
+				"effects": {
+					"medicine": -1
+				},
+				"chronicle": "{When}, a lenha húmida foi queimada, o fumo foi mau, e dois irmãos tossiram pelo salão durante dias."
+			}
+		]
+	},
+	{
+		"id": "pilgrim_cough",
+		"title": "Uma tosse à porta",
+		"weight": 4,
+		"cooldown": 40,
+		"when": {
+			"min": {
+				"food": 0
+			}
+		},
+		"text": "Um peregrino chegou à porta com uma tosse forte e pede uma cama na hospedaria.",
+		"choices": [
+			{
+				"label": "Dar-lhe cama e o remédio",
+				"effects": {
+					"medicine": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, o peregrino recebeu cama e remédio, e partiu ao amanhecer com uma bênção."
+			},
+			{
+				"label": "Mandá-lo para a aldeia",
+				"effects": {
+					"village_standing": -1
+				},
+				"chronicle": "{When}, o peregrino foi mandado para a aldeia, e a aldeia teve de o receber."
+			}
+		]
+	},
+	{
+		"id": "bog_road_map",
+		"title": "Um mapa do caminho do pântano",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "Um viajante mostra um mapa do caminho do pântano melhor do que o da casa.",
+		"choices": [
+			{
+				"label": "Comprar o mapa com pão",
+				"effects": {
+					"food": -3,
+					"books": 1
+				},
+				"chronicle": "{When}, o mapa foi comprado por pão, e copiado para o livro de estradas do escriptório."
+			},
+			{
+				"label": "Copiá-lo no escriptório",
+				"effects": {},
+				"chronicle": "{When}, o mapa foi copiado depressa e sem cuidado, e a cópia não era melhor do que a da casa."
+			}
+		]
+	},
+	{
+		"id": "weir_eels",
+		"title": "O cercado das enguias",
+		"weight": 3,
+		"cooldown": 45,
+		"text": "O cercado das enguias na foz do rio está cheio, mas os pescadores dizem que a casa não tem direito a ele.",
+		"choices": [
+			{
+				"label": "Repartir a pesca",
+				"effects": {
+					"food": 3,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, a pesca foi repartida com os pescadores, e disseram a bênção sobre as enguias com os irmãos."
+			},
+			{
+				"label": "Ficar com o cercado",
+				"effects": {
+					"food": 4,
+					"goodwill": -1
+				},
+				"chronicle": "{When}, o cercado ficou com a casa, e os pescadores foram para casa a resmungar pela praia."
+			}
+		]
+	},
+	{
+		"id": "gate_snow_carter",
+		"title": "Um carreteiro na neve",
+		"weight": 3,
+		"cooldown": 45,
+		"text": "A neve bloqueou o portão, e um carreteiro ficou de fora com uma carga de sal.",
+		"choices": [
+			{
+				"label": "Desenterrá-lo",
+				"effects": {
+					"food": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, os irmãos desenterraram o carreteiro, e ele deu-lhes um saco de sal pelo trabalho."
+			},
+			{
+				"label": "Esperar pelo degelo",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, o carreteiro esperou três dias na neve, e o sal se estragou com a humidade."
+			}
+		]
+	},
+	{
+		"id": "hymnal_pages",
+		"title": "Três folhas em falta",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "Três folhas do hinário estão em falta no livro do atril.",
+		"choices": [
+			{
+				"label": "Copiá-las outra vez",
+				"effects": {
+					"books": -1
+				},
+				"chronicle": "{When}, as três folhas foram copiadas outra vez do livro da sala do capítulo, e o atril teve os seus hinos."
+			},
+			{
+				"label": "Cantar de memória",
+				"effects": {},
+				"chronicle": "{When}, os hinos foram cantados de memória, e as folhas em falta só fizeram falta ao copista."
+			}
+		]
+	},
+	{
+		"id": "sick_goat",
+		"title": "A cabra manca",
+		"weight": 3,
+		"cooldown": 40,
+		"text": "A cabra que dá o leite ficou manca de uma pata traseira.",
+		"choices": [
+			{
+				"label": "Pôr-lhe talas na perna",
+				"effects": {
+					"medicine": -1,
+					"food": 1
+				},
+				"chronicle": "{When}, a perna foi posta com talas, a cabra voltou a andar, e deu um pouco de leite."
+			},
+			{
+				"label": "Abatê-la para a panela",
+				"effects": {
+					"food": 3,
+					"goodwill": -1
+				},
+				"chronicle": "{When}, a cabra foi para a panela, e as crianças perguntaram para onde tinha ido o leite."
+			}
+		]
+	},
+	{
+		"id": "young_boy_letters",
+		"title": "Um rapaz pede letras",
+		"weight": 3,
+		"cooldown": 60,
+		"text": "Um rapaz de doze anos chegou ao portão e pergunta se pode aprender as letras.",
+		"choices": [
+			{
+				"label": "Recebê-lo para aprender",
+				"effects": {
+					"goodwill": 1,
+					"food": -1
+				},
+				"chronicle": "{When}, o rapaz foi recebido para aprender as letras, e aprendeu o alfabeto antes da geada."
+			},
+			{
+				"label": "Mandá-lo para casa com uma folha do saltério",
+				"effects": {
+					"books": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, o rapaz voltou para casa com uma folha do saltério, e a mãe chorou à porta."
+			}
+		]
+	},
+	{
+		"id": "fire_drill",
+		"title": "O exercício da noite",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "O abade manda fazer um exercício de incêndio de noite, e os irmãos queixam-se muito.",
+		"choices": [
+			{
+				"label": "Manter o exercício",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, o exercício foi mantido, e a casa saiu para o frio de camisa, e resmungou pelo caminho de volta à cama."
+			},
+			{
+				"label": "Cancelá-lo",
+				"effects": {
+					"goodwill": 1
+				},
+				"chronicle": "{When}, o exercício foi cancelado, e os irmãos dormiram, e os baldes ficaram junto ao poço."
+			}
+		]
+	},
+	{
+		"id": "merchant_salt",
+		"title": "Sal por uma regra",
+		"weight": 3,
+		"cooldown": 50,
+		"when": {
+			"min": {
+				"books": 1
+			}
+		},
+		"text": "Um mercador oferece um saco de sal por uma cópia da Regra.",
+		"choices": [
+			{
+				"label": "Trocar a cópia por sal",
+				"effects": {
+					"books": -1,
+					"food": 4
+				},
+				"chronicle": "{When}, uma cópia da Regra desceu a estrada por sal, e o mercador jurou que a casa fizera um bom negócio."
+			},
+			{
+				"label": "Recusá-lo",
+				"effects": {},
+				"chronicle": "{When}, o mercador foi recusado, e seguiu estrada abaixo com o sal por vender."
+			}
+		]
+	},
+	{
+		"id": "oak_from_bog",
+		"title": "Um carvalho do pântano",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "Homens do pântano desenterraram um grande tronco de carvalho e oferecem-no como madeira à casa.",
+		"choices": [
+			{
+				"label": "Levá-lo para lenha",
+				"effects": {
+					"firewood": 6,
+					"food": -2
+				},
+				"chronicle": "{When}, o carvalho foi cortado e empilhado, e ardeu devagar durante o inverno com cheiro de pântano."
+			},
+			{
+				"label": "Recusá-lo",
+				"effects": {},
+				"chronicle": "{When}, o carvalho foi recusado, e os homens do pântano levaram-no para vender na cidade."
+			}
+		]
+	},
+	{
+		"id": "storm_sheet",
+		"title": "Chumbo arrancado",
+		"weight": 4,
+		"cooldown": 40,
+		"text": "Uma tempestade arrancou uma placa de chumbo do telhado da capela, e ela pende de um prego.",
+		"choices": [
+			{
+				"label": "Puxá-la de volta com cordas",
+				"effects": {
+					"firewood": -2,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, o chumbo foi puxado de volta com cordas no vento, e os irmãos cantaram o tempo todo para ter as mãos firmes."
+			},
+			{
+				"label": "Remendá-la com pano alcatroado",
+				"effects": {
+					"firewood": -1
+				},
+				"chronicle": "{When}, o telhado foi remendado com pano alcatroado, e o remendo aguentou até à primavera."
+			}
+		]
+	},
+	{
+		"id": "rain_barrel",
+		"title": "O barril rachado",
+		"weight": 3,
+		"cooldown": 40,
+		"text": "O barril da chuva junto à porta da cozinha rachou ao longo de uma aduela.",
+		"choices": [
+			{
+				"label": "Remendá-lo com breu",
+				"effects": {
+					"firewood": -1
+				},
+				"chronicle": "{When}, o barril foi remendado com breu e voltou a apanhar a chuva."
+			},
+			{
+				"label": "Pôr um balde por baixo da rachadura",
+				"effects": {},
+				"chronicle": "{When}, pôs-se um balde por baixo da rachadura, e a cozinha resmungou a cada pingo."
+			}
+		]
+	},
+	{
+		"id": "sea_mist_bells",
+		"title": "Sinos na água",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "Entrou uma névoa do mar, e os pescadores dizem que ouvem sinos lá fora, na água.",
+		"choices": [
+			{
+				"label": "Tocar o sino da capela para eles",
+				"effects": {
+					"goodwill": 1,
+					"firewood": -1
+				},
+				"chronicle": "{When}, o sino da capela tocou para os pescadores através da névoa, e os barcos voltaram por ele."
+			},
+			{
+				"label": "Ignorar",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, a casa ignorou os sinos da água, e os pescadores disseram que não esqueceriam quem ficou calado."
+			}
+		]
+	},
+	{
+		"id": "bishop_secretary",
+		"title": "A visita do secretário",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "O secretário de um bispo quer ver as contas da casa, todas elas.",
+		"choices": [
+			{
+				"label": "Mostrar-lhe todas as contas",
+				"effects": {
+					"goodwill": 1
+				},
+				"chronicle": "{When}, todas as contas foram mostradas ao secretário, e ele escreveu no seu livro que a casa nada tinha a esconder."
+			},
+			{
+				"label": "Mostrar-lhe só as boas páginas",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, só se mostraram as boas páginas, e o secretário sabia-o, e escreveu isso também."
+			}
+		]
+	},
+	{
+		"id": "raven_bread",
+		"title": "O corvo e as tábuas",
+		"weight": 3,
+		"cooldown": 40,
+		"text": "Um corvo rouba migalhas das tábuas de secar, uma a uma, enquanto a cozinha observa.",
+		"choices": [
+			{
+				"label": "Pôr uma rede sobre as tábuas",
+				"effects": {
+					"firewood": -1
+				},
+				"chronicle": "{When}, pôs-se uma rede sobre as tábuas, o corvo foi apanhado e solto de novo para além do muro."
+			},
+			{
+				"label": "Deixar o pássaro ficar com a sua parte",
+				"effects": {
+					"food": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, o corvo teve a sua parte, e a cozinha riu-se dele a semana toda."
+			}
+		]
+	},
+	{
+		"id": "young_brother_lost",
+		"title": "Uma noite no bosque",
+		"weight": 3,
+		"cooldown": 45,
+		"when": {
+			"monk": {
+				"max_age": 30,
+				"status": "home"
+			}
+		},
+		"text": "Um irmão jovem esteve desaparecido no bosque durante uma noite e um dia.",
+		"choices": [
+			{
+				"label": "Mandar dois homens à procura",
+				"effects": {
+					"food": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, dois homens entraram no bosque com archotes, e encontraram o irmão ao amanhecer, a dormir debaixo de um azevinho, com um pássaro nas mãos."
+			},
+			{
+				"label": "Rezar por ele e esperar",
+				"effects": {
+					"monk_health": -1
+				},
+				"chronicle": "{When}, a casa rezou e esperou, e o irmão voltou ao meio-dia, com frio e assustado, e chorou à porta."
+			}
+		]
+	},
+	{
+		"id": "wine_thief",
+		"title": "Alguém mexeu no vinho",
+		"weight": 3,
+		"cooldown": 40,
+		"text": "Alguém mexeu no vinho da sacristia, e o jarro está meio vazio.",
+		"choices": [
+			{
+				"label": "Perguntar aos rapazes da cozinha",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, os rapazes da cozinha foram interrogados um a um, e cada um jurou sobre o saltério que não tinha tocado nele."
+			},
+			{
+				"label": "Calar-se e comprar mais",
+				"effects": {
+					"food": -2
+				},
+				"chronicle": "{When}, o jarro foi enchido outra vez da adega, e ninguém perguntou quem tinha bebido a primeira metade."
+			}
+		]
+	}
+]

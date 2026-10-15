@@ -1,0 +1,581 @@
+[
+	{
+		"id": "thaw_road",
+		"title": "The Road Runs Like a River",
+		"weight": 4,
+		"cooldown": 35,
+		"text": "The thaw has turned the road to the village into a river of mud.",
+		"choices": [
+			{
+				"label": "Send the boys with stones",
+				"effects": {
+					"firewood": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the boys laid stones across the worst of the road, and the carts came through again by Sunday."
+			},
+			{
+				"label": "Let the road wait for the sun",
+				"effects": {},
+				"chronicle": "{When}, the road was left to the sun, and the village walked the long way round by the bog."
+			}
+		]
+	},
+	{
+		"id": "weevil_flour",
+		"title": "Weevils in the Flour",
+		"weight": 4,
+		"cooldown": 35,
+		"text": "The flour from the last delivery is full of weevils, and the bread smells of them.",
+		"choices": [
+			{
+				"label": "Sift it and bake it anyway",
+				"effects": {
+					"food": -1
+				},
+				"chronicle": "{When}, the flour was sifted through a cloth, and the bread was eaten without asking what was in it."
+			},
+			{
+				"label": "Throw the whole sack out",
+				"effects": {
+					"food": -3
+				},
+				"chronicle": "{When}, the sack was thrown on the midden, and the house went a day with less bread."
+			}
+		]
+	},
+	{
+		"id": "tallow_candles",
+		"title": "Tallow, Not Wax",
+		"weight": 3,
+		"cooldown": 45,
+		"text": "The candle-maker has come up from the village with a pot of tallow instead of wax.",
+		"choices": [
+			{
+				"label": "Buy the tallow",
+				"effects": {
+					"food": -2
+				},
+				"chronicle": "{When}, the tallow was bought, and the chapel smelled of mutton all winter."
+			},
+			{
+				"label": "Use the tallow in the kitchen and keep the wax",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, the tallow went to the kitchen, and the chapel was lit with the old wax, and the old brothers muttered."
+			}
+		]
+	},
+	{
+		"id": "snoring_brother",
+		"title": "The Snoring Brother",
+		"weight": 3,
+		"cooldown": 40,
+		"text": "One brother's snoring has kept the dormitory awake for a month.",
+		"choices": [
+			{
+				"label": "Move him to the guesthouse",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, the snoring brother was moved to the guesthouse, and the dormitory slept, and the guesthouse did not."
+			},
+			{
+				"label": "Let them sleep in the chapel",
+				"effects": {
+					"goodwill": 1,
+					"firewood": -1
+				},
+				"chronicle": "{When}, the dormitory slept in the chapel by the fire, and the snoring went on alone."
+			}
+		]
+	},
+	{
+		"id": "swallows_nest",
+		"title": "Swallows in the Bell-Tower",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "A pair of swallows has built a nest in the bell-tower, over the rope.",
+		"choices": [
+			{
+				"label": "Leave them be",
+				"effects": {
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the swallows were left in the bell-tower, and the brothers said they were a sign of spring."
+			},
+			{
+				"label": "Knock the nest down",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, the nest was knocked down, and the swallows went away over the bog and did not come back that year."
+			}
+		]
+	},
+	{
+		"id": "turnips_stolen",
+		"title": "Turnips Gone in the Night",
+		"weight": 4,
+		"cooldown": 40,
+		"when": {
+			"min": {
+				"food": 0
+			}
+		},
+		"text": "Turnips have been dug up in the night from the top field.",
+		"choices": [
+			{
+				"label": "Set a watch on the field",
+				"effects": {
+					"firewood": -1
+				},
+				"chronicle": "{When}, a watch was set on the top field, and a brother sat out in the cold for three nights."
+			},
+			{
+				"label": "Blame the village boys",
+				"effects": {
+					"village_standing": -2
+				},
+				"chronicle": "{When}, the house blamed the village boys, and the village did not forget who had said it."
+			}
+		]
+	},
+	{
+		"id": "wet_woodshed",
+		"title": "Wet Winter Wood",
+		"weight": 4,
+		"cooldown": 40,
+		"text": "The woodshed roof has let the rain in on the winter's wood.",
+		"choices": [
+			{
+				"label": "Dry it by the kitchen fire",
+				"effects": {
+					"firewood": -2,
+					"food": 1
+				},
+				"chronicle": "{When}, the wood was dried by the kitchen fire, and the kitchen had warmth for a week and a little extra bread."
+			},
+			{
+				"label": "Burn it damp and see",
+				"effects": {
+					"medicine": -1
+				},
+				"chronicle": "{When}, the damp wood was burned, and the smoke was bad, and two brothers coughed through the hall for days."
+			}
+		]
+	},
+	{
+		"id": "pilgrim_cough",
+		"title": "A Cough at the Gate",
+		"weight": 4,
+		"cooldown": 40,
+		"when": {
+			"min": {
+				"food": 0
+			}
+		},
+		"text": "A pilgrim has come to the gate with a bad cough and asks for a bed in the guesthouse.",
+		"choices": [
+			{
+				"label": "Give him a bed and the medicine",
+				"effects": {
+					"medicine": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the pilgrim was given a bed and the medicine, and left at dawn with a blessing and a new cough he would not talk about."
+			},
+			{
+				"label": "Send him on to the village",
+				"effects": {
+					"village_standing": -1
+				},
+				"chronicle": "{When}, the pilgrim was sent down to the village, and the village had to take him in."
+			}
+		]
+	},
+	{
+		"id": "bog_road_map",
+		"title": "A Map of the Bog Road",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "A traveller shows a map of the bog road that is better than the house's own.",
+		"choices": [
+			{
+				"label": "Buy the map with bread",
+				"effects": {
+					"food": -3,
+					"books": 1
+				},
+				"chronicle": "{When}, the map was bought for bread, and copied into the scriptorium's book of roads."
+			},
+			{
+				"label": "Copy it in the scriptorium",
+				"effects": {},
+				"chronicle": "{When}, the map was copied quickly and carelessly, and the copy was no better than the house's own."
+			}
+		]
+	},
+	{
+		"id": "weir_eels",
+		"title": "The Eel Weir",
+		"weight": 3,
+		"cooldown": 45,
+		"text": "The eel weir at the river mouth is full, but the fishermen say the house has no right to it.",
+		"choices": [
+			{
+				"label": "Share the catch",
+				"effects": {
+					"food": 3,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the catch was shared with the fishermen, and they said grace over the eels with the brothers."
+			},
+			{
+				"label": "Keep the weir",
+				"effects": {
+					"food": 4,
+					"goodwill": -1
+				},
+				"chronicle": "{When}, the weir was kept, and the fishermen went home grumbling along the shore."
+			}
+		]
+	},
+	{
+		"id": "gate_snow_carter",
+		"title": "A Carter in the Snow",
+		"weight": 3,
+		"cooldown": 45,
+		"text": "Snow has blocked the gate, and a carter is stuck outside with a load of salt.",
+		"choices": [
+			{
+				"label": "Dig him out",
+				"effects": {
+					"food": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the brothers dug the carter out, and he gave them a sack of salt for their trouble."
+			},
+			{
+				"label": "Wait for the thaw",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, the carter waited three days in the snow, and the salt was ruined by the wet."
+			}
+		]
+	},
+	{
+		"id": "hymnal_pages",
+		"title": "Three Pages Missing",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "Three pages of the hymnal are missing from the lectern book.",
+		"choices": [
+			{
+				"label": "Copy them again",
+				"effects": {
+					"books": -1
+				},
+				"chronicle": "{When}, three pages were copied again from the chapter house book, and the lectern had its hymns."
+			},
+			{
+				"label": "Sing from memory",
+				"effects": {},
+				"chronicle": "{When}, the hymns were sung from memory, and the missing pages were not missed by anyone but the copyist."
+			}
+		]
+	},
+	{
+		"id": "sick_goat",
+		"title": "The Lame Goat",
+		"weight": 3,
+		"cooldown": 40,
+		"text": "The goat that gives the milk has gone lame in the hind leg.",
+		"choices": [
+			{
+				"label": "Set the leg with splints",
+				"effects": {
+					"medicine": -1,
+					"food": 1
+				},
+				"chronicle": "{When}, the leg was set with splints, and the goat walked again, and gave a little milk."
+			},
+			{
+				"label": "Slaughter her for the pot",
+				"effects": {
+					"food": 3,
+					"goodwill": -1
+				},
+				"chronicle": "{When}, the goat went to the pot, and the children asked where the milk had gone."
+			}
+		]
+	},
+	{
+		"id": "young_boy_letters",
+		"title": "A Boy Asks for Letters",
+		"weight": 3,
+		"cooldown": 60,
+		"text": "A boy of twelve has come to the gate and asks whether he may be taught his letters.",
+		"choices": [
+			{
+				"label": "Take him in to be taught",
+				"effects": {
+					"goodwill": 1,
+					"food": -1
+				},
+				"chronicle": "{When}, the boy was taken in to learn his letters, and he learned the alphabet before the frost."
+			},
+			{
+				"label": "Send him home with a leaf of the psalter",
+				"effects": {
+					"books": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the boy went home with a leaf of the psalter, and his mother cried at the door."
+			}
+		]
+	},
+	{
+		"id": "fire_drill",
+		"title": "The Night Drill",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "The abbot orders a fire drill at night, and the brothers complain bitterly about it.",
+		"choices": [
+			{
+				"label": "Keep the drill",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, the drill was kept, and the house ran out into the cold in its shirts, and grumbled all the way back to bed."
+			},
+			{
+				"label": "Cancel it",
+				"effects": {
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the drill was cancelled, and the brothers slept, and the buckets stayed by the well where no one would find them in the dark."
+			}
+		]
+	},
+	{
+		"id": "merchant_salt",
+		"title": "Salt for a Rule",
+		"weight": 3,
+		"cooldown": 50,
+		"when": {
+			"min": {
+				"books": 1
+			}
+		},
+		"text": "A merchant offers a sack of salt for a copy of the Rule.",
+		"choices": [
+			{
+				"label": "Trade the copy for salt",
+				"effects": {
+					"books": -1,
+					"food": 4
+				},
+				"chronicle": "{When}, a copy of the Rule went down the road for salt, and the merchant swore the house had made a good bargain."
+			},
+			{
+				"label": "Refuse him",
+				"effects": {},
+				"chronicle": "{When}, the merchant was refused, and went off down the road with his salt unsold."
+			}
+		]
+	},
+	{
+		"id": "oak_from_bog",
+		"title": "An Oak from the Bog",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "Men from the bog have dug up a great oak trunk and offer it for the house's timber.",
+		"choices": [
+			{
+				"label": "Take it for firewood",
+				"effects": {
+					"firewood": 6,
+					"food": -2
+				},
+				"chronicle": "{When}, the oak was cut and stacked, and it burned slowly through the winter with the bog smell in it."
+			},
+			{
+				"label": "Refuse it",
+				"effects": {},
+				"chronicle": "{When}, the oak was refused, and the men from the bog took it away to sell in the town."
+			}
+		]
+	},
+	{
+		"id": "storm_sheet",
+		"title": "The Sheet Torn Loose",
+		"weight": 4,
+		"cooldown": 40,
+		"text": "A storm has torn a sheet of lead from the chapel roof, and it hangs by a nail.",
+		"choices": [
+			{
+				"label": "Pull it back with ropes",
+				"effects": {
+					"firewood": -2,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the lead was pulled back with ropes in the wind, and the brothers sang the whole time to keep their hands steady."
+			},
+			{
+				"label": "Patch it with tarred cloth",
+				"effects": {
+					"firewood": -1
+				},
+				"chronicle": "{When}, the roof was patched with tarred cloth, and the patch held until the spring."
+			}
+		]
+	},
+	{
+		"id": "rain_barrel",
+		"title": "The Cracked Barrel",
+		"weight": 3,
+		"cooldown": 40,
+		"text": "The rain barrel by the kitchen door has cracked along one stave.",
+		"choices": [
+			{
+				"label": "Mend it with pitch",
+				"effects": {
+					"firewood": -1
+				},
+				"chronicle": "{When}, the barrel was mended with pitch and went back to catching the rain."
+			},
+			{
+				"label": "Set a bucket under the crack",
+				"effects": {},
+				"chronicle": "{When}, a bucket was set under the crack, and the kitchen grumbled at every drip."
+			}
+		]
+	},
+	{
+		"id": "sea_mist_bells",
+		"title": "Bells on the Water",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "A sea mist has come in, and the fishermen say they hear bells out on the water.",
+		"choices": [
+			{
+				"label": "Ring the chapel bell for them",
+				"effects": {
+					"goodwill": 1,
+					"firewood": -1
+				},
+				"chronicle": "{When}, the chapel bell was rung for the fishermen through the mist, and the boats came home by it."
+			},
+			{
+				"label": "Ignore it",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, the house ignored the bells on the water, and the fishermen said they would not forget who had stayed silent."
+			}
+		]
+	},
+	{
+		"id": "bishop_secretary",
+		"title": "The Secretary's Visit",
+		"weight": 3,
+		"cooldown": 50,
+		"text": "A bishop's secretary wants to see the house's accounts, all of them.",
+		"choices": [
+			{
+				"label": "Show him every account",
+				"effects": {
+					"goodwill": 1
+				},
+				"chronicle": "{When}, every account was shown to the secretary, and he wrote in his book that the house had nothing to hide."
+			},
+			{
+				"label": "Show him only the good pages",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, only the good pages were shown, and the secretary knew it, and wrote that down too."
+			}
+		]
+	},
+	{
+		"id": "raven_bread",
+		"title": "The Raven and the Racks",
+		"weight": 3,
+		"cooldown": 40,
+		"text": "A raven steals the bread crumbs from the drying racks, one by one, while the kitchen watches.",
+		"choices": [
+			{
+				"label": "Set a net over the racks",
+				"effects": {
+					"firewood": -1
+				},
+				"chronicle": "{When}, a net was set over the racks, and the raven was caught and let go again beyond the wall."
+			},
+			{
+				"label": "Let the bird have its share",
+				"effects": {
+					"food": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, the raven was given its share, and the kitchen laughed at it all week."
+			}
+		]
+	},
+	{
+		"id": "young_brother_lost",
+		"title": "The Night in the Woods",
+		"weight": 3,
+		"cooldown": 45,
+		"when": {
+			"monk": {
+				"max_age": 30,
+				"status": "home"
+			}
+		},
+		"text": "A young brother has been missing in the woods for a night and a day.",
+		"choices": [
+			{
+				"label": "Send two men to search",
+				"effects": {
+					"food": -1,
+					"goodwill": 1
+				},
+				"chronicle": "{When}, two men went into the woods with torches, and found the brother at dawn, asleep under a holly tree, with a bird in his hands."
+			},
+			{
+				"label": "Pray for him and wait",
+				"effects": {
+					"monk_health": -1
+				},
+				"chronicle": "{When}, the house prayed and waited, and the brother came back at noon, cold and frightened, and wept at the gate."
+			}
+		]
+	},
+	{
+		"id": "wine_thief",
+		"title": "Someone at the Wine",
+		"weight": 3,
+		"cooldown": 40,
+		"text": "Someone has been at the sacramental wine in the sacristy, and the jar is half empty.",
+		"choices": [
+			{
+				"label": "Ask the kitchen boys",
+				"effects": {
+					"goodwill": -1
+				},
+				"chronicle": "{When}, the kitchen boys were questioned one by one, and each swore on the psalter that he had not touched it."
+			},
+			{
+				"label": "Say nothing and buy more",
+				"effects": {
+					"food": -2
+				},
+				"chronicle": "{When}, the jar was filled again from the cellar, and no one asked who had drunk the first half."
+			}
+		]
+	}
+]
