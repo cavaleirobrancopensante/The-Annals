@@ -35,6 +35,7 @@ func build_data() -> Dictionary:
 		"road": Road.to_dict(),
 		"rule": Rule.to_dict(),
 		"skirmish": Skirmish.to_dict(),
+		"tutorial": Tutorial.to_dict(),
 	}
 
 
@@ -92,6 +93,8 @@ func open_slot(n: int) -> bool:
 	Road.from_dict(data.get("road", {}))
 	Rule.from_dict(data.get("rule", {}))
 	Skirmish.from_dict(data.get("skirmish", {}))
+	# Houses saved before the walk-through existed are never offered it.
+	Tutorial.from_dict(data.get("tutorial", {"state": "done"}))
 	slot = n
 	Settings.set_last_slot(n)
 	if not data.has("summary"):

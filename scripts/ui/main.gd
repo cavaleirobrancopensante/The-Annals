@@ -33,6 +33,13 @@ var choices_box: VBoxContainer
 var controls_box: HBoxContainer
 var fallen_box: VBoxContainer
 var settings_sheet: PanelContainer
+var tutorial_box: PanelContainer
+var _tut_step: Label
+var _tut_title: Label
+var _tut_text: Label
+var _tut_begin: Button
+var _tut_next: Button
+var _tut_skip: Button
 var _built_key := ""
 var notice_dialog: AcceptDialog
 var confirm_dialog: ConfirmationDialog
@@ -55,6 +62,8 @@ func _ready() -> void:
 	Settings.changed.connect(_on_settings_changed, CONNECT_DEFERRED)
 	_render_chronicle()
 	_refresh()
+	if Tutorial.state == "active":
+		_show_tutorial_tab()
 	if Game.waiting():
 		_show_event(Game.current_view())
 
@@ -120,6 +129,32 @@ func _build_ui() -> void:
 	choices_box.add_theme_constant_override("separation", 8)
 	ev.add_child(choices_box)
 
+	tutorial_box = PanelContainer.new()
+	tutorial_box.add_theme_stylebox_override("panel", _box(PANEL, GOLD, 2, 10, 14))
+	tutorial_box.visible = false
+	root.add_child(tutorial_box)
+	var tut := VBoxContainer.new()
+	tut.add_theme_constant_override("separation", 8)
+	tutorial_box.add_child(tut)
+	_tut_step = _label(18, DIM)
+	tut.add_child(_tut_step)
+	_tut_title = _label(24, GOLD)
+	tut.add_child(_tut_title)
+	_tut_text = _label(20, PARCHMENT)
+	tut.add_child(_tut_text)
+	var tut_row := HBoxContainer.new()
+	tut_row.add_theme_constant_override("separation", 8)
+	tut.add_child(tut_row)
+	_tut_skip = _button(tr("tut.skip_all"))
+	_tut_skip.pressed.connect(_on_tut_skip)
+	tut_row.add_child(_tut_skip)
+	_tut_next = _button(tr("tut.next"))
+	_tut_next.pressed.connect(_on_tut_next)
+	tut_row.add_child(_tut_next)
+	_tut_begin = _button(tr("tut.begin"))
+	_tut_begin.pressed.connect(_on_tut_begin)
+	tut_row.add_child(_tut_begin)
+
 	settings_sheet = PanelContainer.new()
 	settings_sheet.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	settings_sheet.add_theme_stylebox_override("panel", _box(PANEL, GOLD, 2, 10, 16))
@@ -130,7 +165,9 @@ func _build_ui() -> void:
 	settings_sheet.add_child(settings_scroll)
 	var settings_panel := SettingsPanel.new()
 	settings_panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	settings_panel.show_replay = true
 	settings_panel.back_pressed.connect(_close_settings)
+	settings_panel.replay_pressed.connect(_replay_tutorial)
 	settings_scroll.add_child(settings_panel)
 
 	controls_box = HBoxContainer.new()
@@ -231,6 +268,7 @@ func _refresh() -> void:
 	controls_box.visible = controls_box.visible and not sheet_open
 	tabs.visible = not sheet_open
 	settings_sheet.visible = sheet_open
+	_refresh_tutorial()
 
 
 func _winter_short() -> bool:
@@ -727,6 +765,57 @@ func _open_settings() -> void:
 	tabs.visible = false
 	event_panel.visible = false
 	controls_box.visible = false
+	tutorial_box.visible = false
+
+
+func _refresh_tutorial() -> void:
+	var on := Tutorial.state != "done" and not WorldState.fallen and not Game.waiting() and not settings_sheet.visible
+	tutorial_box.visible = on
+	if not on:
+		return
+	if Tutorial.state == "offer":
+		_tut_step.text = ""
+		_tut_title.text = tr("tut.offer_title")
+		_tut_text.text = tr("tut.offer_text")
+		_tut_begin.visible = true
+		_tut_next.visible = false
+	else:
+		var name := Tutorial.current_name()
+		_tut_step.text = tr("tut.step_of") % [Tutorial.step + 1, Tutorial.STEPS.size()]
+		_tut_title.text = tr("tut.%s.title" % name)
+		_tut_text.text = tr("tut.%s.text" % name)
+		_tut_begin.visible = false
+		_tut_next.visible = true
+		_tut_next.text = tr("tut.finish") if Tutorial.is_last() else tr("tut.next")
+	_tut_skip.visible = true
+
+
+func _show_tutorial_tab() -> void:
+	if Tutorial.state == "active":
+		tabs.current_tab = Tutorial.tab()
+
+
+func _on_tut_begin() -> void:
+	Tutorial.begin()
+	_show_tutorial_tab()
+	_refresh()
+
+
+func _on_tut_next() -> void:
+	Tutorial.next()
+	_show_tutorial_tab()
+	_refresh()
+
+
+func _on_tut_skip() -> void:
+	Tutorial.finish()
+	_refresh()
+
+
+func _replay_tutorial() -> void:
+	Tutorial.begin()
+	_close_settings()
+	_show_tutorial_tab()
 
 
 func _close_settings() -> void:

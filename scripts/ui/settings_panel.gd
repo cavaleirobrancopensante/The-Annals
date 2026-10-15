@@ -3,6 +3,10 @@ extends VBoxContainer
 ## The settings list: language flags, text size, two toggles. Used by the main menu and the house's menu sheet.
 
 signal back_pressed
+signal replay_pressed
+
+## Shows the walk-through replay button; only inside a house.
+var show_replay := false
 
 var _flag_buttons := {}
 var _size_buttons := {}
@@ -50,6 +54,10 @@ func _ready() -> void:
 	_hint_button = _toggle(tr("settings.hints"), Settings.hints, _on_hints)
 	_confirm_button = _toggle(tr("settings.confirm_close"), Settings.confirm_close, _on_confirm)
 
+	if show_replay:
+		var rep := Style.button(tr("tut.replay"), 64)
+		rep.pressed.connect(func(): replay_pressed.emit())
+		add_child(rep)
 	var back := Style.button(tr("menu.back"), 64)
 	back.pressed.connect(func(): back_pressed.emit())
 	add_child(back)

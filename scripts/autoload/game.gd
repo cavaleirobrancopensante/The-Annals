@@ -8,6 +8,7 @@ var return_queue: Array = []
 
 
 func new_game(seed_value: int = -1) -> void:
+	Tutorial.start_offer()
 	Oracle.start(seed_value)
 	WorldState.new_game()
 	Chronicle.clear()
