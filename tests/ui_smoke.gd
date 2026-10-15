@@ -23,6 +23,10 @@ func _ready() -> void:
 		if i % 20 == 0:
 			await get_tree().process_frame
 	main._on_until()
+	for b in ["granary", "woodshed", "scriptorium"]:
+		Game.build(b)
+	main._refresh()
+	main.tabs.current_tab = 1
 	await get_tree().process_frame
 	await get_tree().process_frame
 	var out := "(none in headless mode)"

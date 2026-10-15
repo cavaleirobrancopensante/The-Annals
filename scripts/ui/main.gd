@@ -1,6 +1,6 @@
 extends Control
-## Phase 1 text interface, built for a portrait phone screen.
-## Header, chronicle and brothers tabs, the current event, and turn buttons.
+## Phase 2 text interface, built for a portrait phone screen.
+## Header with the winter forecast, chronicle and estate tabs, the current event, and turn buttons.
 
 const BG := Color("1b1611")
 const PANEL := Color("2a2119")
@@ -12,8 +12,11 @@ const RED := Color("b0503c")
 var title_label: Label
 var status_label: Label
 var resources_label: Label
+var forecast_label: Label
+var tabs: TabContainer
 var chronicle_text: RichTextLabel
-var brothers_text: RichTextLabel
+var estate_box: VBoxContainer
+var estate_scroll: ScrollContainer
 var event_panel: PanelContainer
 var event_title: Label
 var event_text: RichTextLabel
@@ -24,6 +27,7 @@ var notice_dialog: AcceptDialog
 var confirm_dialog: ConfirmationDialog
 
 var _last_year_rendered := 0
+var _estate_signature := ""
 
 
 func _ready() -> void:
@@ -69,7 +73,7 @@ func _build_ui() -> void:
 	add_child(margin)
 
 	var root := VBoxContainer.new()
-	root.add_theme_constant_override("separation", 10)
+	root.add_theme_constant_override("separation", 8)
 	margin.add_child(root)
 
 	title_label = _label(30, GOLD)
@@ -78,15 +82,24 @@ func _build_ui() -> void:
 	root.add_child(status_label)
 	resources_label = _label(20, PARCHMENT)
 	root.add_child(resources_label)
+	forecast_label = _label(19, DIM)
+	root.add_child(forecast_label)
 
-	var tabs := TabContainer.new()
+	tabs = TabContainer.new()
 	tabs.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	root.add_child(tabs)
 	chronicle_text = _rich("Chronicle")
 	chronicle_text.scroll_following = true
 	tabs.add_child(chronicle_text)
-	brothers_text = _rich("Brothers")
-	tabs.add_child(brothers_text)
+
+	estate_scroll = ScrollContainer.new()
+	estate_scroll.name = "Estate"
+	estate_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	tabs.add_child(estate_scroll)
+	estate_box = VBoxContainer.new()
+	estate_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	estate_box.add_theme_constant_override("separation", 10)
+	estate_scroll.add_child(estate_box)
 
 	event_panel = PanelContainer.new()
 	event_panel.add_theme_stylebox_override("panel", _box(PANEL, GOLD, 2, 10, 16))
@@ -191,41 +204,171 @@ func _refresh() -> void:
 	var ab := WorldState.abbot()
 	status_label.text = "Year %d  ·  %s, week %d  ·  Abbot %s" % [
 		WorldState.year(), WorldState.season().capitalize(), WorldState.week_in_season(), ab.get("name", "none")]
-	resources_label.text = "Food %d   Firewood %d   Medicine %d   Books %d   Goodwill %d   ·   %d brothers" % [
-		WorldState.res("food"), WorldState.res("firewood"), WorldState.res("medicine"),
-		WorldState.res("books"), WorldState.res("goodwill"), WorldState.living_monks().size()]
-	_render_brothers()
+	resources_label.text = "Food %d/%d   Firewood %d/%d   Medicine %d/%d   Books %d   Goodwill %d   ·   %d brothers" % [
+		WorldState.res("food"), WorldState.cap("food"), WorldState.res("firewood"), WorldState.cap("firewood"),
+		WorldState.res("medicine"), WorldState.cap("medicine"), WorldState.res("books"), WorldState.res("goodwill"),
+		WorldState.living_monks().size()]
+	forecast_label.text = _forecast_text()
+	forecast_label.add_theme_color_override("font_color", RED if _winter_short() else DIM)
+	_render_estate_if_changed()
 	var waiting := EventEngine.has_pending()
 	event_panel.visible = waiting
 	controls_box.visible = not waiting and not WorldState.fallen
 	fallen_box.visible = WorldState.fallen
 
 
-func _render_brothers() -> void:
-	var lines := []
+func _winter_short() -> bool:
+	return WorldState.res("food") < WorldState.winter_food_need() or WorldState.res("firewood") < WorldState.winter_wood_need()
+
+
+func _forecast_text() -> String:
+	var food_need := WorldState.winter_food_need()
+	var wood_need := WorldState.winter_wood_need()
+	var text := "Winter needs %d food and %d firewood. " % [food_need, wood_need]
+	var food_short := food_need - WorldState.res("food")
+	var wood_short := wood_need - WorldState.res("firewood")
+	if food_short > 0 or wood_short > 0:
+		var parts := []
+		if food_short > 0:
+			parts.append("%d more food" % food_short)
+		if wood_short > 0:
+			parts.append("%d more firewood" % wood_short)
+		text += "Short by " + " and ".join(parts) + "."
+	else:
+		text += "Stores are enough."
+	return text
+
+
+# --- Estate: jobs and buildings -----------------------------------------
+
+func _compute_estate_signature() -> String:
+	var parts := []
+	for m in WorldState.monks:
+		parts.append("%d:%s:%s" % [int(m["id"]), m["status"], WorldState.job_of(m)])
+	for b in WorldState.BUILDINGS:
+		parts.append("%s:%s" % [b, WorldState.has_building(b)])
+	parts.append(str(WorldState.abbot_id))
+	parts.append(str(WorldState.has_builder_at_home()))
+	return "|".join(parts)
+
+
+## Rebuilding the list closes any open menus, so it happens only when something it shows has changed.
+func _render_estate_if_changed() -> void:
+	var sig := _compute_estate_signature()
+	if sig == _estate_signature:
+		return
+	_estate_signature = sig
+	_render_estate()
+
+
+func _render_estate() -> void:
+	for c in estate_box.get_children():
+		estate_box.remove_child(c)
+		c.queue_free()
+
+	estate_box.add_child(_section_title("Brothers and their work"))
 	var living := WorldState.living_monks()
 	living.sort_custom(_brother_order)
 	for m in living:
-		var where := ""
-		if m["status"] == "away":
-			where = "  [color=#%s]on the road, %d weeks[/color]" % [GOLD.to_html(false), int(m["away_weeks"])]
-		var health := ""
-		if int(m["health"]) < 3:
-			health = "  [color=#%s]%s[/color]" % [RED.to_html(false), WorldState.HEALTH_WORDS[int(m["health"])]]
-		var marks: Array = m["traits"].duplicate()
-		for t in m["tags"]:
-			if not str(t).begins_with("on_"):
-				marks.append(str(t).replace("_", " "))
-		lines.append("[b]%s[/b], %d, %s%s%s\n[color=#%s]%s[/color]" % [
-			WorldState.display_name(m), int(m["age"]), WorldState.vocation_name(m), where, health,
-			DIM.to_html(false), ", ".join(marks)])
+		estate_box.add_child(_brother_row(m))
+
 	var gone := WorldState.monks.filter(func(m): return not WorldState.is_living(m))
 	if not gone.is_empty():
-		lines.append("\n[color=#%s]Departed[/color]" % GOLD.to_html(false))
+		var lines := []
 		for m in gone:
 			var how := "died in the %s year" % Chronicle.ordinal(int(m.get("died", 0))) if m["status"] == "dead" else "left in the %s year" % Chronicle.ordinal(int(m.get("left", 0)))
-			lines.append("[color=#%s]%s, %s[/color]" % [DIM.to_html(false), m["name"], how])
-	brothers_text.text = "\n\n".join(lines)
+			lines.append("%s, %s" % [m["name"], how])
+		var gone_label := _label(18, DIM)
+		gone_label.text = "Departed: " + "; ".join(lines)
+		estate_box.add_child(gone_label)
+
+	estate_box.add_child(_section_title("Buildings"))
+	if not WorldState.has_builder_at_home():
+		var note := _label(18, RED)
+		note.text = "A builder must be at home to raise a building."
+		estate_box.add_child(note)
+	for b in WorldState.BUILDINGS:
+		estate_box.add_child(_building_row(b))
+
+
+func _section_title(text: String) -> Label:
+	var l := _label(24, GOLD)
+	l.text = text
+	return l
+
+
+func _brother_row(m: Dictionary) -> Control:
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 10)
+	var info := _label(20, PARCHMENT)
+	info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var marks: Array = m["traits"].duplicate()
+	for t in m["tags"]:
+		if not str(t).begins_with("on_"):
+			marks.append(str(t).replace("_", " "))
+	var extra := ""
+	if m["status"] == "away":
+		var w := int(m["away_weeks"])
+		extra = "  · on the road, %d week%s" % [w, "" if w == 1 else "s"]
+	elif int(m["health"]) < 3:
+		extra = "  · %s" % WorldState.HEALTH_WORDS[int(m["health"])]
+	info.text = "%s, %d, %s%s\n%s" % [WorldState.display_name(m), int(m["age"]),
+		WorldState.vocation_name(m), extra, ", ".join(marks)]
+	row.add_child(info)
+
+	var pick := OptionButton.new()
+	pick.custom_minimum_size = Vector2(190, 56)
+	pick.add_theme_font_size_override("font_size", 19)
+	pick.disabled = m["status"] != "home"
+	var current := WorldState.job_of(m)
+	for i in WorldState.JOB_ORDER.size():
+		var job: String = WorldState.JOB_ORDER[i]
+		var label: String = WorldState.JOB_NAMES[job]
+		if WorldState.job_blocked(job):
+			label += " (no building)"
+		pick.add_item(label, i)
+		if job == current:
+			pick.select(i)
+	pick.item_selected.connect(_on_job_selected.bind(int(m["id"])))
+	row.add_child(pick)
+	return row
+
+
+func _building_row(b: String) -> Control:
+	var data: Dictionary = WorldState.BUILDINGS[b]
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 10)
+	var info := _label(19, PARCHMENT)
+	info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var costs := []
+	for r in data["cost"]:
+		costs.append("%d %s" % [int(data["cost"][r]), r])
+	info.text = "%s · %s\n%s" % [data["name"], ", ".join(costs), data["desc"]]
+	row.add_child(info)
+	var btn := Button.new()
+	btn.custom_minimum_size = Vector2(150, 56)
+	btn.add_theme_font_size_override("font_size", 20)
+	if WorldState.has_building(b):
+		btn.text = "Built"
+		btn.disabled = true
+	else:
+		btn.text = "Build"
+		btn.disabled = not WorldState.can_build(b)
+		btn.pressed.connect(_on_build.bind(b))
+	row.add_child(btn)
+	return row
+
+
+func _on_job_selected(index: int, monk_id: int) -> void:
+	var m := WorldState.get_monk(monk_id)
+	if m.is_empty():
+		return
+	Game.set_job(m, WorldState.JOB_ORDER[index])
+
+
+func _on_build(b: String) -> void:
+	if not Game.build(b):
+		_notice("The %s cannot be raised yet." % WorldState.BUILDINGS[b]["name"])
 
 
 ## Abbot first, then by age, oldest first. Must be a strict ordering.
@@ -238,6 +381,8 @@ func _brother_order(a: Dictionary, b: Dictionary) -> bool:
 		return int(a["age"]) > int(b["age"])
 	return int(a["id"]) < int(b["id"])
 
+
+# --- Chronicle ----------------------------------------------------------
 
 func _render_chronicle() -> void:
 	chronicle_text.clear()
@@ -317,6 +462,7 @@ func _on_menu(id: int) -> void:
 
 func _start_new_house() -> void:
 	Game.new_game()
+	_estate_signature = ""
 	_render_chronicle()
 	_refresh()
 

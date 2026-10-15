@@ -6,14 +6,17 @@ You found a small abbey in the ruins of a fallen civilisation and keep it alive 
 
 Built in **Godot 4.7** (GDScript, GL Compatibility renderer), portrait, mobile first.
 
-## Status: Phase 1, the chronicle engine
+## Status: Phase 2, the abbey loop
 
-This is a text-only prototype that tests the core question: **does the generated chronicle read like a story worth reading?**
+A text-only prototype. Phase 1 asked whether the chronicle reads like a story; Phase 2 asks whether winter feels tense enough to plan for.
 
 What works now:
 
 - Weekly turns across four seasons, 48 weeks a year
-- A small economy: food, firewood, medicine, books, goodwill, with hunger and cold
+- Jobs for every brother: fields, woodcutting, kitchen, infirmary, scriptorium, rest. Sick brothers don't work.
+- Four buildings, raised by a builder at home: granary (food stores 120 to 320), woodshed (firewood 40 to 120), infirmary (medicine, and a place for healers to work), scriptorium (books)
+- The Estate tab shows each brother's job and the buildings. The header shows the winter forecast: what winter needs against what is stored
+- Hunger and cold when stores run out
 - Brothers with names, vocations, a virtue and a flaw, ages, health and memories (tags)
 - 47 event cards with choices, oracle rolls and callbacks
 - Journeys on the road and homecoming events
@@ -75,8 +78,8 @@ godot --headless --path . res://tests/ui_smoke.tscn
 | Phase | What | Gate before moving on |
 | --- | --- | --- |
 | 0 | Paper prototype | The paper chronicle is worth reading |
-| **1** | **Chronicle engine (this)** | **Three generated years read like a story** |
-| 2 | Abbey loop: jobs, buildings, storage | Winter feels tense even without events |
+| 1 | Chronicle engine | Three generated years read like a story |
+| 2 | **Abbey loop (this)**: jobs, buildings, storage | Winter feels tense even without events |
 | 3 | The road: map, parties, factions | Public text prototype and first feedback |
 | 4 | The Rule, generations, saints, new houses | A 50-year game stays varied |
 | 5 | Skirmish combat | Fights are rare and memorable |

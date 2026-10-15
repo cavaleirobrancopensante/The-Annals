@@ -1,5 +1,5 @@
 extends Node
-## Single source of truth: calendar, resources, brothers and world tags.
+## Single source of truth: calendar, resources, brothers, buildings and world tags.
 
 const SEASONS := ["spring", "summer", "autumn", "winter"]
 const WEEKS_PER_SEASON := 12
@@ -17,6 +17,41 @@ const VIRTUES := ["devout", "patient", "gentle", "learned", "brave", "generous",
 const FLAWS := ["proud", "wrathful", "doubting", "gluttonous", "stubborn", "restless", "melancholy"]
 const HEALTH_WORDS := ["dead", "gravely ill", "unwell", "well"]
 
+## Jobs a brother can be given. Only brothers at home and well enough can work.
+const JOB_ORDER := ["fields", "woods", "kitchen", "infirmary", "scriptorium", "rest"]
+const JOB_NAMES := {
+	"fields": "Fields",
+	"woods": "Woodcutting",
+	"kitchen": "Kitchen",
+	"infirmary": "Infirmary",
+	"scriptorium": "Scriptorium",
+	"rest": "Rest",
+}
+## Jobs that need a building before anyone can work them.
+const JOB_NEEDS := {"infirmary": "infirmary", "scriptorium": "scriptorium"}
+const DEFAULT_JOB := {
+	"farmer": "fields",
+	"builder": "woods",
+	"healer": "infirmary",
+	"scribe": "scriptorium",
+	"cook": "kitchen",
+	"soldier": "woods",
+}
+
+## Buildings are built once, by a builder at home. Each raises a storage cap or unlocks a job.
+const BUILDINGS := {
+	"granary": {"name": "Granary", "cost": {"firewood": 10}, "desc": "Food stores up to 320 instead of 120."},
+	"woodshed": {"name": "Woodshed", "cost": {"firewood": 6}, "desc": "Firewood stores up to 120 instead of 40."},
+	"infirmary": {"name": "Infirmary", "cost": {"firewood": 12, "food": 10}, "desc": "Healers can work; medicine stores up to 20."},
+	"scriptorium": {"name": "Scriptorium", "cost": {"firewood": 8}, "desc": "Scribes can copy books."},
+}
+const BASE_CAPS := {"food": 120, "firewood": 40, "medicine": 4}
+const BUILDING_CAPS := {
+	"granary": {"food": 320},
+	"woodshed": {"firewood": 120},
+	"infirmary": {"medicine": 20},
+}
+
 var patron := ""
 var place := ""
 var week := 0
@@ -24,6 +59,8 @@ var resources := {}
 var monks: Array = []
 ## tag -> week it expires (-1 = permanent)
 var tags := {}
+## building id -> true once built
+var buildings := {}
 var abbot_id := -1
 var abbot_since_year := 1
 var next_monk_id := 1
@@ -51,6 +88,7 @@ func new_game() -> void:
 	resources = {"food": 120, "firewood": 30, "medicine": 4, "books": 2, "goodwill": 3}
 	monks = []
 	tags = {}
+	buildings = {}
 	next_monk_id = 1
 	fallen = false
 	patron = str(Oracle.pick(_patrons))
@@ -102,6 +140,7 @@ func generate_monk(vocation = "", traits: Array = [], age_min: int = 18, age_max
 		"id": next_monk_id,
 		"name": _new_name(),
 		"vocation": str(vocation),
+		"job": default_job_for(str(vocation)),
 		"traits": t,
 		"tags": [],
 		"age": Oracle.range_int(age_min, age_max),
@@ -166,8 +205,33 @@ func vocation_name(m: Dictionary) -> String:
 	return VOCATIONS.get(m.get("vocation", ""), str(m.get("vocation", "")))
 
 
-func count_home(vocation: String) -> int:
-	return home_monks().filter(func(m): return m["vocation"] == vocation and int(m["health"]) >= 2).size()
+func default_job_for(vocation: String) -> String:
+	return DEFAULT_JOB.get(vocation, "fields")
+
+
+func job_of(m: Dictionary) -> String:
+	return str(m.get("job", default_job_for(str(m.get("vocation", "")))))
+
+
+func set_job(m: Dictionary, job: String) -> void:
+	if job in JOB_ORDER and is_living(m):
+		m["job"] = job
+
+
+## A job is blocked until its building stands.
+func job_blocked(job: String) -> bool:
+	return JOB_NEEDS.has(job) and not has_building(JOB_NEEDS[job])
+
+
+## Brothers at home, well enough to work, on this job. Zero if the job is blocked.
+func count_working(job: String) -> int:
+	if job_blocked(job):
+		return 0
+	return home_monks().filter(func(m): return job_of(m) == job and int(m["health"]) >= 2).size()
+
+
+func cooks_at_work() -> int:
+	return count_working("kitchen")
 
 
 func change_health(m: Dictionary, delta: int) -> void:
@@ -188,6 +252,34 @@ func depart_monk(m: Dictionary) -> void:
 		return
 	m["status"] = "departed"
 	m["left"] = year()
+
+
+# --- Buildings ----------------------------------------------------------
+
+func has_building(b: String) -> bool:
+	return bool(buildings.get(b, false))
+
+
+func has_builder_at_home() -> bool:
+	return home_monks().any(func(m): return m["vocation"] == "builder" and int(m["health"]) >= 2)
+
+
+func can_build(b: String) -> bool:
+	if not BUILDINGS.has(b) or has_building(b) or not has_builder_at_home():
+		return false
+	for r in BUILDINGS[b]["cost"]:
+		if res(r) < int(BUILDINGS[b]["cost"][r]):
+			return false
+	return true
+
+
+func build(b: String) -> bool:
+	if not can_build(b):
+		return false
+	for r in BUILDINGS[b]["cost"]:
+		change_resource(r, -int(BUILDINGS[b]["cost"][r]))
+	buildings[b] = true
+	return true
 
 
 # --- Tags ---------------------------------------------------------------
@@ -216,8 +308,12 @@ func expire_tags() -> void:
 
 # --- Resources ----------------------------------------------------------
 
-## Storage limits until Phase 2 adds the granary, woodshed and infirmary.
-const CAPS := {"food": 320, "firewood": 120, "medicine": 20}
+func cap(r: String) -> int:
+	var c: int = int(BASE_CAPS.get(r, 1 << 30))
+	for b in buildings:
+		if has_building(b) and BUILDING_CAPS.has(b) and BUILDING_CAPS[b].has(r):
+			c = int(BUILDING_CAPS[b][r])
+	return c
 
 
 func change_resource(r: String, delta: int) -> void:
@@ -225,11 +321,24 @@ func change_resource(r: String, delta: int) -> void:
 
 
 func set_resource(r: String, value: int) -> void:
-	resources[r] = clampi(value, 0, int(CAPS.get(r, 1 << 30)))
+	resources[r] = clampi(value, 0, cap(r))
 
 
 func res(r: String) -> int:
 	return int(resources.get(r, 0))
+
+
+# --- Winter forecast ----------------------------------------------------
+
+const WINTER_WEEKS := 12
+
+## Food and firewood a winter of the current household will need.
+func winter_food_need() -> int:
+	return home_monks().size() * WINTER_WEEKS
+
+
+func winter_wood_need() -> int:
+	return (2 + int(ceil(home_monks().size() / 4.0))) * WINTER_WEEKS
 
 
 # --- Save ---------------------------------------------------------------
@@ -242,6 +351,7 @@ func to_dict() -> Dictionary:
 		"resources": resources,
 		"monks": monks,
 		"tags": tags,
+		"buildings": buildings,
 		"abbot_id": abbot_id,
 		"abbot_since_year": abbot_since_year,
 		"next_monk_id": next_monk_id,
@@ -261,10 +371,15 @@ func from_dict(d: Dictionary) -> void:
 		for key in ["id", "age", "health", "away_weeks", "joined", "died", "left"]:
 			if m.has(key):
 				m[key] = int(m[key])
+		if not m.has("job"):
+			m["job"] = default_job_for(str(m.get("vocation", "")))
 		monks.append(m)
 	tags = {}
 	for t in d.get("tags", {}):
 		tags[t] = int(d["tags"][t])
+	buildings = {}
+	for b in d.get("buildings", {}):
+		buildings[b] = bool(d["buildings"][b])
 	abbot_id = int(d.get("abbot_id", -1))
 	abbot_since_year = int(d.get("abbot_since_year", 1))
 	next_monk_id = int(d.get("next_monk_id", 1))

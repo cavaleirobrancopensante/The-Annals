@@ -1,5 +1,5 @@
 extends Node
-## The weekly turn: economy, health, travel, aging, succession, then events.
+## The weekly turn: economy, jobs, health, travel, aging, succession, then events.
 
 const EVENT_CHANCE := 0.55
 
@@ -61,6 +61,20 @@ func choose(index: int) -> void:
 	_after_change()
 
 
+## Player actions on the estate. Each one saves and refreshes the screen.
+func build(b: String) -> bool:
+	if not WorldState.build(b):
+		return false
+	Chronicle.add_template("built_" + b, {}, "building")
+	_after_change()
+	return true
+
+
+func set_job(m: Dictionary, job: String) -> void:
+	WorldState.set_job(m, job)
+	_after_change()
+
+
 func _after_change() -> void:
 	_check_succession()
 	_check_fall()
@@ -70,44 +84,53 @@ func _after_change() -> void:
 
 # --- Economy ------------------------------------------------------------
 
+## Food per field worker per week, by season.
+func _field_yield(s: String) -> int:
+	match s:
+		"spring":
+			return 4
+		"summer":
+			return 6
+		"autumn":
+			return 10
+	return 0
+
+
 func _economy() -> void:
 	var s := WorldState.season()
 	var home := WorldState.home_monks()
-	var farmers := WorldState.count_home("farmer")
-	var others := home.size() - farmers
-	var produce := 0
-	match s:
-		"spring":
-			produce = farmers
-		"summer":
-			produce = farmers * 2 + int(others * 0.5)
-		"autumn":
-			produce = farmers * 6 + others * 2
+	var n := home.size()
+
+	# Food: field workers produce, the kitchen stretches what is there, everyone eats.
+	var produce := WorldState.count_working("fields") * _field_yield(s)
 	if WorldState.has_tag("water_pump") and s in ["summer", "autumn"]:
 		produce += 3
 	if WorldState.has_tag("blight"):
 		produce = int(produce * 0.5)
-	var food := WorldState.res("food") + produce - home.size()
+	var food := WorldState.res("food") + produce + WorldState.cooks_at_work() - n
 	WorldState.set_resource("food", food)
 	if food < 0:
 		_hunger(home)
 
-	# Wood is gathered outside winter; builders cut extra in autumn.
-	var gather := 0 if s == "winter" else 1
-	if s == "autumn":
-		gather += 1 + WorldState.count_home("builder")
-	var burn := 3 if s == "winter" else (1 if s == "autumn" else 0)
+	# Firewood: woodcutters gather outside winter; the house burns more in winter.
+	var per_wood := {"spring": 1, "summer": 2, "autumn": 3, "winter": 0}
+	var gather := WorldState.count_working("woods") * int(per_wood[s])
+	var burn := 0
+	if s == "winter":
+		burn = 2 + int(ceil(n / 4.0))
+	elif s == "autumn":
+		burn = 1
 	var wood := WorldState.res("firewood") + gather - burn
 	WorldState.set_resource("firewood", wood)
 	if wood < 0 and s == "winter":
 		_cold(home)
 
 	var wis := WorldState.week_in_season()
-	if s in ["spring", "summer"] and wis % 6 == 0:
-		WorldState.change_resource("medicine", WorldState.count_home("healer"))
-	# The scriptorium works through summer and winter; each scribe finishes a book.
+	if s in ["spring", "summer"] and wis % 3 == 0:
+		WorldState.change_resource("medicine", WorldState.count_working("infirmary"))
+	# The scriptorium finishes a book at the end of summer and of winter.
 	if wis == WorldState.WEEKS_PER_SEASON and s in ["summer", "winter"]:
-		var books := WorldState.count_home("scribe")
+		var books := WorldState.count_working("scriptorium")
 		if WorldState.has_tag("lamp"):
 			books *= 2
 		WorldState.change_resource("books", books)
@@ -134,7 +157,7 @@ func _cold(home: Array) -> void:
 # --- Health, travel, time -----------------------------------------------
 
 func _healer_ready() -> bool:
-	return WorldState.count_home("healer") > 0 and WorldState.res("medicine") > 0
+	return WorldState.count_working("infirmary") > 0 and WorldState.res("medicine") > 0
 
 
 func _health() -> void:
@@ -202,10 +225,11 @@ func _new_year() -> void:
 func _season_change(old_season: String) -> void:
 	if old_season == "autumn":
 		var food := WorldState.res("food")
+		var cap := WorldState.cap("food")
 		var key := "harvest_fair"
-		if food >= 230:
+		if food >= int(cap * 0.75):
 			key = "harvest_good"
-		elif food < 150:
+		elif food < int(cap * 0.35):
 			key = "harvest_poor"
 		Chronicle.add_template(key, {}, "season")
 	if WorldState.season() == "winter" and Oracle.chance(0.35):

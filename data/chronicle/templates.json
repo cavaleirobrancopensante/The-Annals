@@ -45,6 +45,22 @@
 		"Winter came early to {place} that year, and the stream froze before Advent.",
 		"The first snow fell on the chapel roof, and the brothers moved the scriptorium desks closer to the fire."
 	],
+	"built_granary": [
+		"{When}, the granary was finished at the north wall, and its first bin was filled with grain from the stores.",
+		"{When}, the brothers raised a granary of stone with walls thick enough to keep out the damp and the mice."
+	],
+	"built_woodshed": [
+		"{When}, a woodshed was roofed against the wall, and the stacked logs were covered before the rain came.",
+		"{When}, the brothers built a woodshed open to the south, so the wood would dry before the cold."
+	],
+	"built_infirmary": [
+		"{When}, the old guest room was turned into an infirmary, with straw pallets, a boiling pot and shelves for the jars.",
+		"{When}, the brothers set up an infirmary in the east cloister, where the light is best for sewing wounds."
+	],
+	"built_scriptorium": [
+		"{When}, a scriptorium was made in the south cloister, with desks by the window and a shelf for the inks.",
+		"{When}, the scribes moved their desks into a room of their own, where the damp was least."
+	],
 	"return_generic": [
 		"{monk} came home from the road with little to tell.",
 		"{monk} returned to the house, footsore, and went straight to the chapel."
