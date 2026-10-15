@@ -2,7 +2,7 @@ extends Node
 ## Saves the whole house to user:// as JSON after every change.
 
 const PATH := "user://annals_save.json"
-const VERSION := 6
+const VERSION := 7
 
 ## Turned off by the headless simulation so tests never touch a real save.
 var enabled := true

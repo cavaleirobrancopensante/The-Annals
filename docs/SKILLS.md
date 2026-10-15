@@ -1,6 +1,6 @@
 # Skills, stats and vocations (design draft)
 
-Status: design for review. No code yet.
+Status: phase 1 built (stats, skills and the 2d6 check, in scripts/autoload/skills.gd and data/skills/skills.json). Practice, paths, uses and village control are still to come.
 
 ## Principles
 

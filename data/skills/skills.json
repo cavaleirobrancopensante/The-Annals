@@ -1,0 +1,45 @@
+{
+	"_note": "Eight stats, each with three skills. Stats and skills are capped at 5. See docs/SKILLS.md.",
+	"stats": [
+		{"id": "might", "name": "Might", "skills": [
+			{"id": "melee", "name": "Melee"},
+			{"id": "labour", "name": "Labour"},
+			{"id": "holding_gate", "name": "Holding a gate"}
+		]},
+		{"id": "hand", "name": "Hand", "skills": [
+			{"id": "ranged", "name": "Ranged"},
+			{"id": "hunting", "name": "Hunting"},
+			{"id": "snaring", "name": "Snaring and tools"}
+		]},
+		{"id": "hardiness", "name": "Hardiness", "skills": [
+			{"id": "endurance", "name": "Endurance"},
+			{"id": "foraging", "name": "Foraging"},
+			{"id": "resisting_sickness", "name": "Resisting sickness"}
+		]},
+		{"id": "craft", "name": "Craft", "skills": [
+			{"id": "building", "name": "Building"},
+			{"id": "smithing", "name": "Smithing and carpentry"},
+			{"id": "cookery", "name": "Cookery and brewing"}
+		]},
+		{"id": "wit", "name": "Wit", "skills": [
+			{"id": "scribing", "name": "Scribing"},
+			{"id": "medicine", "name": "Medicine"},
+			{"id": "accounts", "name": "Accounts and trade"}
+		]},
+		{"id": "lore", "name": "Lore", "skills": [
+			{"id": "ruins_machines", "name": "Ruins and machines"},
+			{"id": "tracking", "name": "Tracking and navigation"},
+			{"id": "old_tongues", "name": "Old tongues"}
+		]},
+		{"id": "presence", "name": "Presence", "skills": [
+			{"id": "persuasion", "name": "Persuasion"},
+			{"id": "hospitality", "name": "Hospitality"},
+			{"id": "command", "name": "Command"}
+		]},
+		{"id": "faith", "name": "Faith", "skills": [
+			{"id": "devotion", "name": "Devotion"},
+			{"id": "warding", "name": "Warding"},
+			{"id": "counsel", "name": "Counsel"}
+		]}
+	]
+}

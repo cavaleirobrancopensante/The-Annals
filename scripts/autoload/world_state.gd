@@ -197,6 +197,7 @@ func generate_monk(vocation = "", traits: Array = [], age_min: int = 18, age_max
 		"joined": year(),
 		"gen": generation,
 	}
+	Skills.init_monk(m)
 	next_monk_id += 1
 	monks.append(m)
 	return m
@@ -444,6 +445,7 @@ func from_dict(d: Dictionary) -> void:
 				m[key] = int(m[key])
 		if not m.has("job"):
 			m["job"] = default_job_for(str(m.get("vocation", "")))
+		Skills.normalise(m)
 		monks.append(m)
 	tags = {}
 	for t in d.get("tags", {}):
