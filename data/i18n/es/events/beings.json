@@ -1,0 +1,371 @@
+[
+	{
+		"id": "marred_envoy",
+		"title": "Jinetes bajo un paño blanco",
+		"weight": 5,
+		"cooldown": 30,
+		"text": "Tres jinetes del Pueblo Marcado llegan a la puerta bajo un paño blanco. Piden parlamentar y dicen que hablan de la casa en el valle.",
+		"choices": [
+			{
+				"label": "Bajar y parlamentar",
+				"check": {
+					"stat": "presence",
+					"skill": "persuasion",
+					"difficulty": 10
+				},
+				"success": {
+					"effects": {
+						"attitude": {
+							"marred": 2
+						}
+					},
+					"chronicle": "{When}, el abad parlamentó en la puerta con los Marcados, y se fueron diciendo que la casa había hablado con justicia."
+				},
+				"failure": {
+					"effects": {
+						"attitude": {
+							"marred": -2
+						}
+					},
+					"chronicle": "{When}, a los Marcados se les habló con las palabras equivocadas, y se fueron con desprecio."
+				}
+			},
+			{
+				"label": "Mantener la puerta cerrada",
+				"effects": {
+					"attitude": {
+						"marred": -2
+					}
+				},
+				"chronicle": "{When}, la puerta se quedó cerrada, y los Marcados volvieron por el valle."
+			}
+		]
+	},
+	{
+		"id": "marred_trade",
+		"title": "Sal y lana",
+		"weight": 6,
+		"cooldown": 40,
+		"when": {
+			"attitude_min": {
+				"marred": 2
+			}
+		},
+		"text": "El Pueblo Marcado sube sal y lana con sus jinetes. A cambio pide una copia del salterio, en la letra antigua.",
+		"choices": [
+			{
+				"label": "Darles la copia",
+				"requires": {
+					"books": 1
+				},
+				"effects": {
+					"books": -1,
+					"attitude": {
+						"marred": 1
+					}
+				},
+				"chronicle": "{When}, el salterio bajó por el valle con los Marcados, y ellos mandaron sus agradecimientos en sal."
+			},
+			{
+				"label": "Devolver la sal con agradecimiento",
+				"effects": {
+					"attitude": {
+						"marred": -1
+					}
+				},
+				"chronicle": "{When}, la sal volvió con agradecimiento, y los Marcados tomaron la cortesía de la casa por una negativa."
+			}
+		]
+	},
+	{
+		"id": "chimera_nest_found",
+		"title": "Un nido en las colinas",
+		"weight": 5,
+		"cooldown": 30,
+		"text": "Se ha encontrado un nido de quimeras en las colinas sobre el camino. Los cazadores dicen que bajan por los ciervos en otoño, y que no ceden ante nadie.",
+		"choices": [
+			{
+				"label": "Ahuyentarlas con trampas y arcos",
+				"check": {
+					"stat": "hand",
+					"skill": "hunting",
+					"difficulty": 10
+				},
+				"success": {
+					"effects": {
+						"attitude": {
+							"chimera": -3
+						}
+					},
+					"chronicle": "{When}, los cazadores ahuyentaron a las quimeras de la colina, y el nido quedó vacío."
+				},
+				"failure": {
+					"effects": {
+						"food": -3,
+						"attitude": {
+							"chimera": -1
+						}
+					},
+					"chronicle": "{When}, las quimeras rompieron las trampas y se llevaron tres ciervos de las propias piezas de los cazadores."
+				}
+			},
+			{
+				"label": "Dejarles los restos de la cosecha",
+				"requires": {
+					"food": 4
+				},
+				"effects": {
+					"food": -4,
+					"attitude": {
+						"chimera": 1
+					}
+				},
+				"chronicle": "{When}, se dejó un saco de restos al pie de la colina, y el nido estuvo tranquilo aquel invierno."
+			},
+			{
+				"label": "Seguir sus rastros y mantenerse lejos",
+				"check": {
+					"stat": "lore",
+					"skill": "tracking",
+					"difficulty": 7
+				},
+				"success": {
+					"effects": {
+						"attitude": {
+							"chimera": 1
+						}
+					},
+					"chronicle": "{When}, los hermanos aprendieron los caminos de las quimeras, y se mantuvieron en el fondo del valle."
+				},
+				"failure": {
+					"effects": {},
+					"chronicle": "{When}, los rastreadores perdieron el rastro en el pantano, y volvieron con las manos vacías."
+				}
+			}
+		]
+	},
+	{
+		"id": "chimera_deer",
+		"title": "Un ciervo a la puerta",
+		"weight": 6,
+		"cooldown": 40,
+		"when": {
+			"attitude_min": {
+				"chimera": 3
+			}
+		},
+		"text": "Las quimeras bajan al anochecer y dejan un ciervo a la puerta, y vuelven a las colinas sin hacer ruido.",
+		"choices": [
+			{
+				"label": "Llevar el ciervo a la cocina",
+				"effects": {
+					"food": 8
+				},
+				"chronicle": "{When}, el ciervo dejado a la puerta se despellejó en la cocina, y alimentó a la casa durante una semana."
+			},
+			{
+				"label": "Dejar el ciervo en el umbral",
+				"effects": {
+					"attitude": {
+						"chimera": 1
+					}
+				},
+				"chronicle": "{When}, el ciervo se dejó en el umbral, y las quimeras volvieron a por los huesos."
+			}
+		]
+	},
+	{
+		"id": "engine_found",
+		"title": "Una máquina bajo la roca",
+		"weight": 4,
+		"cooldown": 40,
+		"text": "Unos hermanos que recogían leña en las colinas encuentran una máquina del viejo mundo bajo un derrumbe de roca. Su rueda aún gira con el viento, y zumba bajo, como una colmena.",
+		"choices": [
+			{
+				"label": "Intentar leer su funcionamiento",
+				"check": {
+					"stat": "lore",
+					"skill": "ruins_machines",
+					"difficulty": 10
+				},
+				"success": {
+					"effects": {
+						"attitude": {
+							"engine": 3
+						}
+					},
+					"chronicle": "{When}, un hermano leyó las marcas de la máquina y encontró la palanca que la calmó, y desde entonces ha sido amable con la casa."
+				},
+				"failure": {
+					"effects": {
+						"attitude": {
+							"engine": -2
+						}
+					},
+					"chronicle": "{When}, el hermano que tocó la máquina fue arrojado contra la roca, y la máquina se calló y se enfrió."
+				}
+			},
+			{
+				"label": "Dejarla al viento",
+				"effects": {},
+				"chronicle": "{When}, los hermanos dejaron la máquina bajo su roca, y siguió zumbando una semana."
+			}
+		]
+	},
+	{
+		"id": "engine_turns",
+		"title": "La rueda gira sola",
+		"weight": 4,
+		"cooldown": 40,
+		"when": {
+			"attitude_min": {
+				"engine": 3
+			}
+		},
+		"text": "La máquina ha empezado a girar la rueda del molino por sí sola, y el grano sale más fino de lo que los hermanos molieron jamás.",
+		"choices": [
+			{
+				"label": "Dar gracias y moler la reserva",
+				"effects": {
+					"food": 6
+				},
+				"chronicle": "{When}, la reserva fue molida por la máquina, y el pan de esa semana fue el mejor que había hecho la casa."
+			},
+			{
+				"label": "Pedir a la máquina que descanse de noche",
+				"effects": {
+					"attitude": {
+						"engine": -1
+					}
+				},
+				"chronicle": "{When}, los hermanos pidieron a la máquina que descansara de noche, y lo hizo, aunque pareció menos contenta con la casa después."
+			}
+		]
+	},
+	{
+		"id": "hollow_stirs",
+		"title": "La lámpara de la cripta",
+		"weight": 3,
+		"cooldown": 40,
+		"text": "La lámpara de la cripta se ha apagado tres noches seguidas, y el agua de la cisterna suena cuando nadie la ha tocado.",
+		"choices": [
+			{
+				"label": "Rezar en la cripta hasta el amanecer",
+				"check": {
+					"stat": "faith",
+					"skill": "warding",
+					"difficulty": 10
+				},
+				"success": {
+					"effects": {
+						"attitude": {
+							"hollow": -1
+						}
+					},
+					"chronicle": "{When}, los hermanos rezaron en la cripta hasta el amanecer, y la lámpara se encendió sola con la primera luz."
+				},
+				"failure": {
+					"effects": {
+						"attitude": {
+							"hollow": -2
+						}
+					},
+					"chronicle": "{When}, las oraciones subieron y volvieron frías, y la cripta quedó a oscuras."
+				}
+			},
+			{
+				"label": "Cerrar la cripta y no decir nada",
+				"effects": {
+					"attitude": {
+						"hollow": -1
+					}
+				},
+				"chronicle": "{When}, la cripta se cerró con llave, y la casa solo habló de la lámpara en susurros."
+			}
+		]
+	},
+	{
+		"id": "hollow_whisper",
+		"title": "Nombres bajo el suelo",
+		"deck": "hollow",
+		"weight": 6,
+		"cooldown": 20,
+		"when": {
+			"attitude_max": {
+				"hollow": -3
+			}
+		},
+		"text": "Algo bajo el suelo de la capilla responde a la campana. En Vísperas los hermanos oyen sus propios nombres repetidos, un instante después.",
+		"choices": [
+			{
+				"label": "Cantar el oficio más alto",
+				"check": {
+					"stat": "faith",
+					"skill": "devotion",
+					"difficulty": 10
+				},
+				"success": {
+					"effects": {
+						"attitude": {
+							"hollow": 1
+						}
+					},
+					"chronicle": "{When}, el oficio se cantó más alto que los nombres, y las respuestas cesaron."
+				},
+				"failure": {
+					"effects": {
+						"attitude": {
+							"hollow": -1
+						}
+					},
+					"chronicle": "{When}, los nombres siguieron bajo el suelo, y las voces de los hermanos vacilaron."
+				}
+			},
+			{
+				"label": "Cerrar las puertas de la capilla",
+				"effects": {},
+				"chronicle": "{When}, se cerraron las puertas de la capilla, y los nombres siguieron bajo el suelo hasta la mañana."
+			}
+		]
+	},
+	{
+		"id": "hollow_wane",
+		"title": "El frío se levanta",
+		"deck": "hollow",
+		"weight": 4,
+		"cooldown": 30,
+		"when": {
+			"attitude_max": {
+				"hollow": -3
+			}
+		},
+		"text": "El Hueco se aparta de la casa por una noche, y el frío de la capilla se levanta. Deja una marca gris en las manos de los hermanos.",
+		"choices": [
+			{
+				"label": "Hacer una vigilia por él",
+				"check": {
+					"stat": "faith",
+					"skill": "warding",
+					"difficulty": 7
+				},
+				"success": {
+					"effects": {
+						"attitude": {
+							"hollow": 2
+						}
+					},
+					"chronicle": "{When}, los hermanos hicieron una vigilia durante las horas frías, y el Hueco se mantuvo alejado."
+				},
+				"failure": {
+					"effects": {},
+					"chronicle": "{When}, la vigilia terminó antes del amanecer, y el frío volvió con la primera campana."
+				}
+			},
+			{
+				"label": "Dar gracias a Dios y dormir",
+				"effects": {},
+				"chronicle": "{When}, la casa durmió toda la noche, y despertó con las marcas grises aún en las manos."
+			}
+		]
+	}
+]

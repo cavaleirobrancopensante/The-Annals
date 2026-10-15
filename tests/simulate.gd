@@ -113,6 +113,7 @@ func _ready() -> void:
 			known += 1
 	print("Field workers: %.1f a week of %.1f at home. Paths known: %d of %d brothers ever." % [float(field_sum) / weeks_run, float(home_sum) / weeks_run, known, WorldState.monks.size()])
 	print("Village: standing %d, controlled for %d of %d weeks, held at the end: %s" % [Village.standing, controlled_weeks, weeks_run, str(Village.controlled)])
+	print("Beings: marred %d, chimera %d, engine %d, hollow %d" % [Beings.attitude("marred"), Beings.attitude("chimera"), Beings.attitude("engine"), Beings.attitude("hollow")])
 	print("World tags: %s" % str(WorldState.tags.keys()))
 	var fired := EventEngine.fired.keys()
 	fired.sort()

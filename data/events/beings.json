@@ -1,0 +1,371 @@
+[
+	{
+		"id": "marred_envoy",
+		"title": "Riders Under a White Cloth",
+		"weight": 5,
+		"cooldown": 30,
+		"text": "Three riders of the Marred come to the gate under a white cloth. They ask to parley, and say the house has been talked about in the valley.",
+		"choices": [
+			{
+				"label": "Go down and parley",
+				"check": {
+					"stat": "presence",
+					"skill": "persuasion",
+					"difficulty": 10
+				},
+				"success": {
+					"effects": {
+						"attitude": {
+							"marred": 2
+						}
+					},
+					"chronicle": "{When}, the abbot parleyed at the gate with the Marred, and they rode off saying the house had spoken fairly."
+				},
+				"failure": {
+					"effects": {
+						"attitude": {
+							"marred": -2
+						}
+					},
+					"chronicle": "{When}, the Marred were talked down in the wrong words, and rode off with contempt."
+				}
+			},
+			{
+				"label": "Keep the gate shut",
+				"effects": {
+					"attitude": {
+						"marred": -2
+					}
+				},
+				"chronicle": "{When}, the gate stayed shut, and the Marred rode back down the valley."
+			}
+		]
+	},
+	{
+		"id": "marred_trade",
+		"title": "Salt and Wool",
+		"weight": 6,
+		"cooldown": 40,
+		"when": {
+			"attitude_min": {
+				"marred": 2
+			}
+		},
+		"text": "The Marred send up salt and wool with their riders. In return they ask for a copy of the psalter, in the old hand.",
+		"choices": [
+			{
+				"label": "Give them the copy",
+				"requires": {
+					"books": 1
+				},
+				"effects": {
+					"books": -1,
+					"attitude": {
+						"marred": 1
+					}
+				},
+				"chronicle": "{When}, the psalter went down the valley with the Marred, and they sent their thanks in salt."
+			},
+			{
+				"label": "Send the salt back with thanks",
+				"effects": {
+					"attitude": {
+						"marred": -1
+					}
+				},
+				"chronicle": "{When}, the salt went back down with thanks, and the Marred took the house's courtesy as a refusal."
+			}
+		]
+	},
+	{
+		"id": "chimera_nest_found",
+		"title": "A Nest in the Hills",
+		"weight": 5,
+		"cooldown": 30,
+		"text": "A nest of chimeras has been found in the hills above the road. The hunters say they come down for the deer in autumn, and that they do not give way to anyone.",
+		"choices": [
+			{
+				"label": "Drive them off with snares and bows",
+				"check": {
+					"stat": "hand",
+					"skill": "hunting",
+					"difficulty": 10
+				},
+				"success": {
+					"effects": {
+						"attitude": {
+							"chimera": -3
+						}
+					},
+					"chronicle": "{When}, the hunters drove the chimeras off the hill, and the nest was left empty."
+				},
+				"failure": {
+					"effects": {
+						"food": -3,
+						"attitude": {
+							"chimera": -1
+						}
+					},
+					"chronicle": "{When}, the chimeras broke the snares and took three deer from the hunters' own carcasses."
+				}
+			},
+			{
+				"label": "Leave them the gleanings",
+				"requires": {
+					"food": 4
+				},
+				"effects": {
+					"food": -4,
+					"attitude": {
+						"chimera": 1
+					}
+				},
+				"chronicle": "{When}, a sack of gleanings was left at the foot of the hill, and the nest was quiet that winter."
+			},
+			{
+				"label": "Track their paths and keep to them",
+				"check": {
+					"stat": "lore",
+					"skill": "tracking",
+					"difficulty": 7
+				},
+				"success": {
+					"effects": {
+						"attitude": {
+							"chimera": 1
+						}
+					},
+					"chronicle": "{When}, the brothers learned the chimeras' paths, and kept to the valley floor."
+				},
+				"failure": {
+					"effects": {},
+					"chronicle": "{When}, the trackers lost the trail in the bog, and came home with nothing."
+				}
+			}
+		]
+	},
+	{
+		"id": "chimera_deer",
+		"title": "A Deer at the Gate",
+		"weight": 6,
+		"cooldown": 40,
+		"when": {
+			"attitude_min": {
+				"chimera": 3
+			}
+		},
+		"text": "The chimeras come down at dusk and leave a deer at the gate, and go back up into the hills without a sound.",
+		"choices": [
+			{
+				"label": "Take the deer into the kitchen",
+				"effects": {
+					"food": 8
+				},
+				"chronicle": "{When}, the deer left at the gate was dressed in the kitchen, and fed the house for a week."
+			},
+			{
+				"label": "Leave the deer on the threshold",
+				"effects": {
+					"attitude": {
+						"chimera": 1
+					}
+				},
+				"chronicle": "{When}, the deer was left on the threshold, and the chimeras came back for the bones."
+			}
+		]
+	},
+	{
+		"id": "engine_found",
+		"title": "An Engine Under the Rock",
+		"weight": 4,
+		"cooldown": 40,
+		"text": "Brothers gathering wood in the hills find an engine of the old world under a fall of rock. Its wheel still turns in the wind, and it hums low, like a hive.",
+		"choices": [
+			{
+				"label": "Try to read its workings",
+				"check": {
+					"stat": "lore",
+					"skill": "ruins_machines",
+					"difficulty": 10
+				},
+				"success": {
+					"effects": {
+						"attitude": {
+							"engine": 3
+						}
+					},
+					"chronicle": "{When}, a brother read the engine's markings and found the lever that quieted it, and it has been kind to the house since."
+				},
+				"failure": {
+					"effects": {
+						"attitude": {
+							"engine": -2
+						}
+					},
+					"chronicle": "{When}, the brother who touched the engine was thrown against the rock, and the engine went quiet and cold."
+				}
+			},
+			{
+				"label": "Leave it to the wind",
+				"effects": {},
+				"chronicle": "{When}, the brothers left the engine under its rock, and it went on humming for a week after."
+			}
+		]
+	},
+	{
+		"id": "engine_turns",
+		"title": "The Wheel Turns Alone",
+		"weight": 4,
+		"cooldown": 40,
+		"when": {
+			"attitude_min": {
+				"engine": 3
+			}
+		},
+		"text": "The engine has begun to turn the mill-wheel by itself, and the grain comes out finer than the brothers ever ground it.",
+		"choices": [
+			{
+				"label": "Give thanks and grind the store",
+				"effects": {
+					"food": 6
+				},
+				"chronicle": "{When}, the store was ground by the engine, and the bread that week was the best the house had made."
+			},
+			{
+				"label": "Ask the engine to rest at night",
+				"effects": {
+					"attitude": {
+						"engine": -1
+					}
+				},
+				"chronicle": "{When}, the brothers asked the engine to rest at night, and it did, though it seemed less glad of the house after."
+			}
+		]
+	},
+	{
+		"id": "hollow_stirs",
+		"title": "The Lamp in the Crypt",
+		"weight": 3,
+		"cooldown": 40,
+		"text": "The lamp in the crypt has gone out three nights running, and the water in the cistern rings when no one has touched it.",
+		"choices": [
+			{
+				"label": "Pray in the crypt until dawn",
+				"check": {
+					"stat": "faith",
+					"skill": "warding",
+					"difficulty": 10
+				},
+				"success": {
+					"effects": {
+						"attitude": {
+							"hollow": -1
+						}
+					},
+					"chronicle": "{When}, the brothers prayed in the crypt until dawn, and the lamp lit itself at first light."
+				},
+				"failure": {
+					"effects": {
+						"attitude": {
+							"hollow": -2
+						}
+					},
+					"chronicle": "{When}, the prayers went up and came back cold, and the crypt stayed dark."
+				}
+			},
+			{
+				"label": "Lock the crypt and say nothing",
+				"effects": {
+					"attitude": {
+						"hollow": -1
+					}
+				},
+				"chronicle": "{When}, the crypt was locked, and the house spoke of the lamp only in whispers."
+			}
+		]
+	},
+	{
+		"id": "hollow_whisper",
+		"title": "Names Under the Floor",
+		"deck": "hollow",
+		"weight": 6,
+		"cooldown": 20,
+		"when": {
+			"attitude_max": {
+				"hollow": -3
+			}
+		},
+		"text": "Something under the chapel floor answers the bell. At Vespers the brothers hear their own names said back to them, one beat late.",
+		"choices": [
+			{
+				"label": "Say the office louder",
+				"check": {
+					"stat": "faith",
+					"skill": "devotion",
+					"difficulty": 10
+				},
+				"success": {
+					"effects": {
+						"attitude": {
+							"hollow": 1
+						}
+					},
+					"chronicle": "{When}, the office was sung louder than the names, and the answering stopped."
+				},
+				"failure": {
+					"effects": {
+						"attitude": {
+							"hollow": -1
+						}
+					},
+					"chronicle": "{When}, the names went on under the floor, and the brothers' voices faltered."
+				}
+			},
+			{
+				"label": "Bar the chapel doors",
+				"effects": {},
+				"chronicle": "{When}, the chapel doors were barred, and the names went on under the floor until morning."
+			}
+		]
+	},
+	{
+		"id": "hollow_wane",
+		"title": "The Cold Lifts",
+		"deck": "hollow",
+		"weight": 4,
+		"cooldown": 30,
+		"when": {
+			"attitude_max": {
+				"hollow": -3
+			}
+		},
+		"text": "The Hollow draws back from the house for a night, and the cold in the chapel lifts. It leaves a grey mark on the brothers' hands.",
+		"choices": [
+			{
+				"label": "Hold a vigil for it",
+				"check": {
+					"stat": "faith",
+					"skill": "warding",
+					"difficulty": 7
+				},
+				"success": {
+					"effects": {
+						"attitude": {
+							"hollow": 2
+						}
+					},
+					"chronicle": "{When}, the brothers held a vigil through the cold hours, and the Hollow stayed back."
+				},
+				"failure": {
+					"effects": {},
+					"chronicle": "{When}, the vigil ended before dawn, and the cold came back with the first bell."
+				}
+			},
+			{
+				"label": "Thank God and sleep",
+				"effects": {},
+				"chronicle": "{When}, the house slept through the night, and woke with the grey marks still on its hands."
+			}
+		]
+	}
+]

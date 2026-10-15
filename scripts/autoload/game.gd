@@ -15,6 +15,7 @@ func new_game(seed_value: int = -1) -> void:
 	EventEngine.reset()
 	Road.new_game()
 	Village.new_game()
+	Beings.new_game()
 	Rule.new_game()
 	return_queue = []
 	var brothers := WorldState.living_monks().size() - 1
@@ -110,6 +111,7 @@ func _weekly_turn() -> void:
 	_practice()
 	_health()
 	Village.weekly()
+	Beings.weekly()
 	_travel()
 	_road()
 	WorldState.expire_tags()
@@ -124,6 +126,8 @@ func _weekly_turn() -> void:
 		if not EventEngine.pick_event("return", int(id)):
 			_generic_return(int(id))
 	elif Village.wants_event() and EventEngine.pick_event("village"):
+		pass
+	elif Beings.wants_hollow_event() and EventEngine.pick_event("hollow"):
 		pass
 	elif Oracle.chance(EVENT_CHANCE):
 		EventEngine.pick_event("abbey")

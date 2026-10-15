@@ -111,6 +111,13 @@ func _check_world(when: Dictionary, node_id: String = "") -> bool:
 		return false
 	if when.has("village_standing_max") and Village.standing > int(when["village_standing_max"]):
 		return false
+	# The beings that can be allies or enemies.
+	for b in when.get("attitude_min", {}):
+		if Beings.attitude(str(b)) < int(when["attitude_min"][b]):
+			return false
+	for b in when.get("attitude_max", {}):
+		if Beings.attitude(str(b)) > int(when["attitude_max"][b]):
+			return false
 	return true
 
 
@@ -362,6 +369,8 @@ func _apply(effects: Dictionary, bind: Dictionary, lines: Array) -> void:
 		WorldState.add_tag(t, tag_weeks)
 	for t in _as_array(effects.get("remove_tag")):
 		WorldState.remove_tag(t)
+	for b in effects.get("attitude", {}):
+		Beings.change(str(b), int(effects["attitude"][b]))
 	if effects.has("village_standing"):
 		Village.touch()
 		Village.change(int(effects["village_standing"]))

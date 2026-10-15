@@ -1,0 +1,9 @@
+{
+	"_note": "The beings that can be allies or enemies of the house. Their attitude is in beings.gd.",
+	"beings": {
+		"marred": {"name": "The Marred"},
+		"chimera": {"name": "The chimera nest"},
+		"engine": {"name": "The engine"},
+		"hollow": {"name": "The Hollow"}
+	}
+}

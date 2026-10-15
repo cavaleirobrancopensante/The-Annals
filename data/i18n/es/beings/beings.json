@@ -1,0 +1,9 @@
+{
+	"_note": "Los seres que pueden ser aliados o enemigos de la casa. Su actitud está en beings.gd.",
+	"beings": {
+		"marred": {"name": "El Pueblo Marcado"},
+		"chimera": {"name": "El nido de las quimeras"},
+		"engine": {"name": "La máquina"},
+		"hollow": {"name": "El Hueco"}
+	}
+}
