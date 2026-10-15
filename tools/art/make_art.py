@@ -59,19 +59,24 @@ def emb_pattern():
             f'<circle cx="6" cy="6" r="1.3" fill="{INK}"/></pattern>')
 
 
+def field_shapes(w, h, step, bg, accent):
+    """The tapestry field drawn as plain shapes: diamonds on a grid with a gold seed at each crossing.
+    Patterns are not used, because Godot's SVG renderer does not draw pattern fills."""
+    r = step / 2 - 1
+    out = [f'<rect width="{w}" height="{h}" fill="{bg}"/>']
+    dark = darker(accent, 0.15)
+    light = lighter(accent, 0.12)
+    for j in range(0, h + step, step):
+        for i in range(0, w + step, step):
+            out.append(f'<path d="M{i} {j-r} L{i+r} {j} L{i} {j+r} L{i-r} {j} Z" fill="{dark}" opacity="0.6"/>')
+            out.append(f'<path d="M{i} {j-r/2} L{i+r/2} {j} L{i} {j+r/2} L{i-r/2} {j} Z" fill="{light}" opacity="0.4"/>')
+            out.append(f'<circle cx="{i}" cy="{j}" r="2.4" fill="url(#gold)"/>')
+    return "".join(out)
+
+
 def frame(w, h, bg, accent):
-    """A tapestry field of quatrefoils and diamonds, a knotwork band, and gold roundels at the corners."""
-    s = []
-    s.append('<defs><pattern id="field" width="32" height="32" patternUnits="userSpaceOnUse">'
-             f'<rect width="32" height="32" fill="{bg}"/>'
-             f'<path d="M16 2 L30 16 L16 30 L2 16 Z" fill="{darker(accent, 0.15)}" opacity="0.55"/>'
-             f'<path d="M16 7 L25 16 L16 25 L7 16 Z" fill="{lighter(accent, 0.1)}" opacity="0.4"/>'
-             f'<circle cx="16" cy="16" r="2.4" fill="url(#gold)"/>'
-             f'<circle cx="0" cy="0" r="1.6" fill="url(#gold)" opacity="0.6"/>'
-             f'<circle cx="32" cy="32" r="1.6" fill="url(#gold)" opacity="0.6"/>'
-             '</pattern></defs>')
-    s.append(f'<rect x="0" y="0" width="{w}" height="{h}" fill="url(#field)"/>')
-    # A vignette so the figure sits in light.
+    """A tapestry field of diamonds, a knotwork band, and gold roundels at the corners."""
+    s = [field_shapes(w, h, 32, bg, accent)]
     s.append(f'<rect x="0" y="0" width="{w}" height="{h}" fill="#000" opacity="0.12"/>')
     s.append(f'<rect x="5" y="5" width="{w-10}" height="{h-10}" fill="none" stroke="url(#gold)" stroke-width="7"/>')
     s.append(f'<rect x="14" y="14" width="{w-28}" height="{h-28}" fill="none" stroke="{INK}" stroke-width="2"/>')
@@ -230,10 +235,10 @@ def math_sin(t):
 
 def portrait(pid):
     p = PATHS[pid]
-    body = [defs_common() + "<defs>" + robe_grad("robe", p["robe"]) + emb_pattern() + "</defs>",
+    body = [defs_common() + "<defs>" + robe_grad("robe", p["robe"]) + "</defs>",
             frame(256, 256, p["bg"], p["accent"])]
     body.append(f'<path d="M34 256 Q34 186 96 170 L160 170 Q222 186 222 256 Z" fill="url(#robe)" stroke="{INK}" stroke-width="5"/>')
-    body.append(f'<path d="M96 170 Q128 196 160 170" fill="none" stroke="url(#emb)" stroke-width="9"/>')
+    body.append(f'<path d="M96 170 Q128 196 160 170" fill="none" stroke="url(#gold)" stroke-dasharray="7 3" stroke-width="9"/>')
     body.append(f'<path d="M40 252 Q44 214 96 204" fill="none" stroke="{darker(p["robe"], 0.45)}" stroke-width="2.5" opacity="0.5"/>')
     body.append(f'<path d="M216 252 Q212 214 160 204" fill="none" stroke="{darker(p["robe"], 0.45)}" stroke-width="2.5" opacity="0.5"/>')
     body.append(f'<rect x="112" y="136" width="32" height="40" fill="{SKIN_SH}" stroke="{INK}" stroke-width="3"/>')
@@ -244,7 +249,7 @@ def portrait(pid):
 
 def figure(pid):
     p = PATHS[pid]
-    body = [defs_common() + "<defs>" + robe_grad("robe", p["robe"]) + emb_pattern() + "</defs>",
+    body = [defs_common() + "<defs>" + robe_grad("robe", p["robe"]) + "</defs>",
             frame(256, 512, p["bg"], p["accent"])]
     # legs and feet under the robe
     body.append(f'<rect x="102" y="420" width="24" height="60" fill="{INK}"/><rect x="130" y="420" width="24" height="60" fill="{INK}"/>')
@@ -252,11 +257,11 @@ def figure(pid):
                 f'<ellipse cx="144" cy="484" rx="16" ry="8" fill="{WOOD}" stroke="{INK}" stroke-width="3"/>')
     # the robe, flaring to the hem
     body.append(f'<path d="M92 168 L164 168 Q186 260 194 426 L62 426 Q70 260 92 168 Z" fill="url(#robe)" stroke="{INK}" stroke-width="5"/>')
-    body.append(f'<path d="M62 426 L194 426" stroke="url(#emb)" stroke-width="11"/>')
+    body.append(f'<path d="M62 426 L194 426" stroke="url(#gold)" stroke-dasharray="7 3" stroke-width="11"/>')
     body.append(f'<path d="M128 176 L128 420" stroke="url(#gold)" stroke-width="4" opacity="0.7"/>')
     for x0, x1 in ((112, 104), (144, 152)):
         body.append(f'<path d="M{x0} 200 Q{x1} 300 {x0 - 6 if x0 < 128 else x0 + 6} 420" fill="none" stroke="{darker(p["robe"], 0.45)}" stroke-width="3" opacity="0.5"/>')
-    body.append(f'<path d="M96 178 L160 178" stroke="url(#emb)" stroke-width="9"/>')
+    body.append(f'<path d="M96 178 L160 178" stroke="url(#gold)" stroke-dasharray="7 3" stroke-width="9"/>')
     # arms
     body.append(f'<path d="M92 180 Q66 260 80 332 L98 326 Q90 264 110 196 Z" fill="url(#robe)" stroke="{INK}" stroke-width="4"/>')
     body.append(f'<path d="M164 180 Q190 260 178 330 L160 326 Q168 264 146 196 Z" fill="url(#robe)" stroke="{INK}" stroke-width="4"/>')
@@ -339,9 +344,7 @@ def item(kind):
 
 def item_icon(kind):
     """An item on its own: a roundel of tapestry with the item centred."""
-    body = [defs_common() + '<defs><pattern id="f" width="24" height="24" patternUnits="userSpaceOnUse"><rect width="24" height="24" fill="#2a2119"/>'
-            f'<path d="M12 2 L22 12 L12 22 L2 12 Z" fill="#3d3024" opacity="0.8"/></pattern></defs>',
-            f'<rect width="128" height="128" fill="url(#f)"/>',
+    body = [defs_common() + field_shapes(128, 128, 24, "#2a2119", "#3d3024"),
             f'<circle cx="64" cy="64" r="58" fill="none" stroke="{GOLD}" stroke-width="5"/>',
             f'<circle cx="64" cy="64" r="51" fill="none" stroke="{INK}" stroke-width="2"/>',
             f'<g transform="translate(0 0)">{item(kind)}</g>']
@@ -356,12 +359,7 @@ ITEMS = ["bread", "candle", "book", "cross", "bell", "grain", "fish", "herb",
 
 def tapestry_bg(w, h, bg, accent):
     """A full tapestry field for a screen: the same field as the figures, with a wide gold border."""
-    return svg(w, h, defs_common() + '<defs>' + '<pattern id="field" width="40" height="40" patternUnits="userSpaceOnUse">'
-               f'<rect width="40" height="40" fill="{bg}"/>'
-               f'<path d="M20 3 L37 20 L20 37 L3 20 Z" fill="{lighter(accent, 0.12)}" opacity="0.7"/>'
-               f'<path d="M20 10 L30 20 L20 30 L10 20 Z" fill="{lighter(accent, 0.3)}" opacity="0.45"/>'
-               '<circle cx="20" cy="20" r="2.6" fill="url(#gold)"/></pattern></defs>'
-               f'<rect width="{w}" height="{h}" fill="url(#field)"/>'
+    return svg(w, h, defs_common() + field_shapes(w, h, 40, bg, accent) +
                f'<rect x="10" y="10" width="{w-20}" height="{h-20}" fill="none" stroke="url(#gold)" stroke-width="10"/>'
                f'<rect x="24" y="24" width="{w-48}" height="{h-48}" fill="none" stroke="{INK}" stroke-width="2"/>'
                + "".join(f'<circle cx="{x}" cy="{y}" r="6" fill="url(#gold)" stroke="{INK}" stroke-width="2"/>'
@@ -420,15 +418,67 @@ def stance_icon(kind):
     return (f'<path d="M36 64 L64 20 L64 40 L92 40 L92 88 L64 88 L64 108 Z" fill="url(#parch)" stroke="{INK}" stroke-width="4"/>')
 
 
-def map_parchment(w=720, h=520):
-    """The island as a parchment chart: a coastline, sea hatching and a compass rose. Nodes are drawn over it."""
+def _hull(points):
+    """Convex hull by the monotone chain method, counter-clockwise."""
+    pts = sorted(set(points))
+    if len(pts) < 3:
+        return pts
+
+    def cross(o, a, b):
+        return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0])
+
+    lower, upper = [], []
+    for q in pts:
+        while len(lower) >= 2 and cross(lower[-2], lower[-1], q) <= 0:
+            lower.pop()
+        lower.append(q)
+    for q in reversed(pts):
+        while len(upper) >= 2 and cross(upper[-2], upper[-1], q) <= 0:
+            upper.pop()
+        upper.append(q)
+    return lower[:-1] + upper[:-1]
+
+
+def island_outline(w, h):
+    """An island that holds every place on the road map, with a jagged coast. Coordinates follow the
+    map's own layout: the places sit at PAD plus their 0 to 1 position, as in road_map.gd."""
+    import json
     import math
-    pts = []
-    for i in range(72):
-        t = i / 72 * 2 * math.pi
-        r = 1.0 + 0.12 * math.sin(3 * t + 0.7) + 0.07 * math.sin(7 * t + 1.9) + 0.04 * math.sin(13 * t + 0.3)
-        pts.append((360 + 250 * r * math.cos(t), 270 + 190 * r * math.sin(t)))
-    coast = "M" + " L".join(f"{x:.1f} {y:.1f}" for x, y in pts) + " Z"
+    pad = 26
+    data = json.load(open(os.path.join(ROOT, "..", "..", "data", "road", "map.json"), encoding="utf-8"))
+    pts = [(pad + n["x"] * (w - 2 * pad), pad + n["y"] * (h - 2 * pad)) for n in data["nodes"]]
+    house = data.get("house", {})
+    if house:
+        pts.append((pad + house["x"] * (w - 2 * pad), pad + house["y"] * (h - 2 * pad)))
+    hull = _hull(pts)
+    cx = sum(x for x, _ in hull) / len(hull)
+    cy = sum(y for _, y in hull) / len(hull)
+    grown = [(cx + (x - cx) * 1.0 + (x - cx) * 0.0, cy + (y - cy) * 1.0) for x, y in hull]
+    # Push every hull point outward so the places sit well inside the coast.
+    outer = []
+    for x, y in grown:
+        d = math.hypot(x - cx, y - cy) or 1.0
+        outer.append((x + (x - cx) / d * 46, y + (y - cy) / d * 46))
+    # Subdivide the coast and wobble it, so it reads as coastline and not a polygon.
+    coast = []
+    n = len(outer)
+    for i in range(n):
+        x0, y0 = outer[i]
+        x1, y1 = outer[(i + 1) % n]
+        for k in range(4):
+            t = k / 4
+            x = x0 + (x1 - x0) * t
+            y = y0 + (y1 - y0) * t
+            wob = 9 * math.sin(i * 2.3 + k * 1.7) + 5 * math.sin(i * 5.1 + k * 0.9)
+            nx_, ny_ = -(y1 - y0), (x1 - x0)
+            ln = math.hypot(nx_, ny_) or 1.0
+            coast.append((min(w - 14, max(14, x + nx_ / ln * wob)), min(h - 14, max(14, y + ny_ / ln * wob))))
+    return "M" + " L".join(f"{x:.1f} {y:.1f}" for x, y in coast) + " Z"
+
+
+def map_parchment(w=720, h=520):
+    """The island as a parchment chart: a coastline that holds every place, sea hatching and a compass rose."""
+    coast = island_outline(w, h)
     hatch = "".join(f'<path d="M{x} {y} q14 -8 28 0" fill="none" stroke="{darker("#d8c49a", 0.45)}" stroke-width="1.5" opacity="0.6"/>'
                     for y in range(40, h - 20, 22) for x in range(20 + (y // 22 % 2) * 14, w - 20, 34))
     rose = (f'<g transform="translate(640 80)"><circle r="34" fill="none" stroke="{INK}" stroke-width="2"/>'

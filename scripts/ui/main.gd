@@ -12,8 +12,8 @@ const RED := Style.RED
 var title_label: Label
 var status_label: Label
 var feast_label: Label
-var resources_label: Label
-var stores_label: Label
+var resources_label: RichTextLabel
+var stores_label: RichTextLabel
 var until_hint: Label
 var _unread := 0
 var forecast_label: Label
@@ -96,9 +96,9 @@ func _build_ui() -> void:
 	root.add_child(status_label)
 	feast_label = _label(22, GOLD)
 	root.add_child(feast_label)
-	resources_label = _label(20, PARCHMENT)
+	resources_label = _inline_label(20, PARCHMENT)
 	root.add_child(resources_label)
-	stores_label = _label(20, PARCHMENT)
+	stores_label = _inline_label(20, PARCHMENT)
 	root.add_child(stores_label)
 	forecast_label = _label(19, DIM)
 	root.add_child(forecast_label)
@@ -271,6 +271,22 @@ func _button(text: String) -> Button:
 
 # --- Refreshing ---------------------------------------------------------
 
+## A rich text label with no box, so item icons can sit inline with the numbers.
+func _inline_label(size: int, color: Color) -> RichTextLabel:
+	var r := RichTextLabel.new()
+	r.bbcode_enabled = true
+	r.fit_content = true
+	r.scroll_active = false
+	r.add_theme_font_size_override("normal_font_size", size)
+	r.add_theme_color_override("default_color", color)
+	return r
+
+
+## An item from the art set, as an inline image of the line's height.
+func _icon(item: String) -> String:
+	return "[img=24x24]res://assets/art/%s.svg[/img]" % item
+
+
 func _refresh() -> void:
 	title_label.text = WorldState.full_house_name()
 	var ab := WorldState.abbot()
@@ -280,12 +296,14 @@ func _refresh() -> void:
 	feast_label.visible = not feasts.is_empty()
 	if not feasts.is_empty():
 		feast_label.text = tr("house.feast") % str(feasts[0]["name"])
-	resources_label.text = tr("ui.res_line") % [
-		WorldState.res("food"), WorldState.cap("food"), WorldState.res("firewood"), WorldState.cap("firewood"),
-		WorldState.res("medicine"), WorldState.cap("medicine")]
-	resources_label.add_theme_color_override("font_color", RED if _winter_short() else PARCHMENT)
-	stores_label.text = tr("ui.stores_line") % [
-		WorldState.res("books"), WorldState.res("goodwill"), WorldState.living_monks().size()]
+	resources_label.text = "%s %d/%d    %s %d/%d    %s %d/%d" % [
+		_icon("items/bread"), WorldState.res("food"), WorldState.cap("food"),
+		_icon("items/log"), WorldState.res("firewood"), WorldState.cap("firewood"),
+		_icon("items/herb"), WorldState.res("medicine"), WorldState.cap("medicine")]
+	resources_label.add_theme_color_override("default_color", RED if _winter_short() else PARCHMENT)
+	stores_label.text = "%s %d    %s %d    ·    %s" % [
+		_icon("items/book"), WorldState.res("books"), _icon("icons/heart"), WorldState.res("goodwill"),
+		tr("ui.brothers_n") % WorldState.living_monks().size()]
 	forecast_label.text = _forecast_text()
 	forecast_label.add_theme_color_override("font_color", RED if _winter_short() else DIM)
 	_render_estate_if_changed()

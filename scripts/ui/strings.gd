@@ -191,6 +191,7 @@ const TABLE := {
 	"building.scriptorium.desc": ["Scribes can copy books.", "Os escribas podem copiar livros.", "Los escribas pueden copiar libros."],
 	"ui.status": ["Year %d  ·  %s, week %d  ·  Abbot %s  ·  Generation %d", "Ano %d  ·  %s, semana %d  ·  Abade %s  ·  Geração %d", "Año %d  ·  %s, semana %d  ·  Abad %s  ·  Generación %d"],
 	"ui.res_line": ["Food %d/%d   Firewood %d/%d   Medicine %d/%d", "Comida %d/%d   Lenha %d/%d   Remédios %d/%d", "Comida %d/%d   Leña %d/%d   Medicinas %d/%d"],
+	"ui.brothers_n": ["%d brothers", "%d irmãos", "%d hermanos"],
 	"ui.stores_line": ["Books %d   Goodwill %d   ·   %d brothers", "Livros %d   Boa vontade %d   ·   %d irmãos", "Libros %d   Buena voluntad %d   ·   %d hermanos"],
 	"ui.stores_enough": ["Stores are enough.", "As reservas bastam.", "Las reservas bastan."],
 	"ui.short_by": ["Short by %s.", "Faltam %s.", "Faltan %s."],
