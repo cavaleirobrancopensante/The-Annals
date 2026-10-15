@@ -102,6 +102,19 @@ func _process(_delta: float) -> bool:
 	b.from_dict(saved)
 	_expect("the beings survive a save", [b.attitude("engine"), b.attitude("hollow"), b.state("hollow")], [4, -5, "hostile"])
 
+	# A hostile chimera nest closes the place it holds on the road, and an allied one does not.
+	var road = root.get_node("Road")
+	road.new_game()
+	b.new_game()
+	_expect("the nest holds slieve bloom", road.being_at("slieve_bloom"), "chimera")
+	_expect("a neutral nest does not close its place", road.is_hostile("slieve_bloom"), false)
+	b.change("chimera", -3)
+	_expect("a hostile nest closes its place", road.is_hostile("slieve_bloom"), true)
+	_expect("the refusal names the nest", road.refusal("slieve_bloom", [1]).contains("holds this place"), true)
+	_expect("a place with no being is not closed", road.is_hostile("knockmore"), false)
+	b.change("chimera", 6)
+	_expect("an allied nest leaves its place open", road.is_hostile("slieve_bloom"), false)
+
 	print("beings test: %d failure(s)" % failures)
 	quit(1 if failures > 0 else 0)
 	return false

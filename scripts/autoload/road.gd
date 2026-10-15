@@ -77,8 +77,20 @@ func change_standing(f: String, delta: int) -> void:
 	standings[f] = clampi(standing(f) + delta, -STANDING_LIMIT, STANDING_LIMIT)
 
 
+## A place is closed when its faction is hostile, or a being that holds it is hostile.
 func is_hostile(node_id: String) -> bool:
-	return standing(str(node(node_id).get("faction", ""))) <= HOSTILE
+	return standing(str(node(node_id).get("faction", ""))) <= HOSTILE or being_holds(node_id)
+
+
+## The being that holds this place, or "" if none does.
+func being_at(node_id: String) -> String:
+	return str(node(node_id).get("being", ""))
+
+
+## True when a being at this place is hostile to the house.
+func being_holds(node_id: String) -> bool:
+	var b := being_at(node_id)
+	return b != "" and Beings.state(b) == "hostile"
 
 
 func weeks_one_way(node_id: String) -> int:
@@ -96,7 +108,9 @@ func refusal(node_id: String, member_ids: Array) -> String:
 		return "Three parties are already on the road."
 	if member_ids.is_empty() or member_ids.size() > MAX_PARTY:
 		return "A party is one to three brothers."
-	if is_hostile(node_id):
+	if being_holds(node_id):
+		return tr("road.held_by_being") % Beings.name_of(being_at(node_id))
+	if standing(str(node(node_id).get("faction", ""))) <= HOSTILE:
 		return "%s will not receive the house." % faction_name(str(node(node_id).get("faction", "")))
 	for id in member_ids:
 		var m := WorldState.get_monk(id)

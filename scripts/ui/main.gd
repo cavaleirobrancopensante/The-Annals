@@ -14,6 +14,7 @@ var status_label: Label
 var feast_label: Label
 var resources_label: RichTextLabel
 var stores_label: RichTextLabel
+var beings_label: RichTextLabel
 var until_hint: Label
 var _unread := 0
 var forecast_label: Label
@@ -100,6 +101,8 @@ func _build_ui() -> void:
 	root.add_child(resources_label)
 	stores_label = _inline_label(20, PARCHMENT)
 	root.add_child(stores_label)
+	beings_label = _inline_label(18, PARCHMENT)
+	root.add_child(beings_label)
 	forecast_label = _label(19, DIM)
 	root.add_child(forecast_label)
 
@@ -304,6 +307,7 @@ func _refresh() -> void:
 	stores_label.text = "%s %d    %s %d    ·    %s" % [
 		_icon("items/book"), WorldState.res("books"), _icon("icons/heart"), WorldState.res("goodwill"),
 		tr("ui.brothers_n") % WorldState.living_monks().size()]
+	beings_label.text = _beings_text()
 	forecast_label.text = _forecast_text()
 	forecast_label.add_theme_color_override("font_color", RED if _winter_short() else DIM)
 	_render_estate_if_changed()
@@ -442,6 +446,19 @@ func _build_road_tab() -> void:
 	road_box.add_child(_section_title(tr("ui.section_standing")))
 	standings_label = _label(19, PARCHMENT)
 	road_box.add_child(standings_label)
+
+
+## The village below the house and the four beings, in a line each.
+func _beings_text() -> String:
+	var village := ""
+	if Village.controlled:
+		village = tr("ui.village_held") % [Village.name_of(), Village.standing]
+	else:
+		village = tr("ui.village_free") % [Village.name_of(), Village.standing]
+	var line := tr("ui.beings_line") % [
+		tr("state." + Beings.state("marred")), tr("state." + Beings.state("chimera")),
+		tr("state." + Beings.state("engine")), tr("state." + Beings.state("hollow"))]
+	return "%s\n%s" % [village, line]
 
 
 func _refresh_road() -> void:

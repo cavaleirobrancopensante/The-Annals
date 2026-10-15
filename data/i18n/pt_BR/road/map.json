@@ -66,6 +66,7 @@
     },
     {
       "id": "slieve_bloom",
+      "being": "chimera",
       "name": "Slieve Bloom",
       "kind": "hold",
       "faction": "glen_lords",
@@ -97,6 +98,7 @@
     },
     {
       "id": "bog_of_allen",
+      "being": "engine",
       "name": "the Bog of Allen",
       "kind": "ruin",
       "faction": "bog",
