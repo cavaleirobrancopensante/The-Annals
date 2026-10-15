@@ -199,6 +199,13 @@ func _assign_jobs() -> void:
 			job = "scriptorium"
 		elif WorldState.has_building("infirmary") and i % 3 == 1:
 			job = "infirmary"
+		else:
+			# The rota also staffs the four path jobs, one brother in every eight of the rest.
+			match i % 8:
+				2: job = "chapel"
+				4: job = "gate"
+				6: job = "guesthouse"
+				7: job = "confessional"
 		Game.set_job(m, job)
 		i += 1
 
