@@ -1,0 +1,42 @@
+[
+	{
+		"id": "novice_dream",
+		"title": "Um Sonho antes das Laudes",
+		"weight": 5,
+		"once": true,
+		"when": {"monk": {"path_known": false, "status": "home", "max_age": 35}},
+		"text": "{monk} veio ao escritório antes das Laudes, pálido, e a princípio não quis dizer o que o perturbara. Depois contou ao abade que, durante a noite, fora chamado pelo nome, e que a voz não soava como a sua.",
+		"choices": [
+			{
+				"label": "Pedir ao abade que o escute",
+				"effects": {"monk_reveal": true},
+				"chronicle": "{When}, {monk} contou ao abade o seu sonho, e o abade viu nele um chamado para ser {monk_path}."
+			},
+			{
+				"label": "Dizer-lhe que um sonho é só um sonho",
+				"effects": {},
+				"chronicle": "{When}, {monk} ouviu que um sonho é só um sonho, e aceitou o conselho com o rosto preocupado."
+			}
+		]
+	},
+	{
+		"id": "monk_asks_to_marry",
+		"title": "Um Pedido de Licença",
+		"weight": 8,
+		"once": true,
+		"when": {"monk": {"path_known": true, "path": ["householder"], "status": "home", "min_age": 18}},
+		"text": "{monk} veio à porta do abade com o chapéu nas mãos e pediu licença para descer à aldeia. Há uma moça por lá, disse, e acredita que Deus quer que ele se case com ela.",
+		"choices": [
+			{
+				"label": "Dar-lhe licença e a bênção",
+				"effects": {"monk_departs": true},
+				"chronicle": "{When}, {monk} deixou a casa rumo à aldeia, e o abade o abençoou no portão."
+			},
+			{
+				"label": "Pedir que espere um ano",
+				"effects": {},
+				"chronicle": "{When}, {monk} concordou em esperar um ano antes de voltar a falar da aldeia."
+			}
+		]
+	}
+]

@@ -1,0 +1,55 @@
+[
+	{
+		"id": "stranger_at_gate",
+		"title": "Un forastero a la puerta",
+		"weight": 6,
+		"cooldown": 30,
+		"text": "Un forastero con un buen abrigo se ha presentado en la puerta. Dice que es intendente de los hombres del recaudador del peaje, que la despensa debe un diezmo y que desea que lo dejen entrar para contarlo.",
+		"choices": [
+			{
+				"label": "Bajar y disuadirlo",
+				"check": {"stat": "presence", "skill": "persuasion", "difficulty": 10},
+				"success": {
+					"effects": {"goodwill": 1},
+					"chronicle": "{When}, el abad bajó a la puerta y convenció al intendente de contar menos, y volvió a subir con la despensa intacta."
+				},
+				"failure": {
+					"effects": {"food": -4},
+					"chronicle": "{When}, el intendente no se dejó convencer de nada, y se llevó una cesta de pan para sus amos antes de marcharse a caballo."
+				}
+			},
+			{
+				"label": "Mantener la puerta cerrada",
+				"effects": {},
+				"chronicle": "{When}, la puerta permaneció cerrada, y el intendente se marchó a caballo a contárselo a sus amos."
+			}
+		]
+	},
+	{
+		"id": "winter_stag",
+		"title": "Un ciervo en el valle",
+		"weight": 5,
+		"cooldown": 40,
+		"when": {"season": ["winter"], "monk": {"min_health": 2}},
+		"text": "La nieve llegó pronto, y la cocina ha contado los sacos dos veces. {monk} dice que hay un ciervo en el valle, si alguien logra acercarse lo bastante.",
+		"choices": [
+			{
+				"label": "Enviarlo a por él",
+				"check": {"stat": "hand", "skill": "hunting", "difficulty": 10},
+				"success": {
+					"effects": {"food": 6},
+					"chronicle": "{When}, {monk} regresó al anochecer con un ciervo sobre los hombros, y la cocina tuvo carne para un mes."
+				},
+				"failure": {
+					"effects": {"monk_health": -1},
+					"chronicle": "{When}, {monk} volvió del valle sin nada más que una mano cortada por las rocas."
+				}
+			},
+			{
+				"label": "Dejar en paz al ciervo",
+				"effects": {},
+				"chronicle": "{When}, el ciervo quedó en el valle, y los hermanos comieron su pan y se lo agradecieron."
+			}
+		]
+	}
+]

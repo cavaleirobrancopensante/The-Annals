@@ -1,0 +1,184 @@
+[
+	{
+		"id": "salt_king_tribute",
+		"title": "Cavaleiros no Portão",
+		"weight": 5,
+		"cooldown": 36,
+		"when": {"not_tag": ["paid_salt_king", "defied_salt_king", "salt_king_wary", "fed_the_riders"], "min": {"food": 30}},
+		"text": "Cinco cavaleiros aguardam no portão sob o estandarte do Coletor de Pedágio. O capitão quer uma parte da despensa, pelo que chama de proteção da estrada.",
+		"choices": [
+			{
+				"label": "Pagar-lhes",
+				"requires": {"food": 25},
+				"effects": {"food": -25, "add_tag": "paid_salt_king"},
+				"chronicle": "{When}, cavaleiros do Coletor de Pedágio vieram ao portão, e a casa lhes pagou um dízimo de grão."
+			},
+			{
+				"label": "Oferecer-lhes uma refeição no lugar",
+				"requires": {"food": 8},
+				"effects": {
+					"food": -8,
+					"oracle": {
+						"odds": "even",
+						"yes": {"add_tag": "fed_the_riders", "chronicle": "O capitão riu, mas comeu, e partiu sem o grão."},
+						"no": {"food": -15, "add_tag": "defied_salt_king", "chronicle": "Comeram a refeição e depois levaram o grão assim mesmo."}
+					}
+				},
+				"chronicle": "{When}, cavaleiros do Coletor de Pedágio vieram ao portão, e {abbot} os convidou a comer no refeitório."
+			},
+			{
+				"label": "Recusar-lhes",
+				"effects": {
+					"add_tag": "defied_salt_king",
+					"oracle": {
+						"odds": "unlikely",
+						"yes": {"firewood": -15, "chronicle": "Ao partirem, atearam fogo à lenha."},
+						"no": {"chronicle": "Partiram rindo e prometeram voltar."}
+					}
+				},
+				"chronicle": "{When}, cavaleiros do Coletor de Pedágio exigiram grão no portão, e {abbot} os recusou."
+			}
+		]
+	},
+	{
+		"id": "salt_king_returns",
+		"title": "Os Cavaleiros Voltam",
+		"weight": 6,
+		"cooldown": 24,
+		"when": {"has_tag": ["paid_salt_king"]},
+		"text": "Como alguns dos irmãos haviam previsto, os cavaleiros do Coletor de Pedágio voltaram. O capitão diz que a estrada ficou mais perigosa e que o preço subiu.",
+		"choices": [
+			{
+				"label": "Pagar de novo",
+				"requires": {"food": 35},
+				"effects": {"food": -35},
+				"chronicle": "{When}, os cavaleiros do Coletor de Pedágio voltaram em busca de mais grão, e foram pagos de novo."
+			},
+			{
+				"label": "Não desta vez",
+				"effects": {"remove_tag": "paid_salt_king", "add_tag": "defied_salt_king"},
+				"chronicle": "{When}, os cavaleiros do Coletor de Pedágio voltaram em busca de mais, e desta vez {abbot} os mandou embora de mãos vazias."
+			}
+		]
+	},
+	{
+		"id": "salt_king_reprisal",
+		"weight": 7,
+		"cooldown": 24,
+		"when": {"has_tag": ["defied_salt_king"], "monk": {"min_health": 2, "max_age": 60}},
+		"effects": {
+			"remove_tag": "defied_salt_king",
+			"add_tag": "salt_king_wary",
+			"tag_weeks": 48,
+			"monk_health": -2,
+			"monk_add_tag": "scarred",
+			"chronicle": "{When}, {monk} foi encontrado na estrada abaixo da casa, espancado e deixado na vala. Todos sabiam quem o fizera."
+		}
+	},
+	{
+		"id": "woodpile_thief",
+		"title": "Alguém Leva a Lenha",
+		"weight": 7,
+		"cooldown": 30,
+		"when": {"season": ["winter", "autumn"], "min": {"firewood": 10}},
+		"text": "Por três noites seguidas, lenha tem sumido da pilha junto ao muro.",
+		"choices": [
+			{
+				"label": "Montar guarda durante a noite",
+				"effects": {"oracle": {"odds": "likely", "yes": {"food": -4, "goodwill": 1, "chronicle": "A vigia pegou uma viúva e seus dois filhos com os braços cheios de lenha. Foram alimentados e mandados para casa com um feixe."}, "no": {"firewood": -6, "chronicle": "A vigia nada viu, e a lenha continuou sumindo."}}},
+				"chronicle": "{When}, alguém estava roubando da pilha de lenha."
+			},
+			{
+				"label": "Deixar um feixe junto ao portão para quem precisar",
+				"effects": {"firewood": -4, "goodwill": 1, "add_tag": "gate_bundle"},
+				"chronicle": "{When}, a lenha começou a sumir da pilha, e {abbot} ordenou que um feixe fosse deixado junto ao portão todas as noites para quem precisasse."
+			}
+		]
+	},
+	{
+		"id": "refugees",
+		"title": "Uma Família no Portão",
+		"weight": 7,
+		"cooldown": 24,
+		"text": "Uma família com uma carroça de mão espera no portão: um homem, sua mulher e uma menina pequena, enrolada numa manta, que não para de tossir.",
+		"choices": [
+			{
+				"label": "Acolhê-los até a criança melhorar",
+				"requires": {"food": 10},
+				"effects": {
+					"food": -10,
+					"goodwill": 2,
+					"oracle": {
+						"odds": "likely",
+						"yes": {"chronicle": "A criança se recuperou, e a família seguiu seu caminho na primavera."},
+						"no": {"chronicle": "A criança morreu no quarto dos hóspedes e foi sepultada no campo dos irmãos, sob uma pequena cruz."}
+					}
+				},
+				"chronicle": "{When}, uma família com uma criança doente foi acolhida na hospedaria."
+			},
+			{
+				"label": "Dar-lhes pão e indicações",
+				"effects": {"food": -3, "goodwill": 1},
+				"chronicle": ""
+			},
+			{
+				"label": "Trancar o portão",
+				"effects": {"goodwill": -2, "add_tag": "gate_barred", "tag_weeks": 24},
+				"chronicle": "{When}, uma família com uma criança doente chegou ao portão, e o portão permaneceu fechado."
+			}
+		]
+	},
+	{
+		"id": "fever",
+		"title": "Febre",
+		"weight": 7,
+		"cooldown": 12,
+		"when": {"monk": {"min_health": 3}},
+		"text": "{monk} desabou no jardim, ardendo em febre.",
+		"choices": [
+			{
+				"label": "Usar os remédios da enfermaria",
+				"requires": {"medicine": 1},
+				"effects": {"medicine": -1, "oracle": {"odds": "likely", "yes": {"chronicle": ""}, "no": {"monk_health": -1, "chronicle": "{When}, {monk} caiu com uma febre que o remédio não conseguiu vencer."}}}
+			},
+			{
+				"label": "Rezar e esperar",
+				"effects": {"monk_health": -1, "oracle": {"odds": "unlikely", "yes": {"monk_health": 1, "chronicle": "{When}, {monk} passou três dias numa febre que cedeu de repente na festa da Exaltação da Santa Cruz. O curandeiro não teve explicação."}, "no": {"chronicle": "{When}, {monk} adoeceu de febre."}}}
+			}
+		]
+	},
+	{
+		"id": "cold_in_the_chest",
+		"title": "O Frio se Instala",
+		"weight": 7,
+		"cooldown": 12,
+		"when": {"season": ["winter"], "monk": {"min_age": 50, "min_health": 2}},
+		"text": "O frio se instalou no peito de {monk}. Ele tosse a noite toda durante o Ofício noturno.",
+		"choices": [
+			{
+				"label": "Manter uma fogueira em sua cela",
+				"requires": {"firewood": 6},
+				"effects": {"firewood": -6},
+				"chronicle": ""
+			},
+			{
+				"label": "Ele deve suportá-lo como os demais",
+				"effects": {"oracle": {"odds": "even", "yes": {"monk_health": -1, "chronicle": "{When}, {monk} foi para a enfermaria com uma doença do peito."}, "no": {"chronicle": ""}}}
+			}
+		]
+	},
+	{
+		"id": "blight",
+		"weight": 4,
+		"cooldown": 96,
+		"when": {"season": ["summer", "autumn"]},
+		"effects": {"add_tag": "blight", "tag_weeks": 6, "chronicle": "{When}, a podridão negra chegou aos canteiros de batata. Os irmãos arrancaram o que puderam salvar e queimaram o resto."}
+	},
+	{
+		"id": "snowed_in",
+		"weight": 4,
+		"cooldown": 48,
+		"when": {"season": ["winter"]},
+		"effects": {"firewood": -3, "add_tag": "snowed_in", "tag_weeks": 3, "chronicle": "{When}, a neve fechou o desfiladeiro por três semanas. Ninguém chegou ao portão, e os irmãos guardaram silêncio até mesmo durante o recreio."}
+	}
+]

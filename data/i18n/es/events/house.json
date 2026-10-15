@@ -1,0 +1,193 @@
+[
+	{
+		"id": "pump_drawing",
+		"title": "Un dibujo de una bomba",
+		"weight": 6,
+		"once": true,
+		"when": {"min": {"books": 2}, "monk": {"vocation": ["scribe"]}},
+		"text": "En un manual húmedo del viejo mundo, {monk} ha encontrado el dibujo de una bomba de mano que podría subir el agua del arroyo hasta el huerto.",
+		"choices": [
+			{
+				"label": "Mandar construirla",
+				"effects": {"add_tag": "pump_project"},
+				"chronicle": "{When}, {monk} encontró en un libro antiguo el dibujo de una bomba, y el abad ordenó construirla."
+			},
+			{
+				"label": "Copiar el dibujo y guardarlo a salvo",
+				"effects": {"books": 1},
+				"chronicle": "{When}, {monk} copió un dibujo de una bomba del viejo mundo, y se guardó en la biblioteca."
+			}
+		]
+	},
+	{
+		"id": "pump_building",
+		"title": "Construir la bomba",
+		"weight": 12,
+		"cooldown": 8,
+		"when": {"has_tag": ["pump_project"], "not_season": ["winter"], "monk": {"vocation": ["builder"]}},
+		"text": "{monk} tiene ya cortados los tubos y listas las válvulas de cuero. Necesita leña para la fragua y terminar las piezas de hierro.",
+		"choices": [
+			{
+				"label": "Darle la leña",
+				"requires": {"firewood": 8},
+				"effects": {
+					"firewood": -8,
+					"remove_tag": "pump_project",
+					"oracle": {
+						"odds": "even",
+						"yes": {"add_tag": "water_pump", "chronicle": "{When}, {monk} terminó la bomba, y el agua subió por la colina hasta el huerto. Los bancales no volverían a secarse."},
+						"no": {"chronicle": "{When}, {monk} terminó la bomba, pero se agrietó el primer día de uso. Las piezas se guardaron en el taller."}
+					}
+				}
+			},
+			{"label": "Esperar a que el montón de leña esté más lleno", "chronicle": ""}
+		]
+	},
+	{
+		"id": "device_hums",
+		"title": "La caja zumbadora",
+		"weight": 8,
+		"cooldown": 16,
+		"when": {"has_tag": ["old_device"]},
+		"text": "La caja del campo de turbinas zumba ahora más fuerte por la noche. Los hermanos del dormitorio sobre el taller dicen que no pueden dormir.",
+		"choices": [
+			{
+				"label": "Mandar abrirla",
+				"effects": {
+					"remove_tag": "old_device",
+					"oracle": {
+						"odds": "unlikely",
+						"yes": {"add_tag": "lamp", "chronicle": "{When}, se abrió la caja del campo de turbinas. Dentro había una lámpara que daba luz sin llama, y los escribas trabajan ahora las noches de invierno con ella."},
+						"no": {"firewood": -10, "chronicle": "{When}, se abrió la caja del campo de turbinas, y estalló en un fuego blanco que consumió la mitad del montón de leña antes de apagarse."}
+					}
+				}
+			},
+			{
+				"label": "Enterrarla después de todo",
+				"effects": {"remove_tag": "old_device", "add_tag": "buried_device"},
+				"chronicle": "{When}, la caja zumbadora fue sacada del taller y enterrada fuera de los muros."
+			}
+		]
+	},
+	{
+		"id": "men_in_clean_coats",
+		"title": "Hombres con abrigos limpios",
+		"weight": 5,
+		"once": true,
+		"when": {"has_tag": ["buried_device"], "year_min": 2},
+		"text": "Tres hombres con limpios abrigos grises, con buenas botas y sin armas visibles, preguntan en la puerta si los hermanos han encontrado máquinas del viejo mundo.",
+		"choices": [
+			{
+				"label": "Decirles la verdad",
+				"effects": {"remove_tag": "buried_device", "add_tag": "technocrats_know"},
+				"chronicle": "{When}, tres hombres de abrigo gris vinieron a preguntar por máquinas del viejo mundo. Se les mostró dónde estaba enterrada la caja zumbadora, la desenterraron y se la llevaron con gran cuidado."
+			},
+			{
+				"label": "Decir solo que los muertos están enterrados fuera de los muros",
+				"effects": {"add_tag": "technocrats_suspicious"},
+				"chronicle": "{When}, tres hombres de abrigo gris vinieron a preguntar por máquinas del viejo mundo. No se les dijo nada, pero uno de ellos miró durante largo rato el suelo fuera de los muros."
+			}
+		]
+	},
+	{
+		"id": "storm_bell",
+		"weight": 3,
+		"cooldown": 96,
+		"when": {"not_tag": ["cracked_bell"]},
+		"effects": {"add_tag": "cracked_bell", "chronicle": "{When}, un rayo golpeó la torre de la campana, y la campana se agrietó. Desde entonces suena plana y agria."}
+	},
+	{
+		"id": "bell_recast",
+		"title": "La campana agrietada",
+		"weight": 8,
+		"cooldown": 16,
+		"when": {"has_tag": ["cracked_bell"], "not_season": ["winter"], "monk": {"vocation": ["builder"]}},
+		"text": "{monk} cree que puede refundir la campana agrietada si tiene combustible bastante para mantener el horno dos días.",
+		"choices": [
+			{
+				"label": "Refundir la campana",
+				"requires": {"firewood": 15},
+				"effects": {
+					"firewood": -15,
+					"remove_tag": "cracked_bell",
+					"oracle": {
+						"odds": "likely",
+						"yes": {"goodwill": 2, "chronicle": "{When}, {monk} refundió la campana. Cuando sonó para Vísperas, la gente del pueblo del valle salió de sus casas a escucharla."},
+						"no": {"add_tag": "flat_bell", "chronicle": "{When}, {monk} refundió la campana, pero salió del molde con un defecto y aún suena un poco plana."}
+					}
+				}
+			},
+			{"label": "La campana puede esperar", "chronicle": ""}
+		]
+	},
+	{
+		"id": "healer_herbs",
+		"weight": 6,
+		"cooldown": 20,
+		"when": {"season": ["spring", "summer"], "monk": {"vocation": ["healer"]}},
+		"effects": {"medicine": 3, "chronicle": "{When}, {monk} encontró matricaria y sauce en la ladera norte y llenó los tarros de la enfermería."}
+	},
+	{
+		"id": "travelling_pedlar",
+		"title": "Un buhonero con mula",
+		"weight": 6,
+		"cooldown": 20,
+		"when": {"not_season": ["winter"]},
+		"text": "Un buhonero con una mula y un carro de tarros se detiene en la puerta. Dice que tiene medicinas, verdaderas medicinas traídas de la costa.",
+		"choices": [
+			{
+				"label": "Cambiar un libro por medicinas",
+				"requires": {"books": 1},
+				"effects": {"books": -1, "medicine": 3},
+				"chronicle": ""
+			},
+			{
+				"label": "Cambiar grano por medicinas",
+				"requires": {"food": 15},
+				"effects": {"food": -15, "medicine": 2},
+				"chronicle": ""
+			},
+			{"label": "Despedirlo", "chronicle": ""}
+		]
+	},
+	{
+		"id": "village_gift",
+		"weight": 6,
+		"cooldown": 48,
+		"when": {"has_tag": ["village_friend"]},
+		"effects": {"food": 20, "goodwill": 1, "chronicle": "{When}, el pueblo del valle subió un carro de nabos y dos cabras, sin que nadie se lo pidiera."}
+	},
+	{
+		"id": "village_cold_shoulder",
+		"title": "Bancos vacíos",
+		"weight": 8,
+		"cooldown": 16,
+		"when": {"has_tag": ["village_slighted"], "monk": {"min_health": 3}},
+		"text": "Nadie del pueblo del valle subió a Misa el domingo. {monk} dice que siguen enfadados porque nadie fue a su lecho de muerte.",
+		"choices": [
+			{
+				"label": "Enviar a {monk} a reparar la ofensa",
+				"effects": {"monk_away": {"weeks": 2, "tag": "on_amends"}},
+				"chronicle": "{When}, {monk} bajó al pueblo del valle para reparar la ofensa."
+			},
+			{"label": "Volverán a su debido tiempo", "effects": {"goodwill": -1}, "chronicle": ""}
+		]
+	},
+	{
+		"id": "scriptorium_copy",
+		"title": "El scriptorium",
+		"weight": 5,
+		"cooldown": 24,
+		"when": {"monk": {"vocation": ["scribe"]}},
+		"text": "{monk} pide vitela y agallas de roble para copiar uno de los libros del viejo mundo antes de que la humedad lo destruya del todo.",
+		"choices": [
+			{
+				"label": "Darle lo que necesita",
+				"requires": {"food": 6},
+				"effects": {"food": -6, "books": 1},
+				"chronicle": "{When}, {monk} terminó de copiar un libro del viejo mundo antes de que la humedad pudiera destruirlo."
+			},
+			{"label": "Ahora no", "chronicle": ""}
+		]
+	}
+]

@@ -1,0 +1,98 @@
+[
+	{
+		"id": "currach_from_islands",
+		"title": "Un currach con la marea",
+		"weight": 6,
+		"cooldown": 36,
+		"when": {
+			"not_season": [
+				"winter"
+			]
+		},
+		"text": "Un currach llega bajo el acantilado con la marea de la tarde, con cuatro pescadores de las islas occidentales. Traen pescado salado y noticias de las islas, y piden refugio hasta que el viento cambie.",
+		"choices": [
+			{
+				"label": "Acogerlos y compartir las provisiones",
+				"requires": {
+					"food": 8
+				},
+				"effects": {
+					"food": -8,
+					"goodwill": 1,
+					"oracle": {
+						"odds": "likely",
+						"yes": {
+							"food": 14,
+							"chronicle": "{When}, un currach llegó de las islas occidentales. La casa alimentó a los cuatro pescadores, que remendaron las redes y dejaron un barril de pescado salado en la despensa."
+						},
+						"no": {
+							"chronicle": "{When}, cuatro pescadores de las islas occidentales recibieron refugio, y se marcharon antes de terminar el remiendo, dejando la despensa escasa."
+						}
+					}
+				}
+			},
+			{
+				"label": "Enviarlos al norte por la costa",
+				"chronicle": "{When}, un currach de las islas occidentales fue rechazado en la orilla, y los pescadores siguieron hacia el norte por la costa."
+			}
+		]
+	},
+	{
+		"id": "atlantic_storm",
+		"weight": 4,
+		"cooldown": 60,
+		"when": {
+			"season": [
+				"autumn",
+				"winter"
+			]
+		},
+		"effects": {
+			"food": -4,
+			"firewood": -2,
+			"chronicle": "{When}, una tormenta llegó del Atlántico durante la noche. Arrancó las láminas del tejado del establo, aplastó la avena del campo bajo, y el mar subió blanco por la orilla en la oscuridad."
+		}
+	},
+	{
+		"id": "wreck_on_the_rocks",
+		"weight": 3,
+		"cooldown": 96,
+		"when": {
+			"not_season": [
+				"winter"
+			]
+		},
+		"effects": {
+			"books": 2,
+			"chronicle": "{When}, se halló un bote de las islas destrozado contra las rocas bajo el acantilado. Entre los restos había un salterio empapado y dos libros en una bolsa encerada, que el scriptorium secó junto al fuego."
+		}
+	},
+	{
+		"id": "no_word_from_abroad",
+		"weight": 3,
+		"cooldown": 48,
+		"when": {
+			"season": [
+				"winter"
+			]
+		},
+		"effects": {
+			"goodwill": -1,
+			"chronicle": "{When}, no llegó ninguna barca desde el continente, y los hermanos pasaron todo el invierno sin noticias del mundo más allá del mar."
+		}
+	},
+	{
+		"id": "bog_fire",
+		"weight": 3,
+		"cooldown": 60,
+		"when": {
+			"season": [
+				"summer"
+			]
+		},
+		"effects": {
+			"firewood": 6,
+			"chronicle": "{When}, el pantano se incendió durante las semanas secas, y el humo flotó sobre el valle durante quince días. Después, los hermanos cortaron la turba quemada, que ardió muy bien."
+		}
+	}
+]

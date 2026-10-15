@@ -10,12 +10,17 @@ var chosen: Dictionary = {}
 
 
 func _ready() -> void:
-	var data = JSON.parse_string(FileAccess.get_file_as_string(PATH))
+	load_data()
+	new_game()
+
+
+## Reads the data again, so a language change takes effect.
+func load_data() -> void:
+	var data = JSON.parse_string(FileAccess.get_file_as_string(Strings.data(PATH)))
 	if data is Dictionary:
 		axes = data.get("axes", [])
 	else:
 		push_error("Could not read %s" % PATH)
-	new_game()
 
 
 func new_game() -> void:

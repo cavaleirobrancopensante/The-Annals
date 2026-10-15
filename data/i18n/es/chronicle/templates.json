@@ -1,0 +1,125 @@
+{
+	"founding": [
+		"En la primavera del primer año, {abbot} y {brothers} hermanos llegaron a la ruina de {place}. Retiraron los escombros de la vieja capilla, cantaron Vísperas bajo un techo roto y consagraron la casa a {patron}.",
+		"En la primavera del primer año, {abbot} condujo a {brothers} hermanos por el camino hasta {place}, donde aún se alzaba, sin ventanas, una capilla del viejo mundo. Allí fundaron la casa de {patron}, con tres sacos de semilla y una cabra.",
+		"En la primavera del primer año, {abbot} y {brothers} hermanos llegaron por encima de la colina a {place}, la última casa en el extremo occidental de Irlanda, donde el camino termina en el mar. Hallaron la capilla sin techo y el viento atravesándola, y consagraron la casa a {patron}."
+	],
+	"death_age": [
+		"{When}, {monk} murió en su sueño a los {age_words} años de edad, y fue sepultado junto a la capilla.",
+		"{When}, {monk}, de {age_words} años, pidió los sacramentos después de Completas y murió antes de Laudes. Los hermanos dijeron que llevaba tiempo preparado.",
+		"{When}, {monk} partió hacia Dios en la plenitud de sus años. Tenía {age_words}, y había sobrevivido al mundo en que nació."
+	],
+	"death_illness": [
+		"{When}, {monk} no se recuperó de su enfermedad. Fue enterrado en el campo de los hermanos, mirando al este.",
+		"{When}, la fiebre se llevó a {monk}. Los sanadores hicieron cuanto pudieron, y los hermanos velaron hasta el final.",
+		"{When}, {monk} murió de un mal del pecho tras muchas semanas en la enfermería."
+	],
+	"election_after_death": [
+		"Tras el entierro de {old}, los hermanos se reunieron en capítulo y eligieron como abad al Hermano {new_name}.",
+		"Cuando se tocó la campana por {old}, los hermanos eligieron al Hermano {new_name} para dirigir la casa. Lloró, y no se negó."
+	],
+	"election_after_departure": [
+		"Con {old} ya fuera de la casa, los hermanos se reunieron en capítulo y eligieron como abad al Hermano {new_name}.",
+		"Como {old} ya no estaba entre ellos, los hermanos eligieron al Hermano {new_name} en su lugar."
+	],
+	"hunger": [
+		"{When}, el granero quedó vacío y el hambre llegó a la casa. Los hermanos comieron sopa de ortigas y guardaron el Oficio igualmente.",
+		"{When}, no hubo pan. Los hermanos ayunaron aunque no era día de ayuno, y algunos se debilitaron."
+	],
+	"cold": [
+		"{When}, la leña se acabó y el frío entró en el dormitorio. Los hermanos más viejos fueron los que más sufrieron.",
+		"{When}, ya no quedaba nada que quemar, y los hermanos durmieron juntos en la capilla para darse calor."
+	],
+	"harvest_good": [
+		"La cosecha del {year_ordinal} año fue buena. El granero estaba lleno para San Miguel, y el abad ordenó un Te Deum.",
+		"En el {year_ordinal} año los campos dieron con generosidad, y la casa entró en el invierno sin temor."
+	],
+	"harvest_fair": [
+		"La cosecha del {year_ordinal} año no fue ni buena ni mala, y los hermanos dieron gracias por ella.",
+		"En el {year_ordinal} año la cosecha bastó, siempre que el invierno no fuera largo."
+	],
+	"harvest_poor": [
+		"La cosecha del {year_ordinal} año fue pobre, y los hermanos miraron el granero y no dijeron nada.",
+		"En el {year_ordinal} año los campos les fallaron. El abad ordenó recortar las raciones antes de la primera helada."
+	],
+	"winter_begins": [
+		"Aquel año el invierno llegó pronto a {place}, y el arroyo se heló antes de Adviento.",
+		"La primera nieve cayó sobre el tejado de la capilla, y los hermanos acercaron los pupitres del scriptorium al fuego."
+	],
+	"built_granary": [
+		"{When}, el granero quedó terminado junto al muro norte, y su primer arcón se llenó con grano de las reservas.",
+		"{When}, los hermanos levantaron un granero de piedra con muros lo bastante gruesos para mantener alejados la humedad y los ratones."
+	],
+	"built_woodshed": [
+		"{When}, se techó una leñera contra el muro, y los troncos apilados quedaron cubiertos antes de que llegara la lluvia.",
+		"{When}, los hermanos construyeron una leñera abierta al sur, para que la madera se secara antes del frío."
+	],
+	"built_infirmary": [
+		"{When}, la vieja habitación de huéspedes se convirtió en enfermería, con jergones de paja, una olla para hervir y estantes para los tarros.",
+		"{When}, los hermanos instalaron una enfermería en el claustro oriental, donde la luz es mejor para coser heridas."
+	],
+	"built_scriptorium": [
+		"{When}, se hizo un scriptorium en el claustro sur, con pupitres junto a la ventana y una estantería para las tintas.",
+		"{When}, los escribas trasladaron sus pupitres a una sala propia, donde la humedad era menor."
+	],
+	"generation_turns": [
+		"{When}, una nueva cohorte de hermanos ocupó su lugar en el coro, y la casa entró en su {gen_ordinal} generación."
+	],
+	"novice_joins": [
+		"{When}, un joven llegó a la puerta y pidió ser recibido. Se le vistió como novicio y se le llamó {monk}.",
+		"{When}, {monk} llamó a la puerta bajo la lluvia, y los hermanos lo acogieron como novicio."
+	],
+	"saint_acclaimed": [
+		"{When}, los hermanos y la gente del valle empezaron a llamar santo a {monk}. Los peregrinos llegaban a su tumba con velas."
+	],
+	"colony_departure": [
+		"{When}, {party} salió de la casa para fundar una casa hija en {node}, con una carta del abad y un saco de semilla."
+	],
+	"priory_founded": [
+		"{When}, {party} levantó la primera casa hija de {patron} en {node}, y la gente de allí vino a ver cómo se asentaban."
+	],
+	"priory_lost": [
+		"{When}, la gente de {node} cerró sus puertas a la casa hija, y esta fue abandonada."
+	],
+	"priory_tithe": [
+		"{When}, la casa hija de {node} envió a la casa madre {food} medidas de grano en la cosecha."
+	],
+	"rule_changed": [
+		"{When}, el capítulo adoptó {option} como regla de la casa en materia de {axis}."
+	],
+	"road_departure": [
+		"{When}, {party} partió por el camino hacia {node}.",
+		"{When}, {party} salió por la puerta con un saco de pan y una carta para {node}."
+	],
+	"road_arrival_generic": [
+		"{When}, {party} llegó a {node} y halló a la gente de allí receloso de la casa.",
+		"{When}, {party} llegó a {node} y le dieron sitio junto al fuego, aunque se habló poco."
+	],
+	"return_generic": [
+		"{monk} volvió del camino con poco que contar.",
+		"{monk} regresó a la casa con los pies cansados, y fue derecho a la capilla."
+	],
+	"house_fell": [
+		"Aquí terminan los anales de la casa de {patron} en {place}. No quedó ningún hermano para conservarlos.",
+		"Y la casa de {patron} calló. El viento volvió a entrar por las ventanas de la capilla, como antes de que llegaran los hermanos."
+	],
+	"feast_kept": [
+		"En la fiesta de {feast} los hermanos rezaron el Oficio completo y cantaron la Misa Mayor con las puertas abiertas al camino.",
+		"En la fiesta de {feast} la campana sonó a cada hora, y la casa comió mejor de lo que tenía derecho a comer.",
+		"En la fiesta de {feast} los hermanos recorrieron en procesión el muro del perímetro, cantando, como manda la antigua Regla."
+	],
+	"skill_rose": [
+		"{monk} ha alcanzado el nivel {level} en {skill}, y la casa ha empezado a depender de él para ello.",
+		"Tras muchas semanas de práctica, {monk} alcanzó el nivel {level} en {skill}. Los hermanos mayores no dijeron nada, y en eso estaba su elogio."
+	],
+	"training_done": [
+		"{monk} terminó sus semanas de aprendizaje de {skill} y volvió a su propio trabajo, con las manos un poco más seguras.",
+		"Las semanas de aprendizaje de {skill} terminaron para {monk}, y regresó al trabajo de la casa con más que ofrecerle."
+	],
+	"training_begun": [
+		"{monk} fue destinado a aprender {skill} de {teacher}, y su trabajo habitual pasó a otras manos."
+	],
+	"training_alone": [
+		"{monk} fue destinado a aprender {skill} solo, con los libros antiguos, que es trabajo lento. Lo sabía y no se quejó."
+	]
+}

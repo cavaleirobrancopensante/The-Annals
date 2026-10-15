@@ -22,7 +22,13 @@ var next_party_id := 1
 
 
 func _ready() -> void:
-	var data = JSON.parse_string(FileAccess.get_file_as_string(MAP_PATH))
+	load_data()
+
+
+## Reads the data again, so a language change takes effect.
+func load_data() -> void:
+	node_by_id.clear()
+	var data = JSON.parse_string(FileAccess.get_file_as_string(Strings.data(MAP_PATH)))
 	if data is Dictionary:
 		factions = data.get("factions", {})
 		nodes = data.get("nodes", [])

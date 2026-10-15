@@ -3,6 +3,12 @@ extends Node
 ## The state is kept in the house's save, so a house is offered it once. Older houses are never offered it.
 ## The text is in strings.gd; the screen is in main.gd.
 
+## Steps that wait for the player: the step's Next button stays off until the named action happens.
+## Skip all is always available.
+const REQUIRES := {"estate": "job", "time": "advance", "road": "party"}
+
+var satisfied := false
+
 ## Each step names its text keys (tut.<name>.title / .text) and the tab it opens (0 chronicle, 1 estate, 2 road).
 const STEPS := [
 	{"name": "house", "tab": 0},
@@ -27,6 +33,7 @@ func start_offer() -> void:
 func begin() -> void:
 	state = "active"
 	step = 0
+	satisfied = false
 
 
 func next() -> void:
@@ -34,6 +41,20 @@ func next() -> void:
 		finish()
 	else:
 		step += 1
+		satisfied = false
+
+
+## The player has done something; the current step is satisfied if it was the action it waits for.
+func did(action: String) -> void:
+	if state == "active" and REQUIRES.get(current_name(), "") == action:
+		satisfied = true
+
+
+## Whether the player may move on from this step.
+func can_advance() -> bool:
+	if state != "active":
+		return true
+	return satisfied or not REQUIRES.has(current_name())
 
 
 func is_last() -> bool:
@@ -43,6 +64,7 @@ func is_last() -> bool:
 func finish() -> void:
 	state = "done"
 	step = 0
+	satisfied = false
 
 
 func current_name() -> String:

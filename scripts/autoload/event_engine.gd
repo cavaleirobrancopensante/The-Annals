@@ -24,13 +24,18 @@ func _ready() -> void:
 	load_cards()
 
 
+func load_data() -> void:
+	load_cards()
+
+
 func load_cards() -> void:
 	cards.clear()
 	cards_by_id.clear()
-	for f in DirAccess.get_files_at(EVENTS_DIR):
+	var dir := Strings.data(EVENTS_DIR)
+	for f in DirAccess.get_files_at(dir):
 		if not f.ends_with(".json"):
 			continue
-		var path := "%s/%s" % [EVENTS_DIR, f]
+		var path := "%s/%s" % [dir, f]
 		var parsed = JSON.parse_string(FileAccess.get_file_as_string(path))
 		if not parsed is Array:
 			push_error("Event file is not a JSON array: %s" % path)

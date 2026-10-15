@@ -19,6 +19,7 @@ func _ready() -> void:
 	Strings.register()
 	load_settings()
 	TranslationServer.set_locale(language)
+	Strings.reload_data()
 
 
 func font_scale() -> float:
@@ -55,6 +56,7 @@ func set_language(code: String) -> void:
 		return
 	language = code
 	TranslationServer.set_locale(code)
+	Strings.reload_data()
 	save_settings()
 	changed.emit()
 

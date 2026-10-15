@@ -1,0 +1,790 @@
+[
+	{
+		"id": "node_town_toll",
+		"deck": "node",
+		"title": "El peaje del puente",
+		"weight": 10,
+		"cooldown": 40,
+		"when": {
+			"node_kind": [
+				"town"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "El alguacil del recaudador del peaje detiene a la comitiva en el puente de {node} y pide el peaje: cuatro hogazas o un libro.",
+		"choices": [
+			{
+				"label": "Pagar el peaje en pan",
+				"requires": {
+					"food": 4
+				},
+				"effects": {
+					"food": -4,
+					"standing": {
+						"tollmaster": 1
+					}
+				},
+				"chronicle": "{When}, la comitiva pagó el peaje del recaudador en {node} y se le dejó cruzar el puente."
+			},
+			{
+				"label": "Ofrecer un libro en su lugar",
+				"requires": {
+					"books": 1
+				},
+				"effects": {
+					"books": -1,
+					"standing": {
+						"tollmaster": 1
+					}
+				},
+				"chronicle": "{When}, la comitiva pagó el peaje en {node} con un libro, y el alguacil anotó su título en su registro."
+			},
+			{
+				"label": "Negarse y dar un rodeo por el vado",
+				"effects": {
+					"standing": {
+						"tollmaster": -1
+					},
+					"oracle": {
+						"odds": "unlikely",
+						"yes": {
+							"monk_health": -1,
+							"chronicle": "Los jinetes del recaudador del peaje alcanzaron a la comitiva en el vado bajo {node}, y a {monk} lo golpearon en el hombro."
+						},
+						"no": {
+							"chronicle": "La comitiva llegó a la orilla lejana del Shannon, seca e inadvertida."
+						}
+					}
+				}
+			}
+		]
+	},
+	{
+		"id": "node_market_books",
+		"deck": "node",
+		"title": "La oferta de un tonelero",
+		"weight": 8,
+		"cooldown": 40,
+		"when": {
+			"node_kind": [
+				"town"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "Un tonelero del mercado de {node} ofrece un barril de pescado salado a cambio de dos libros de la casa. Dice que los libros valen más en una ciudad que en una ruina.",
+		"choices": [
+			{
+				"label": "Cambiar dos libros por el pescado",
+				"requires": {
+					"books": 2
+				},
+				"effects": {
+					"books": -2,
+					"food": 12
+				},
+				"chronicle": "{When}, la comitiva cambió dos libros en {node} por un barril de pescado salado."
+			},
+			{
+				"label": "Pedir grano en su lugar",
+				"effects": {
+					"oracle": {
+						"odds": "even",
+						"yes": {
+							"food": 8,
+							"chronicle": "{When}, el tonelero de {node} dio a la comitiva un saco de avena por sus molestias."
+						},
+						"no": {
+							"chronicle": ""
+						}
+					}
+				}
+			},
+			{
+				"label": "Quedarse con los libros",
+				"chronicle": ""
+			}
+		]
+	},
+	{
+		"id": "node_ruin_shelves",
+		"deck": "node",
+		"title": "Los estantes de la oficina",
+		"weight": 10,
+		"cooldown": 40,
+		"when": {
+			"node_kind": [
+				"ruin"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "En una oficina medio derrumbada, la comitiva encuentra estantes de acero que aún sostienen cajas grises de papel. El papel está húmedo, y nadie del distrito sabe leerlo.",
+		"choices": [
+			{
+				"label": "Llevarse lo que se pueda salvar",
+				"effects": {
+					"books": 2
+				},
+				"chronicle": "{When}, la comitiva trajo de vuelta dos libros de las ruinas de {node}, lo mejor de lo que había allí."
+			},
+			{
+				"label": "Dejarlo a la lluvia",
+				"chronicle": ""
+			}
+		]
+	},
+	{
+		"id": "node_turbine_coil",
+		"deck": "node",
+		"title": "Una bobina de cobre",
+		"weight": 8,
+		"cooldown": 50,
+		"when": {
+			"node_kind": [
+				"ruin"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "Una turbina en la turbera de {node} sigue girando con el viento. Un cortador de turba ofrece por comida la bobina de cobre de su base.",
+		"choices": [
+			{
+				"label": "Comprar la bobina",
+				"requires": {
+					"food": 10
+				},
+				"effects": {
+					"food": -10,
+					"add_tag": "copper_coil"
+				},
+				"chronicle": "{When}, la comitiva compró una bobina de cobre a la gente de la turbera en {node}."
+			},
+			{
+				"label": "Dejar la turbina en paz",
+				"chronicle": ""
+			}
+		]
+	},
+	{
+		"id": "node_hold_prayer",
+		"deck": "node",
+		"title": "El hijo muerto del señor",
+		"weight": 9,
+		"cooldown": 40,
+		"when": {
+			"node_kind": [
+				"hold"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "El señor de {node} escuchará a la comitiva si le traen un regalo. Tiene a su propio capellán y pide a la casa que rece por su hijo muerto.",
+		"choices": [
+			{
+				"label": "Rezar por el hijo muerto",
+				"effects": {
+					"food": 4,
+					"standing": {
+						"glen_lords": 1
+					},
+					"monk_add_tag": "prayed_for_lord",
+					"chronicle": "{When}, {monk} rezó por el hijo muerto del señor de {node}, y el señor envió a la comitiva a casa con un saco de avena."
+				}
+			},
+			{
+				"label": "Pedir limosna",
+				"effects": {
+					"oracle": {
+						"odds": "likely",
+						"yes": {
+							"food": 10,
+							"chronicle": "{When}, el señor de {node} dio a la comitiva limosna de su despensa."
+						},
+						"no": {
+							"standing": {
+								"glen_lords": -1
+							},
+							"chronicle": "El intendente del señor despidió a la comitiva sin nada."
+						}
+					}
+				}
+			}
+		]
+	},
+	{
+		"id": "node_hold_accounts",
+		"deck": "node",
+		"title": "Las cuentas del mayordomo",
+		"weight": 7,
+		"cooldown": 50,
+		"when": {
+			"node_kind": [
+				"hold"
+			],
+			"monk": {
+				"status": "away",
+				"has_any": [
+					"learned",
+					"patient"
+				]
+			}
+		},
+		"text": "El mayordomo de {node} pregunta si algún hermano sabe leer cifras. Ofrece comida por quince días de cuentas.",
+		"choices": [
+			{
+				"label": "Dejar que {monk} revise las cuentas",
+				"effects": {
+					"food": 10,
+					"monk_add_tag": "accountant",
+					"chronicle": "{When}, {monk} revisó durante quince días las cuentas del señor de {node} y cobró en avena."
+				}
+			},
+			{
+				"label": "La casa no tiene tiempo para libros de cuentas",
+				"chronicle": ""
+			}
+		]
+	},
+	{
+		"id": "node_well_names",
+		"deck": "node",
+		"title": "Los nombres junto al pozo",
+		"weight": 10,
+		"cooldown": 40,
+		"when": {
+			"node_kind": [
+				"shrine"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "El guardián del pozo de {node} pide a la comitiva que rece por los muertos de la última hambruna. Tiene una larga lista de nombres escrita en un tablero.",
+		"choices": [
+			{
+				"label": "Decir los nombres hasta que se apague la vela",
+				"effects": {
+					"standing": {
+						"church": 1
+					},
+					"monk_add_tag": "tested_faith",
+					"chronicle": "{When}, {monk} dijo los nombres de los muertos de la hambruna en {node} hasta que la vela se consumió."
+				}
+			},
+			{
+				"label": "Seguir deprisa hacia el camino",
+				"effects": {
+					"standing": {
+						"church": -1
+					},
+					"chronicle": ""
+				}
+			}
+		]
+	},
+	{
+		"id": "node_well_child",
+		"deck": "node",
+		"title": "Una niña junto al pozo",
+		"weight": 8,
+		"cooldown": 40,
+		"when": {
+			"node_kind": [
+				"shrine"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "Llevan junto al pozo de {node} a una niña con fiebre. Su madre pide a los hermanos que bendigan el agua.",
+		"choices": [
+			{
+				"label": "Bendecir el agua y dar el último brebaje contra la fiebre",
+				"requires": {
+					"medicine": 1
+				},
+				"effects": {
+					"medicine": -1,
+					"standing": {
+						"church": 1
+					},
+					"oracle": {
+						"odds": "likely",
+						"yes": {
+							"goodwill": 2,
+							"chronicle": "{When}, {monk} bendijo el agua en {node}, y la fiebre de la niña cedió antes del amanecer. Su madre los acompañó hasta el camino."
+						},
+						"no": {
+							"chronicle": "{When}, la niña de {node} murió durante la noche, y su madre bendijo a los hermanos de todos modos."
+						}
+					}
+				}
+			},
+			{
+				"label": "Bendecir solo el agua",
+				"effects": {
+					"standing": {
+						"church": 1
+					},
+					"chronicle": "{When}, {monk} bendijo el agua en {node} por una niña con fiebre."
+				}
+			}
+		]
+	},
+	{
+		"id": "node_hermit_tunes",
+		"deck": "node",
+		"title": "Las antiguas melodías de salmos",
+		"weight": 9,
+		"cooldown": 50,
+		"when": {
+			"node_kind": [
+				"hermitage"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "Un ermitaño del lago ofrece enseñar a la comitiva las antiguas melodías de salmos que cantaba su abuela, si las cantan con él.",
+		"choices": [
+			{
+				"label": "Cantar con él hasta el anochecer",
+				"effects": {
+					"standing": {
+						"church": 1
+					},
+					"monk_add_tag": "tested_faith",
+					"chronicle": "{When}, {monk} cantó las antiguas melodías de salmos con el ermitaño de {node} hasta el anochecer, y volvió a casa con ellas en la cabeza."
+				}
+			},
+			{
+				"label": "Declinar cortésmente",
+				"chronicle": ""
+			}
+		]
+	},
+	{
+		"id": "node_hermit_missing",
+		"deck": "node",
+		"title": "El ermitaño que no vino",
+		"weight": 6,
+		"cooldown": 60,
+		"when": {
+			"node_kind": [
+				"hermitage"
+			],
+			"monk": {
+				"status": "away",
+				"min_health": 2
+			}
+		},
+		"text": "Hace tres semanas que nadie ve al ermitaño de {node}. Su choza está fría, y en la orilla hay un bote varado, medio lleno de agua.",
+		"choices": [
+			{
+				"label": "Buscar en la isla",
+				"effects": {
+					"oracle": {
+						"odds": "likely",
+						"yes": {
+							"food": -2,
+							"chronicle": "{When}, {monk} halló vivo al ermitaño de {node} en una cueva y le dio de comer del pan de la comitiva."
+						},
+						"no": {
+							"monk_dies": "el lago de noche",
+							"chronicle": "{When}, {monk} no volvió de la isla en {node}. Los barqueros dijeron que el lago se lo llevó de noche, mientras buscaba al ermitaño."
+						}
+					}
+				}
+			},
+			{
+				"label": "Dejar la orilla como está",
+				"chronicle": ""
+			}
+		]
+	},
+	{
+		"id": "node_village_threshing",
+		"deck": "node",
+		"title": "Cebada y pocas manos",
+		"weight": 9,
+		"cooldown": 40,
+		"when": {
+			"node_kind": [
+				"village"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "La gente del valle de {node} ya tiene la cebada recogida y no tiene manos suficientes para trillarla. Ofrecen grano a cambio de trabajo.",
+		"choices": [
+			{
+				"label": "Trillar durante una semana",
+				"effects": {
+					"food": 12,
+					"standing": {
+						"glen_lords": 1
+					},
+					"chronicle": "{When}, la comitiva trilló cebada en {node} durante una semana y le pagaron en grano."
+				}
+			},
+			{
+				"label": "Seguir por el camino",
+				"chronicle": ""
+			}
+		]
+	},
+	{
+		"id": "node_village_feud",
+		"deck": "node",
+		"title": "Una disputa en el valle",
+		"weight": 7,
+		"cooldown": 50,
+		"when": {
+			"node_kind": [
+				"village"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "Una disputa en {node} tiene a dos familias enzarzadas. El jefe del pueblo pide a la comitiva que se interponga entre ellas.",
+		"choices": [
+			{
+				"label": "Interponerse entre ellas",
+				"effects": {
+					"standing": {
+						"glen_lords": 1
+					},
+					"oracle": {
+						"odds": "even",
+						"yes": {
+							"chronicle": "{When}, {monk} se interpuso entre dos familias en {node}, y ellas bajaron sus palos."
+						},
+						"no": {
+							"monk_health": -1,
+							"chronicle": "{When}, {monk} fue golpeado en {node} al tratar de detener una disputa, y las familias siguieron peleando."
+						}
+					}
+				}
+			},
+			{
+				"label": "No es asunto nuestro",
+				"chronicle": ""
+			}
+		]
+	},
+	{
+		"id": "node_coast_fish",
+		"deck": "node",
+		"title": "Pescado ahumado para una niña enferma",
+		"weight": 9,
+		"cooldown": 40,
+		"when": {
+			"node_kind": [
+				"coast"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "Los barqueros de {node} venden pescado ahumado. A cambio quieren medicinas para una hija enferma.",
+		"choices": [
+			{
+				"label": "Cambiar medicinas por una caja de pescado",
+				"requires": {
+					"medicine": 2
+				},
+				"effects": {
+					"medicine": -2,
+					"food": 14,
+					"standing": {
+						"fishers": 1
+					},
+					"chronicle": "{When}, la comitiva cambió medicinas en {node} por una caja de pescado ahumado."
+				}
+			},
+			{
+				"label": "Cambiar grano por pescado",
+				"requires": {
+					"food": 8
+				},
+				"effects": {
+					"food": 4,
+					"standing": {
+						"fishers": 1
+					},
+					"chronicle": "{When}, la comitiva cambió grano en {node} por pescado ahumado."
+				}
+			},
+			{
+				"label": "Seguir camino",
+				"chronicle": ""
+			}
+		]
+	},
+	{
+		"id": "node_coast_wreck",
+		"deck": "node",
+		"title": "Carga de la orilla",
+		"weight": 8,
+		"cooldown": 50,
+		"when": {
+			"node_kind": [
+				"coast"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "Un bote ha llegado a la orilla bajo {node} con su tripulación ahogada. Su cargamento de lana sigue seco en la bodega.",
+		"choices": [
+			{
+				"label": "Subir la carga por el acantilado",
+				"effects": {
+					"food": 6,
+					"chronicle": "{When}, la comitiva subió desde la playa de {node} la carga de un naufragio y enterró a la tripulación."
+				}
+			},
+			{
+				"label": "Dejar a los muertos al mar",
+				"chronicle": ""
+			}
+		]
+	},
+	{
+		"id": "node_tower_battery",
+		"deck": "node",
+		"title": "La batería de la torre",
+		"weight": 6,
+		"cooldown": 60,
+		"when": {
+			"node_kind": [
+				"ruin"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "La antigua torre de señales sobre {node} aún tiene una batería que da un poco de luz al tocarla. Un muchacho de la costa dice que los viejos hablaban con los barcos por ella.",
+		"choices": [
+			{
+				"label": "Bajar la batería",
+				"effects": {
+					"add_tag": "old_battery",
+					"chronicle": "{When}, la comitiva bajó una batería de la torre de señales de {node}. Los escribas creen que aún puede guardar un poco de la antigua luz."
+				}
+			},
+			{
+				"label": "Dejarla en la torre",
+				"chronicle": ""
+			}
+		]
+	},
+	{
+		"id": "node_kilcullen_search",
+		"deck": "node",
+		"title": "La búsqueda del recaudador",
+		"weight": 12,
+		"cooldown": 30,
+		"when": {
+			"node": [
+				"kilcullen"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "Los hombres del recaudador del peaje registran a la comitiva en {node} buscando bienes del viejo mundo. Uno de ellos reconoce los libros de los hermanos.",
+		"choices": [
+			{
+				"label": "Entregar un libro",
+				"requires": {
+					"books": 1
+				},
+				"effects": {
+					"books": -1,
+					"standing": {
+						"tollmaster": 1
+					},
+					"chronicle": "{When}, los hombres del recaudador del peaje en {node} se llevaron un libro de la comitiva y anotaron su título en su registro."
+				}
+			},
+			{
+				"label": "Esconder los libros en el carro",
+				"effects": {
+					"oracle": {
+						"odds": "unlikely",
+						"yes": {
+							"chronicle": "Los hombres del recaudador del peaje revisaron el carro en {node} y no encontraron nada."
+						},
+						"no": {
+							"books": -2,
+							"food": -4,
+							"standing": {
+								"tollmaster": -2
+							},
+							"chronicle": "{When}, los hombres del recaudador del peaje en {node} se llevaron de la comitiva dos libros y un saco de grano por haberlos escondido."
+						}
+					}
+				}
+			}
+		]
+	},
+	{
+		"id": "node_inishkeel_bells",
+		"deck": "node",
+		"title": "Campanas bajo el mar",
+		"weight": 12,
+		"cooldown": 60,
+		"when": {
+			"node": [
+				"inishkeel"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "Con la marea baja, la comitiva oye las campanas de la iglesia sumergida de Inishkeel, débiles bajo las olas.",
+		"choices": [
+			{
+				"label": "Anotar la hora",
+				"effects": {
+					"goodwill": 1,
+					"standing": {
+						"church": 1
+					},
+					"monk_add_tag": "pilgrim",
+					"chronicle": "{When}, {monk} oyó sonar bajo el mar las campanas de Inishkeel con la marea baja, y los hermanos anotaron la hora."
+				}
+			}
+		]
+	},
+	{
+		"id": "node_bog_turbine_gale",
+		"deck": "node",
+		"title": "La turbina en el temporal",
+		"weight": 12,
+		"cooldown": 60,
+		"when": {
+			"node": [
+				"bog_of_allen"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "En un temporal, una turbina del Bog of Allen empieza a girar, despacio y luego deprisa, y la gente de la turbera guarda silencio para mirarla.",
+		"choices": [
+			{
+				"label": "Mirar junto a la gente de la turbera",
+				"effects": {
+					"standing": {
+						"bog": 1
+					},
+					"chronicle": "{When}, la comitiva vio girar una turbina en el Bog of Allen durante un temporal, y la gente de la turbera permaneció en silencio durante una hora."
+				}
+			}
+		]
+	},
+	{
+		"id": "node_lough_dearg_boat",
+		"deck": "node",
+		"title": "Ningún bote en el lago",
+		"weight": 9,
+		"cooldown": 50,
+		"when": {
+			"node": [
+				"lough_dearg"
+			],
+			"monk": {
+				"status": "away"
+			}
+		},
+		"text": "El bote que debía llevar a la comitiva a la isla del ermitaño ya no está. Un niño dice que un hombre lo cruzó el lago el invierno pasado y no volvió.",
+		"choices": [
+			{
+				"label": "Vadear los bajíos",
+				"effects": {
+					"oracle": {
+						"odds": "likely",
+						"yes": {
+							"chronicle": "{When}, {monk} vadeó con la comitiva los bajíos de Lough Dearg y llegó a la isla del ermitaño con los pies mojados."
+						},
+						"no": {
+							"monk_health": -1,
+							"chronicle": "{When}, {monk} entró en el agua fría de Lough Dearg y salió temblando, con fiebre."
+						}
+					}
+				}
+			},
+			{
+				"label": "Dar la vuelta",
+				"chronicle": ""
+			}
+		]
+	},
+	{
+		"id": "road_return_news",
+		"deck": "return",
+		"weight": 10,
+		"when": {
+			"monk": {
+				"has": [
+					"on_road"
+				]
+			}
+		},
+		"effects": {
+			"oracle": {
+				"odds": "likely",
+				"yes": {
+					"goodwill": 1,
+					"chronicle": "{monk} volvió del camino con noticias del país y una lista de los que habían muerto."
+				},
+				"no": {
+					"chronicle": "{monk} volvió del camino y dijo poco de lo que había visto."
+				}
+			}
+		}
+	},
+	{
+		"id": "road_return_hurt",
+		"deck": "return",
+		"weight": 5,
+		"when": {
+			"monk": {
+				"has": [
+					"on_road"
+				]
+			}
+		},
+		"effects": {
+			"monk_health": -1,
+			"monk_add_tag": "scarred",
+			"chronicle": "{monk} volvió del camino con una herida que no cerraría pronto."
+		}
+	},
+	{
+		"id": "road_return_quiet",
+		"deck": "return",
+		"weight": 10,
+		"when": {
+			"monk": {
+				"has": [
+					"on_road"
+				]
+			}
+		},
+		"effects": {
+			"chronicle": "{monk} volvió del camino y fue derecho a la capilla."
+		}
+	}
+]

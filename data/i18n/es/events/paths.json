@@ -1,0 +1,42 @@
+[
+	{
+		"id": "novice_dream",
+		"title": "Un sueño antes de Laudes",
+		"weight": 5,
+		"once": true,
+		"when": {"monk": {"path_known": false, "status": "home", "max_age": 35}},
+		"text": "{monk} llegó a la oficina antes de Laudes con el rostro pálido, y al principio no quiso decir qué lo había turbado. Luego le contó al abad que en la noche lo había llamado alguien por su nombre, y que la voz no sonaba como la suya.",
+		"choices": [
+			{
+				"label": "Pedir al abad que lo escuche",
+				"effects": {"monk_reveal": true},
+				"chronicle": "{When}, {monk} contó su sueño al abad, y el abad vio en él una llamada a ser {monk_path}."
+			},
+			{
+				"label": "Decirle que un sueño no es más que un sueño",
+				"effects": {},
+				"chronicle": "{When}, a {monk} se le dijo que un sueño no es más que un sueño, y aceptó el consejo con semblante turbado."
+			}
+		]
+	},
+	{
+		"id": "monk_asks_to_marry",
+		"title": "Una petición de licencia",
+		"weight": 8,
+		"once": true,
+		"when": {"monk": {"path_known": true, "path": ["householder"], "status": "home", "min_age": 18}},
+		"text": "{monk} se presentó en la puerta del abad con el sombrero en las manos y pidió permiso para bajar al pueblo. Hay una muchacha allí, dijo, y cree que Dios quiere que se case con ella.",
+		"choices": [
+			{
+				"label": "Darle licencia y su bendición",
+				"effects": {"monk_departs": true},
+				"chronicle": "{When}, {monk} salió de la casa hacia el pueblo, y el abad lo bendijo en la puerta."
+			},
+			{
+				"label": "Pedirle que espere un año",
+				"effects": {},
+				"chronicle": "{When}, {monk} aceptó esperar un año antes de volver a hablar del pueblo."
+			}
+		]
+	}
+]

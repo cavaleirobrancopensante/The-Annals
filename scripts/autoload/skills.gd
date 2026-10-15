@@ -33,7 +33,13 @@ var stat_of_skill := {}
 
 
 func _ready() -> void:
-	var data = JSON.parse_string(FileAccess.get_file_as_string(DATA_PATH))
+	load_data()
+
+
+## Reads the data again, so a language change takes effect.
+func load_data() -> void:
+	stat_ids.clear()
+	var data = JSON.parse_string(FileAccess.get_file_as_string(Strings.data(DATA_PATH)))
 	if not data is Dictionary:
 		push_error("Could not read %s" % DATA_PATH)
 		return

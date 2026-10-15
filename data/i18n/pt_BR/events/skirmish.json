@@ -1,0 +1,45 @@
+[
+	{
+		"id": "riders_at_gate",
+		"title": "Cavaleiros no Portão",
+		"deck": "abbey",
+		"weight": 2,
+		"cooldown": 120,
+		"when": {"min_monks": 5, "not_season": ["winter"]},
+		"text": "Oito cavaleiros de capas cinzentas subiram pela estrada do vale e pararam abaixo do portão. O capitão do Coletor de Pedágio quer o pedágio que a casa lhe recusou no ano passado.",
+		"choices": [
+			{
+				"label": "Trancar o portão e postar-se com bastões",
+				"effects": {"skirmish": "riders_at_gate"},
+				"chronicle": ""
+			},
+			{
+				"label": "Pagar o pedágio integral",
+				"requires": {"food": 8},
+				"effects": {"food": -8, "standing": {"tollmaster": 1}},
+				"chronicle": "{When}, a casa pagou aos cavaleiros do Coletor de Pedágio o pedágio integral, e eles partiram sem uma palavra."
+			}
+		]
+	},
+	{
+		"id": "machines_wake",
+		"title": "O Campo das Turbinas Desperta",
+		"deck": "abbey",
+		"weight": 1,
+		"cooldown": 200,
+		"when": {"has_tag": ["turbine_field_inhabited"], "not_tag": ["turbine_field_quiet"], "min_monks": 4},
+		"text": "Durante a noite, as máquinas cinzentas do campo das turbinas começaram a girar, e de manhã vinham subindo o campo em direção ao muro. Nada jamais saíra daquele campo antes.",
+		"choices": [
+			{
+				"label": "Sair e encontrá-las",
+				"effects": {"skirmish": "machines_in_the_field"},
+				"chronicle": ""
+			},
+			{
+				"label": "Fechar a capela e esperar",
+				"effects": {"goodwill": -1},
+				"chronicle": "{When}, os irmãos se trancaram na capela enquanto as máquinas estavam junto ao muro, e pela manhã elas tinham voltado para o campo."
+			}
+		]
+	}
+]

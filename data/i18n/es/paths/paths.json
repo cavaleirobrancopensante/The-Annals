@@ -1,0 +1,24 @@
+{
+	"_note": "Caminos que puede seguir la vida de un hermano, como las clases de un juego. El camino de un hermano permanece oculto (se muestra como '?') hasta que un suceso lo revela. Solo avanzan las habilidades de crecimiento de su camino. 'weight' fija con qué frecuencia se sortea un camino al azar. 'needs' se registra para más adelante; todavía no se aplica.",
+	"paths": [
+		{"id": "monk", "name": "Monje", "weight": 4, "growth": ["devotion", "scribing", "counsel"], "perks": [
+			{"skill": "scribing", "level": 3, "name": "Iluminador"},
+			{"skill": "devotion", "level": 5, "name": "Guardián de la vigilia"}
+		]},
+		{"id": "priest", "name": "Sacerdote", "weight": 1, "needs": "una carta de ordenación", "growth": ["devotion", "counsel", "persuasion"], "perks": [
+			{"skill": "devotion", "level": 3, "name": "Sacramentos"}
+		]},
+		{"id": "householder", "name": "Cabeza de familia", "weight": 3, "growth": ["labour", "building", "cookery"], "perks": [
+			{"skill": "labour", "level": 3, "name": "Cabeza de la casa"}
+		]},
+		{"id": "soldier", "name": "Soldado", "weight": 1, "growth": ["melee", "ranged", "holding_gate"], "perks": [
+			{"skill": "melee", "level": 3, "name": "Muro de escudos"}
+		]},
+		{"id": "hunter", "name": "Cazador", "weight": 1, "growth": ["hunting", "tracking", "snaring"], "perks": []},
+		{"id": "healer", "name": "Sanador", "weight": 1, "growth": ["medicine", "foraging", "resisting_sickness"], "perks": []},
+		{"id": "scribe", "name": "Escriba", "weight": 1, "growth": ["scribing", "old_tongues", "accounts"], "perks": []},
+		{"id": "builder", "name": "Constructor", "weight": 1, "growth": ["building", "smithing", "ruins_machines"], "perks": []},
+		{"id": "cook", "name": "Cocinero", "weight": 1, "growth": ["cookery", "foraging", "hospitality"], "perks": []},
+		{"id": "pilgrim", "name": "Peregrino", "weight": 1, "growth": ["endurance", "tracking", "hospitality"], "perks": []}
+	]
+}

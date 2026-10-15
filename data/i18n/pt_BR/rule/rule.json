@@ -1,0 +1,36 @@
+{
+  "axes": [
+    {
+      "id": "prayer", "name": "Oração",
+      "options": [
+        {"id": "ordinary", "name": "O Ofício ordinário", "desc": "As Horas como a casa sempre as guardou."},
+        {"id": "common", "name": "Oração comum", "desc": "Todos cantam as Horas juntos. A casa fica mais firme por isso.", "goodwill_per_year": 1},
+        {"id": "silent", "name": "Horas de silêncio", "desc": "Longos silêncios depois das Completas. Uma vida devota tem mais chance de ser notada.", "saint_pct": 50}
+      ]
+    },
+    {
+      "id": "labour", "name": "Trabalho",
+      "options": [
+        {"id": "ordinary", "name": "O trabalho ordinário", "desc": "O que a casa sempre fez."},
+        {"id": "hands", "name": "Trabalho das mãos", "desc": "Cada irmão trabalha os campos na estação de crescimento.", "field_pct": 20},
+        {"id": "scholars", "name": "Horas dos eruditos", "desc": "Metade do dia nos livros, menos mãos nos campos.", "field_pct": -20, "book_pct": 50}
+      ]
+    },
+    {
+      "id": "hospitality", "name": "Hospitalidade",
+      "options": [
+        {"id": "ordinary", "name": "Hospitalidade ordinária", "desc": "Os estranhos são alimentados quando a casa pode dispensar."},
+        {"id": "open", "name": "Portão aberto", "desc": "Os estranhos são acolhidos como Cristo. Custa pão e traz noviços.", "novice_pct": 40, "food_per_year": -4},
+        {"id": "closed", "name": "Portão fechado", "desc": "O portão é mantido fechado. Sai menos pão, e menos gente vem pedir.", "novice_pct": -30, "food_per_year": 3}
+      ]
+    },
+    {
+      "id": "learning", "name": "Estudo",
+      "options": [
+        {"id": "ordinary", "name": "Estudo ordinário", "desc": "Leitura e cópia conforme permitem as estações."},
+        {"id": "scriptorium", "name": "Primeiro o scriptorium", "desc": "Os livros vêm antes de tudo.", "book_pct": 50},
+        {"id": "infirmary", "name": "Primeiro a enfermaria", "desc": "Os doentes são o primeiro dever da casa.", "medicine_bonus": 1}
+      ]
+    }
+  ]
+}

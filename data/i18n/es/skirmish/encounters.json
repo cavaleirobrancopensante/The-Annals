@@ -1,0 +1,85 @@
+{
+  "riders_at_gate": {
+    "title": "Los jinetes a la puerta",
+    "enemy": "los jinetes del recaudador del peaje",
+    "strength": 7,
+    "rounds": 7,
+    "intro": "Ocho jinetes con capas grises se han detenido ante la puerta. Su capitán quiere el peaje completo, y la casa ya ha dicho que no.",
+    "victory": {
+      "chronicle": "{When}, la casa rechazó a los jinetes del recaudador del peaje ante la puerta. Se marcharon con el orgullo de su capitán y nada más.",
+      "effects": {
+        "standing": {
+          "tollmaster": -2
+        },
+        "goodwill": 1
+      }
+    },
+    "defeat": {
+      "chronicle": "{When}, los jinetes irrumpieron en el patio y se llevaron de la despensa lo que quisieron antes de marcharse.",
+      "effects": {
+        "food": -8,
+        "firewood": -4,
+        "standing": {
+          "tollmaster": -1
+        }
+      }
+    },
+    "withdraw": {
+      "chronicle": "{When}, los hermanos se retiraron tras la puerta y la atrancaron, y los jinetes gritaron contra el muro hasta cansarse.",
+      "effects": {
+        "food": -2
+      }
+    }
+  },
+  "ambush_on_road": {
+    "title": "Una emboscada en el camino",
+    "enemy": "salteadores del camino",
+    "strength": 5,
+    "rounds": 4,
+    "intro": "En {node}, unos hombres con garrotes salieron del seto que cruza el camino. Quieren la carreta, y los hermanos solo tienen sus bastones.",
+    "victory": {
+      "chronicle": "{When}, la comitiva rechazó a los salteadores en {node} y mantuvo el camino hasta llegar a casa.",
+      "effects": {
+        "goodwill": 1
+      }
+    },
+    "defeat": {
+      "chronicle": "{When}, unos salteadores se llevaron el pan de la comitiva en {node} y dejaron a un hermano sangrando en la zanja.",
+      "effects": {
+        "food": -3,
+        "monk_health": -1
+      }
+    },
+    "withdraw": {
+      "chronicle": "{When}, la comitiva se retiró del seto en {node} y dio un rodeo por el camino del pantano.",
+      "effects": {}
+    }
+  },
+  "machines_in_the_field": {
+    "title": "Las máquinas del campo de turbinas",
+    "enemy": "las máquinas antiguas",
+    "strength": 7,
+    "rounds": 7,
+    "unbreakable": true,
+    "intro": "Las máquinas grises del campo de turbinas han empezado a girar. No hacen ruido. Avanzan con firmeza, y los bastones de los hermanos son pequeños frente a ellas.",
+    "victory": {
+      "chronicle": "{When}, los hermanos destrozaron una a una las máquinas del campo de turbinas y llevaron a casa las piezas menos dañadas. Después de aquello, nada salió de aquel campo.",
+      "effects": {
+        "add_tag": "turbine_field_quiet",
+        "books": 1
+      }
+    },
+    "defeat": {
+      "chronicle": "{When}, las máquinas hicieron retroceder a los hermanos desde el campo de turbinas, y uno de ellos no volvió a casa.",
+      "effects": {
+        "monk_dies": "las máquinas antiguas"
+      }
+    },
+    "withdraw": {
+      "chronicle": "{When}, los hermanos volvieron del campo de turbinas con sus bastones rotos, y las máquinas se quedaron donde estaban.",
+      "effects": {
+        "monk_add_tag": "scarred"
+      }
+    }
+  }
+}

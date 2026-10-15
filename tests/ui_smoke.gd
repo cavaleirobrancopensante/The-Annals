@@ -9,6 +9,9 @@ var main: Control
 
 func _ready() -> void:
 	SaveSystem.enabled = false
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("lang="):
+			Settings.set_language(a.substr(5))
 	Oracle.start(42)
 	Game.new_game()
 	SaveSystem.slot = 1
@@ -62,7 +65,14 @@ func _ready() -> void:
 		for i in 10:
 			await get_tree().process_frame
 		var img := get_viewport().get_texture().get_image()
-		out = OS.get_cmdline_user_args()[0] if not OS.get_cmdline_user_args().is_empty() else "user://ui_smoke.png"
+		out = _shot_path()
 		img.save_png(out)
 	print("UI smoke test ok: year %d, %d entries, screenshot %s" % [WorldState.year(), Chronicle.entries.size(), out])
 	get_tree().quit()
+
+
+func _shot_path() -> String:
+	for a in OS.get_cmdline_user_args():
+		if not a.begins_with("lang="):
+			return a
+	return "user://ui_smoke.png"

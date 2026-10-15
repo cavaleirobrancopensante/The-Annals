@@ -1,0 +1,98 @@
+[
+	{
+		"id": "currach_from_islands",
+		"title": "Um Currach na Maré",
+		"weight": 6,
+		"cooldown": 36,
+		"when": {
+			"not_season": [
+				"winter"
+			]
+		},
+		"text": "Um currach aporta ao pé do penhasco na maré da tarde, com quatro pescadores das ilhas do oeste. Trazem peixe salgado e notícias das ilhas, e pedem abrigo até que o vento mude.",
+		"choices": [
+			{
+				"label": "Acolhê-los e repartir os estoques",
+				"requires": {
+					"food": 8
+				},
+				"effects": {
+					"food": -8,
+					"goodwill": 1,
+					"oracle": {
+						"odds": "likely",
+						"yes": {
+							"food": 14,
+							"chronicle": "{When}, um currach chegou das ilhas do oeste. A casa alimentou os quatro pescadores, que consertaram as redes e deixaram um barril de peixe salgado na despensa."
+						},
+						"no": {
+							"chronicle": "{When}, quatro pescadores das ilhas do oeste receberam abrigo e partiram antes de o conserto estar pronto, deixando a despensa desfalcada."
+						}
+					}
+				}
+			},
+			{
+				"label": "Mandá-los para o norte, pela costa",
+				"chronicle": "{When}, um currach das ilhas do oeste foi mandado de volta na praia, e os pescadores seguiram para o norte, pela costa."
+			}
+		]
+	},
+	{
+		"id": "atlantic_storm",
+		"weight": 4,
+		"cooldown": 60,
+		"when": {
+			"season": [
+				"autumn",
+				"winter"
+			]
+		},
+		"effects": {
+			"food": -4,
+			"firewood": -2,
+			"chronicle": "{When}, uma tempestade vinda do Atlântico chegou durante a noite. Arrancou as telhas do estábulo, achatou a aveia do campo baixo, e o mar cobriu a praia, branco na escuridão."
+		}
+	},
+	{
+		"id": "wreck_on_the_rocks",
+		"weight": 3,
+		"cooldown": 96,
+		"when": {
+			"not_season": [
+				"winter"
+			]
+		},
+		"effects": {
+			"books": 2,
+			"chronicle": "{When}, um barco das ilhas foi encontrado destroçado nas rochas ao pé do penhasco. Entre os destroços havia um saltério encharcado e dois livros num saco impermeável, que o scriptorium secou junto ao fogo."
+		}
+	},
+	{
+		"id": "no_word_from_abroad",
+		"weight": 3,
+		"cooldown": 48,
+		"when": {
+			"season": [
+				"winter"
+			]
+		},
+		"effects": {
+			"goodwill": -1,
+			"chronicle": "{When}, nenhum barco chegou do continente, e os irmãos passaram todo o inverno sem notícias do mundo além do mar."
+		}
+	},
+	{
+		"id": "bog_fire",
+		"weight": 3,
+		"cooldown": 60,
+		"when": {
+			"season": [
+				"summer"
+			]
+		},
+		"effects": {
+			"firewood": 6,
+			"chronicle": "{When}, a turfeira pegou fogo nas semanas secas, e a fumaça pairou sobre o vale por uma quinzena. Depois, os irmãos cortaram a turfa queimada, que queimava bem."
+		}
+	}
+]

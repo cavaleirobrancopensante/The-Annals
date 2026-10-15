@@ -1,0 +1,24 @@
+{
+	"_note": "Caminhos que a vida de um irmão pode tomar, como classes. O caminho de um irmão fica oculto (mostrado como '?') até que um evento o revele. Só as habilidades de crescimento do seu caminho avançam. 'weight' define com que frequência um caminho é sorteado. 'needs' fica registrado para uso futuro; ainda não é imposto.",
+	"paths": [
+		{"id": "monk", "name": "Monge", "weight": 4, "growth": ["devotion", "scribing", "counsel"], "perks": [
+			{"skill": "scribing", "level": 3, "name": "Iluminador"},
+			{"skill": "devotion", "level": 5, "name": "Guardião da vigília"}
+		]},
+		{"id": "priest", "name": "Padre", "weight": 1, "needs": "uma carta de ordenação", "growth": ["devotion", "counsel", "persuasion"], "perks": [
+			{"skill": "devotion", "level": 3, "name": "Sacramentos"}
+		]},
+		{"id": "householder", "name": "Chefe de Família", "weight": 3, "growth": ["labour", "building", "cookery"], "perks": [
+			{"skill": "labour", "level": 3, "name": "Chefe de uma casa"}
+		]},
+		{"id": "soldier", "name": "Soldado", "weight": 1, "growth": ["melee", "ranged", "holding_gate"], "perks": [
+			{"skill": "melee", "level": 3, "name": "Muro de escudos"}
+		]},
+		{"id": "hunter", "name": "Caçador", "weight": 1, "growth": ["hunting", "tracking", "snaring"], "perks": []},
+		{"id": "healer", "name": "Curandeiro", "weight": 1, "growth": ["medicine", "foraging", "resisting_sickness"], "perks": []},
+		{"id": "scribe", "name": "Escriba", "weight": 1, "growth": ["scribing", "old_tongues", "accounts"], "perks": []},
+		{"id": "builder", "name": "Construtor", "weight": 1, "growth": ["building", "smithing", "ruins_machines"], "perks": []},
+		{"id": "cook", "name": "Cozinheiro", "weight": 1, "growth": ["cookery", "foraging", "hospitality"], "perks": []},
+		{"id": "pilgrim", "name": "Peregrino", "weight": 1, "growth": ["endurance", "tracking", "hospitality"], "perks": []}
+	]
+}

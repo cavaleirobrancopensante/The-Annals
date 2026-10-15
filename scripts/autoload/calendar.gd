@@ -25,7 +25,13 @@ var _cache := {}
 
 
 func _ready() -> void:
-	var data = JSON.parse_string(FileAccess.get_file_as_string(FEASTS_PATH))
+	load_data()
+
+
+## Reads the data again, so a language change takes effect.
+func load_data() -> void:
+	_cache.clear()
+	var data = JSON.parse_string(FileAccess.get_file_as_string(Strings.data(FEASTS_PATH)))
 	if data is Dictionary:
 		_fixed = data.get("fixed", [])
 		_easter_rel = data.get("easter", [])
@@ -121,7 +127,7 @@ func days_into_season(y: int, m: int, d: int) -> int:
 
 
 func long_date(y: int, m: int, d: int) -> String:
-	return "%s %d %s %d" % [WEEKDAY_NAMES[weekday(y, m, d)], d, MONTH_NAMES[m - 1], y]
+	return tr("date.long") % [tr("weekday.%d" % weekday(y, m, d)), d, tr("month.%d" % m), y]
 
 
 # --- Feasts -------------------------------------------------------------

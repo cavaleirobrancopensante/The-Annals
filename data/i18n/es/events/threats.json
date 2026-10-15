@@ -1,0 +1,184 @@
+[
+	{
+		"id": "salt_king_tribute",
+		"title": "Jinetes a la puerta",
+		"weight": 5,
+		"cooldown": 36,
+		"when": {"not_tag": ["paid_salt_king", "defied_salt_king", "salt_king_wary", "fed_the_riders"], "min": {"food": 30}},
+		"text": "Cinco jinetes esperan a la puerta bajo el estandarte del recaudador del peaje. Su capitán quiere una parte del granero, a cambio de lo que llama protección del camino.",
+		"choices": [
+			{
+				"label": "Pagarles",
+				"requires": {"food": 25},
+				"effects": {"food": -25, "add_tag": "paid_salt_king"},
+				"chronicle": "{When}, llegaron a la puerta jinetes del recaudador del peaje, y la casa les pagó un diezmo de grano."
+			},
+			{
+				"label": "Ofrecerles una comida en su lugar",
+				"requires": {"food": 8},
+				"effects": {
+					"food": -8,
+					"oracle": {
+						"odds": "even",
+						"yes": {"add_tag": "fed_the_riders", "chronicle": "El capitán se rió, pero comió, y se marchó sin el grano."},
+						"no": {"food": -15, "add_tag": "defied_salt_king", "chronicle": "Comieron la comida y después se llevaron el grano de todos modos."}
+					}
+				},
+				"chronicle": "{When}, llegaron a la puerta jinetes del recaudador del peaje, y {abbot} los invitó a comer en el refectorio."
+			},
+			{
+				"label": "Negarles el grano",
+				"effects": {
+					"add_tag": "defied_salt_king",
+					"oracle": {
+						"odds": "unlikely",
+						"yes": {"firewood": -15, "chronicle": "Al salir prendieron fuego a la leñera."},
+						"no": {"chronicle": "Se marcharon riendo, y prometieron volver."}
+					}
+				},
+				"chronicle": "{When}, jinetes del recaudador del peaje exigieron grano a la puerta, y {abbot} se lo negó."
+			}
+		]
+	},
+	{
+		"id": "salt_king_returns",
+		"title": "Vuelven los jinetes",
+		"weight": 6,
+		"cooldown": 24,
+		"when": {"has_tag": ["paid_salt_king"]},
+		"text": "Como algunos hermanos habían advertido, los jinetes del recaudador del peaje han vuelto. Su capitán dice que el camino se ha vuelto más peligroso, y que el precio ha subido.",
+		"choices": [
+			{
+				"label": "Pagar de nuevo",
+				"requires": {"food": 35},
+				"effects": {"food": -35},
+				"chronicle": "{When}, los jinetes del recaudador del peaje volvieron por más grano, y se les pagó de nuevo."
+			},
+			{
+				"label": "Esta vez no",
+				"effects": {"remove_tag": "paid_salt_king", "add_tag": "defied_salt_king"},
+				"chronicle": "{When}, los jinetes del recaudador del peaje volvieron por más, y esta vez {abbot} los despidió con las manos vacías."
+			}
+		]
+	},
+	{
+		"id": "salt_king_reprisal",
+		"weight": 7,
+		"cooldown": 24,
+		"when": {"has_tag": ["defied_salt_king"], "monk": {"min_health": 2, "max_age": 60}},
+		"effects": {
+			"remove_tag": "defied_salt_king",
+			"add_tag": "salt_king_wary",
+			"tag_weeks": 48,
+			"monk_health": -2,
+			"monk_add_tag": "scarred",
+			"chronicle": "{When}, {monk} fue hallado en el camino bajo la casa, golpeado y abandonado en una zanja. Todos sabían quién lo había hecho."
+		}
+	},
+	{
+		"id": "woodpile_thief",
+		"title": "Alguien se lleva la leña",
+		"weight": 7,
+		"cooldown": 30,
+		"when": {"season": ["winter", "autumn"], "min": {"firewood": 10}},
+		"text": "Durante tres noches seguidas, la leña ha desaparecido del montón junto al muro.",
+		"choices": [
+			{
+				"label": "Montar guardia durante la noche",
+				"effects": {"oracle": {"odds": "likely", "yes": {"food": -4, "goodwill": 1, "chronicle": "La guardia sorprendió a una viuda y a sus dos hijos con los brazos llenos de leña. Se les dio de comer y se les envió a casa con un atado."}, "no": {"firewood": -6, "chronicle": "La guardia no vio nada, y la leña siguió desapareciendo."}}},
+				"chronicle": "{When}, alguien robaba del montón de leña."
+			},
+			{
+				"label": "Dejar un atado junto a la puerta para quien lo necesite",
+				"effects": {"firewood": -4, "goodwill": 1, "add_tag": "gate_bundle"},
+				"chronicle": "{When}, la leña empezó a desaparecer del montón, y {abbot} ordenó dejar cada noche un atado junto a la puerta para quien lo necesitara."
+			}
+		]
+	},
+	{
+		"id": "refugees",
+		"title": "Una familia a la puerta",
+		"weight": 7,
+		"cooldown": 24,
+		"text": "Una familia con una carretilla espera a la puerta: un hombre, su mujer y una niña pequeña envuelta en una manta que no deja de toser.",
+		"choices": [
+			{
+				"label": "Acogerlos hasta que la niña se cure",
+				"requires": {"food": 10},
+				"effects": {
+					"food": -10,
+					"goodwill": 2,
+					"oracle": {
+						"odds": "likely",
+						"yes": {"chronicle": "La niña se recuperó, y la familia siguió su camino en primavera."},
+						"no": {"chronicle": "La niña murió en la habitación de huéspedes y fue enterrada en el campo de los hermanos, bajo una pequeña cruz."}
+					}
+				},
+				"chronicle": "{When}, una familia con una niña enferma fue acogida en la casa de huéspedes."
+			},
+			{
+				"label": "Darles pan e indicaciones",
+				"effects": {"food": -3, "goodwill": 1},
+				"chronicle": ""
+			},
+			{
+				"label": "Atrancar la puerta",
+				"effects": {"goodwill": -2, "add_tag": "gate_barred", "tag_weeks": 24},
+				"chronicle": "{When}, una familia con una niña enferma llegó a la puerta, y la puerta permaneció cerrada."
+			}
+		]
+	},
+	{
+		"id": "fever",
+		"title": "Fiebre",
+		"weight": 7,
+		"cooldown": 12,
+		"when": {"monk": {"min_health": 3}},
+		"text": "{monk} se ha desplomado en el huerto, ardiendo de fiebre.",
+		"choices": [
+			{
+				"label": "Usar las medicinas de la enfermería",
+				"requires": {"medicine": 1},
+				"effects": {"medicine": -1, "oracle": {"odds": "likely", "yes": {"chronicle": ""}, "no": {"monk_health": -1, "chronicle": "{When}, {monk} cayó enfermo de una fiebre que la medicina no logró bajar."}}}
+			},
+			{
+				"label": "Rezar y esperar",
+				"effects": {"monk_health": -1, "oracle": {"odds": "unlikely", "yes": {"monk_health": 1, "chronicle": "{When}, {monk} pasó tres días en una fiebre que cedió de repente el día de la Santa Cruz. La sanadora no encontró explicación."}, "no": {"chronicle": "{When}, {monk} cayó enfermo de fiebre."}}}
+			}
+		]
+	},
+	{
+		"id": "cold_in_the_chest",
+		"title": "El frío se asienta",
+		"weight": 7,
+		"cooldown": 12,
+		"when": {"season": ["winter"], "monk": {"min_age": 50, "min_health": 2}},
+		"text": "El frío se ha asentado en el pecho de {monk}. Tose durante el Oficio de la noche.",
+		"choices": [
+			{
+				"label": "Mantener un fuego en su celda",
+				"requires": {"firewood": 6},
+				"effects": {"firewood": -6},
+				"chronicle": ""
+			},
+			{
+				"label": "Debe soportarlo como los demás",
+				"effects": {"oracle": {"odds": "even", "yes": {"monk_health": -1, "chronicle": "{When}, {monk} fue llevado a la enfermería con un mal del pecho."}, "no": {"chronicle": ""}}}
+			}
+		]
+	},
+	{
+		"id": "blight",
+		"weight": 4,
+		"cooldown": 96,
+		"when": {"season": ["summer", "autumn"]},
+		"effects": {"add_tag": "blight", "tag_weeks": 6, "chronicle": "{When}, la podredumbre negra llegó a los bancales de patatas. Los hermanos arrancaron lo que pudieron salvar y quemaron el resto."}
+	},
+	{
+		"id": "snowed_in",
+		"weight": 4,
+		"cooldown": 48,
+		"when": {"season": ["winter"]},
+		"effects": {"firewood": -3, "add_tag": "snowed_in", "tag_weeks": 3, "chronicle": "{When}, la nieve cerró el paso durante tres semanas. Nadie llegó a la puerta, y los hermanos guardaron silencio incluso durante el recreo."}
+	}
+]

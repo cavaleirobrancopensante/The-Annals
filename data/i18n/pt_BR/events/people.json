@@ -1,0 +1,254 @@
+[
+	{
+		"id": "novice_at_gate",
+		"title": "Um Estranho Pede para Ficar",
+		"weight": 7,
+		"cooldown": 20,
+		"when": {"not_tag": ["postulant_at_gate"]},
+		"text": "Um jovem está no portão, com nada além de uma faca e um cordão de contas de madeira. Pede para ficar e tornar-se irmão.",
+		"choices": [
+			{
+				"label": "Recebê-lo como noviço",
+				"effects": {"new_monk": {"age": [16, 24]}},
+				"chronicle": "{When}, um jovem chegou ao portão e foi recebido como noviço. Tomou o nome de {newcomer_name}."
+			},
+			{
+				"label": "Fazê-lo esperar no portão, como manda a Regra",
+				"effects": {"add_tag": "postulant_at_gate"},
+				"chronicle": ""
+			},
+			{"label": "Mandá-lo embora com pão", "effects": {"food": -2}, "chronicle": ""}
+		]
+	},
+	{
+		"id": "postulant_endures",
+		"weight": 12,
+		"cooldown": 6,
+		"when": {"has_tag": ["postulant_at_gate"]},
+		"effects": {
+			"remove_tag": "postulant_at_gate",
+			"oracle": {
+				"odds": "likely",
+				"yes": {"new_monk": {"age": [16, 24], "traits": ["patient"]}, "chronicle": "O jovem que esperara semanas no portão, dormindo na chuva, foi finalmente admitido. Tomou o nome de {newcomer_name}."},
+				"no": {"chronicle": "O jovem que esperava no portão desapareceu certa manhã. Ninguém o viu partir."}
+			}
+		}
+	},
+	{
+		"id": "old_hermit",
+		"title": "O Eremita do Desfiladeiro",
+		"weight": 4,
+		"cooldown": 96,
+		"text": "Um velho eremita que vive sozinho no desfiladeiro há trinta anos manda dizer que deseja morrer entre irmãos.",
+		"choices": [
+			{
+				"label": "Trazê-lo para dentro",
+				"effects": {"new_monk": {"age": [72, 84], "traits": ["devout"]}},
+				"chronicle": "{When}, {newcomer}, um eremita do desfiladeiro, veio à casa para terminar seus dias entre irmãos."
+			},
+			{"label": "Mandar-lhe pão e as nossas orações", "effects": {"food": -2}, "chronicle": ""}
+		]
+	},
+	{
+		"id": "quarrel",
+		"title": "Uma Briga no Capítulo",
+		"weight": 8,
+		"cooldown": 20,
+		"when": {"monk": {"has_any": ["proud", "stubborn", "wrathful"], "not": ["bitter"]}, "monk2": {}},
+		"text": "{monk} e {monk2} não se falam desde uma briga sobre o canto dos salmos. Os outros irmãos começaram a tomar partido.",
+		"choices": [
+			{
+				"label": "Repreender {monk} diante do capítulo",
+				"effects": {"oracle": {"odds": "even", "yes": {"monk_add_tag": "humbled", "chronicle": "{monk} aceitou a repreensão em silêncio e pediu perdão a {monk2}."}, "no": {"monk_add_tag": "bitter", "chronicle": "{monk} recebeu mal a repreensão."}}},
+				"chronicle": "{When}, {abbot} repreendeu {monk} no capítulo por causa de uma briga com {monk2}."
+			},
+			{
+				"label": "Mandá-los cavar o mesmo fosso até que façam as pazes",
+				"effects": {"oracle": {"odds": "likely", "yes": {"chronicle": "Dentro de uma semana foram vistos rindo na ponta do fosso."}, "no": {"monk_add_tag": "bitter", "monk2_add_tag": "bitter", "chronicle": "Cavaram o fosso em silêncio e o terminaram em silêncio."}}},
+				"chronicle": "{When}, {monk} e {monk2} foram mandados cavar um fosso juntos depois de uma briga."
+			},
+			{"label": "Deixar passar", "effects": {"monk_add_tag": "bitter"}, "chronicle": ""}
+		]
+	},
+	{
+		"id": "bitter_monk",
+		"title": "Um Coração Amargo",
+		"weight": 6,
+		"cooldown": 24,
+		"when": {"monk": {"has": ["bitter"]}},
+		"text": "{monk} fica sozinho. Chega tarde ao Ofício e sai cedo, e olha para o portão como quem mede a estrada.",
+		"choices": [
+			{
+				"label": "Caminhar com ele no jardim",
+				"effects": {"oracle": {"odds": "likely", "yes": {"monk_remove_tag": "bitter", "chronicle": "{abbot} caminhou com {monk} no jardim por uma hora, e depois {monk} foi visto nas Vésperas, na hora certa."}, "no": {"chronicle": "{abbot} falou com {monk}, que ouviu com educação e não mudou nada."}}}
+			},
+			{
+				"label": "Entregá-lo a Deus",
+				"effects": {"oracle": {"odds": "unlikely", "yes": {"monk_departs": true, "chronicle": "{When}, {monk} deixou a casa sem uma palavra e tomou a estrada do sul."}, "no": {"chronicle": ""}}}
+			}
+		]
+	},
+	{
+		"id": "doubting_brother",
+		"title": "A Noite Escura",
+		"weight": 7,
+		"cooldown": 30,
+		"when": {"monk": {"has": ["doubting"], "not": ["tested_faith"]}},
+		"text": "{monk} vem falar com você depois das Completas. Diz que há meses não sente nada na capela, que os salmos são apenas palavras e que não sabe por que continua ali.",
+		"choices": [
+			{
+				"label": "Aconselhar paciência: também este é um caminho",
+				"effects": {"oracle": {"odds": "even", "yes": {"monk_remove_tag": "doubting", "monk_add_tag": "tested_faith", "chronicle": "{When}, {monk} atravessou uma longa escuridão da alma e saiu do outro lado."}, "no": {"chronicle": ""}}}
+			},
+			{
+				"label": "Mandá-lo à gruta do eremita por um mês",
+				"effects": {"monk_away": {"weeks": 4, "tag": "on_retreat"}},
+				"chronicle": "{When}, {monk} subiu à gruta do eremita para rezar sozinho."
+			},
+			{
+				"label": "Dar-lhe uma penitência severa",
+				"effects": {"monk_add_tag": "bitter"},
+				"chronicle": ""
+			}
+		]
+	},
+	{
+		"id": "restless_departure",
+		"title": "Uma Cela Vazia",
+		"weight": 6,
+		"cooldown": 24,
+		"when": {"monk": {"has": ["restless", "denied"]}},
+		"text": "A cela de {monk} está vazia esta manhã. Sua capa e suas sandálias sumiram, e o portão foi deixado sem a tranca.",
+		"choices": [
+			{
+				"label": "Mandar um irmão atrás dele",
+				"effects": {"oracle": {"odds": "even", "yes": {"monk_remove_tag": "denied", "chronicle": "{When}, {monk} tentou deixar a casa durante a noite, mas foi encontrado na estrada e voltou por vontade própria."}, "no": {"monk_departs": true, "chronicle": "{When}, {monk} deixou a casa durante a noite. O irmão mandado atrás dele voltou sozinho."}}}
+			},
+			{
+				"label": "Deixá-lo ir",
+				"effects": {"monk_departs": true},
+				"chronicle": "{When}, {monk} deixou a casa durante a noite, e o abade não quis mandar ninguém atrás dele."
+			}
+		]
+	},
+	{
+		"id": "gluttony",
+		"title": "Migalhas",
+		"weight": 6,
+		"cooldown": 30,
+		"when": {"min": {"food": 40}, "monk": {"has": ["gluttonous"]}},
+		"text": "O pão está sumindo da despensa de novo. O cozinheiro encontrou migalhas no chão da cela de {monk}.",
+		"choices": [
+			{
+				"label": "Penitência pública no capítulo",
+				"effects": {"monk_add_tag": "humbled"},
+				"chronicle": "{When}, {monk} fez penitência diante do capítulo por ter tirado pão da despensa."
+			},
+			{
+				"label": "Uma conversa discreta, a sós",
+				"effects": {"oracle": {"odds": "likely", "yes": {"monk_remove_tag": "gluttonous", "chronicle": "Depois de uma conversa com {abbot}, o pão deixou de sumir."}, "no": {"food": -6, "chronicle": ""}}}
+			},
+			{"label": "Fingir não saber", "effects": {"food": -10}, "chronicle": ""}
+		]
+	},
+	{
+		"id": "feast_request",
+		"title": "A Festa do Padroeiro",
+		"weight": 6,
+		"cooldown": 48,
+		"when": {"min": {"food": 60}, "monk": {"has": ["cheerful"]}},
+		"text": "A festa de {patron} se aproxima. {monk} implora por uma festa de verdade neste ano, com a aldeia convidada e pão para todos.",
+		"choices": [
+			{
+				"label": "Fazer a festa",
+				"requires": {"food": 12},
+				"effects": {"food": -12, "goodwill": 2},
+				"chronicle": "{When}, a festa de {patron} foi celebrada com pão e cânticos, e metade da aldeia do vale veio."
+			},
+			{"label": "Mantê-la simples, como sempre", "chronicle": ""}
+		]
+	},
+	{
+		"id": "teaching_letters",
+		"title": "Letras",
+		"weight": 6,
+		"cooldown": 24,
+		"when": {"monk": {"has_any": ["learned"]}, "monk2": {"max_age": 30, "not": ["lettered"]}},
+		"text": "{monk} percebeu que {monk2} não consegue ler o saltério e segue os outros apenas de memória. Ele se oferece para ensinar-lhe as letras à noite.",
+		"choices": [
+			{
+				"label": "Deixar as lições começarem",
+				"effects": {"monk2_add_tag": "lettered"},
+				"chronicle": "{When}, {monk} começou a ensinar as letras a {monk2} à luz de velas."
+			},
+			{"label": "O trabalho nos campos já basta", "chronicle": ""}
+		]
+	},
+	{
+		"id": "barred_gate_objection",
+		"title": "Por que o Portão Foi Trancado?",
+		"weight": 8,
+		"cooldown": 24,
+		"when": {"has_tag": ["gate_barred"], "monk": {"has": ["gentle"]}},
+		"text": "{monk} levanta-se no capítulo e pergunta, diante de todos, por que o portão foi trancado contra uma família necessitada.",
+		"choices": [
+			{
+				"label": "Admitir que você errou",
+				"effects": {"goodwill": 1, "remove_tag": "gate_barred"},
+				"chronicle": "{When}, {abbot} confessou diante do capítulo que errara ao trancar o portão, e ordenou que ficasse aberto."
+			},
+			{
+				"label": "Defender a decisão",
+				"effects": {"monk_add_tag": "bitter"},
+				"chronicle": "{When}, {monk} questionou o abade no capítulo sobre o portão trancado, e foi mandado calar-se."
+			}
+		]
+	},
+	{
+		"id": "soldier_recognised",
+		"title": "Um Rosto Reconhecido",
+		"weight": 5,
+		"cooldown": 60,
+		"when": {"monk": {"vocation": ["soldier"], "not": ["past_exposed"]}},
+		"text": "Um comerciante no portão encara {monk} e, depois, cospe no chão. Diz que reconhece aquele rosto da queima de Dunmore, e que um hábito não lava o sangue.",
+		"choices": [
+			{
+				"label": "Deixar {monk} responder a ele",
+				"effects": {
+					"monk_add_tag": "past_exposed",
+					"oracle": {
+						"odds": "even",
+						"yes": {"goodwill": 1, "monk_add_tag": "penitent", "chronicle": "{monk} ajoelhou-se na lama diante do comerciante e pediu o seu perdão. O comerciante partiu sem uma palavra, mas a notícia correu a estrada à sua frente."},
+						"no": {"goodwill": -1, "chronicle": "{monk} perdeu a paciência, e o comerciante partiu xingando a casa. A notícia correu a estrada à sua frente."}
+					}
+				},
+				"chronicle": "{When}, um comerciante reconheceu {monk} dos seus anos de soldado."
+			},
+			{
+				"label": "Mandar o comerciante embora",
+				"effects": {"goodwill": -1, "monk_add_tag": "past_exposed"},
+				"chronicle": ""
+			}
+		]
+	},
+	{
+		"id": "fed_rider_returns",
+		"title": "Um dos Cavaleiros",
+		"weight": 8,
+		"once": true,
+		"when": {"has_tag": ["fed_the_riders"]},
+		"text": "Um dos cavaleiros do Coletor de Pedágio, que comeu à sua mesa, volta sozinho e a pé. Deixou a espada numa vala. Pede que lhe ensinem a rezar.",
+		"choices": [
+			{
+				"label": "Recebê-lo",
+				"effects": {"new_monk": {"vocation": "soldier", "traits": ["wrathful"], "age": [22, 35]}, "remove_tag": "fed_the_riders"},
+				"chronicle": "{When}, um dos cavaleiros do Coletor de Pedágio voltou sozinho e pediu para ficar. Foi recebido e tomou o nome de {newcomer_name}."
+			},
+			{
+				"label": "Recusá-lo; pode ser uma armadilha",
+				"effects": {"remove_tag": "fed_the_riders"},
+				"chronicle": ""
+			}
+		]
+	}
+]

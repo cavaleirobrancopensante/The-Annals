@@ -1,6 +1,6 @@
 # Menus, screens and the first-play tutorial (study)
 
-Status: steps 1 to 7 built: slots, main menu, settings, language flags, the tutorial, the header and bottom bar, the scrolling event sheet, road label placement, and the chronicle new-entry dot. Still to do: tutorial steps that wait for the player to act, and coach cards tied to the Tutorial hints setting.
+Status: all seven steps built. Walk-through steps wait for the action they name. Tutorial hints show the until-event line and the dice lines. Interface, chronicle, events, skills, paths, rules, feasts, buildings and jobs are in English, Brazilian Portuguese and Spanish (data/i18n). Still English: vocation names, generated saint and place names, and the calendar feast names.
 Target: a 720 × 1280 portrait phone screen, as the project is set up now (`project.godot`).
 
 ## 1. What exists today (as built)
@@ -20,9 +20,9 @@ The screen has four zones, top to bottom: header (title, status, resources, fore
 ```
 Boot
  └─ Main menu
-     ├─ New house ──► Choose a slot (1–10, empty slots only) ──► Name check (house name shown) ──► Begin
+     ├─ New house ──► Choose a slot (1 to 10, empty slots only) ──► Name check (house name shown) ──► Begin
      │                                                              └─ Tutorial offer: Begin / Skip
-     ├─ Load house ─► Slot list (1–10) ──► tap a slot ──► House
+     ├─ Load house ─► Slot list (1 to 10) ──► tap a slot ──► House
      ├─ Settings ───► Settings list ──► Back
      └─ Quit ───────► confirm ──► exit
 
@@ -74,8 +74,8 @@ A single list. Each row is a label on the left and its control on the right, 64 
 | Text size | Three buttons: A · A · A (small, normal, large) | Normal | Sets the theme's base font size (22 px normal, 18 px small, 26 px large) |
 | Tutorial hints | On / Off toggle | On | Shows coach cards during the tutorial and the first few events |
 | Confirm before closing a house | On / Off toggle | On | Affects "Found a new house" |
-| Replay the tutorial | Button | — | Restarts the tutorial in the current house |
-| Chronicle ink | Off (later: sepia / plain) | — | Placeholder for art direction |
+| Replay the tutorial | Button | none | Restarts the tutorial in the current house |
+| Chronicle ink | Off (later: sepia / plain) | none | Placeholder for art direction |
 
 Settings are stored on their own, not per slot.
 
@@ -183,7 +183,7 @@ Hints (the coach cards after the first game) follow the Tutorial hints setting. 
 ## 8. Recognition and wording
 
 - Use the same verbs everywhere: **Next day**, **Next week**, **Until event**. Do not mix "week" and "turn".
-- Icons next to resources (grain, wood, a cross, books, a heart for goodwill) — 24 px, in the tile.
+- Icons next to resources (grain, wood, a cross, books, a heart for goodwill), 24 px, in the tile.
 - Button labels are verbs: "Send the party", "Found a new house", "Back to the main menu".
 - Danger actions are red and confirmed: found a new house, delete a slot, quit with unsaved work (none, by design).
 
@@ -191,8 +191,8 @@ Hints (the coach cards after the first game) follow the Tutorial hints setting. 
 
 - Gutters: 16 px each side; top margin 44 px for the device status bar.
 - Vertical rhythm: 8 px between related items, 16 px between sections, 24 px before a section title.
-- Touch targets: at least 56 px tall; main buttons 64–72 px.
-- Text: normal 22 px, small 18 px, large 26 px; titles 30–40 px.
+- Touch targets: at least 56 px tall; main buttons 64 to 72 px.
+- Text: normal 22 px, small 18 px, large 26 px; titles 30 to 40 px.
 - Maximum line length: about 40 characters in the body text at 22 px.
 - Nothing scrolls sideways. The Estate and Road tabs scroll vertically only.
 

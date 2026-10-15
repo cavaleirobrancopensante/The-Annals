@@ -1,0 +1,147 @@
+{
+  "factions": {
+    "tollmaster": {
+      "name": "o Coletor de Pedágio",
+      "desc": "Controla as pontes do Shannon e cobra pedágio em todas as estradas."
+    },
+    "glen_lords": {
+      "name": "os senhores do vale",
+      "desc": "Governam as colinas e os vales com lanças e cães."
+    },
+    "church": {
+      "name": "os lugares santos",
+      "desc": "Eremitas, poços e oratórios em ruínas que ainda guardam o Ofício."
+    },
+    "fishers": {
+      "name": "o povo da costa",
+      "desc": "Pescadores e barqueiros que negociam peixe salgado pelas praias."
+    },
+    "bog": {
+      "name": "o povo do pântano",
+      "desc": "Cortadores de turfa que vivem onde estão as velhas turbinas."
+    }
+  },
+  "nodes": [
+    {
+      "id": "inishkeel",
+      "name": "Inishkeel",
+      "kind": "shrine",
+      "faction": "church",
+      "distance": 2,
+      "x": 0.14,
+      "y": 0.44,
+      "desc": "Uma igreja submersa numa ilha de maré. Dizem que seus sinos tocam na maré baixa."
+    },
+    {
+      "id": "three_wells",
+      "name": "Three Wells",
+      "kind": "shrine",
+      "faction": "church",
+      "distance": 2,
+      "x": 0.24,
+      "y": 0.66,
+      "desc": "Três poços sagrados ao lado de um oratório sem telhado."
+    },
+    {
+      "id": "lough_dearg",
+      "name": "Lough Dearg",
+      "kind": "hermitage",
+      "faction": "church",
+      "distance": 3,
+      "x": 0.34,
+      "y": 0.36,
+      "desc": "A ilha de um eremita num lago cinzento, alcançada por um barco que talvez não esteja mais lá.",
+      "label": "left"
+    },
+    {
+      "id": "knockmore",
+      "name": "Knockmore",
+      "kind": "hold",
+      "faction": "glen_lords",
+      "distance": 2,
+      "x": 0.4,
+      "y": 0.2,
+      "desc": "Um solar de pedra numa colina, com cães no portão e um senhor que mantém contas.",
+      "label": "left"
+    },
+    {
+      "id": "slieve_bloom",
+      "name": "Slieve Bloom",
+      "kind": "hold",
+      "faction": "glen_lords",
+      "distance": 5,
+      "x": 0.58,
+      "y": 0.18,
+      "desc": "Um solar alto onde os senhores do vale se reúnem no outono para dividir o gado."
+    },
+    {
+      "id": "ballyhale",
+      "name": "Ballyhale",
+      "kind": "town",
+      "faction": "tollmaster",
+      "distance": 3,
+      "x": 0.44,
+      "y": 0.56,
+      "desc": "Uma cidade de mercado na travessia do Shannon, onde os homens do Coletor de Pedágio contam cada carroça.",
+      "label": "left"
+    },
+    {
+      "id": "kilcullen",
+      "name": "Kilcullen",
+      "kind": "town",
+      "faction": "tollmaster",
+      "distance": 4,
+      "x": 0.64,
+      "y": 0.5,
+      "desc": "Uma cidade movimentada, com uma ponte, uma feira e um preposto que anota tudo."
+    },
+    {
+      "id": "bog_of_allen",
+      "name": "the Bog of Allen",
+      "kind": "ruin",
+      "faction": "bog",
+      "distance": 3,
+      "x": 0.54,
+      "y": 0.36,
+      "desc": "Velhas turbinas mortas no pântano. Algumas ainda giram com um vento forte.",
+      "label": "above"
+    },
+    {
+      "id": "glen_of_imaal",
+      "name": "the Glen of Imaal",
+      "kind": "village",
+      "faction": "glen_lords",
+      "distance": 4,
+      "x": 0.68,
+      "y": 0.7,
+      "desc": "Fazendas espalhadas num vale verde, com um campo de hurling e um chefe desconfiado.",
+      "label": "left"
+    },
+    {
+      "id": "kilmore_quay",
+      "name": "Kilmore Quay",
+      "kind": "coast",
+      "faction": "fishers",
+      "distance": 5,
+      "x": 0.82,
+      "y": 0.84,
+      "desc": "Um porto de barcos de pesca e peixe defumado, onde o vento do mar nunca cessa.",
+      "label": "left"
+    },
+    {
+      "id": "clare_cliffs",
+      "name": "os penhascos de Clare",
+      "kind": "ruin",
+      "faction": "fishers",
+      "distance": 4,
+      "x": 0.06,
+      "y": 0.62,
+      "desc": "Uma torre de sinais em ruínas nos penhascos, onde o povo da costa deixa seus barcos mortos."
+    }
+  ],
+  "house": {
+    "name": "the Burren",
+    "x": 0.03,
+    "y": 0.5
+  }
+}

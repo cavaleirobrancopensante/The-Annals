@@ -1,0 +1,193 @@
+[
+	{
+		"id": "pump_drawing",
+		"title": "Um Desenho de Bomba",
+		"weight": 6,
+		"once": true,
+		"when": {"min": {"books": 2}, "monk": {"vocation": ["scribe"]}},
+		"text": "Num manual úmido do velho mundo, {monk} encontrou o desenho de uma bomba manual que poderia levar água do riacho até o jardim.",
+		"choices": [
+			{
+				"label": "Mandar construí-la",
+				"effects": {"add_tag": "pump_project"},
+				"chronicle": "{When}, {monk} encontrou num livro antigo o desenho de uma bomba, e o abade mandou construí-la."
+			},
+			{
+				"label": "Copiar o desenho e guardá-lo com cuidado",
+				"effects": {"books": 1},
+				"chronicle": "{When}, {monk} copiou um desenho de bomba do velho mundo, e ele foi guardado na biblioteca."
+			}
+		]
+	},
+	{
+		"id": "pump_building",
+		"title": "Construindo a Bomba",
+		"weight": 12,
+		"cooldown": 8,
+		"when": {"has_tag": ["pump_project"], "not_season": ["winter"], "monk": {"vocation": ["builder"]}},
+		"text": "{monk} já tem os canos cortados e as válvulas de couro prontas. Precisa de lenha para a forja, a fim de terminar as ferragens de ferro.",
+		"choices": [
+			{
+				"label": "Dar-lhe a lenha",
+				"requires": {"firewood": 8},
+				"effects": {
+					"firewood": -8,
+					"remove_tag": "pump_project",
+					"oracle": {
+						"odds": "even",
+						"yes": {"add_tag": "water_pump", "chronicle": "{When}, {monk} terminou a bomba, e a água subiu a colina até o jardim. Os canteiros nunca mais secariam."},
+						"no": {"chronicle": "{When}, {monk} terminou a bomba, mas ela rachou no primeiro dia de uso. Os pedaços foram guardados na oficina."}
+					}
+				}
+			},
+			{"label": "Esperar até que a pilha de lenha esteja mais cheia", "chronicle": ""}
+		]
+	},
+	{
+		"id": "device_hums",
+		"title": "A Caixa que Zumbe",
+		"weight": 8,
+		"cooldown": 16,
+		"when": {"has_tag": ["old_device"]},
+		"text": "A caixa do campo das turbinas zumbe mais alto à noite agora. Os irmãos do dormitório sobre a oficina dizem que não conseguem dormir.",
+		"choices": [
+			{
+				"label": "Mandar abri-la",
+				"effects": {
+					"remove_tag": "old_device",
+					"oracle": {
+						"odds": "unlikely",
+						"yes": {"add_tag": "lamp", "chronicle": "{When}, a caixa do campo das turbinas foi aberta. Dentro havia uma lâmpada que dava luz sem chama, e os escribas agora trabalham pelas noites de inverno com ela."},
+						"no": {"firewood": -10, "chronicle": "{When}, a caixa do campo das turbinas foi aberta e explodiu num fogo branco que consumiu metade da pilha de lenha antes de se apagar."}
+					}
+				}
+			},
+			{
+				"label": "Enterrá-la, afinal",
+				"effects": {"remove_tag": "old_device", "add_tag": "buried_device"},
+				"chronicle": "{When}, a caixa que zumbia foi retirada da oficina e enterrada fora dos muros."
+			}
+		]
+	},
+	{
+		"id": "men_in_clean_coats",
+		"title": "Homens de Casacos Limpos",
+		"weight": 5,
+		"once": true,
+		"when": {"has_tag": ["buried_device"], "year_min": 2},
+		"text": "Três homens de casacos cinzentos e limpos, com botas boas e sem armas visíveis, perguntam no portão se os irmãos encontraram alguma máquina do velho mundo.",
+		"choices": [
+			{
+				"label": "Dizer-lhes a verdade",
+				"effects": {"remove_tag": "buried_device", "add_tag": "technocrats_know"},
+				"chronicle": "{When}, três homens de casacos cinzentos vieram perguntar por máquinas do velho mundo. Foram levados ao lugar onde a caixa que zumbia estava enterrada, desenterraram-na e a levaram embora com grande cuidado."
+			},
+			{
+				"label": "Dizer apenas que os mortos estão enterrados fora dos muros",
+				"effects": {"add_tag": "technocrats_suspicious"},
+				"chronicle": "{When}, três homens de casacos cinzentos vieram perguntar por máquinas do velho mundo. Não lhes disseram nada, mas um deles ficou olhando por muito tempo para o chão fora dos muros."
+			}
+		]
+	},
+	{
+		"id": "storm_bell",
+		"weight": 3,
+		"cooldown": 96,
+		"when": {"not_tag": ["cracked_bell"]},
+		"effects": {"add_tag": "cracked_bell", "chronicle": "{When}, um raio atingiu a torre do sino, e o sino rachou. Depois disso, soa plano e azedo."}
+	},
+	{
+		"id": "bell_recast",
+		"title": "O Sino Rachado",
+		"weight": 8,
+		"cooldown": 16,
+		"when": {"has_tag": ["cracked_bell"], "not_season": ["winter"], "monk": {"vocation": ["builder"]}},
+		"text": "{monk} acredita que pode refundir o sino rachado, se tiver lenha suficiente para manter a fornalha acesa por dois dias.",
+		"choices": [
+			{
+				"label": "Refundir o sino",
+				"requires": {"firewood": 15},
+				"effects": {
+					"firewood": -15,
+					"remove_tag": "cracked_bell",
+					"oracle": {
+						"odds": "likely",
+						"yes": {"goodwill": 2, "chronicle": "{When}, {monk} refundiu o sino. Quando ele tocou para as Vésperas, o povo do vale saiu de suas casas para ouvi-lo."},
+						"no": {"add_tag": "flat_bell", "chronicle": "{When}, {monk} refundiu o sino, mas ele saiu do molde com um defeito e ainda soa um pouco plano."}
+					}
+				}
+			},
+			{"label": "O sino pode esperar", "chronicle": ""}
+		]
+	},
+	{
+		"id": "healer_herbs",
+		"weight": 6,
+		"cooldown": 20,
+		"when": {"season": ["spring", "summer"], "monk": {"vocation": ["healer"]}},
+		"effects": {"medicine": 3, "chronicle": "{When}, {monk} encontrou erva-febrífuga e salgueiro na encosta norte e encheu os potes da enfermaria."}
+	},
+	{
+		"id": "travelling_pedlar",
+		"title": "Um Mascate com Mula",
+		"weight": 6,
+		"cooldown": 20,
+		"when": {"not_season": ["winter"]},
+		"text": "Um mascate com uma mula e uma carroça de potes para no portão. Diz ter remédios, verdadeiros remédios vindos da costa.",
+		"choices": [
+			{
+				"label": "Trocar um livro por remédios",
+				"requires": {"books": 1},
+				"effects": {"books": -1, "medicine": 3},
+				"chronicle": ""
+			},
+			{
+				"label": "Trocar grão por remédios",
+				"requires": {"food": 15},
+				"effects": {"food": -15, "medicine": 2},
+				"chronicle": ""
+			},
+			{"label": "Mandá-lo seguir o seu caminho", "chronicle": ""}
+		]
+	},
+	{
+		"id": "village_gift",
+		"weight": 6,
+		"cooldown": 48,
+		"when": {"has_tag": ["village_friend"]},
+		"effects": {"food": 20, "goodwill": 1, "chronicle": "{When}, a aldeia do vale mandou subir uma carroça de nabos e duas cabras, sem que ninguém pedisse."}
+	},
+	{
+		"id": "village_cold_shoulder",
+		"title": "Bancos Vazios",
+		"weight": 8,
+		"cooldown": 16,
+		"when": {"has_tag": ["village_slighted"], "monk": {"min_health": 3}},
+		"text": "Ninguém da aldeia do vale veio à Missa no domingo. {monk} diz que eles ainda estão zangados porque ninguém foi ao leito de morte.",
+		"choices": [
+			{
+				"label": "Mandar {monk} reparar o erro",
+				"effects": {"monk_away": {"weeks": 2, "tag": "on_amends"}},
+				"chronicle": "{When}, {monk} desceu à aldeia do vale para reparar o erro."
+			},
+			{"label": "Eles voltarão a tempo", "effects": {"goodwill": -1}, "chronicle": ""}
+		]
+	},
+	{
+		"id": "scriptorium_copy",
+		"title": "O Scriptorium",
+		"weight": 5,
+		"cooldown": 24,
+		"when": {"monk": {"vocation": ["scribe"]}},
+		"text": "{monk} pede pergaminho e tinta de noz-de-galha para copiar um dos livros do velho mundo antes que a umidade o destrua por completo.",
+		"choices": [
+			{
+				"label": "Dar-lhe o que precisa",
+				"requires": {"food": 6},
+				"effects": {"food": -6, "books": 1},
+				"chronicle": "{When}, {monk} terminou de copiar um livro do velho mundo antes que a umidade pudesse levá-lo."
+			},
+			{"label": "Não nesta época", "chronicle": ""}
+		]
+	}
+]

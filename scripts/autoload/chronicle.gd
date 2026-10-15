@@ -14,7 +14,12 @@ var templates := {}
 
 
 func _ready() -> void:
-	var data = JSON.parse_string(FileAccess.get_file_as_string("res://data/chronicle/templates.json"))
+	load_data()
+
+
+## Reads the data again, so a language change takes effect.
+func load_data() -> void:
+	var data = JSON.parse_string(FileAccess.get_file_as_string(Strings.data("res://data/chronicle/templates.json")))
 	if data is Dictionary:
 		templates = data
 	else:
@@ -29,7 +34,7 @@ func clear() -> void:
 
 func ordinal(n: int) -> String:
 	if n >= 1 and n <= ORDINALS.size():
-		return ORDINALS[n - 1]
+		return tr("ordinal.%d" % n)
 	var suffix := "th"
 	if n % 100 < 11 or n % 100 > 13:
 		match n % 10:
@@ -43,9 +48,9 @@ func number_word(n: int) -> String:
 	if n < 0 or n > 99:
 		return str(n)
 	if n < 20:
-		return ONES[n]
-	var t: String = TENS[int(n / 10.0)]
-	return t if n % 10 == 0 else "%s-%s" % [t, ONES[n % 10]]
+		return tr("num.%d" % n)
+	var t: String = tr("tens.%d" % int(n / 10.0))
+	return t if n % 10 == 0 else "%s%s%s" % [t, tr("num.join"), tr("num.%d" % (n % 10))]
 
 
 # --- Formatting ---------------------------------------------------------
@@ -61,7 +66,8 @@ func _when_phrase(full: String) -> String:
 		return full
 	var last: Dictionary = entries[entries.size() - 1]
 	if int(last["year"]) == WorldState.year() and last["season"] == WorldState.season():
-		return str(Oracle.pick(SAME_SEASON)).replace("{season}", WorldState.season())
+		var phrase := str(Oracle.pick(SAME_SEASON))
+		return tr("when.same.%d" % SAME_SEASON.find(phrase)).replace("{season}", tr("season." + WorldState.season()))
 	return full
 
 
@@ -70,16 +76,16 @@ func base_context() -> Dictionary:
 	var abbot_name: String = ab.get("name", "")
 	var n := WorldState.year() - WorldState.abbot_since_year + 1
 	return {
-		"abbot": "Abbot %s" % abbot_name,
+		"abbot": tr("ui.abbot") % abbot_name,
 		"abbot_name": abbot_name,
-		"season": WorldState.season(),
+		"season": tr("season." + WorldState.season()),
 		"year": str(WorldState.year()),
 		"year_ordinal": ordinal(WorldState.year()),
 		"patron": WorldState.patron,
 		"house": WorldState.house_name(),
 		"place": WorldState.place,
 		"abbot_ordinal": ordinal(n),
-		"when_full": "in the %s %s of Abbot %s" % [ordinal(n), WorldState.season(), abbot_name],
+		"when_full": tr("when.abbot") % [ordinal(n), tr("season." + WorldState.season()), abbot_name],
 	}
 
 

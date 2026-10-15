@@ -1,0 +1,92 @@
+[
+	{
+		"id": "stranger_open_gate",
+		"title": "Um Estranho no Portão",
+		"deck": "abbey",
+		"weight": 12,
+		"cooldown": 30,
+		"when": {"rule": {"hospitality": "open"}, "not_season": ["winter"]},
+		"text": "Um homem com uma bolsa de ferramentas e o nome de um filho morto nos lábios pede uma cama para a noite. A regra desta casa é que ninguém seja afastado do portão.",
+		"choices": [
+			{
+				"label": "Dar-lhe cama e pão",
+				"requires": {"food": 6},
+				"effects": {"food": -6, "goodwill": 1},
+				"chronicle": "{When}, um estranho chegou ao portão e recebeu cama e pão, como exige a regra da casa."
+			},
+			{
+				"label": "Dar-lhe apenas a cama",
+				"effects": {"food": -1},
+				"chronicle": "{When}, um estranho dormiu no quarto dos hóspedes e partiu antes das Laudes, tendo recebido o que a casa podia dispensar."
+			}
+		]
+	},
+	{
+		"id": "stranger_closed_gate",
+		"title": "Alguém junto ao Muro",
+		"deck": "abbey",
+		"weight": 8,
+		"cooldown": 30,
+		"when": {"rule": {"hospitality": "closed"}, "not_season": ["winter"]},
+		"text": "Alguém está sentado contra o muro externo desde o anoitecer. Não pede nada, apenas o abade. O portão está fechado pela regra.",
+		"choices": [
+			{
+				"label": "Abrir o postigo e sentar-se com ele",
+				"requires": {"food": 2},
+				"effects": {"food": -2, "goodwill": 1},
+				"chronicle": "{When}, o abade sentou-se com um estranho do lado de fora do muro até a manhã, contra a regra da casa."
+			},
+			{
+				"label": "Manter o portão fechado",
+				"effects": {"goodwill": -1},
+				"chronicle": "{When}, o portão permaneceu fechado, e pela manhã o homem já não estava junto ao muro."
+			}
+		]
+	},
+	{
+		"id": "shrine_pilgrims",
+		"deck": "abbey",
+		"weight": 14,
+		"cooldown": 24,
+		"when": {"has_tag": ["relics"], "season": ["summer", "autumn"]},
+		"effects": {
+			"oracle": {
+				"odds": "likely",
+				"yes": {"food": 10, "goodwill": 1, "chronicle": "{When}, peregrinos vieram ao túmulo do santo com velas e deram o que tinham. O celeiro ficou melhor por isso."},
+				"no": {"food": 3, "chronicle": "{When}, alguns poucos peregrinos vieram ao túmulo do santo e partiram de novo com pouco dito."}
+			}
+		}
+	},
+	{
+		"id": "prayer_eases_wrath",
+		"deck": "abbey",
+		"weight": 10,
+		"cooldown": 40,
+		"when": {"rule": {"prayer": "common"}, "monk": {"has": ["wrathful"]}},
+		"effects": {"monk_remove_tag": "wrathful", "chronicle": "{When}, na oração comum, {monk} deixou sua ira junto à porta da capela, e só foi visto apanhá-la de novo no portão."}
+	},
+	{
+		"id": "prayer_eases_doubt",
+		"deck": "abbey",
+		"weight": 10,
+		"cooldown": 40,
+		"when": {"rule": {"prayer": "common"}, "monk": {"has": ["doubting"]}},
+		"effects": {"monk_remove_tag": "doubting", "chronicle": "{When}, {monk} cantou o Ofício com os outros todas as noites por uma temporada e, ao fim, disse que já não precisava perguntar se alguém o ouvia."}
+	},
+	{
+		"id": "scholars_autumn",
+		"deck": "abbey",
+		"weight": 10,
+		"cooldown": 40,
+		"when": {"rule": {"labour": "scholars"}, "season": ["autumn"]},
+		"effects": {"books": 2, "chronicle": "{When}, os eruditos concluíram a cópia do outono, e as prateleiras do scriptorium ficaram mais pesadas com dois livros."}
+	},
+	{
+		"id": "priory_letter",
+		"deck": "abbey",
+		"weight": 8,
+		"cooldown": 40,
+		"when": {"has_tag": ["priory_founded"]},
+		"effects": {"goodwill": 1, "chronicle": "{When}, chegou uma carta da casa filha. Os irmãos de lá passam bem e pediram uma cópia do Ofício."}
+	}
+]

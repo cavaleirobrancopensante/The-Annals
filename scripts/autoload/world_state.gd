@@ -17,6 +17,23 @@ const VIRTUES := ["devout", "patient", "gentle", "learned", "brave", "generous",
 const FLAWS := ["proud", "wrathful", "doubting", "gluttonous", "stubborn", "restless", "melancholy"]
 const HEALTH_WORDS := ["dead", "gravely ill", "unwell", "well"]
 
+
+## A brother's health in words, in the player's language.
+func health_word(h: int) -> String:
+	return tr("health.%d" % clampi(h, 0, 3))
+
+
+func job_name(job: String) -> String:
+	return tr("job." + job)
+
+
+func building_name(b: String) -> String:
+	return tr("building.%s.name" % b)
+
+
+func building_desc(b: String) -> String:
+	return tr("building.%s.desc" % b)
+
 ## Jobs a brother can be given. Only brothers at home and well enough can work.
 const JOB_ORDER := ["fields", "woods", "hunt", "kitchen", "infirmary", "scriptorium", "rest"]
 const JOB_NAMES := {
@@ -92,7 +109,12 @@ var _places: Array = []
 
 
 func _ready() -> void:
-	var data = JSON.parse_string(FileAccess.get_file_as_string("res://data/names.json"))
+	load_data()
+
+
+## Reads the data again, so a language change takes effect.
+func load_data() -> void:
+	var data = JSON.parse_string(FileAccess.get_file_as_string(Strings.data("res://data/names.json")))
 	if data is Dictionary:
 		_name_pool = data.get("monks", [])
 		_patrons = data.get("patrons", [])

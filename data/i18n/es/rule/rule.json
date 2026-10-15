@@ -1,0 +1,36 @@
+{
+  "axes": [
+    {
+      "id": "prayer", "name": "Oración",
+      "options": [
+        {"id": "ordinary", "name": "El Oficio ordinario", "desc": "Las Horas tal como la casa siempre las ha guardado."},
+        {"id": "common", "name": "Oración común", "desc": "Todos cantan juntos las Horas. La casa se vuelve más firme por ello.", "goodwill_per_year": 1},
+        {"id": "silent", "name": "Horas de silencio", "desc": "Largos silencios después de Completas. Una vida devota tiene más probabilidades de ser notada.", "saint_pct": 50}
+      ]
+    },
+    {
+      "id": "labour", "name": "Trabajo",
+      "options": [
+        {"id": "ordinary", "name": "El trabajo ordinario", "desc": "Lo que la casa siempre ha hecho."},
+        {"id": "hands", "name": "Trabajo de manos", "desc": "Cada hermano trabaja los campos en la temporada de crecimiento.", "field_pct": 20},
+        {"id": "scholars", "name": "Horas de eruditos", "desc": "Media jornada con los libros, menos manos en los campos.", "field_pct": -20, "book_pct": 50}
+      ]
+    },
+    {
+      "id": "hospitality", "name": "Hospitalidad",
+      "options": [
+        {"id": "ordinary", "name": "Hospitalidad ordinaria", "desc": "A los forasteros se les da de comer cuando la casa puede permitírselo."},
+        {"id": "open", "name": "Puerta abierta", "desc": "A los forasteros se les acoge como a Cristo. Cuesta pan y trae novicios.", "novice_pct": 40, "food_per_year": -4},
+        {"id": "closed", "name": "Puerta cerrada", "desc": "La puerta se mantiene cerrada. Sale menos pan, y llegan menos a pedir.", "novice_pct": -30, "food_per_year": 3}
+      ]
+    },
+    {
+      "id": "learning", "name": "Estudio",
+      "options": [
+        {"id": "ordinary", "name": "Estudio ordinario", "desc": "Lectura y copia según lo permitan las estaciones."},
+        {"id": "scriptorium", "name": "Primero el scriptorium", "desc": "Los libros van antes que todo lo demás.", "book_pct": 50},
+        {"id": "infirmary", "name": "Primero la enfermería", "desc": "Los enfermos son el primer deber de la casa.", "medicine_bonus": 1}
+      ]
+    }
+  ]
+}

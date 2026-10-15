@@ -1,0 +1,55 @@
+[
+	{
+		"id": "stranger_at_gate",
+		"title": "Um Estranho no Portão",
+		"weight": 6,
+		"cooldown": 30,
+		"text": "Um estranho de bom casaco chegou ao portão. Diz ser um administrador dos homens do Coletor de Pedágio, que a casa deve um dízimo, e deseja entrar para contá-lo.",
+		"choices": [
+			{
+				"label": "Descer e convencê-lo a desistir",
+				"check": {"stat": "presence", "skill": "persuasion", "difficulty": 10},
+				"success": {
+					"effects": {"goodwill": 1},
+					"chronicle": "{When}, o abade desceu ao portão e convenceu o administrador a fazer uma contagem menor, e voltou a subir com a despensa intacta."
+				},
+				"failure": {
+					"effects": {"food": -4},
+					"chronicle": "{When}, o administrador não se deixou convencer de nada e levou um cesto de pão para seus senhores antes de partir a cavalo."
+				}
+			},
+			{
+				"label": "Manter o portão fechado",
+				"effects": {},
+				"chronicle": "{When}, o portão permaneceu fechado, e o administrador cavalgou de volta para contar isso a seus senhores."
+			}
+		]
+	},
+	{
+		"id": "winter_stag",
+		"title": "Um Veado no Vale",
+		"weight": 5,
+		"cooldown": 40,
+		"when": {"season": ["winter"], "monk": {"min_health": 2}},
+		"text": "A neve veio cedo, e a cozinha já contou os sacos duas vezes. {monk} diz que há um veado no vale, se alguém conseguir chegar perto o bastante dele.",
+		"choices": [
+			{
+				"label": "Mandá-lo à caça",
+				"check": {"stat": "hand", "skill": "hunting", "difficulty": 10},
+				"success": {
+					"effects": {"food": 6},
+					"chronicle": "{When}, {monk} voltou ao crepúsculo com um veado nos ombros, e a cozinha teve carne para um mês."
+				},
+				"failure": {
+					"effects": {"monk_health": -1},
+					"chronicle": "{When}, {monk} voltou do vale sem nada, apenas com uma mão cortada pelas pedras."
+				}
+			},
+			{
+				"label": "Deixar o veado em paz",
+				"effects": {},
+				"chronicle": "{When}, o veado foi deixado no vale, e os irmãos comeram o seu pão e ficaram gratos por ele."
+			}
+		]
+	}
+]

@@ -1,0 +1,147 @@
+{
+  "factions": {
+    "tollmaster": {
+      "name": "el recaudador del peaje",
+      "desc": "Controla los puentes del Shannon y cobra peaje en todos los caminos."
+    },
+    "glen_lords": {
+      "name": "los señores del valle",
+      "desc": "Dominan las colinas y los valles con lanzas y perros."
+    },
+    "church": {
+      "name": "los lugares sagrados",
+      "desc": "Ermitaños, pozos y oratorios en ruinas que aún guardan el Oficio."
+    },
+    "fishers": {
+      "name": "la gente de la costa",
+      "desc": "Pescadores y barqueros que comercian con pescado salado a lo largo de las playas."
+    },
+    "bog": {
+      "name": "la gente de la turbera",
+      "desc": "Cortadores de turba que viven donde se alzan las viejas turbinas."
+    }
+  },
+  "nodes": [
+    {
+      "id": "inishkeel",
+      "name": "Inishkeel",
+      "kind": "shrine",
+      "faction": "church",
+      "distance": 2,
+      "x": 0.14,
+      "y": 0.44,
+      "desc": "Una iglesia sumergida en una isla de marea. Dicen que sus campanas suenan con la marea baja."
+    },
+    {
+      "id": "three_wells",
+      "name": "Tres Pozos",
+      "kind": "shrine",
+      "faction": "church",
+      "distance": 2,
+      "x": 0.24,
+      "y": 0.66,
+      "desc": "Tres pozos sagrados junto a un oratorio sin techo."
+    },
+    {
+      "id": "lough_dearg",
+      "name": "Lough Dearg",
+      "kind": "hermitage",
+      "faction": "church",
+      "distance": 3,
+      "x": 0.34,
+      "y": 0.36,
+      "desc": "La isla de un ermitaño en un lago gris, a la que se llega en un bote que quizá ya no esté allí.",
+      "label": "left"
+    },
+    {
+      "id": "knockmore",
+      "name": "Knockmore",
+      "kind": "hold",
+      "faction": "glen_lords",
+      "distance": 2,
+      "x": 0.4,
+      "y": 0.2,
+      "desc": "Una fortaleza de piedra sobre una colina, con perros en la puerta y un señor que lleva cuentas.",
+      "label": "left"
+    },
+    {
+      "id": "slieve_bloom",
+      "name": "Slieve Bloom",
+      "kind": "hold",
+      "faction": "glen_lords",
+      "distance": 5,
+      "x": 0.58,
+      "y": 0.18,
+      "desc": "Una fortaleza alta donde los señores del valle se reúnen en otoño para repartirse el ganado."
+    },
+    {
+      "id": "ballyhale",
+      "name": "Ballyhale",
+      "kind": "town",
+      "faction": "tollmaster",
+      "distance": 3,
+      "x": 0.44,
+      "y": 0.56,
+      "desc": "Un pueblo de mercado en el cruce del Shannon, donde los hombres del recaudador cuentan cada carro.",
+      "label": "left"
+    },
+    {
+      "id": "kilcullen",
+      "name": "Kilcullen",
+      "kind": "town",
+      "faction": "tollmaster",
+      "distance": 4,
+      "x": 0.64,
+      "y": 0.5,
+      "desc": "Un pueblo concurrido con un puente, una feria y un alguacil que lo anota todo."
+    },
+    {
+      "id": "bog_of_allen",
+      "name": "el Bog of Allen",
+      "kind": "ruin",
+      "faction": "bog",
+      "distance": 3,
+      "x": 0.54,
+      "y": 0.36,
+      "desc": "Viejas turbinas muertas en la turbera. Algunas aún giran con un viento fuerte.",
+      "label": "above"
+    },
+    {
+      "id": "glen_of_imaal",
+      "name": "el Glen of Imaal",
+      "kind": "village",
+      "faction": "glen_lords",
+      "distance": 4,
+      "x": 0.68,
+      "y": 0.7,
+      "desc": "Granjas dispersas en un valle verde, con un campo de hurling y un jefe de pueblo receloso.",
+      "label": "left"
+    },
+    {
+      "id": "kilmore_quay",
+      "name": "Kilmore Quay",
+      "kind": "coast",
+      "faction": "fishers",
+      "distance": 5,
+      "x": 0.82,
+      "y": 0.84,
+      "desc": "Un puerto de barcos de pesca y pescado ahumado, donde el viento del mar nunca cesa.",
+      "label": "left"
+    },
+    {
+      "id": "clare_cliffs",
+      "name": "los acantilados de Clare",
+      "kind": "ruin",
+      "faction": "fishers",
+      "distance": 4,
+      "x": 0.06,
+      "y": 0.62,
+      "desc": "Una torre de señales en ruinas sobre los acantilados, donde la gente de la costa deja sus barcos muertos."
+    }
+  ],
+  "house": {
+    "name": "the Burren",
+    "x": 0.03,
+    "y": 0.5
+  }
+}

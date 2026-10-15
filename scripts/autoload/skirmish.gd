@@ -20,7 +20,12 @@ var last_outcome := ""
 
 
 func _ready() -> void:
-	var data = JSON.parse_string(FileAccess.get_file_as_string(PATH))
+	load_data()
+
+
+## Reads the data again, so a language change takes effect.
+func load_data() -> void:
+	var data = JSON.parse_string(FileAccess.get_file_as_string(Strings.data(PATH)))
 	if data is Dictionary:
 		encounters = data
 	else:
@@ -75,17 +80,17 @@ func current_view() -> Dictionary:
 	var names := []
 	for f in active["fighters"]:
 		names.append(WorldState.display_name(WorldState.get_monk(int(f["id"]))))
-	text += "\n\n%s: %d of %d.   Round %d of %d.\nOur line: %s." % [
+	text += "\n\n" + tr("skirm.status") % [
 		enc["enemy"], int(active["hp"]), int(active["max"]), int(active["round"]), int(active["rounds"]),
 		", ".join(names)]
 	return {
 		"title": str(enc["title"]),
 		"text": text,
 		"choices": [
-			{"label": "Hold the gate (we take fewer blows, and strike less)", "enabled": true, "requires": {}},
-			{"label": "Press the attack (we strike harder, and take more blows)", "enabled": true, "requires": {}},
-			{"label": "Pray and close ranks (steadier hearts)", "enabled": true, "requires": {}},
-			{"label": "Withdraw to the gate", "enabled": true, "requires": {}},
+			{"label": tr("skirm.hold"), "enabled": true, "requires": {}},
+			{"label": tr("skirm.press"), "enabled": true, "requires": {}},
+			{"label": tr("skirm.pray"), "enabled": true, "requires": {}},
+			{"label": tr("skirm.withdraw"), "enabled": true, "requires": {}},
 		],
 	}
 
@@ -144,15 +149,15 @@ func _strike_back() -> void:
 	var name := WorldState.display_name(m)
 	f["power"] = int(f["power"]) - 1
 	if int(f["power"]) > 0:
-		active["log"].append("A blow fell on %s, and he held the line, though hurt." % name)
+		active["log"].append(tr("skirm.hurt") % name)
 		return
 	active["fighters"].erase(f)
 	if int(m["health"]) <= 1 and Oracle.chance(0.5):
 		WorldState.kill_monk(m, "a skirmish")
-		active["log"].append("%s came out of the line and did not get up." % name)
+		active["log"].append(tr("skirm.down") % name)
 	else:
 		WorldState.change_health(m, -1)
-		active["log"].append("%s came out of the line, wounded." % name)
+		active["log"].append(tr("skirm.wounded") % name)
 
 
 func _finish(outcome: String) -> void:

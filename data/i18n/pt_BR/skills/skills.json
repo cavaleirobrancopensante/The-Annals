@@ -1,0 +1,45 @@
+{
+	"_note": "Oito atributos, cada um com três habilidades. Atributos e habilidades são limitados a 5. Veja docs/SKILLS.md.",
+	"stats": [
+		{"id": "might", "name": "Força", "skills": [
+			{"id": "melee", "name": "Combate corpo a corpo"},
+			{"id": "labour", "name": "Trabalho"},
+			{"id": "holding_gate", "name": "Defesa de portão"}
+		]},
+		{"id": "hand", "name": "Destreza", "skills": [
+			{"id": "ranged", "name": "À distância"},
+			{"id": "hunting", "name": "Caça"},
+			{"id": "snaring", "name": "Armadilhas e ferramentas"}
+		]},
+		{"id": "hardiness", "name": "Robustez", "skills": [
+			{"id": "endurance", "name": "Resistência"},
+			{"id": "foraging", "name": "Coleta"},
+			{"id": "resisting_sickness", "name": "Resistência à doença"}
+		]},
+		{"id": "craft", "name": "Artesanato", "skills": [
+			{"id": "building", "name": "Construção"},
+			{"id": "smithing", "name": "Ferraria e carpintaria"},
+			{"id": "cookery", "name": "Cozinha e cervejaria"}
+		]},
+		{"id": "wit", "name": "Engenho", "skills": [
+			{"id": "scribing", "name": "Escrita"},
+			{"id": "medicine", "name": "Medicina"},
+			{"id": "accounts", "name": "Contas e comércio"}
+		]},
+		{"id": "lore", "name": "Saber", "skills": [
+			{"id": "ruins_machines", "name": "Ruínas e máquinas"},
+			{"id": "tracking", "name": "Rastreio e navegação"},
+			{"id": "old_tongues", "name": "Línguas antigas"}
+		]},
+		{"id": "presence", "name": "Presença", "skills": [
+			{"id": "persuasion", "name": "Persuasão"},
+			{"id": "hospitality", "name": "Hospitalidade"},
+			{"id": "command", "name": "Comando"}
+		]},
+		{"id": "faith", "name": "Fé", "skills": [
+			{"id": "devotion", "name": "Devoção"},
+			{"id": "warding", "name": "Proteção"},
+			{"id": "counsel", "name": "Conselho"}
+		]}
+	]
+}

@@ -1,0 +1,188 @@
+[
+	{
+		"id": "alms_road",
+		"title": "A Estrada da Esmola",
+		"cooldown": 16,
+		"when": {"not_season": ["winter"], "max": {"food": 180}, "monk": {"min_health": 3}},
+		"text": "O celeiro ecoa quando você bate nele. {monk} se oferece para seguir pela estrada da esmola até as fazendas do Shannon, como faziam os velhos irmãos, e pedir pela casa.",
+		"choices": [
+			{
+				"label": "Mandar {monk} com um alforje e uma bênção",
+				"effects": {"monk_away": {"weeks": 4, "tag": "on_alms"}},
+				"chronicle": "{When}, {monk} seguiu pela estrada da esmola até as fazendas do Shannon."
+			},
+			{"label": "Manter todas as mãos em casa", "chronicle": ""}
+		]
+	},
+	{
+		"id": "turbine_lights",
+		"title": "Luzes no Campo das Turbinas",
+		"cooldown": 30,
+		"when": {"not_season": ["winter"], "monk": {"has_any": ["curious", "restless", "brave"], "min_health": 3}},
+		"text": "Pastores falam de luzes que se movem à noite entre as turbinas mortas a leste de {place}. {monk} pede licença para ir ver o que o velho mundo deixou para trás.",
+		"choices": [
+			{
+				"label": "Deixar {monk} ir procurar",
+				"effects": {"monk_away": {"weeks": 3, "tag": "on_salvage"}},
+				"chronicle": "{When}, {monk} foi para leste, vasculhar o campo das turbinas."
+			},
+			{
+				"label": "Deixar a cidade morta para os mortos",
+				"effects": {"monk_add_tag": "denied"},
+				"chronicle": ""
+			}
+		]
+	},
+	{
+		"id": "dying_grandmother",
+		"title": "Um Menino no Portão",
+		"cooldown": 40,
+		"when": {"not_tag": ["village_slighted"], "monk": {"min_health": 3}},
+		"text": "Um menino da aldeia do vale correu a noite inteira. Sua avó está morrendo e pede um homem da antiga fé para rezar com ela. {monk} poderia chegar à aldeia em dois dias.",
+		"choices": [
+			{
+				"label": "Mandar {monk} imediatamente",
+				"effects": {"monk_away": {"weeks": 2, "tag": "on_mission"}},
+				"chronicle": "{When}, um menino chegou correndo da aldeia do vale, e {monk} voltou com ele para um leito de morte."
+			},
+			{
+				"label": "Ninguém pode ser poupado",
+				"effects": {"goodwill": -1, "add_tag": "village_slighted", "tag_weeks": 48},
+				"chronicle": "{When}, a aldeia do vale pediu que um irmão rezasse num leito de morte, e a casa não mandou ninguém. A aldeia não esqueceu."
+			}
+		]
+	},
+	{
+		"id": "pilgrimage_request",
+		"title": "A Igreja Submersa",
+		"cooldown": 48,
+		"when": {"not_season": ["winter"], "monk": {"has": ["devout"], "not": ["pilgrim"], "min_health": 3}},
+		"text": "{monk} pede licença para caminhar até a igreja submersa de Inishkeel, onde o mar levou a velha catedral e dizem que os sinos tocam debaixo d'água na maré baixa. São seis semanas, ida e volta.",
+		"choices": [
+			{
+				"label": "Dar-lhe licença e a sua bênção",
+				"effects": {"monk_away": {"weeks": 6, "tag": "on_pilgrimage"}},
+				"chronicle": "{When}, {monk} partiu em peregrinação à igreja submersa de Inishkeel."
+			},
+			{
+				"label": "A casa precisa dele aqui",
+				"effects": {"monk_add_tag": "denied"},
+				"chronicle": ""
+			}
+		]
+	},
+
+	{
+		"id": "return_alms",
+		"deck": "return",
+		"weight": 10,
+		"when": {"monk": {"has": ["on_alms"]}},
+		"effects": {
+			"oracle": {
+				"odds": "likely",
+				"yes": {"food": 30, "goodwill": 1, "chronicle": "{monk} voltou com uma carroça de grão das fazendas do Shannon, e com as bênçãos delas."},
+				"no": {"food": 5, "add_tag": "bandits_on_road", "tag_weeks": 24, "chronicle": "{monk} voltou com quase nada, e com a notícia de que os cavaleiros do Coletor de Pedágio estavam cobrando pedágio na estrada do Shannon."}
+			}
+		}
+	},
+	{
+		"id": "return_alms_robbed",
+		"deck": "return",
+		"weight": 8,
+		"when": {"has_tag": ["bandits_on_road"], "monk": {"has": ["on_alms"]}},
+		"effects": {
+			"monk_health": -1,
+			"monk_add_tag": "scarred",
+			"chronicle": "{monk} foi detido na estrada do Shannon pelos cavaleiros do Coletor de Pedágio. Levaram o grão, bateram nele por trazer tão pouco e o deixaram voltar a pé."
+		}
+	},
+	{
+		"id": "return_salvage_device",
+		"deck": "return",
+		"weight": 10,
+		"title": "Algo do Velho Mundo",
+		"when": {"not_tag": ["old_device", "buried_device", "lamp"], "monk": {"has": ["on_salvage"]}},
+		"text": "{monk} volta do campo das turbinas com uma caixa de metal cinzento, quente ao toque. Dentro dela, algo zumbe.",
+		"choices": [
+			{
+				"label": "Guardá-la na oficina e estudá-la",
+				"effects": {"add_tag": "old_device"},
+				"chronicle": "{monk} trouxe do campo das turbinas uma caixa zumbidora do velho mundo, e ela foi guardada na oficina."
+			},
+			{
+				"label": "Enterrá-la onde ninguém a encontre",
+				"effects": {"add_tag": "buried_device"},
+				"chronicle": "{monk} trouxe uma caixa zumbidora do campo das turbinas. {abbot} mandou enterrá-la fora dos muros, em terra que nunca foi abençoada."
+			}
+		]
+	},
+	{
+		"id": "return_salvage_books",
+		"deck": "return",
+		"weight": 8,
+		"when": {"monk": {"has": ["on_salvage"]}},
+		"effects": {"books": 2, "chronicle": "{monk} voltou das ruínas com dois livros do velho mundo, inchados de umidade, mas ainda legíveis."}
+	},
+	{
+		"id": "return_salvage_hurt",
+		"deck": "return",
+		"weight": 6,
+		"when": {"monk": {"has": ["on_salvage"]}},
+		"effects": {
+			"monk_health": -1,
+			"monk_add_tag": "scarred",
+			"add_tag": "turbine_field_inhabited",
+			"chronicle": "{monk} voltou do campo das turbinas sangrando, e por muito tempo não quis dizer o que encontrara por lá."
+		}
+	},
+	{
+		"id": "return_mission",
+		"deck": "return",
+		"when": {"monk": {"has": ["on_mission"]}},
+		"effects": {
+			"oracle": {
+				"odds": "likely",
+				"yes": {"goodwill": 2, "add_tag": "village_friend", "remove_tag": "village_slighted", "chronicle": "{monk} voltou da aldeia do vale. A velha morrera em paz, e a aldeia disse que se lembraria de quem foi até lá."},
+				"no": {"goodwill": 1, "monk_add_tag": "grieving", "chronicle": "{monk} chegou à aldeia do vale tarde demais, e só pôde ajudar a enterrar os mortos. Voltou para casa em silêncio."}
+			}
+		}
+	},
+	{
+		"id": "return_pilgrimage",
+		"deck": "return",
+		"weight": 10,
+		"when": {"monk": {"has": ["on_pilgrimage"]}},
+		"effects": {"monk_add_tag": "pilgrim", "goodwill": 1, "chronicle": "{monk} voltou de Inishkeel, mais magro e cheio de alegria, e disse que os ouvira tocar."}
+	},
+	{
+		"id": "return_pilgrimage_lost",
+		"deck": "return",
+		"weight": 2,
+		"when": {"monk": {"has": ["on_pilgrimage"]}},
+		"effects": {"monk_dies": "febre na peregrinação", "chronicle": "As semanas passaram e {monk} não voltou de Inishkeel. Um mercador trouxe a notícia de que um monge morrera de febre no santuário e fora sepultado ali, ao alcance do som dos sinos. Os irmãos rezaram o Ofício dos Defuntos por ele."}
+	},
+	{
+		"id": "return_retreat",
+		"deck": "return",
+		"when": {"monk": {"has": ["on_retreat"]}},
+		"effects": {
+			"oracle": {
+				"odds": "likely",
+				"yes": {"monk_remove_tag": "doubting", "monk_add_tag": "tested_faith", "chronicle": "{monk} desceu da gruta do eremita depois de um mês sozinho e, naquela noite, cantou o Ofício como não o cantava havia anos."},
+				"no": {"monk_departs": true, "chronicle": "{monk} não voltou da gruta do eremita. Mandou dizer por um pastor que tinha ido procurar Deus em outro lugar, e pediu aos irmãos que rezassem por ele."}
+			}
+		}
+	},
+	{
+		"id": "return_amends",
+		"deck": "return",
+		"when": {"monk": {"has": ["on_amends"]}},
+		"effects": {
+			"oracle": {
+				"odds": "even",
+				"yes": {"remove_tag": "village_slighted", "goodwill": 1, "chronicle": "{monk} passou duas semanas consertando telhados na aldeia do vale. Quando partiu, o chefe da aldeia o acompanhou até a beira dos campos."},
+				"no": {"chronicle": "{monk} foi à aldeia do vale para reparar o erro, mas não lhe abriram as portas."}
+			}
+		}
+	}
+]

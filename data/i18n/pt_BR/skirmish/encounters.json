@@ -1,0 +1,85 @@
+{
+  "riders_at_gate": {
+    "title": "Os Cavaleiros no Portão",
+    "enemy": "os cavaleiros do Coletor de Pedágio",
+    "strength": 7,
+    "rounds": 7,
+    "intro": "Oito cavaleiros de capas cinzentas pararam diante do portão. O capitão quer o pedágio integral, e a casa já disse não.",
+    "victory": {
+      "chronicle": "{When}, a casa repeliu os cavaleiros do Coletor de Pedágio no portão. Eles partiram com o orgulho do capitão e nada mais.",
+      "effects": {
+        "standing": {
+          "tollmaster": -2
+        },
+        "goodwill": 1
+      }
+    },
+    "defeat": {
+      "chronicle": "{When}, os cavaleiros invadiram o pátio e levaram o que quiseram da despensa antes de partir.",
+      "effects": {
+        "food": -8,
+        "firewood": -4,
+        "standing": {
+          "tollmaster": -1
+        }
+      }
+    },
+    "withdraw": {
+      "chronicle": "{When}, os irmãos recuaram para dentro do portão e o trancaram, e os cavaleiros gritaram contra o muro até se cansarem.",
+      "effects": {
+        "food": -2
+      }
+    }
+  },
+  "ambush_on_road": {
+    "title": "Uma Emboscada na Estrada",
+    "enemy": "homens da estrada",
+    "strength": 5,
+    "rounds": 4,
+    "intro": "Em {node}, homens com bastões saíram da sebe que cruzava a estrada. Querem a carroça, e os irmãos têm apenas seus cajados.",
+    "victory": {
+      "chronicle": "{When}, a comitiva repeliu os homens da estrada em {node} e manteve a estrada até chegar em casa.",
+      "effects": {
+        "goodwill": 1
+      }
+    },
+    "defeat": {
+      "chronicle": "{When}, homens da estrada tomaram o pão da comitiva em {node} e deixaram um irmão sangrando na vala.",
+      "effects": {
+        "food": -3,
+        "monk_health": -1
+      }
+    },
+    "withdraw": {
+      "chronicle": "{When}, a comitiva recuou da sebe em {node} e deu a volta pela estrada do pântano.",
+      "effects": {}
+    }
+  },
+  "machines_in_the_field": {
+    "title": "As Máquinas no Campo das Turbinas",
+    "enemy": "as máquinas antigas",
+    "strength": 7,
+    "rounds": 7,
+    "unbreakable": true,
+    "intro": "As máquinas cinzentas do campo das turbinas começaram a girar. Não fazem barulho. Avançam com firmeza, e os bastões dos irmãos são pequenos diante delas.",
+    "victory": {
+      "chronicle": "{When}, os irmãos quebraram uma a uma as máquinas do campo das turbinas e levaram para casa as peças menos danificadas. Depois disso, nada mais saiu daquele campo.",
+      "effects": {
+        "add_tag": "turbine_field_quiet",
+        "books": 1
+      }
+    },
+    "defeat": {
+      "chronicle": "{When}, as máquinas expulsaram os irmãos do campo das turbinas, e um deles não voltou para casa.",
+      "effects": {
+        "monk_dies": "as máquinas antigas"
+      }
+    },
+    "withdraw": {
+      "chronicle": "{When}, os irmãos voltaram do campo das turbinas com seus bastões quebrados, e as máquinas permaneceram onde estavam.",
+      "effects": {
+        "monk_add_tag": "scarred"
+      }
+    }
+  }
+}

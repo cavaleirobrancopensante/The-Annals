@@ -268,17 +268,16 @@ func _refresh() -> void:
 	title_label.text = WorldState.full_house_name()
 	var ab := WorldState.abbot()
 	var feasts := Calendar.feasts_on(WorldState.cal_year, WorldState.cal_month, WorldState.cal_day)
-	status_label.text = "%s\nYear %d  ·  %s, week %d  ·  Abbot %s  ·  Generation %d" % [
-		WorldState.date_text(), WorldState.year(), WorldState.season().capitalize(),
-		WorldState.week_in_season(), ab.get("name", "none"), WorldState.generation]
+	status_label.text = "%s\n%s" % [WorldState.date_text(), tr("ui.status") % [WorldState.year(), tr("season." + WorldState.season()),
+		WorldState.week_in_season(), ab.get("name", "none"), WorldState.generation]]
 	feast_label.visible = not feasts.is_empty()
 	if not feasts.is_empty():
 		feast_label.text = tr("house.feast") % str(feasts[0]["name"])
-	resources_label.text = "Food %d/%d   Firewood %d/%d   Medicine %d/%d" % [
+	resources_label.text = tr("ui.res_line") % [
 		WorldState.res("food"), WorldState.cap("food"), WorldState.res("firewood"), WorldState.cap("firewood"),
 		WorldState.res("medicine"), WorldState.cap("medicine")]
 	resources_label.add_theme_color_override("font_color", RED if _winter_short() else PARCHMENT)
-	stores_label.text = "Books %d   Goodwill %d   ·   %d brothers" % [
+	stores_label.text = tr("ui.stores_line") % [
 		WorldState.res("books"), WorldState.res("goodwill"), WorldState.living_monks().size()]
 	forecast_label.text = _forecast_text()
 	forecast_label.add_theme_color_override("font_color", RED if _winter_short() else DIM)
@@ -293,7 +292,7 @@ func _refresh() -> void:
 	controls_box.visible = controls_box.visible and not sheet_open
 	tabs.visible = not sheet_open and not waiting
 	settings_sheet.visible = sheet_open
-	until_hint.visible = controls_box.visible
+	until_hint.visible = controls_box.visible and Settings.hints
 	_refresh_tutorial()
 
 
@@ -304,18 +303,18 @@ func _winter_short() -> bool:
 func _forecast_text() -> String:
 	var food_need := WorldState.winter_food_need()
 	var wood_need := WorldState.winter_wood_need()
-	var text := "Winter needs %d food and %d firewood. " % [food_need, wood_need]
+	var text := tr("ui.winter_needs") % [food_need, wood_need]
 	var food_short := food_need - WorldState.res("food")
 	var wood_short := wood_need - WorldState.res("firewood")
 	if food_short > 0 or wood_short > 0:
 		var parts := []
 		if food_short > 0:
-			parts.append("%d more food" % food_short)
+			parts.append(tr("ui.more_food") % food_short)
 		if wood_short > 0:
-			parts.append("%d more firewood" % wood_short)
-		text += "Short by " + " and ".join(parts) + "."
+			parts.append(tr("ui.more_wood") % wood_short)
+		text += tr("ui.short_by") % " and ".join(parts)
 	else:
-		text += "Stores are enough."
+		text += tr("ui.stores_enough")
 	return text
 
 
@@ -348,7 +347,7 @@ func _render_estate() -> void:
 		estate_box.remove_child(c)
 		c.queue_free()
 
-	estate_box.add_child(_section_title("Brothers and their work"))
+	estate_box.add_child(_section_title(tr("ui.section_brothers")))
 	var living := WorldState.living_monks()
 	living.sort_custom(_brother_order)
 	for m in living:
@@ -358,18 +357,18 @@ func _render_estate() -> void:
 	if not gone.is_empty():
 		var lines := []
 		for m in gone:
-			var how := "died in the %s year" % Chronicle.ordinal(int(m.get("died", 0))) if m["status"] == "dead" else "left in the %s year" % Chronicle.ordinal(int(m.get("left", 0)))
+			var how := tr("ui.died") % Chronicle.ordinal(int(m.get("died", 0))) if m["status"] == "dead" else tr("ui.left") % Chronicle.ordinal(int(m.get("left", 0)))
 			lines.append("%s, %s" % [m["name"], how])
 		var gone_label := _label(18, DIM)
-		gone_label.text = "Departed: " + "; ".join(lines)
+		gone_label.text = tr("ui.departed") + "; ".join(lines)
 		estate_box.add_child(gone_label)
 
 	estate_box.add_child(_rule_section())
 	estate_box.add_child(_house_section())
-	estate_box.add_child(_section_title("Buildings"))
+	estate_box.add_child(_section_title(tr("ui.section_buildings")))
 	if not WorldState.has_builder_at_home():
 		var note := _label(18, RED)
-		note.text = "A builder must be at home to raise a building."
+		note.text = tr("ui.builder_needed")
 		estate_box.add_child(note)
 	for b in WorldState.BUILDINGS:
 		estate_box.add_child(_building_row(b))
@@ -387,35 +386,35 @@ func _build_road_tab() -> void:
 	road_box.add_theme_constant_override("separation", 10)
 	road_scroll.add_child(road_box)
 
-	road_box.add_child(_section_title("The road"))
+	road_box.add_child(_section_title(tr("ui.section_road")))
 	road_map = RoadMap.new()
 	road_map.node_picked.connect(func(_id: String): _refresh_road())
 	road_box.add_child(road_map)
 	road_info = _label(19, PARCHMENT)
 	road_box.add_child(road_info)
 
-	road_box.add_child(_section_title("Send a party"))
+	road_box.add_child(_section_title(tr("ui.section_send")))
 	var help := _label(18, DIM)
-	help.text = "Tap a place on the map, then choose up to three brothers at home. A place whose people have closed their doors will not take the house's party."
+	help.text = tr("ui.road_help")
 	road_box.add_child(help)
 	party_box = VBoxContainer.new()
 	party_box.add_theme_constant_override("separation", 6)
 	road_box.add_child(party_box)
-	var send_btn := _button("Send the party")
+	var send_btn := _button(tr("ui.send_party"))
 	send_btn.pressed.connect(_on_send_party)
 	road_box.add_child(send_btn)
-	var colony_btn := _button("Send three brothers to found a daughter house")
+	var colony_btn := _button(tr("ui.send_colony"))
 	colony_btn.pressed.connect(_on_send_colony)
 	road_box.add_child(colony_btn)
 	send_note = _label(18, RED)
 	road_box.add_child(send_note)
 
-	road_box.add_child(_section_title("On the road"))
+	road_box.add_child(_section_title(tr("ui.section_onroad")))
 	road_parties_box = VBoxContainer.new()
 	road_parties_box.add_theme_constant_override("separation", 6)
 	road_box.add_child(road_parties_box)
 
-	road_box.add_child(_section_title("Standing"))
+	road_box.add_child(_section_title(tr("ui.section_standing")))
 	standings_label = _label(19, PARCHMENT)
 	road_box.add_child(standings_label)
 
@@ -424,31 +423,31 @@ func _refresh_road() -> void:
 	_render_party_checks_if_changed()
 	var sel := road_map.selected
 	if sel == "":
-		road_info.text = "No place chosen yet. Tap a dot on the map."
+		road_info.text = tr("ui.no_place")
 	else:
 		var n := Road.node(sel)
 		var f := str(n["faction"])
 		var weeks := Road.weeks_one_way(sel)
-		road_info.text = "%s (%s). %s\nIt takes %s each way. %s: %s." % [n["name"], n["kind"], n["desc"],
+		road_info.text = tr("ui.road_info") % [n["name"], n["kind"], n["desc"],
 			_weeks_text(weeks), Road.faction_name(f).capitalize(), _standing_word(Road.standing(f))]
 		if Road.is_hostile(sel):
-			road_info.text += "\nThey will not receive the house."
+			road_info.text += "\n" + tr("ui.closed_note")
 
 	for c in road_parties_box.get_children():
 		road_parties_box.remove_child(c)
 		c.queue_free()
 	if Road.parties.is_empty():
 		var none := _label(19, DIM)
-		none.text = "No one is on the road."
+		none.text = tr("ui.no_one_road")
 		road_parties_box.add_child(none)
 	for p in Road.parties:
 		var line := _label(19, PARCHMENT)
 		var who := Road.party_names(p)
 		var where := Road.node_name(p["node"])
 		if p["arrived"]:
-			line.text = "%s at %s, home in %s." % [who, where, _weeks_text(int(p["back"]))]
+			line.text = tr("ui.party_at") % [who, where, _weeks_text(int(p["back"]))]
 		else:
-			line.text = "%s on the way to %s, %s to go." % [who, where, _weeks_text(int(p["out"]))]
+			line.text = tr("ui.party_way") % [who, where, _weeks_text(int(p["out"]))]
 		road_parties_box.add_child(line)
 
 	var lines := []
@@ -474,7 +473,7 @@ func _render_party_checks_if_changed() -> void:
 	home.sort_custom(_brother_order)
 	if home.is_empty():
 		var none := _label(18, DIM)
-		none.text = "No brother is at home to send."
+		none.text = tr("ui.no_brother_send")
 		party_box.add_child(none)
 	for m in home:
 		# Toggle buttons rather than CheckBox: the theme has no check icons.
@@ -493,7 +492,7 @@ func _on_send_party() -> void:
 	send_note.text = ""
 	var node_id := road_map.selected
 	if node_id == "":
-		send_note.text = "Choose a place on the map first."
+		send_note.text = tr("ui.choose_place")
 		return
 	var ids := []
 	for cb in party_checks:
@@ -504,6 +503,7 @@ func _on_send_party() -> void:
 		send_note.text = reason
 		return
 	Game.dispatch_party(node_id, ids)
+	Tutorial.did("party")
 	_refresh_road()
 
 
@@ -511,7 +511,7 @@ func _on_send_colony() -> void:
 	send_note.text = ""
 	var node_id := road_map.selected
 	if node_id == "":
-		send_note.text = "Choose a place on the map first."
+		send_note.text = tr("ui.choose_place")
 		return
 	var ids := []
 	for cb in party_checks:
@@ -525,19 +525,19 @@ func _on_send_colony() -> void:
 
 
 func _weeks_text(w: int) -> String:
-	return "%d week%s" % [w, "" if w == 1 else "s"]
+	return tr("ui.week_one") % w if w == 1 else tr("ui.week_many") % w
 
 
 func _standing_word(v: int) -> String:
 	if v <= Road.HOSTILE:
-		return "closed to us (%d)" % v
+		return tr("ui.stand_closed") % v
 	if v < 0:
-		return "wary (%d)" % v
+		return tr("ui.stand_wary") % v
 	if v == 0:
-		return "neutral"
+		return tr("ui.stand_neutral")
 	if v < 3:
-		return "friendly (+%d)" % v
-	return "allied (+%d)" % v
+		return tr("ui.stand_friendly") % v
+	return tr("ui.stand_allied") % v
 
 
 # --- The Rule and the house ---------------------------------------------
@@ -545,9 +545,9 @@ func _standing_word(v: int) -> String:
 func _rule_section() -> Control:
 	var box := VBoxContainer.new()
 	box.add_theme_constant_override("separation", 8)
-	box.add_child(_section_title("The Rule"))
+	box.add_child(_section_title(tr("ui.section_rule")))
 	var help := _label(18, DIM)
-	help.text = "Each change costs a little goodwill and is written into the annals."
+	help.text = tr("ui.rule_help")
 	box.add_child(help)
 	for a in Rule.axes:
 		var axis_id := str(a["id"])
@@ -579,16 +579,16 @@ func _rule_section() -> Control:
 func _house_section() -> Control:
 	var box := VBoxContainer.new()
 	box.add_theme_constant_override("separation", 6)
-	box.add_child(_section_title("The house"))
-	var lines := ["Generation %d of the house." % WorldState.generation]
+	box.add_child(_section_title(tr("ui.section_house")))
+	var lines := [tr("ui.generation") % WorldState.generation]
 	if WorldState.saints.is_empty():
-		lines.append("No brother has yet been acclaimed a saint.")
+		lines.append(tr("ui.no_saint"))
 	for sa in WorldState.saints:
-		lines.append("Saint %s, acclaimed in the %s year." % [sa["name"], Chronicle.ordinal(int(sa["year"]))])
+		lines.append(tr("ui.saint") % [sa["name"], Chronicle.ordinal(int(sa["year"]))])
 	if WorldState.priories.is_empty():
-		lines.append("No daughter house stands on the road.")
+		lines.append(tr("ui.no_daughter"))
 	for pr in WorldState.priories:
-		lines.append("A daughter house at %s since the %s year." % [Road.node_name(pr["node"]), Chronicle.ordinal(int(pr["since"]))])
+		lines.append(tr("ui.daughter") % [Road.node_name(pr["node"]), Chronicle.ordinal(int(pr["since"]))])
 	var text := _label(19, PARCHMENT)
 	text.text = "\n".join(lines)
 	box.add_child(text)
@@ -615,21 +615,21 @@ func _brother_row(m: Dictionary) -> Control:
 	for kid in m.get("skills", {}):
 		if int(m["skills"][kid]) > 0:
 			marks.append("%s %d" % [str(Skills.skill_names[kid]).to_lower(), int(m["skills"][kid])])
-	marks.insert(0, "path: %s" % (Paths.name_of(str(m["path"])).to_lower() if bool(m["path_known"]) else "?"))
+	marks.insert(0, tr("ui.path") % (Paths.name_of(str(m["path"])).to_lower() if bool(m["path_known"]) else "?"))
 	for perk in Paths.perks_of(m):
 		marks.append(str(perk).to_lower())
 	var extra := ""
 	if m["status"] == "away":
 		var party := Road.party_of(m)
 		if not party.is_empty():
-			extra = "  · with the party to %s" % Road.node_name(party["node"])
+			extra = tr("ui.with_party") % Road.node_name(party["node"])
 		else:
 			var w := int(m["away_weeks"])
-			extra = "  · on the road, %d week%s" % [w, "" if w == 1 else "s"]
+			extra = tr("ui.on_road") % _weeks_text(w)
 	elif not Skills.training_of(m).is_empty():
-		extra = "  · learning %s" % str(Skills.skill_names[Skills.training_of(m)["skill"]]).to_lower()
+		extra = tr("ui.learning") % str(Skills.skill_names[Skills.training_of(m)["skill"]]).to_lower()
 	elif int(m["health"]) < 3:
-		extra = "  · %s" % WorldState.HEALTH_WORDS[int(m["health"])]
+		extra = tr("ui.health_note") % WorldState.health_word(int(m["health"]))
 	info.text = "%s, %d, %s%s\n%s" % [WorldState.display_name(m), int(m["age"]),
 		WorldState.vocation_name(m), extra, ", ".join(marks)]
 	row.add_child(info)
@@ -641,9 +641,9 @@ func _brother_row(m: Dictionary) -> Control:
 	var current := WorldState.job_of(m)
 	for i in WorldState.JOB_ORDER.size():
 		var job: String = WorldState.JOB_ORDER[i]
-		var label: String = WorldState.JOB_NAMES[job]
+		var label: String = WorldState.job_name(job)
 		if WorldState.job_blocked(job):
-			label += " (no building)"
+			label = tr("ui.no_building") % label
 		pick.add_item(label, i)
 		if job == current:
 			pick.select(i)
@@ -660,17 +660,17 @@ func _building_row(b: String) -> Control:
 	info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var costs := []
 	for r in data["cost"]:
-		costs.append("%d %s" % [int(data["cost"][r]), r])
-	info.text = "%s · %s\n%s" % [data["name"], ", ".join(costs), data["desc"]]
+		costs.append("%d %s" % [int(data["cost"][r]), tr("res." + r)])
+	info.text = "%s · %s\n%s" % [WorldState.building_name(b), ", ".join(costs), WorldState.building_desc(b)]
 	row.add_child(info)
 	var btn := Button.new()
 	btn.custom_minimum_size = Vector2(150, 56)
 	btn.add_theme_font_size_override("font_size", 20)
 	if WorldState.has_building(b):
-		btn.text = "Built"
+		btn.text = tr("ui.built")
 		btn.disabled = true
 	else:
-		btn.text = "Build"
+		btn.text = tr("ui.build")
 		btn.disabled = not WorldState.can_build(b)
 		btn.pressed.connect(_on_build.bind(b))
 	row.add_child(btn)
@@ -682,11 +682,12 @@ func _on_job_selected(index: int, monk_id: int) -> void:
 	if m.is_empty():
 		return
 	Game.set_job(m, WorldState.JOB_ORDER[index])
+	Tutorial.did("job")
 
 
 func _on_build(b: String) -> void:
 	if not Game.build(b):
-		_notice("The %s cannot be raised yet." % WorldState.BUILDINGS[b]["name"])
+		_notice(tr("ui.cannot_raise") % WorldState.building_name(b))
 
 
 ## Abbot first, then by age, oldest first. Must be a strict ordering.
@@ -712,8 +713,8 @@ func _render_chronicle() -> void:
 func _append_entry(e: Dictionary) -> void:
 	if int(e["year"]) != _last_year_rendered:
 		_last_year_rendered = int(e["year"])
-		chronicle_text.append_text("[center][color=#%s]~ The %s Year of the House ~[/color][/center]\n\n" % [
-			GOLD.to_html(false), Chronicle.ordinal(_last_year_rendered).capitalize()])
+		chronicle_text.append_text("[center][color=#%s]%s[/color][/center]\n\n" % [
+			GOLD.to_html(false), tr("ui.year_head") % Chronicle.ordinal(_last_year_rendered).capitalize()])
 	var text: String = e["text"]
 	if e.get("kind", "") in ["death", "fall"]:
 		text = "[i]%s[/i]" % text
@@ -779,14 +780,17 @@ func _on_choice(index: int) -> void:
 # --- Buttons ------------------------------------------------------------
 
 func _on_next_day() -> void:
+	Tutorial.did("advance")
 	Game.advance_day()
 
 
 func _on_next_week() -> void:
+	Tutorial.did("advance")
 	Game.advance_week()
 
 
 func _on_until() -> void:
+	Tutorial.did("advance")
 	Game.advance_until_something()
 
 
@@ -834,6 +838,9 @@ func _refresh_tutorial() -> void:
 		_tut_begin.visible = false
 		_tut_next.visible = true
 		_tut_next.text = tr("tut.finish") if Tutorial.is_last() else tr("tut.next")
+		_tut_next.disabled = not Tutorial.can_advance()
+		if not Tutorial.can_advance():
+			_tut_next.text = tr("tut.do_it")
 	_tut_skip.visible = true
 
 
@@ -849,6 +856,8 @@ func _on_tut_begin() -> void:
 
 
 func _on_tut_next() -> void:
+	if not Tutorial.can_advance():
+		return
 	Tutorial.next()
 	_show_tutorial_tab()
 	_refresh()

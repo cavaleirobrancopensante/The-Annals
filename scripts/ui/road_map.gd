@@ -54,7 +54,7 @@ func _draw() -> void:
 		_draw_label(font, p, str(n["name"]), str(n.get("label", "right")))
 
 	draw_rect(Rect2(house - Vector2(8, 8), Vector2(16, 16)), INK)
-	_draw_label(font, house, "the house", "right")
+	_draw_label(font, house, tr("ui.the_house"), "right")
 
 
 ## Draws a place name beside its dot on the side the map data gives, with a dark halo so it reads over lines.
