@@ -47,6 +47,8 @@ func _draw() -> void:
 		if Road.is_hostile(n["id"]):
 			col = col.darkened(0.55)
 		draw_circle(p, 9.0, col)
+		if WorldState.has_priory(str(n["id"])):
+			draw_arc(p, 15.0, 0.0, TAU, 32, Color("c9a14a"), 3.0)
 		if n["id"] == selected:
 			draw_arc(p, 17.0, 0.0, TAU, 32, INK, 2.0)
 		draw_string(font, p + Vector2(14, 6), str(n["name"]), HORIZONTAL_ALIGNMENT_LEFT, -1, 18, INK)

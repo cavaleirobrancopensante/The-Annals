@@ -65,6 +65,7 @@ A choice has `label`, `effects`, optional `requires` (resources needed to pick i
 | `year_min` | `2` | Not before this year of the house. |
 | `node` | `["kilcullen"]` | Only at these places on the road (node deck only). |
 | `node_kind` | `["town", "shrine"]` | Only at places of these kinds: `town`, `village`, `hold`, `shrine`, `hermitage`, `ruin`, `coast`. |
+| `rule` | `{"hospitality": "open"}` | The house has chosen this option on each named axis of the Rule (see below). |
 | `standing_min` / `standing_max` | `{"tollmaster": 1}` | A faction's standing with the house is at least / at most this (-5 to 5). |
 | `monk` | `{...}` | Picks a brother to be `{monk}` in the text. |
 | `monk2` | `{...}` | Picks a second, different brother as `{monk2}`. |
@@ -173,6 +174,16 @@ A node card is written like any other, with `"deck": "node"`, and a monk slot wi
 Standing starts at 0 for every faction. A faction at -3 or below is **closed**: no party may be sent to its places. Use `standing` effects to move it, and `standing_min` / `standing_max` conditions to make cards react to it. Because `{node}` is the place's name, a card for one place can also name it: `"node": ["kilcullen"]` only fires at Kilcullen.
 
 Node cards are chosen by the same weighted pick as everything else, so a card that reads a standing or a tag gets more likely as the story goes on.
+
+## The Rule
+
+The Rule has four axes: `prayer`, `labour`, `hospitality` and `learning`. Each axis has options, and the house keeps one per axis. Options carry numbers the engine reads: `field_pct`, `book_pct`, `medicine_bonus`, `goodwill_per_year`, `food_per_year`, `novice_pct` and `saint_pct`. A card reads the Rule with a `rule` condition:
+
+```json
+"when": {"rule": {"hospitality": "open"}, "not_season": ["winter"]}
+```
+
+Add a new option by editing `data/rule/rule.json`. Cards written against the option ids pick it up at once.
 
 ## Tips
 

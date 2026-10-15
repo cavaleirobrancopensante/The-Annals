@@ -125,6 +125,10 @@ func dispatch(node_id: String, member_ids: Array) -> Dictionary:
 	return p
 
 
+func drop_party(pid: int) -> void:
+	parties = parties.filter(func(p): return int(p["id"]) != pid)
+
+
 func party_of(m: Dictionary) -> Dictionary:
 	var pid := int(m.get("party", 0))
 	for p in parties:

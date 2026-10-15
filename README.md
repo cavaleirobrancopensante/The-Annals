@@ -6,9 +6,9 @@ You found a small abbey in the ruins of a fallen Ireland, an island with the sea
 
 Built in **Godot 4.7** (GDScript, GL Compatibility renderer), portrait, mobile first.
 
-## Status: Phase 3, the road
+## Status: Phase 4, the Rule and the generations
 
-A text-only prototype. Phase 1 asked whether the chronicle reads like a story; Phase 2 asked whether winter feels tense enough to plan for; Phase 3 asks whether the road gives the house a reason to leave its walls.
+A text-only prototype. Phase 1 asked whether the chronicle reads like a story; Phase 2 asked whether winter feels tense enough to plan for; Phase 3 asked whether the road gives the house a reason to leave its walls; Phase 4 asks whether a 50-year house stays varied.
 
 What works now:
 
@@ -20,6 +20,11 @@ What works now:
 - Brothers with names, vocations, a virtue and a flaw, ages, health and memories (tags)
 - 47 event cards with choices, oracle rolls and callbacks
 - Journeys on the road and homecoming events
+- The Rule: four axes (prayer, labour, hospitality, learning), each with options that change the house's economy and the events it meets. Changing the Rule costs a little goodwill and is written into the annals
+- Generations: about fifteen years each. The first novice after that span starts the next generation
+- Novices join at the gate, more often under an open gate and less often when the house is large
+- Saints: a devout brother who dies old may be acclaimed a saint. Pilgrims then come to his grave
+- Daughter houses: three brothers can be sent to found a house at a place on the road. It pays a yearly tithe in grain for as long as its people welcome it, and is lost if they close their doors
 - The road: a map of 11 places held by five factions (the Tollmaster, the glen lords, the holy places, the coast folk, the bog folk). Send up to three brothers at home to a place. Arrivals meet the place in a `node` card; homecomings are `return` cards. Standing with each faction moves with what the house does, and a faction at -3 or below closes its places
 - Ageing, natural death, illness, and the election of a new abbot
 - The house can fall; then you can found a new one
@@ -40,6 +45,7 @@ data/
   chronicle/        templates for system entries (deaths, harvests, elections)
   names.json        brothers' names, patron saints, place names
   road/map.json     places on the road, factions, the house's position
+  rule/rule.json    the Rule: its axes and options
 scripts/
   autoload/         the engine
     event_bus.gd      global signals
@@ -49,6 +55,7 @@ scripts/
     event_engine.gd   loads cards, checks conditions, applies effects
     game.gd           the weekly turn: economy, health, travel, ageing, succession
     road.gd           places, factions and standing, parties on the road
+    rule.gd           the Rule: the house's chosen customs
     save_system.gd    save and load to user://
   ui/main.gd        the phone interface
   ui/road_map.gd    the map of the road, drawn and tappable
@@ -69,7 +76,7 @@ Play a whole house automatically, with random choices, and print the chronicle:
 godot --headless --path . res://tests/simulate.tscn -- --seed=42 --years=3
 ```
 
-Add `--no-build` to leave out building, or `--no-road` to keep every brother at home. The simulated house sends two random brothers out every eight weeks, and the summary reports parties sent, arrivals, returns and standings.
+Add `--no-build` to leave out building, or `--no-road` to keep every brother at home. The simulated house sends a party every sixteen weeks, sends three brothers to found a daughter house every sixty, and changes the Rule at random. The summary reports parties, colonies, rule changes, the generation and the saints.
 
 The summary at the end lists which cards fired and which never did. A different seed gives a different house; the same seed always gives the same one.
 
@@ -86,7 +93,7 @@ godot --headless --path . res://tests/ui_smoke.tscn
 | 0 | Paper prototype | The paper chronicle is worth reading |
 | 1 | Chronicle engine | Three generated years read like a story |
 | 2 | Abbey loop: jobs, buildings, storage | Winter feels tense even without events (not yet playtested) |
-| 3 | **The road (this)**: map, parties, factions | Public text prototype and first feedback |
-| 4 | The Rule, generations, saints, new houses | A 50-year game stays varied |
+| 3 | The road: map, parties, factions | Public text prototype and first feedback (built, not yet playtested) |
+| 4 | **The Rule, generations, saints, daughter houses (this)** | A 50-year game stays varied |
 | 5 | Skirmish combat | Fights are rare and memorable |
 | 6 | Art, 200+ events, Portuguese, release | |

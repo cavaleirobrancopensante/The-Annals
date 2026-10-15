@@ -31,17 +31,25 @@ func _ready() -> void:
 	var arrivals := 0
 	var returns := 0
 	var arrived_ids := {}
+	var colonies := 0
+	var rule_changes := 0
 	for i in years * WorldState.WEEKS_PER_YEAR:
 		if build_policy:
 			for b in ["granary", "woodshed", "scriptorium", "infirmary"]:
 				if WorldState.can_build(b) and Game.build(b):
 					builds.append("%s (year %d)" % [b, WorldState.year()])
 					break
-		if road_policy and i % 8 == 4:
+		if road_policy and i % 16 == 4:
 			sent += _send_party()
+		if road_policy and i % 60 == 30:
+			colonies += 1 if _send_colony() else 0
+		if i % 48 == 20 and _change_rule():
+			rule_changes += 1
 		var out_before := Road.parties.size()
+		var priories_before := WorldState.priories.size()
 		Game.advance_week()
-		returns += out_before - Road.parties.size()
+		var founded := maxi(0, WorldState.priories.size() - priories_before)
+		returns += out_before - Road.parties.size() - founded
 		for p in Road.parties:
 			if p["arrived"] and not arrived_ids.has(p["id"]):
 				arrived_ids[p["id"]] = true
@@ -72,6 +80,8 @@ func _ready() -> void:
 	print("Builds: %s" % str(builds))
 	print("Road: parties sent %d, arrivals %d, returns %d, still out %d" % [sent, arrivals, returns, Road.parties.size()])
 	print("Standings: %s" % str(Road.standings))
+	print("Phase 4: colonies sent %d, daughter houses standing %d, rule changes %d, generation %d, saints %s" % [colonies, WorldState.priories.size(), rule_changes, WorldState.generation, str(WorldState.saints)])
+	print("Rule now: %s" % str(Rule.chosen))
 	print("Weeks hungry: %d, weeks cold: %d" % [hunger_weeks, cold_weeks])
 	print("World tags: %s" % str(WorldState.tags.keys()))
 	var fired := EventEngine.fired.keys()
@@ -85,7 +95,7 @@ func _ready() -> void:
 ## Sends two home brothers to a random place the road will receive.
 func _send_party() -> int:
 	var home := WorldState.home_monks().filter(func(m): return int(m["id"]) != WorldState.abbot_id)
-	if home.size() < 2 or Road.parties.size() >= Road.MAX_PARTIES:
+	if home.size() < 5 or Road.parties.size() >= Road.MAX_PARTIES:
 		return 0
 	var open := []
 	for n in Road.nodes:
@@ -100,3 +110,32 @@ func _send_party() -> int:
 		ids.append(int(pick["id"]))
 		home.erase(pick)
 	return 1 if Game.dispatch_party(node_id, ids) else 0
+
+
+## Sends three home brothers to found a daughter house at a random place that allows one.
+func _send_colony() -> bool:
+	var home := WorldState.home_monks().filter(func(m): return int(m["id"]) != WorldState.abbot_id)
+	if home.size() < 3:
+		return false
+	var spots := []
+	for n in Road.nodes:
+		if n["kind"] != "town" and not Road.is_hostile(n["id"]) and not WorldState.has_priory(n["id"]):
+			spots.append(n["id"])
+	if spots.is_empty():
+		return false
+	var node_id: String = spots[Oracle.range_int(0, spots.size() - 1)]
+	var ids := []
+	for k in 3:
+		var pick = Oracle.pick(home)
+		ids.append(int(pick["id"]))
+		home.erase(pick)
+	return Game.send_colony(node_id, ids) == ""
+
+
+## Picks a random option on a random axis of the Rule.
+func _change_rule() -> bool:
+	var axis = Oracle.pick(Rule.axes)
+	var options: Array = axis["options"]
+	var option = Oracle.pick(options)
+	return Game.set_rule(str(axis["id"]), str(option["id"]))
+

@@ -65,6 +65,14 @@ var abbot_id := -1
 var abbot_since_year := 1
 var next_monk_id := 1
 var fallen := false
+## Daughter houses raised on the road: [{"node", "since"}].
+var priories: Array = []
+## Brothers acclaimed as saints: [{"name", "year"}].
+var saints: Array = []
+## Which cohort of brothers the house is in. Starts at 1.
+var generation := 1
+var generation_year := 1
+const GENERATION_YEARS := 15
 
 var _name_pool: Array = []
 var _patrons: Array = []
@@ -91,6 +99,10 @@ func new_game() -> void:
 	buildings = {}
 	next_monk_id = 1
 	fallen = false
+	priories = []
+	saints = []
+	generation = 1
+	generation_year = 1
 	patron = str(Oracle.pick(_patrons))
 	place = str(Oracle.pick(_places))
 	var first_abbot := generate_monk(Oracle.pick(["scribe", "healer", "farmer"]), ["devout"], 48, 62)
@@ -128,9 +140,14 @@ func week_in_season() -> int:
 
 # --- Brothers -----------------------------------------------------------
 
-func generate_monk(vocation = "", traits: Array = [], age_min: int = 18, age_max: int = 50) -> Dictionary:
+func generate_monk(vocation = "", traits: Array = [], age_min: int = 18, age_max: int = 50, joining := false) -> Dictionary:
 	if vocation == null or str(vocation) == "":
 		vocation = Oracle.pick(VOCATIONS.keys())
+	# A generation lasts about fifteen years. The first newcomer after that starts the next one.
+	if joining and not monks.is_empty() and year() - generation_year >= GENERATION_YEARS:
+		generation += 1
+		generation_year = year()
+		Chronicle.add_template("generation_turns", {"gen_ordinal": Chronicle.ordinal(generation)}, "generation")
 	var t: Array = traits.duplicate()
 	if not t.any(func(x): return x in VIRTUES):
 		t.append(Oracle.pick(VIRTUES))
@@ -148,10 +165,18 @@ func generate_monk(vocation = "", traits: Array = [], age_min: int = 18, age_max
 		"status": "home",
 		"away_weeks": 0,
 		"joined": year(),
+		"gen": generation,
 	}
 	next_monk_id += 1
 	monks.append(m)
 	return m
+
+
+func has_priory(node_id: String) -> bool:
+	for pr in priories:
+		if str(pr["node"]) == node_id:
+			return true
+	return false
 
 
 func _new_name() -> String:
@@ -356,6 +381,10 @@ func to_dict() -> Dictionary:
 		"abbot_since_year": abbot_since_year,
 		"next_monk_id": next_monk_id,
 		"fallen": fallen,
+		"priories": priories,
+		"saints": saints,
+		"generation": generation,
+		"generation_year": generation_year,
 	}
 
 
@@ -368,7 +397,7 @@ func from_dict(d: Dictionary) -> void:
 		resources[r] = int(d["resources"][r])
 	monks = []
 	for m in d.get("monks", []):
-		for key in ["id", "age", "health", "away_weeks", "joined", "died", "left"]:
+		for key in ["id", "age", "health", "away_weeks", "joined", "died", "left", "gen", "party"]:
 			if m.has(key):
 				m[key] = int(m[key])
 		if not m.has("job"):
@@ -384,3 +413,11 @@ func from_dict(d: Dictionary) -> void:
 	abbot_since_year = int(d.get("abbot_since_year", 1))
 	next_monk_id = int(d.get("next_monk_id", 1))
 	fallen = bool(d.get("fallen", false))
+	priories = []
+	for pr in d.get("priories", []):
+		priories.append({"node": str(pr["node"]), "since": int(pr["since"])})
+	saints = []
+	for sa in d.get("saints", []):
+		saints.append({"name": str(sa["name"]), "year": int(sa["year"])})
+	generation = int(d.get("generation", 1))
+	generation_year = int(d.get("generation_year", 1))

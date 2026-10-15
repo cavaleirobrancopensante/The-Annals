@@ -2,7 +2,7 @@ extends Node
 ## Saves the whole house to user:// as JSON after every change.
 
 const PATH := "user://annals_save.json"
-const VERSION := 3
+const VERSION := 4
 
 ## Turned off by the headless simulation so tests never touch a real save.
 var enabled := true
@@ -19,6 +19,7 @@ func save_game() -> void:
 		"events": EventEngine.to_dict(),
 		"game": Game.to_dict(),
 		"road": Road.to_dict(),
+		"rule": Rule.to_dict(),
 	}
 	var f := FileAccess.open(PATH, FileAccess.WRITE)
 	if f == null:
@@ -45,6 +46,7 @@ func load_game() -> bool:
 	EventEngine.from_dict(data.get("events", {}))
 	Game.from_dict(data.get("game", {}))
 	Road.from_dict(data.get("road", {}))
+	Rule.from_dict(data.get("rule", {}))
 	return true
 
 

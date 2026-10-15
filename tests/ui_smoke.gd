@@ -46,7 +46,7 @@ func _ready() -> void:
 				ticked += 1
 		main._on_send_party()
 		print("Road tab: %d parties out, note '%s'" % [Road.parties.size(), main.send_note.text])
-	main.tabs.current_tab = 2
+	main.tabs.current_tab = 1 if "estate" in OS.get_cmdline_user_args() else 2
 	await get_tree().process_frame
 	await get_tree().process_frame
 	var out := "(none in headless mode)"

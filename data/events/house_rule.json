@@ -1,0 +1,92 @@
+[
+	{
+		"id": "stranger_open_gate",
+		"title": "A Stranger at the Gate",
+		"deck": "abbey",
+		"weight": 12,
+		"cooldown": 30,
+		"when": {"rule": {"hospitality": "open"}, "not_season": ["winter"]},
+		"text": "A man with a bag of tools and a dead son's name on his lips asks for a bed for the night. The rule of this house is that no one is turned from the gate.",
+		"choices": [
+			{
+				"label": "Give him a bed and bread",
+				"requires": {"food": 6},
+				"effects": {"food": -6, "goodwill": 1},
+				"chronicle": "{When}, a stranger came to the gate and was given a bed and bread, as the rule of the house requires."
+			},
+			{
+				"label": "Give him a bed only",
+				"effects": {"food": -1},
+				"chronicle": "{When}, a stranger slept in the guest room and left before Lauds, having been given what the house could spare."
+			}
+		]
+	},
+	{
+		"id": "stranger_closed_gate",
+		"title": "Someone by the Wall",
+		"deck": "abbey",
+		"weight": 8,
+		"cooldown": 30,
+		"when": {"rule": {"hospitality": "closed"}, "not_season": ["winter"]},
+		"text": "Someone has sat against the outer wall since dusk. He asks for nothing, only for the abbot. The gate is shut by the rule.",
+		"choices": [
+			{
+				"label": "Open the wicket and sit with him",
+				"requires": {"food": 2},
+				"effects": {"food": -2, "goodwill": 1},
+				"chronicle": "{When}, the abbot sat with a stranger outside the wall until morning, against the rule of the house."
+			},
+			{
+				"label": "Keep the gate shut",
+				"effects": {"goodwill": -1},
+				"chronicle": "{When}, the gate stayed shut, and in the morning the man was gone from the wall."
+			}
+		]
+	},
+	{
+		"id": "shrine_pilgrims",
+		"deck": "abbey",
+		"weight": 14,
+		"cooldown": 24,
+		"when": {"has_tag": ["relics"], "season": ["summer", "autumn"]},
+		"effects": {
+			"oracle": {
+				"odds": "likely",
+				"yes": {"food": 10, "goodwill": 1, "chronicle": "{When}, pilgrims came to the grave of the saint with candles and gave what they had. The granary was the better for it."},
+				"no": {"food": 3, "chronicle": "{When}, a few pilgrims came to the grave of the saint and went away again with little said."}
+			}
+		}
+	},
+	{
+		"id": "prayer_eases_wrath",
+		"deck": "abbey",
+		"weight": 10,
+		"cooldown": 40,
+		"when": {"rule": {"prayer": "common"}, "monk": {"has": ["wrathful"]}},
+		"effects": {"monk_remove_tag": "wrathful", "chronicle": "{When}, in common prayer {monk} laid his anger down at the chapel door, and was seen to pick it up again only at the gate."}
+	},
+	{
+		"id": "prayer_eases_doubt",
+		"deck": "abbey",
+		"weight": 10,
+		"cooldown": 40,
+		"when": {"rule": {"prayer": "common"}, "monk": {"has": ["doubting"]}},
+		"effects": {"monk_remove_tag": "doubting", "chronicle": "{When}, {monk} sang the Office with the others every night for a season, and at its end said he no longer needed to ask whether anyone heard it."}
+	},
+	{
+		"id": "scholars_autumn",
+		"deck": "abbey",
+		"weight": 10,
+		"cooldown": 40,
+		"when": {"rule": {"labour": "scholars"}, "season": ["autumn"]},
+		"effects": {"books": 2, "chronicle": "{When}, the scholars finished the autumn copying, and the scriptorium shelves were heavier by two books."}
+	},
+	{
+		"id": "priory_letter",
+		"deck": "abbey",
+		"weight": 8,
+		"cooldown": 40,
+		"when": {"has_tag": ["priory_founded"]},
+		"effects": {"goodwill": 1, "chronicle": "{When}, a letter came from the daughter house. The brothers there are well, and they asked for a copy of the Office."}
+	}
+]

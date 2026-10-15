@@ -13,6 +13,7 @@ func new_game(seed_value: int = -1) -> void:
 	Chronicle.clear()
 	EventEngine.reset()
 	Road.new_game()
+	Rule.new_game()
 	return_queue = []
 	var brothers := WorldState.living_monks().size() - 1
 	Chronicle.add_template("founding", {"brothers": Chronicle.number_word(brothers)}, "founding")
@@ -125,6 +126,7 @@ func _economy() -> void:
 		produce += 3
 	if WorldState.has_tag("blight"):
 		produce = int(produce * 0.5)
+	produce = int(round(produce * (100.0 + Rule.value("field_pct")) / 100.0))
 	var food := WorldState.res("food") + produce + WorldState.cooks_at_work() - n
 	WorldState.set_resource("food", food)
 	if food < 0:
@@ -145,13 +147,13 @@ func _economy() -> void:
 
 	var wis := WorldState.week_in_season()
 	if s in ["spring", "summer"] and wis % 3 == 0:
-		WorldState.change_resource("medicine", WorldState.count_working("infirmary"))
+		WorldState.change_resource("medicine", WorldState.count_working("infirmary") + int(Rule.value("medicine_bonus")))
 	# The scriptorium finishes a book at the end of summer and of winter.
 	if wis == WorldState.WEEKS_PER_SEASON and s in ["summer", "winter"]:
 		var books := WorldState.count_working("scriptorium")
 		if WorldState.has_tag("lamp"):
 			books *= 2
-		WorldState.change_resource("books", books)
+		WorldState.change_resource("books", int(round(books * (100.0 + Rule.value("book_pct")) / 100.0)))
 
 
 func _hunger(home: Array) -> void:
@@ -193,6 +195,7 @@ func _health() -> void:
 				var ctx := _death_ctx(m)
 				WorldState.kill_monk(m, "illness")
 				Chronicle.add_template("death_illness", ctx, "death")
+				_check_saint(m)
 			elif Oracle.chance(0.3 if healer else 0.15):
 				if healer:
 					WorldState.change_resource("medicine", -1)
@@ -217,6 +220,9 @@ func _road() -> void:
 		for id in p["members"]:
 			return_queue.append(int(id))
 	for p in t["arrived"]:
+		if p.get("purpose", "") == "colony":
+			_found_priory(p)
+			continue
 		var living := _living_ids(p)
 		if EventEngine.has_pending() or not EventEngine.pick_event("node", living[0] if not living.is_empty() else -1, p["node"]):
 			Chronicle.add_template("road_arrival_generic", {
@@ -262,6 +268,12 @@ func _new_year() -> void:
 			ctx["age_words"] = Chronicle.number_word(age)
 			WorldState.kill_monk(m, "old age")
 			Chronicle.add_template("death_age", ctx, "death")
+			_check_saint(m)
+	WorldState.change_resource("goodwill", int(Rule.value("goodwill_per_year")))
+	WorldState.change_resource("food", int(Rule.value("food_per_year")))
+	var novice_chance := maxf(0.0, 0.5 + Rule.value("novice_pct") / 100.0)
+	if WorldState.living_monks().size() < 16 and Oracle.chance(novice_chance):
+		_novice()
 
 
 func _season_change(old_season: String) -> void:
@@ -276,6 +288,8 @@ func _season_change(old_season: String) -> void:
 		Chronicle.add_template(key, {}, "season")
 	if WorldState.season() == "winter" and Oracle.chance(0.35):
 		Chronicle.add_template("winter_begins", {}, "season")
+	if WorldState.season() == "autumn":
+		_tithe_priories()
 
 
 # --- Succession and the end ---------------------------------------------
@@ -317,6 +331,96 @@ func _check_fall() -> bool:
 	EventBus.house_fell.emit()
 	SaveSystem.save_game()
 	return true
+
+
+## Sends three brothers to found a daughter house. Returns "" on success, otherwise the reason.
+func send_colony(node_id: String, member_ids: Array) -> String:
+	if member_ids.size() != 3:
+		return "A colony is three brothers."
+	if WorldState.has_priory(node_id):
+		return "A daughter house already stands at %s." % Road.node_name(node_id)
+	if Road.node_kind(node_id) == "town":
+		return "A daughter house cannot be raised in a town."
+	if WorldState.living_monks().size() < 12:
+		return "The house is too small to spare three brothers."
+	var reason := Road.refusal(node_id, member_ids)
+	if reason != "":
+		return reason
+	var p := Road.dispatch(node_id, member_ids)
+	p["purpose"] = "colony"
+	Chronicle.add_template("colony_departure", {
+		"party": Road.party_names(p),
+		"node": Road.node_name(node_id),
+	}, "road")
+	_after_change()
+	return ""
+
+
+func set_rule(axis_id: String, option_id: String) -> bool:
+	if not Rule.set_option(axis_id, option_id):
+		return false
+	if WorldState.res("goodwill") > 0:
+		WorldState.change_resource("goodwill", -1)
+	Chronicle.add_template("rule_changed", {
+		"option": str(Rule.option(axis_id, option_id)["name"]).to_lower(),
+		"axis": str(Rule.axis(axis_id)["name"]).to_lower(),
+	}, "rule")
+	_after_change()
+	return true
+
+
+## The colony arrives: its brothers stay as the daughter house and leave the roster.
+func _found_priory(p: Dictionary) -> void:
+	var who := Road.party_names(p)
+	var node_id := str(p["node"])
+	Road.drop_party(int(p["id"]))
+	for id in p["members"]:
+		var m := WorldState.get_monk(int(id))
+		if WorldState.is_living(m):
+			m["tags"] = m["tags"].filter(func(t): return not str(t).begins_with("on_"))
+			m["party"] = 0
+			WorldState.depart_monk(m)
+	WorldState.priories.append({"node": node_id, "since": WorldState.year()})
+	WorldState.add_tag("priory_founded")
+	Chronicle.add_template("priory_founded", {"party": who, "node": Road.node_name(node_id), "patron": WorldState.patron}, "road")
+	_after_change()
+
+
+## Each autumn a daughter house pays its tithe, or is lost if its people have closed their doors.
+func _tithe_priories() -> void:
+	for pr in WorldState.priories.duplicate():
+		var node_id := str(pr["node"])
+		if Road.is_hostile(node_id):
+			WorldState.priories.erase(pr)
+			Chronicle.add_template("priory_lost", {"node": Road.node_name(node_id)}, "road")
+			continue
+		var f := str(Road.node(node_id).get("faction", ""))
+		var tithe := clampi(3 + Road.standing(f), 1, 9)
+		WorldState.change_resource("food", tithe)
+		Chronicle.add_template("priory_tithe", {
+			"node": Road.node_name(node_id),
+			"food": Chronicle.number_word(tithe),
+		}, "season")
+	if WorldState.priories.is_empty():
+		WorldState.remove_tag("priory_founded")
+
+
+## A devout brother who dies old may be acclaimed a saint, which brings pilgrims and goodwill.
+func _check_saint(m: Dictionary) -> void:
+	if not WorldState.monk_has(m, "devout") or int(m["age"]) < 55:
+		return
+	var chance := 0.5 * (1.0 + Rule.value("saint_pct") / 100.0)
+	if not Oracle.chance(chance):
+		return
+	WorldState.saints.append({"name": str(m["name"]), "year": WorldState.year()})
+	WorldState.change_resource("goodwill", 2)
+	WorldState.add_tag("relics")
+	Chronicle.add_template("saint_acclaimed", {"monk": WorldState.display_name(m)}, "saint")
+
+
+func _novice() -> void:
+	var m := WorldState.generate_monk("", [], 17, 24, true)
+	Chronicle.add_template("novice_joins", {"monk": WorldState.display_name(m)}, "joining")
 
 
 # --- Save ---------------------------------------------------------------

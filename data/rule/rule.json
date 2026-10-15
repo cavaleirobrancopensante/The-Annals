@@ -1,0 +1,36 @@
+{
+  "axes": [
+    {
+      "id": "prayer", "name": "Prayer",
+      "options": [
+        {"id": "ordinary", "name": "The ordinary Office", "desc": "The Hours as the house has always kept them."},
+        {"id": "common", "name": "Common prayer", "desc": "Everyone sings the Hours together. The house is steadier for it.", "goodwill_per_year": 1},
+        {"id": "silent", "name": "Silent hours", "desc": "Long silences after Compline. A devout life is more likely to be noticed.", "saint_pct": 50}
+      ]
+    },
+    {
+      "id": "labour", "name": "Labour",
+      "options": [
+        {"id": "ordinary", "name": "The ordinary work", "desc": "What the house has always done."},
+        {"id": "hands", "name": "Work of the hands", "desc": "Every brother works the fields in the growing season.", "field_pct": 20},
+        {"id": "scholars", "name": "Scholars' hours", "desc": "Half the day at the books, fewer hands in the fields.", "field_pct": -20, "book_pct": 50}
+      ]
+    },
+    {
+      "id": "hospitality", "name": "Hospitality",
+      "options": [
+        {"id": "ordinary", "name": "Ordinary hospitality", "desc": "Strangers are fed when the house can spare it."},
+        {"id": "open", "name": "Open gate", "desc": "Strangers are taken in as Christ. It costs bread and brings novices.", "novice_pct": 40, "food_per_year": -4},
+        {"id": "closed", "name": "Closed gate", "desc": "The gate is kept shut. Less bread goes out, and fewer come asking.", "novice_pct": -30, "food_per_year": 3}
+      ]
+    },
+    {
+      "id": "learning", "name": "Learning",
+      "options": [
+        {"id": "ordinary", "name": "Ordinary learning", "desc": "Reading and copying as the seasons allow."},
+        {"id": "scriptorium", "name": "Scriptorium first", "desc": "Books come before everything else.", "book_pct": 50},
+        {"id": "infirmary", "name": "Infirmary first", "desc": "The sick are the house's first duty.", "medicine_bonus": 1}
+      ]
+    }
+  ]
+}

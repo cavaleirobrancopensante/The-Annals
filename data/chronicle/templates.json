@@ -62,6 +62,31 @@
 		"{When}, a scriptorium was made in the south cloister, with desks by the window and a shelf for the inks.",
 		"{When}, the scribes moved their desks into a room of their own, where the damp was least."
 	],
+	"generation_turns": [
+		"{When}, a new cohort of brothers took their places in the choir, and the house entered its {gen_ordinal} generation."
+	],
+	"novice_joins": [
+		"{When}, a young man came to the gate and asked to be received. He was clothed as a novice and called {monk}.",
+		"{When}, {monk} knocked at the gate in the rain, and the brothers took him in as a novice."
+	],
+	"saint_acclaimed": [
+		"{When}, the brothers and the people of the glen began to call {monk} a saint. Pilgrims came to his grave with candles."
+	],
+	"colony_departure": [
+		"{When}, {party} left the house to found a daughter house at {node}, with a letter from the abbot and a sack of seed."
+	],
+	"priory_founded": [
+		"{When}, {party} raised the first daughter house of {patron} at {node}, and the people there came to see them settled."
+	],
+	"priory_lost": [
+		"{When}, the people of {node} closed their doors to the daughter house, and it was given up."
+	],
+	"priory_tithe": [
+		"{When}, the daughter house at {node} sent {food} measures of grain to the mother house at harvest."
+	],
+	"rule_changed": [
+		"{When}, the chapter took up {option} as the house's rule of {axis}."
+	],
 	"road_departure": [
 		"{When}, {party} set out along the road for {node}.",
 		"{When}, {party} left the gate with a sack of bread and a letter for {node}."

@@ -212,8 +212,8 @@ func _button(text: String) -> Button:
 func _refresh() -> void:
 	title_label.text = WorldState.full_house_name()
 	var ab := WorldState.abbot()
-	status_label.text = "Year %d  ·  %s, week %d  ·  Abbot %s" % [
-		WorldState.year(), WorldState.season().capitalize(), WorldState.week_in_season(), ab.get("name", "none")]
+	status_label.text = "Year %d  ·  %s, week %d  ·  Abbot %s  ·  Generation %d" % [
+		WorldState.year(), WorldState.season().capitalize(), WorldState.week_in_season(), ab.get("name", "none"), WorldState.generation]
 	resources_label.text = "Food %d/%d   Firewood %d/%d   Medicine %d/%d   Books %d   Goodwill %d   ·   %d brothers" % [
 		WorldState.res("food"), WorldState.cap("food"), WorldState.res("firewood"), WorldState.cap("firewood"),
 		WorldState.res("medicine"), WorldState.cap("medicine"), WorldState.res("books"), WorldState.res("goodwill"),
@@ -259,6 +259,8 @@ func _compute_estate_signature() -> String:
 	for b in WorldState.BUILDINGS:
 		parts.append("%s:%s" % [b, WorldState.has_building(b)])
 	parts.append(str(WorldState.abbot_id))
+	parts.append(str(Rule.chosen))
+	parts.append("%d:%d:%d" % [WorldState.saints.size(), WorldState.priories.size(), WorldState.generation])
 	parts.append(str(WorldState.has_builder_at_home()))
 	return "|".join(parts)
 
@@ -293,6 +295,8 @@ func _render_estate() -> void:
 		gone_label.text = "Departed: " + "; ".join(lines)
 		estate_box.add_child(gone_label)
 
+	estate_box.add_child(_rule_section())
+	estate_box.add_child(_house_section())
 	estate_box.add_child(_section_title("Buildings"))
 	if not WorldState.has_builder_at_home():
 		var note := _label(18, RED)
@@ -331,6 +335,9 @@ func _build_road_tab() -> void:
 	var send_btn := _button("Send the party")
 	send_btn.pressed.connect(_on_send_party)
 	road_box.add_child(send_btn)
+	var colony_btn := _button("Send three brothers to found a daughter house")
+	colony_btn.pressed.connect(_on_send_colony)
+	road_box.add_child(colony_btn)
 	send_note = _label(18, RED)
 	road_box.add_child(send_note)
 
@@ -431,6 +438,23 @@ func _on_send_party() -> void:
 	_refresh_road()
 
 
+func _on_send_colony() -> void:
+	send_note.text = ""
+	var node_id := road_map.selected
+	if node_id == "":
+		send_note.text = "Choose a place on the map first."
+		return
+	var ids := []
+	for cb in party_checks:
+		if cb.button_pressed:
+			ids.append(int(cb.get_meta("monk_id")))
+	var reason := Game.send_colony(node_id, ids)
+	if reason != "":
+		send_note.text = reason
+		return
+	_refresh_road()
+
+
 func _weeks_text(w: int) -> String:
 	return "%d week%s" % [w, "" if w == 1 else "s"]
 
@@ -445,6 +469,65 @@ func _standing_word(v: int) -> String:
 	if v < 3:
 		return "friendly (+%d)" % v
 	return "allied (+%d)" % v
+
+
+# --- The Rule and the house ---------------------------------------------
+
+func _rule_section() -> Control:
+	var box := VBoxContainer.new()
+	box.add_theme_constant_override("separation", 8)
+	box.add_child(_section_title("The Rule"))
+	var help := _label(18, DIM)
+	help.text = "Each change costs a little goodwill and is written into the annals."
+	box.add_child(help)
+	for a in Rule.axes:
+		var axis_id := str(a["id"])
+		var row := HBoxContainer.new()
+		row.add_theme_constant_override("separation", 10)
+		var name_label := _label(20, PARCHMENT)
+		name_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		name_label.text = str(a["name"])
+		row.add_child(name_label)
+		var pick := OptionButton.new()
+		pick.custom_minimum_size = Vector2(250, 56)
+		pick.add_theme_font_size_override("font_size", 19)
+		var ids := []
+		for i in a["options"].size():
+			var o: Dictionary = a["options"][i]
+			ids.append(str(o["id"]))
+			pick.add_item(str(o["name"]), i)
+			if str(o["id"]) == Rule.current(axis_id):
+				pick.select(i)
+		pick.item_selected.connect(_on_rule_selected.bind(axis_id, ids))
+		row.add_child(pick)
+		box.add_child(row)
+		var desc := _label(18, DIM)
+		desc.text = str(Rule.current_option(axis_id).get("desc", ""))
+		box.add_child(desc)
+	return box
+
+
+func _house_section() -> Control:
+	var box := VBoxContainer.new()
+	box.add_theme_constant_override("separation", 6)
+	box.add_child(_section_title("The house"))
+	var lines := ["Generation %d of the house." % WorldState.generation]
+	if WorldState.saints.is_empty():
+		lines.append("No brother has yet been acclaimed a saint.")
+	for sa in WorldState.saints:
+		lines.append("Saint %s, acclaimed in the %s year." % [sa["name"], Chronicle.ordinal(int(sa["year"]))])
+	if WorldState.priories.is_empty():
+		lines.append("No daughter house stands on the road.")
+	for pr in WorldState.priories:
+		lines.append("A daughter house at %s since the %s year." % [Road.node_name(pr["node"]), Chronicle.ordinal(int(pr["since"]))])
+	var text := _label(19, PARCHMENT)
+	text.text = "\n".join(lines)
+	box.add_child(text)
+	return box
+
+
+func _on_rule_selected(index: int, axis_id: String, ids: Array) -> void:
+	Game.set_rule(axis_id, str(ids[index]))
 
 
 func _section_title(text: String) -> Label:

@@ -85,6 +85,8 @@ func _check_world(when: Dictionary, node_id: String = "") -> bool:
 	if when.has("year_min") and WorldState.year() < int(when["year_min"]):
 		return false
 	# Road conditions: a node card only fires at its node.
+	if when.has("rule") and not Rule.matches(when["rule"]):
+		return false
 	if when.has("node") and not node_id in when["node"]:
 		return false
 	if when.has("node_kind") and not Road.node_kind(node_id) in when["node_kind"]:
@@ -341,7 +343,7 @@ func _apply(effects: Dictionary, bind: Dictionary, lines: Array) -> void:
 	if effects.has("new_monk"):
 		var spec: Dictionary = effects["new_monk"] if effects["new_monk"] is Dictionary else {}
 		var age: Array = spec.get("age", [17, 30])
-		var nm := WorldState.generate_monk(spec.get("vocation", ""), spec.get("traits", []), int(age[0]), int(age[1]))
+		var nm := WorldState.generate_monk(spec.get("vocation", ""), spec.get("traits", []), int(age[0]), int(age[1]), true)
 		bind["newcomer"] = nm["id"]
 	if effects.has("chronicle") and str(effects["chronicle"]) != "":
 		lines.append(effects["chronicle"])
